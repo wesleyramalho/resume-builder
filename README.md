@@ -16,6 +16,22 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## LinkedIn OAuth Setup
+
+To use "Import from LinkedIn", configure these variables in `.env.local`:
+
+- `LINKEDIN_CLIENT_ID`
+- `LINKEDIN_CLIENT_SECRET`
+- `NEXT_PUBLIC_LINKEDIN_OAUTH_ENABLED=true`
+
+LinkedIn app requirements:
+
+- Product/scope support for `openid`, `profile`, and `email`
+- Authorized redirect URL:
+  - `http://localhost:3000/api/auth/callback/linkedin`
+
+After updating environment values, restart the dev server.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
