@@ -12,14 +12,14 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="border-b border-border px-6 md:px-12 py-4">
         <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-          Build My Resume
+          MyPDFCV
         </Link>
       </nav>
 
       <main className="flex-1 max-w-3xl mx-auto px-6 py-12">
         <h1 className="font-sans font-bold text-3xl text-foreground mb-2">Contact</h1>
         <p className="text-sm text-muted-foreground mb-8">
-          Get in touch with the creator of Build My Resume.
+          Get in touch with the creator of MyPDFCV.
         </p>
 
         <div className="space-y-6">

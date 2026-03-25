@@ -8,7 +8,7 @@ export default function TermsPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="border-b border-border px-6 md:px-12 py-4">
         <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-          Build My Resume
+          MyPDFCV
         </Link>
       </nav>
 
@@ -20,7 +20,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-semibold text-foreground">1. Acceptance of Terms</h2>
             <p>
-              By accessing and using Build My Resume, you agree to be bound by these Terms of
+              By accessing and using MyPDFCV, you agree to be bound by these Terms of
               Service. If you do not agree, please do not use the service.
             </p>
           </section>
@@ -28,7 +28,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-semibold text-foreground">2. Service Description</h2>
             <p>
-              Build My Resume is a free, client-side resume builder tool. All resume data is
+              MyPDFCV is a free, client-side resume builder tool. All resume data is
               stored locally in your browser. We do not provide hosting, storage, or backup
               services for your resume data.
             </p>

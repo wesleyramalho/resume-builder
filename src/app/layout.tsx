@@ -26,9 +26,10 @@ const orbitron = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mypdfcv.com"),
   title: {
-    default: "Build My Resume — Curate Your Career Narrative",
-    template: "%s | Build My Resume",
+    default: "MyPDFCV — Curate Your Career Narrative",
+    template: "%s | MyPDFCV",
   },
   description:
     "Build professional, ATS-ready resumes with real-time preview and one-click PDF export.",

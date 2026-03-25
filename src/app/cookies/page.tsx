@@ -8,7 +8,7 @@ export default function CookiesPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="border-b border-border px-6 md:px-12 py-4">
         <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-          Build My Resume
+          MyPDFCV
         </Link>
       </nav>
 
@@ -20,7 +20,7 @@ export default function CookiesPage() {
           <section>
             <h2 className="text-lg font-semibold text-foreground">1. What We Use</h2>
             <p>
-              Build My Resume does not use cookies. Instead, we use your browser&apos;s
+              MyPDFCV does not use cookies. Instead, we use your browser&apos;s
               localStorage to store:
             </p>
             <ul className="list-disc pl-5 space-y-1 mt-2">

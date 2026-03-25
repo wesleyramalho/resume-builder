@@ -34,7 +34,7 @@ export default function LandingNav() {
     <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="flex items-center gap-8">
         <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-          Build My Resume
+          MyPDFCV
         </Link>
 
         <Link

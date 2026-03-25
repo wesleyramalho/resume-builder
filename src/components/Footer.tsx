@@ -43,7 +43,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto mt-4">
         <p className="text-[10px] text-muted-foreground/60 text-center md:text-left">
-          &copy; {new Date().getFullYear()} Build My Resume. All rights reserved.
+          &copy; {new Date().getFullYear()} MyPDFCV. All rights reserved.
         </p>
       </div>
     </footer>

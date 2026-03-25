@@ -79,7 +79,7 @@ export default function LandingResumeSample() {
               Senior Technical Architect | New York City
             </p>
             <div className="flex flex-wrap gap-4 mt-3 text-xs text-text-subtle">
-              <span>alex.vaughn@buildmyresume.io</span>
+              <span>alex.vaughn@mypdfcv.com</span>
               <span>+1 (555) 847 3441</span>
               <span>New York, NY</span>
             </div>
@@ -159,7 +159,7 @@ export default function LandingResumeSample() {
 
           {/* Quote */}
           <p className="mt-8 pt-6 border-t border-border text-xs text-text-subtle italic text-center">
-            &ldquo;Build My Resume transformed my resume from a simple list into a career statement.&rdquo;
+            &ldquo;MyPDFCV transformed my resume from a simple list into a career statement.&rdquo;
           </p>
         </div>
       </div>

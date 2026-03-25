@@ -20,7 +20,7 @@ export default function DashboardPage() {
             href="/"
             className="font-mono text-sm font-bold uppercase tracking-widest text-foreground"
           >
-            Build My Resume
+            MyPDFCV
           </Link>
 
           <Link

@@ -8,7 +8,7 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="border-b border-border px-6 md:px-12 py-4">
         <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-          Build My Resume
+          MyPDFCV
         </Link>
       </nav>
 
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-semibold text-foreground">1. Data Storage</h2>
             <p>
-              Build My Resume is a client-side application. All resume data you create is stored
+              MyPDFCV is a client-side application. All resume data you create is stored
               exclusively in your browser&apos;s localStorage. We do not collect, transmit, or store
               your resume data on any server.
             </p>
