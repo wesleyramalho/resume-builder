@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -26,8 +27,8 @@ const orbitron = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "ArchitectSuite — Curate Your Career Narrative",
-    template: "%s | ArchitectSuite",
+    default: "Build My Resume — Curate Your Career Narrative",
+    template: "%s | Build My Resume",
   },
   description:
     "Build professional, ATS-ready resumes with real-time preview and one-click PDF export.",
@@ -44,22 +45,16 @@ export default function RootLayout({
       className={`${montserratAlternates.variable} ${orbitron.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (() => {
-                try {
-                  const theme = localStorage.getItem("architect-suite-theme");
-                  if (theme === "dark") document.documentElement.classList.add("dark");
-                  else document.documentElement.classList.remove("dark");
-                } catch {}
-              })();
-            `,
-          }}
-        />
-      </head>
       <body className="min-h-screen bg-background text-foreground">
+        <Script id="theme-init" strategy="beforeInteractive">{`
+          (() => {
+            try {
+              const theme = localStorage.getItem("architect-suite-theme");
+              if (theme === "dark") document.documentElement.classList.add("dark");
+              else document.documentElement.classList.remove("dark");
+            } catch {}
+          })();
+        `}</Script>
         <ThemeProvider>
           <SessionProvider>
             <TooltipProvider>

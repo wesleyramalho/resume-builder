@@ -12,8 +12,13 @@ export function useExportPDF() {
     setExporting(true);
     try {
       const encoded = btoa(encodeURIComponent(JSON.stringify(resume)));
-      const res = await fetch(`/api/pdf/${resume.id}?data=${encoded}`);
-      if (!res.ok) throw new Error("PDF generation failed");
+      const res = await fetch(
+        `/api/pdf/${resume.id}?data=${encodeURIComponent(encoded)}`,
+      );
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error ?? `PDF generation failed (${res.status})`);
+      }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");

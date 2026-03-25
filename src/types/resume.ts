@@ -62,6 +62,8 @@ export interface ResumeData {
     skills: boolean;
     projects: boolean;
   };
+  /** Ordered list of section IDs for the editor sidebar and PDF output. "personal" is always first. */
+  sectionOrder: string[];
 }
 
 export interface Resume {

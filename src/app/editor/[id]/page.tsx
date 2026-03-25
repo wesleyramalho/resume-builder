@@ -2,6 +2,7 @@
 
 import { use, useState } from "react";
 import { notFound } from "next/navigation";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
 import { Accordion } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -19,10 +20,19 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+const SECTION_DESCRIPTIONS: Record<string, string> = {
+  personal: "Detail your professional trajectory.",
+  experience: "Highlight your most relevant career milestones.",
+  education: "Academic foundation and credentials.",
+  skills: "Technical proficiencies and expertise areas.",
+  projects: "Showcase your notable projects and work.",
+  summary: "A brief professional summary statement.",
+};
+
 export default function EditorPage({ params }: Props) {
   const { id } = use(params);
   const resume = useResumeStore((s) => s.resumes.find((r) => r.id === id));
-  const [activeSection, setActiveSection] = useState("personal");
+  const [activeSection, setActiveSection] = useState<string | null>("personal");
 
   if (!resume) {
     notFound();
@@ -32,8 +42,8 @@ export default function EditorPage({ params }: Props) {
 
   const formContent = (
     <Accordion
-      value={[activeSection]}
-      onValueChange={(v: string[]) => v.length && setActiveSection(v[v.length - 1])}
+      value={activeSection ? [activeSection] : []}
+      onValueChange={(v: string[]) => setActiveSection(v.length ? v[v.length - 1] : null)}
       className="divide-y divide-border"
     >
       <PersonalInfoSection resumeId={id} data={data} />
@@ -57,7 +67,12 @@ export default function EditorPage({ params }: Props) {
               Professional Draft #1
             </p>
           </div>
-          <EditorNav activeSection={activeSection} onSelect={setActiveSection} />
+          <EditorNav
+            resumeId={id}
+            sectionOrder={data.sectionOrder ?? []}
+            activeSection={activeSection ?? ""}
+            onSelect={setActiveSection}
+          />
 
           <div className="mt-auto pb-4 px-3 space-y-2">
             <button className="flex items-center gap-2 w-full text-xs font-mono text-muted-foreground hover:text-foreground transition-colors py-1">
@@ -73,17 +88,30 @@ export default function EditorPage({ params }: Props) {
 
         {/* Center: form */}
         <div className="border-r border-border flex flex-col overflow-hidden bg-card">
-          <div className="px-6 py-4 border-b border-border">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-subtle">
-              Section 01 — {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
-            </p>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              {activeSection === "personal" && "Detail your professional trajectory."}
-              {activeSection === "experience" && "Highlight your most relevant career milestones."}
-              {activeSection === "education" && "Academic foundation and credentials."}
-              {activeSection === "skills" && "Technical proficiencies and expertise areas."}
-              {activeSection === "projects" && "Showcase your notable projects and work."}
-            </p>
+          <div className="px-6 py-4 border-b border-border flex items-start justify-between gap-4">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-subtle">
+                {activeSection
+                  ? `Section 01 — ${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}`
+                  : "All Sections"}
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {activeSection
+                  ? SECTION_DESCRIPTIONS[activeSection]
+                  : "Click a section below to expand it."}
+              </p>
+            </div>
+            <button
+              onClick={() => setActiveSection(activeSection ? null : "personal")}
+              title={activeSection ? "Collapse all" : "Expand"}
+              className="mt-0.5 shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {activeSection ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </button>
           </div>
           <ScrollArea className="flex-1">
             <div className="px-6 py-4">{formContent}</div>
@@ -124,7 +152,12 @@ export default function EditorPage({ params }: Props) {
           <TabsContent value="edit" className="flex-1 overflow-auto mt-0">
             <div className="flex">
               <div className="w-14 border-r border-border flex flex-col items-center py-2 gap-2 bg-surface-soft/60">
-                <EditorNav activeSection={activeSection} onSelect={setActiveSection} />
+                <EditorNav
+                  resumeId={id}
+                  sectionOrder={data.sectionOrder ?? []}
+                  activeSection={activeSection ?? ""}
+                  onSelect={setActiveSection}
+                />
               </div>
               <div className="flex-1 px-4 py-4">{formContent}</div>
             </div>

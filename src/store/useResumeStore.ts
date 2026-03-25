@@ -19,6 +19,7 @@ interface ResumeStore {
   deleteResume: (id: string) => void;
   duplicateResume: (id: string) => Resume | null;
   incrementExportCount: (id: string) => void;
+  reorderSections: (id: string, newOrder: string[]) => void;
 }
 
 const noopStorage = {
@@ -97,6 +98,16 @@ export const useResumeStore = create<ResumeStore>()(
         set((state) => {
           const r = state.resumes.find((r) => r.id === id);
           if (r) r.exportCount += 1;
+        });
+      },
+
+      reorderSections: (id, newOrder) => {
+        set((state) => {
+          const r = state.resumes.find((r) => r.id === id);
+          if (r) {
+            r.data.sectionOrder = newOrder;
+            r.updatedAt = new Date().toISOString();
+          }
         });
       },
     })),

@@ -14,10 +14,6 @@ export default function LandingNav() {
   const router = useRouter();
   const [linkedInError, setLinkedInError] = useState<string | null>(null);
 
-  function handleCTA() {
-    router.push("/dashboard");
-  }
-
   async function handleLinkedInImport() {
     setLinkedInError(null);
 
@@ -35,33 +31,40 @@ export default function LandingNav() {
 
   return (
     <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-border bg-background/85 backdrop-blur-md">
-      <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-        ArchitectSuite
-      </Link>
+      <div className="flex items-center gap-8">
+        <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
+          Build My Resume
+        </Link>
 
-      <div className="flex items-center gap-4">
-        <span className="hidden md:block text-xs text-muted-foreground font-mono uppercase tracking-widest">
-          The Editorial Architect
-        </span>
+        <Link
+          href="/dashboard"
+          className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Dashboard
+        </Link>
+      </div>
+
+      <div className="flex items-center gap-3">
         <ThemeToggle />
-        {!session && (
+        {!session && LINKEDIN_OAUTH_ENABLED && (
           <Button
             size="sm"
             variant="ghost"
             onClick={() => void handleLinkedInImport()}
-            className="font-mono text-xs uppercase tracking-widest"
+            className="hidden md:flex font-mono text-xs uppercase tracking-widest"
           >
             LinkedIn Import
           </Button>
         )}
         <Button
           size="sm"
-          onClick={handleCTA}
+          onClick={() => router.push("/dashboard")}
           className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest"
         >
-          {session ? "My Resumes" : "Start Drafting"}
+          {session ? "My Resumes" : "Build Your Resume"}
         </Button>
       </div>
+
       {linkedInError ? (
         <p className="absolute top-full right-6 mt-2 text-[10px] text-destructive font-mono uppercase tracking-wider">
           {linkedInError}

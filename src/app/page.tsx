@@ -16,7 +16,7 @@ export default function LandingPage() {
       <footer className="border-t border-white/5 py-8 px-6 md:px-12">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-mono text-xs text-zinc-600 uppercase tracking-widest">
-            ArchitectSuite
+            Build My Resume
           </p>
           <div className="flex gap-6 text-xs text-zinc-600">
             <span>Privacy Policy</span>
@@ -25,7 +25,7 @@ export default function LandingPage() {
             <span>Contact</span>
           </div>
           <p className="font-mono text-[10px] text-zinc-700">
-            © 2024 ArchitectSuite. Editorial Excellence.
+            © 2026 Build My Resume. Editorial Excellence.
           </p>
         </div>
       </footer>
