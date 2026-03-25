@@ -7,6 +7,7 @@ import { ProjectEntry, ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { Plus, Trash2 } from "lucide-react";
+import AIImproveButton from "@/components/ui/AIImproveButton";
 
 interface Props {
   resumeId: string;
@@ -120,6 +121,13 @@ export default function ProjectsSection({ resumeId, data }: Props) {
               onChange={(e) => updateProject(proj.id, { description: e.target.value })}
               rows={3}
               placeholder="A platform that helps..."
+              action={
+                <AIImproveButton
+                  text={proj.description}
+                  fieldType="project"
+                  onAccept={(v) => updateProject(proj.id, { description: v })}
+                />
+              }
             />
           </div>
         ))}

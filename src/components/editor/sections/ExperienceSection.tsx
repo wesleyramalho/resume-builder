@@ -7,6 +7,7 @@ import { ExperienceEntry, ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { Plus, Trash2, GripVertical } from "lucide-react";
+import AIImproveButton from "@/components/ui/AIImproveButton";
 
 interface Props {
   resumeId: string;
@@ -136,6 +137,13 @@ export default function ExperienceSection({ resumeId, data }: Props) {
               onChange={(e) => updateExp(exp.id, { description: e.target.value })}
               placeholder={"Led a team of 12 junior architects...\nImplemented BIM workflows..."}
               rows={4}
+              action={
+                <AIImproveButton
+                  text={exp.description}
+                  fieldType="experience"
+                  onAccept={(v) => updateExp(exp.id, { description: v })}
+                />
+              }
             />
           </div>
         ))}

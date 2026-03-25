@@ -34,15 +34,21 @@ interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaEle
   label?: string;
   error?: string;
   id: string;
+  action?: React.ReactNode;
 }
 
-export function FormTextarea({ label, error, id, className = "", ...props }: FormTextareaProps) {
+export function FormTextarea({ label, error, id, action, className = "", ...props }: FormTextareaProps) {
   return (
     <div className="flex flex-col gap-1">
-      {label && (
-        <label htmlFor={id} className="text-xs font-mono uppercase tracking-widest text-text-subtle">
-          {label}
-        </label>
+      {(label || action) && (
+        <div className="flex items-center justify-between">
+          {label && (
+            <label htmlFor={id} className="text-xs font-mono uppercase tracking-widest text-text-subtle">
+              {label}
+            </label>
+          )}
+          {action}
+        </div>
       )}
       <textarea
         id={id}

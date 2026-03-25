@@ -7,6 +7,7 @@ import { EducationEntry, ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { Plus, Trash2, GripVertical } from "lucide-react";
+import AIImproveButton from "@/components/ui/AIImproveButton";
 
 interface Props {
   resumeId: string;
@@ -121,6 +122,13 @@ export default function EducationSection({ resumeId, data }: Props) {
               onChange={(e) => updateEdu(edu.id, { highlights: e.target.value })}
               placeholder="Dean's List, relevant coursework, thesis..."
               rows={2}
+              action={
+                <AIImproveButton
+                  text={edu.highlights}
+                  fieldType="education"
+                  onAccept={(v) => updateEdu(edu.id, { highlights: v })}
+                />
+              }
             />
           </div>
         ))}
