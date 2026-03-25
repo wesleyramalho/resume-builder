@@ -25,7 +25,7 @@ export default function DashboardPage() {
 
           <Link
             href="/dashboard"
-            className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
           >
             Dashboard
           </Link>

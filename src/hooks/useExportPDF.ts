@@ -4,6 +4,10 @@ import { useState } from "react";
 import { Resume } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 
+interface PDFErrorResponse {
+  error?: string;
+}
+
 export function useExportPDF() {
   const [exporting, setExporting] = useState(false);
   const incrementExportCount = useResumeStore((s) => s.incrementExportCount);
@@ -16,7 +20,7 @@ export function useExportPDF() {
         `/api/pdf/${resume.id}?data=${encodeURIComponent(encoded)}`,
       );
       if (!res.ok) {
-        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        const body = (await res.json().catch(() => ({}))) as PDFErrorResponse;
         throw new Error(body.error ?? `PDF generation failed (${res.status})`);
       }
       const blob = await res.blob();

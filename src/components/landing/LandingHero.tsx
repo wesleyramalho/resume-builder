@@ -17,6 +17,7 @@ const HEADLINE_WORDS = [
 export default function LandingHero() {
   const hasAnimated = useRef(false);
   const mockupRef = useRef<HTMLDivElement>(null);
+  const heroCardsRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,7 +26,9 @@ export default function LandingHero() {
     if (hasAnimated.current) return;
     hasAnimated.current = true;
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced) return;
 
     gsap.from(".hero-char", {
@@ -42,19 +45,19 @@ export default function LandingHero() {
     gsap.fromTo(
       ".hero-subtitle",
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.9 }
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.9 },
     );
 
     gsap.fromTo(
       ".hero-cta",
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.1 }
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.1 },
     );
 
     gsap.fromTo(
       ".hero-mockup",
       { opacity: 0, x: 60 },
-      { opacity: 1, x: 0, duration: 1.2, ease: "power2.out", delay: 0.5 }
+      { opacity: 1, x: 0, duration: 1.2, ease: "power2.out", delay: 0.5 },
     );
 
     // Subtle parallax drift on scroll
@@ -69,6 +72,27 @@ export default function LandingHero() {
           scrub: true,
         },
       });
+    }
+
+    // Auto-play card swap animation in hero mockup
+    if (heroCardsRef.current) {
+      const cards =
+        heroCardsRef.current.querySelectorAll<HTMLElement>(".hero-card");
+      if (cards.length >= 2) {
+        const card1 = cards[0]; // section 2 (highlighted)
+        const card2 = cards[1]; // section 3
+        const gap = 8; // gap-2 = 8px
+        const h1 = card1.offsetHeight + gap;
+        const h2 = card2.offsetHeight + gap;
+
+        gsap
+          .timeline({ repeat: -1, repeatDelay: 2, delay: 2 })
+          .to(card1, { y: h2, duration: 0.5, ease: "power2.inOut" }, "swap")
+          .to(card2, { y: -h1, duration: 0.5, ease: "power2.inOut" }, "swap")
+          .to({}, { duration: 2 })
+          .to(card1, { y: 0, duration: 0.5, ease: "power2.inOut" }, "back")
+          .to(card2, { y: 0, duration: 0.5, ease: "power2.inOut" }, "back");
+      }
     }
   }, []);
 
@@ -87,10 +111,6 @@ export default function LandingHero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left: copy */}
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-subtle mb-6">
-            The Editorial Architect
-          </p>
-
           <h1
             className="font-sans font-bold leading-[1.05] tracking-tight mb-6 [perspective:800px]"
             style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)" }}
@@ -101,13 +121,20 @@ export default function LandingHero() {
                   className={`inline-block whitespace-nowrap ${word.teal ? "text-brand-primary" : "text-foreground"}`}
                 >
                   {word.text.split("").map((char, ci) => (
-                    <span key={ci} className="hero-char inline-block" aria-hidden="true">
+                    <span
+                      key={ci}
+                      className="hero-char inline-block"
+                      aria-hidden="true"
+                    >
                       {char}
                     </span>
                   ))}
                 </span>
                 {wi < HEADLINE_WORDS.length - 1 && (
-                  <span className="hero-char inline-block text-foreground" aria-hidden="true">
+                  <span
+                    className="hero-char inline-block text-foreground"
+                    aria-hidden="true"
+                  >
                     &nbsp;
                   </span>
                 )}
@@ -117,8 +144,9 @@ export default function LandingHero() {
           </h1>
 
           <p className="hero-subtitle text-base md:text-lg text-muted-foreground max-w-md leading-relaxed mb-8">
-            Move beyond form fields. Treat your resume like a high-end publication
-            with real-time editorial tools designed for professional authority.
+            Move beyond form fields. Treat your resume like a high-end
+            publication with real-time editorial tools designed for professional
+            authority.
           </p>
 
           <div className="hero-cta flex flex-wrap gap-3">
@@ -129,22 +157,12 @@ export default function LandingHero() {
             >
               Start Drafting →
             </Button>
-            <Button
-              size="lg"
-              variant="ghost"
-              onClick={() => {
-                document.getElementById("sample")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="border border-border hover:bg-muted font-mono text-xs uppercase tracking-widest"
-            >
-              View Gallery
-            </Button>
           </div>
         </div>
 
         {/* Right: app UI mockup */}
         <div ref={mockupRef} className="hero-mockup hidden lg:block">
-          <div className="bg-surface-soft rounded-xl border border-border p-3 shadow-lg">
+          <div className="bg-surface-soft rounded-xl border border-border p-3 shadow-lg animate-glow-border">
             <div className="flex gap-2 h-[340px]">
               {/* Left sidebar */}
               <div className="w-[30%] bg-card rounded-lg border border-border p-3 flex flex-col gap-1.5">
@@ -154,7 +172,10 @@ export default function LandingHero() {
                     key={i}
                     className={`flex items-center gap-2 rounded-md px-2 py-2 ${i === 0 ? "bg-surface-strong" : ""}`}
                   >
-                    <Icon className="w-3.5 h-3.5 text-muted-foreground shrink-0" strokeWidth={1.5} />
+                    <Icon
+                      className="w-3.5 h-3.5 text-muted-foreground shrink-0"
+                      strokeWidth={1.5}
+                    />
                     <div className="h-1.5 bg-surface-strong rounded flex-1" />
                   </div>
                 ))}
@@ -175,29 +196,35 @@ export default function LandingHero() {
                   </div>
                 </div>
 
-                {/* Section 2 – active/highlighted */}
-                <div className="bg-accent/40 rounded-lg border border-brand-primary/20 p-3 relative">
-                  <div className="h-1.5 bg-muted-foreground/20 rounded w-16 mb-2" />
-                  <div className="h-3 bg-foreground/50 rounded w-36 mb-1.5" />
-                  <div className="h-1.5 bg-muted-foreground/20 rounded w-3/4" />
-                  {/* Drag handle */}
-                  <div className="absolute top-3 right-3 grid grid-cols-2 gap-[3px]">
-                    {Array.from({ length: 6 }).map((_, i) => (
-                      <div key={i} className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-                    ))}
+                {/* Swappable sections */}
+                <div ref={heroCardsRef} className="flex flex-col gap-2">
+                  <div className="hero-card bg-accent/40 rounded-lg border border-brand-primary/20 p-3 relative">
+                    <div className="h-1.5 bg-muted-foreground/20 rounded w-16 mb-2" />
+                    <div className="h-3 bg-foreground/50 rounded w-36 mb-1.5" />
+                    <div className="h-1.5 bg-muted-foreground/20 rounded w-3/4" />
+                    {/* Drag handle */}
+                    <div className="absolute top-3 right-3 grid grid-cols-2 gap-[3px]">
+                      {Array.from({ length: 6 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="w-1 h-1 rounded-full bg-muted-foreground/40"
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
-
-                {/* Section 3 */}
-                <div className="bg-card rounded-lg border border-border p-3">
-                  <div className="h-1.5 bg-surface-strong rounded w-20 mb-2" />
-                  <div className="h-2.5 bg-surface-strong rounded w-28" />
+                  <div className="hero-card bg-card rounded-lg border border-border p-3">
+                    <div className="h-1.5 bg-surface-strong rounded w-20 mb-2" />
+                    <div className="h-2.5 bg-surface-strong rounded w-28" />
+                  </div>
                 </div>
 
                 {/* Live Preview button */}
                 <div className="flex justify-end mt-auto">
                   <div className="flex items-center gap-1.5 bg-surface-soft border border-border rounded-lg px-3 py-1.5">
-                    <Eye className="w-3 h-3 text-foreground" strokeWidth={1.5} />
+                    <Eye
+                      className="w-3 h-3 text-foreground"
+                      strokeWidth={1.5}
+                    />
                     <span className="text-[9px] font-mono uppercase tracking-widest text-foreground">
                       Live Preview
                     </span>

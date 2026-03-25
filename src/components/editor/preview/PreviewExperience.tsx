@@ -1,51 +1,81 @@
 import { ExperienceEntry } from "@/types/resume";
 import { formatMonthYear } from "@/lib/utils";
+import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
   experience: ExperienceEntry[];
+  style: ResumeStyle;
 }
 
-export default function PreviewExperience({ experience }: Props) {
+export default function PreviewExperience({ experience, style: tmpl }: Props) {
   if (experience.length === 0) return null;
 
   return (
-    <div className="mb-5">
-      <h2 className="text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-400 mb-2 pb-1 border-b border-zinc-100">
+    <div style={{ marginBottom: "10pt" }}>
+      <h2
+        style={{
+          fontSize: "7pt",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "1.5pt",
+          color: hexWithAlpha(tmpl.accentColor, 0.4),
+          borderBottom: tmpl.sectionDivider === "line" ? `0.5pt solid ${hexWithAlpha(tmpl.accentColor, 0.15)}` : "none",
+          paddingBottom: "3pt",
+          marginBottom: "6pt",
+        }}
+      >
         Professional Experience
       </h2>
-      <div className="space-y-4">
-        {experience.map((exp) => (
-          <div key={exp.id}>
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-wide text-zinc-800">
-                  {exp.company}
-                </p>
-                <p className="text-[10px] text-zinc-500">
-                  {exp.title}
-                  {exp.location ? ` · ${exp.location}` : ""}
-                </p>
-              </div>
-              <span className="text-[8px] text-zinc-400 font-mono whitespace-nowrap">
-                {formatMonthYear(exp.startDate)} – {exp.current ? "Present" : formatMonthYear(exp.endDate)}
-              </span>
+      {experience.map((exp) => (
+        <div key={exp.id} style={{ marginBottom: "8pt" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <p
+                style={{
+                  fontSize: "9pt",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5pt",
+                  color: tmpl.accentColor,
+                }}
+              >
+                {exp.company}
+              </p>
+              <p style={{ fontSize: "8pt", color: "#6b7280", marginTop: "1pt" }}>
+                {exp.title}
+                {exp.location ? ` · ${exp.location}` : ""}
+              </p>
             </div>
-            {exp.description && (
-              <ul className="mt-1.5 space-y-0.5">
-                {exp.description
-                  .split("\n")
-                  .filter(Boolean)
-                  .map((line, i) => (
-                    <li key={i} className="text-[9px] text-zinc-600 flex gap-1.5">
-                      <span className="text-zinc-300 flex-shrink-0 mt-0.5">•</span>
-                      {line}
-                    </li>
-                  ))}
-              </ul>
-            )}
+            <span
+              style={{
+                fontSize: "7.5pt",
+                color: "#9ca3af",
+                textAlign: "right",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {formatMonthYear(exp.startDate)} – {exp.current ? "Present" : formatMonthYear(exp.endDate)}
+            </span>
           </div>
-        ))}
-      </div>
+          {exp.description &&
+            exp.description
+              .split("\n")
+              .filter(Boolean)
+              .map((line, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: "flex",
+                    gap: "4pt",
+                    marginTop: "2pt",
+                  }}
+                >
+                  <span style={{ fontSize: "9pt", color: "#d1d5db", marginTop: "0.5pt" }}>•</span>
+                  <span style={{ fontSize: "8.5pt", color: "#374151", lineHeight: 1.4 }}>{line}</span>
+                </div>
+              ))}
+        </div>
+      ))}
     </div>
   );
 }

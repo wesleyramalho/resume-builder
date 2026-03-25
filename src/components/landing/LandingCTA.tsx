@@ -69,16 +69,6 @@ export default function LandingCTA() {
               >
                 Build Your Resume
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => {
-                  document.getElementById("sample")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="font-mono text-xs uppercase tracking-widest px-8"
-              >
-                View Gallery
-              </Button>
             </div>
           </div>
         </div>

@@ -1,156 +1,174 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { FormInput, FormTextarea } from "@/components/ui/FormInput";
-import { ExperienceEntry, ResumeData } from "@/types/resume";
+import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
-import { Plus, Trash2, GripVertical } from "lucide-react";
+import { experienceEntrySchema } from "@/lib/schemas";
+import { Plus, Trash2 } from "lucide-react";
 import AIImproveButton from "@/components/ui/AIImproveButton";
+import MonthYearPicker from "@/components/ui/MonthYearPicker";
 
 interface Props {
   resumeId: string;
   data: ResumeData;
 }
 
-function createEmptyExperience(): ExperienceEntry {
-  return {
-    id: generateId(),
-    company: "",
-    title: "",
-    location: "",
-    startDate: "",
-    endDate: null,
-    current: false,
-    description: "",
-  };
-}
+const formSchema = z.object({
+  experience: z.array(experienceEntrySchema),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export default function ExperienceSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function updateExp(id: string, patch: Partial<ExperienceEntry>) {
-    updateResume(resumeId, {
-      experience: data.experience.map((e) =>
-        e.id === id ? { ...e, ...patch } : e
-      ),
-    });
-  }
+  const lastSyncedJson = useRef(JSON.stringify(data.experience));
 
-  function addExp() {
-    updateResume(resumeId, {
-      experience: [...data.experience, createEmptyExperience()],
-    });
-  }
+  const { register, control, watch, setValue, reset } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { experience: data.experience },
+    mode: "onChange",
+  });
 
-  function removeExp(id: string) {
-    updateResume(resumeId, {
-      experience: data.experience.filter((e) => e.id !== id),
+  const { fields, append, remove } = useFieldArray({ control, name: "experience" });
+
+  // Auto-sync to store
+  useEffect(() => {
+    const sub = watch((values) => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        if (values.experience) {
+          lastSyncedJson.current = JSON.stringify(values.experience);
+          updateResume(resumeId, { experience: values.experience as ResumeData["experience"] });
+        }
+      }, 300);
     });
-  }
+    return () => {
+      sub.unsubscribe();
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [watch, resumeId, updateResume]);
+
+  // Reset form when store data changes externally
+  const storeJson = JSON.stringify(data.experience);
+  useEffect(() => {
+    if (storeJson === lastSyncedJson.current) return;
+    reset({ experience: data.experience });
+  }, [storeJson]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <AccordionItem value="experience" className="border-border">
       <AccordionTrigger className="text-sm font-mono uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
         Experience
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
-          {data.experience.length} {data.experience.length === 1 ? "entry" : "entries"}
+          {fields.length} {fields.length === 1 ? "entry" : "entries"}
         </span>
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-6">
-        {data.experience.map((exp, idx) => (
-          <div key={exp.id} className="border border-border bg-card rounded-lg p-4 space-y-3">
-            <div className="flex items-center justify-between mb-1">
-              <div className="flex items-center gap-2">
-                <GripVertical className="w-4 h-4 text-muted-foreground" />
+        {fields.map((field, idx) => {
+          const exp = watch(`experience.${idx}`);
+          return (
+            <div key={field.id} className="border border-border bg-card rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between mb-1">
                 <p className="text-xs font-mono text-text-subtle">
-                  {exp.company || `Experience ${idx + 1}`}
+                  {exp?.company || `Experience ${idx + 1}`}
                 </p>
+                <button
+                  onClick={() => remove(idx)}
+                  className="text-muted-foreground hover:text-destructive transition-colors"
+                  aria-label="Remove experience"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
-              <button
-                onClick={() => removeExp(exp.id)}
-                className="text-muted-foreground hover:text-destructive transition-colors"
-                aria-label="Remove experience"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <FormInput
-                id={`company-${exp.id}`}
-                label="Company / Studio"
-                value={exp.company}
-                onChange={(e) => updateExp(exp.id, { company: e.target.value })}
-                placeholder="Metropolis Design Group"
-              />
-              <FormInput
-                id={`title-${exp.id}`}
-                label="Position"
-                value={exp.title}
-                onChange={(e) => updateExp(exp.id, { title: e.target.value })}
-                placeholder="Senior Architect"
-              />
-              <FormInput
-                id={`location-${exp.id}`}
-                label="Location"
-                value={exp.location}
-                onChange={(e) => updateExp(exp.id, { location: e.target.value })}
-                placeholder="New York, NY"
-              />
-              <div />
-              <FormInput
-                id={`startDate-${exp.id}`}
-                label="Start Date"
-                value={exp.startDate}
-                onChange={(e) => updateExp(exp.id, { startDate: e.target.value })}
-                placeholder="YYYY-MM"
-              />
-              <div className="space-y-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <FormInput
-                  id={`endDate-${exp.id}`}
-                  label="End Date"
-                  value={exp.endDate ?? ""}
-                  disabled={exp.current}
-                  onChange={(e) => updateExp(exp.id, { endDate: e.target.value || null })}
-                  placeholder="YYYY-MM"
+                  id={`company-${field.id}`}
+                  label="Company / Studio"
+                  placeholder="Metropolis Design Group"
+                  {...register(`experience.${idx}.company`)}
                 />
-                <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer mt-1">
-                  <input
-                    type="checkbox"
-                    checked={exp.current}
-                    onChange={(e) =>
-                      updateExp(exp.id, { current: e.target.checked, endDate: e.target.checked ? null : exp.endDate })
-                    }
-                    className="rounded"
+                <FormInput
+                  id={`title-${field.id}`}
+                  label="Position"
+                  placeholder="Senior Architect"
+                  {...register(`experience.${idx}.title`)}
+                />
+                <FormInput
+                  id={`location-${field.id}`}
+                  label="Location"
+                  placeholder="New York, NY"
+                  {...register(`experience.${idx}.location`)}
+                />
+                <div />
+                <MonthYearPicker
+                  id={`startDate-${field.id}`}
+                  label="Start Date"
+                  value={exp?.startDate ?? ""}
+                  onChange={(v) => setValue(`experience.${idx}.startDate`, v)}
+                />
+                <div className="space-y-1">
+                  <MonthYearPicker
+                    id={`endDate-${field.id}`}
+                    label="End Date"
+                    value={exp?.endDate ?? ""}
+                    disabled={exp?.current}
+                    onChange={(v) => setValue(`experience.${idx}.endDate`, v || null)}
                   />
-                  Present
-                </label>
+                  <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer mt-1">
+                    <input
+                      type="checkbox"
+                      {...register(`experience.${idx}.current`)}
+                      onChange={(e) => {
+                        setValue(`experience.${idx}.current`, e.target.checked);
+                        if (e.target.checked) setValue(`experience.${idx}.endDate`, null);
+                      }}
+                      className="rounded"
+                    />
+                    Present
+                  </label>
+                </div>
               </div>
-            </div>
 
-            <FormTextarea
-              id={`desc-${exp.id}`}
-              label="Description (one bullet per line)"
-              value={exp.description}
-              onChange={(e) => updateExp(exp.id, { description: e.target.value })}
-              placeholder={"Led a team of 12 junior architects...\nImplemented BIM workflows..."}
-              rows={4}
-              action={
-                <AIImproveButton
-                  text={exp.description}
-                  fieldType="experience"
-                  onAccept={(v) => updateExp(exp.id, { description: v })}
-                />
-              }
-            />
-          </div>
-        ))}
+              <FormTextarea
+                id={`desc-${field.id}`}
+                label="Description (one bullet per line)"
+                placeholder={"Led a team of 12 junior architects...\nImplemented BIM workflows..."}
+                rows={4}
+                {...register(`experience.${idx}.description`)}
+                action={
+                  <AIImproveButton
+                    text={exp?.description ?? ""}
+                    fieldType="experience"
+                    onAccept={(v) => setValue(`experience.${idx}.description`, v)}
+                  />
+                }
+              />
+            </div>
+          );
+        })}
 
         <Button
           variant="ghost"
-          onClick={addExp}
+          onClick={() => append({
+            id: generateId(),
+            company: "",
+            title: "",
+            location: "",
+            startDate: "",
+            endDate: null,
+            current: false,
+            description: "",
+          })}
           className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-mono text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />

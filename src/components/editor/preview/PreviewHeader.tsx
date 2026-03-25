@@ -1,34 +1,112 @@
 import { ResumeData } from "@/types/resume";
+import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
   data: ResumeData;
+  style: ResumeStyle;
 }
 
-export default function PreviewHeader({ data }: Props) {
+export default function PreviewHeader({ data, style: tmpl }: Props) {
   const { fullName, headline, contact } = data;
-  const contactParts = [contact.location, contact.email, contact.phone].filter(Boolean);
+  const contactParts = [
+    contact.location,
+    contact.email,
+    contact.phone,
+    contact.linkedin,
+    contact.website,
+  ].filter(Boolean);
+
+  const hasBg = !!tmpl.headerBgColor;
+  const textColor = hasBg ? "#ffffff" : tmpl.accentColor;
+  const subtextColor = hasBg ? "rgba(255,255,255,0.7)" : "#6b7280";
+  const contactColor = hasBg ? "rgba(255,255,255,0.6)" : "#9ca3af";
+
+  const isPhotoRight = tmpl.photoPosition === "top-right";
+  const isPhotoCentered = tmpl.photoPosition === "top-center";
+
+  const photoEl = data.photo ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={data.photo}
+      alt=""
+      style={{
+        width: "32pt",
+        height: "32pt",
+        borderRadius: "50%",
+        objectFit: "cover",
+        flexShrink: 0,
+        border: hasBg ? "2pt solid rgba(255,255,255,0.3)" : "none",
+      }}
+    />
+  ) : null;
 
   return (
-    <div className="pb-4 mb-5 border-b border-zinc-200">
-      <h1 className="text-xl font-bold uppercase tracking-widest text-zinc-900">
-        {fullName || <span className="text-zinc-300">Your Name</span>}
-      </h1>
-      <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500 mt-1">
-        {headline || <span className="text-zinc-300">Your Headline</span>}
-      </p>
-      {contactParts.length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-0.5 mt-2">
-          {contactParts.map((part, i) => (
-            <span key={i} className="text-[9px] text-zinc-400">{part}</span>
-          ))}
-          {contact.linkedin && (
-            <span className="text-[9px] text-zinc-400">{contact.linkedin}</span>
-          )}
-          {contact.website && (
-            <span className="text-[9px] text-zinc-400">{contact.website}</span>
-          )}
-        </div>
-      )}
+    <div
+      style={{
+        borderBottom: hasBg ? "none" : `0.5pt solid ${hexWithAlpha(tmpl.accentColor, 0.25)}`,
+        paddingBottom: "10pt",
+        marginBottom: "10pt",
+        ...(hasBg
+          ? {
+              backgroundColor: tmpl.headerBgColor,
+              margin: "-40pt -48pt 10pt -48pt",
+              padding: "20pt 48pt",
+              borderRadius: 0,
+            }
+          : {}),
+        display: "flex",
+        gap: "10pt",
+        alignItems: isPhotoCentered ? "center" : "flex-start",
+        flexDirection: isPhotoCentered ? "column" : "row",
+      }}
+    >
+      {/* Photo left or centered (before text) */}
+      {photoEl && !isPhotoRight && photoEl}
+
+      <div style={{ flex: 1, textAlign: isPhotoCentered ? "center" : "left" }}>
+        <h1
+          style={{
+            fontSize: "16pt",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "1.5pt",
+            color: textColor,
+          }}
+        >
+          {fullName || <span style={{ color: "#d1d5db" }}>Your Name</span>}
+        </h1>
+        <p
+          style={{
+            fontSize: "8pt",
+            textTransform: "uppercase",
+            letterSpacing: "1.5pt",
+            color: subtextColor,
+            marginTop: "2pt",
+          }}
+        >
+          {headline || <span style={{ color: "#d1d5db" }}>Your Headline</span>}
+        </p>
+        {contactParts.length > 0 && (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "8pt",
+              marginTop: "4pt",
+              justifyContent: isPhotoCentered ? "center" : "flex-start",
+            }}
+          >
+            {contactParts.map((part, i) => (
+              <span key={i} style={{ fontSize: "7.5pt", color: contactColor }}>
+                {part}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Photo right */}
+      {photoEl && isPhotoRight && photoEl}
     </div>
   );
 }

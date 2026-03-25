@@ -1,25 +1,67 @@
 "use client";
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useCallback, useRef, useState } from "react";
 import { FormInput, FormTextarea } from "@/components/ui/FormInput";
 import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
+import { useResumeForm } from "@/hooks/useResumeForm";
+import { personalInfoSchema, PersonalInfoFormValues } from "@/lib/schemas";
 import AIImproveButton from "@/components/ui/AIImproveButton";
+import PhotoEditor from "@/components/ui/PhotoEditor";
+import { Camera, X } from "lucide-react";
+import { toast } from "sonner";
 
 interface Props {
   resumeId: string;
   data: ResumeData;
 }
 
+const MAX_PHOTO_SIZE = 500 * 1024; // 500KB
+
 export default function PersonalInfoSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [editorSrc, setEditorSrc] = useState("");
 
-  function update(patch: Partial<ResumeData>) {
-    updateResume(resumeId, patch);
+  const toResumeData = useCallback(
+    (values: PersonalInfoFormValues): Partial<ResumeData> => values,
+    [],
+  );
+
+  const { register, setValue, watch } = useResumeForm<PersonalInfoFormValues>({
+    resumeId,
+    schema: personalInfoSchema,
+    defaultValues: {
+      fullName: data.fullName,
+      headline: data.headline,
+      summary: data.summary,
+      contact: { ...data.contact },
+    },
+    toResumeData,
+  });
+
+  const summary = watch("summary");
+
+  function handlePhotoSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > MAX_PHOTO_SIZE) {
+      toast.error("Photo must be under 500KB");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setEditorSrc(reader.result as string);
+      setEditorOpen(true);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
   }
 
-  function updateContact(field: keyof ResumeData["contact"], value: string) {
-    updateResume(resumeId, { contact: { ...data.contact, [field]: value } });
+  function handlePhotoSave(croppedDataUrl: string) {
+    updateResume(resumeId, { photo: croppedDataUrl });
   }
 
   return (
@@ -28,35 +70,92 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
         Personal Info
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-4">
+        {/* Photo upload */}
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="relative w-16 h-16 rounded-full border-2 border-dashed border-border hover:border-ring flex items-center justify-center overflow-hidden transition-colors shrink-0 bg-surface-soft"
+          >
+            {data.photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={data.photo} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+              <Camera className="w-5 h-5 text-muted-foreground" />
+            )}
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoSelect}
+            className="hidden"
+          />
+          <div className="flex flex-col gap-1">
+            <p className="text-xs font-mono uppercase tracking-widest text-text-subtle">
+              Profile Photo
+            </p>
+            <p className="text-[10px] text-muted-foreground">
+              Optional. Max 500KB.
+            </p>
+            {data.photo && (
+              <div className="flex gap-2 mt-0.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditorSrc(data.photo!);
+                    setEditorOpen(true);
+                  }}
+                  className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updateResume(resumeId, { photo: undefined })}
+                  className="inline-flex items-center gap-1 text-[10px] text-destructive hover:text-destructive/80 transition-colors"
+                >
+                  <X className="w-3 h-3" />
+                  Remove
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <PhotoEditor
+          open={editorOpen}
+          onOpenChange={setEditorOpen}
+          imageSrc={editorSrc}
+          onSave={handlePhotoSave}
+        />
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormInput
             id="fullName"
             label="Full Name"
-            value={data.fullName}
-            onChange={(e) => update({ fullName: e.target.value })}
             placeholder="Alexander Vaughn"
+            {...register("fullName")}
           />
           <FormInput
             id="headline"
             label="Headline"
-            value={data.headline}
-            onChange={(e) => update({ headline: e.target.value })}
             placeholder="Senior Software Engineer"
+            {...register("headline")}
           />
         </div>
 
         <FormTextarea
           id="summary"
           label="Professional Summary"
-          value={data.summary}
-          onChange={(e) => update({ summary: e.target.value })}
           placeholder="Dedicated to building scalable, design-forward products..."
           rows={3}
+          {...register("summary")}
           action={
             <AIImproveButton
-              text={data.summary}
+              text={summary}
               fieldType="summary"
-              onAccept={(v) => update({ summary: v })}
+              onAccept={(v) => setValue("summary", v)}
             />
           }
         />
@@ -68,39 +167,34 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
               id="email"
               label="Email"
               type="email"
-              value={data.contact.email}
-              onChange={(e) => updateContact("email", e.target.value)}
               placeholder="alex@example.com"
+              {...register("contact.email")}
             />
             <FormInput
               id="phone"
               label="Phone"
               type="tel"
-              value={data.contact.phone}
-              onChange={(e) => updateContact("phone", e.target.value)}
               placeholder="+1 (555) 123 4567"
+              {...register("contact.phone")}
             />
             <FormInput
               id="location"
               label="Location"
-              value={data.contact.location}
-              onChange={(e) => updateContact("location", e.target.value)}
               placeholder="New York, NY"
+              {...register("contact.location")}
             />
             <FormInput
               id="linkedin"
               label="LinkedIn"
-              value={data.contact.linkedin}
-              onChange={(e) => updateContact("linkedin", e.target.value)}
               placeholder="linkedin.com/in/yourprofile"
+              {...register("contact.linkedin")}
             />
             <FormInput
               id="website"
               label="Website"
-              value={data.contact.website}
-              onChange={(e) => updateContact("website", e.target.value)}
               placeholder="yourwebsite.com"
               className="sm:col-span-2"
+              {...register("contact.website")}
             />
           </div>
         </div>

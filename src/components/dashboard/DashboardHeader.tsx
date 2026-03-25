@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Plus, LogOut, LeafIcon } from "lucide-react";
+import { Plus, LogOut } from "lucide-react";
+import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,6 +16,12 @@ import {
 import { useResumeStore } from "@/store/useResumeStore";
 import type { ResumeData } from "@/types/resume";
 
+interface LinkedInImportResponse {
+  data?: Partial<ResumeData>;
+}
+import TemplatePicker from "@/components/dashboard/TemplatePicker";
+import { getTemplate } from "@/lib/resumeTemplates";
+
 export default function DashboardHeader() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -23,9 +30,17 @@ export default function DashboardHeader() {
   const hasConsumedImportIntent = useRef(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [isImporting, setIsImporting] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
 
-  function handleCreate() {
-    const resume = createResume();
+  function handleTemplateSelect(templateId: string) {
+    setPickerOpen(false);
+    if (templateId === "blank") {
+      const resume = createResume();
+      router.push(`/editor/${resume.id}`);
+      return;
+    }
+    const tmpl = getTemplate(templateId);
+    const resume = createResume(tmpl?.name ?? "Untitled Resume", tmpl?.sampleData, templateId);
     router.push(`/editor/${resume.id}`);
   }
 
@@ -46,7 +61,7 @@ export default function DashboardHeader() {
         throw new Error("Unable to import your LinkedIn profile right now.");
       }
 
-      const result = (await response.json()) as { data?: Partial<ResumeData> };
+      const result = (await response.json()) as LinkedInImportResponse;
       if (!result.data) {
         throw new Error("LinkedIn import returned no data.");
       }
@@ -95,61 +110,71 @@ export default function DashboardHeader() {
 
       <div className="flex items-center gap-3 mt-2">
         <Button
-          onClick={handleCreate}
+          onClick={() => setPickerOpen(true)}
           className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest gap-2"
         >
           <Plus className="w-4 h-4" />
           Create New Resume
         </Button>
-        <Button
-          variant="outline"
-          disabled={isImporting}
-          onClick={() => void handleLinkedInImport(false)}
-          className="font-mono text-xs uppercase tracking-widest gap-2"
-        >
-          <LeafIcon className="w-4 h-4" />
-          {isImporting ? "Importing..." : "Import from LinkedIn"}
-        </Button>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-mono text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden"
+        {session ? (
+          <>
+            <Button
+              variant="outline"
+              disabled={isImporting}
+              onClick={() => void handleLinkedInImport(false)}
+              className="font-mono text-xs uppercase tracking-widest gap-2"
+            >
+              <LinkedInIcon className="w-4 h-4" />
+              {isImporting ? "Importing..." : "Import from LinkedIn"}
+            </Button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-mono text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden"
+              >
+                {session.user?.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name ?? "User"}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  initials
+                )}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-card border-border">
+                <DropdownMenuItem
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="text-destructive focus:text-destructive gap-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
+        ) : (
+          <Button
+            variant="outline"
+            onClick={() => signIn("linkedin", { callbackUrl: "/dashboard?intent=import" })}
+            className="font-mono text-xs uppercase tracking-widest gap-2"
           >
-            {session?.user?.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={session.user.image}
-                alt={session.user.name ?? "User"}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              initials
-            )}
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="bg-card border-border">
-            {session ? (
-              <DropdownMenuItem
-                onClick={() => signOut({ callbackUrl: "/" })}
-                className="text-destructive focus:text-destructive gap-2"
-              >
-                <LogOut className="w-4 h-4" />
-                Sign Out
-              </DropdownMenuItem>
-            ) : (
-              <DropdownMenuItem
-                onClick={() => signIn("linkedin", { callbackUrl: "/dashboard" })}
-                className="gap-2"
-              >
-                <LeafIcon className="w-4 h-4" />
-                Sign In
-              </DropdownMenuItem>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <LinkedInIcon className="w-4 h-4" />
+            Sign In with LinkedIn
+          </Button>
+        )}
       </div>
       {importError ? (
         <p className="absolute -bottom-6 right-0 text-xs text-destructive font-mono">{importError}</p>
       ) : null}
+
+      <TemplatePicker
+        open={pickerOpen}
+        onOpenChange={setPickerOpen}
+        onSelect={handleTemplateSelect}
+      />
     </header>
   );
 }

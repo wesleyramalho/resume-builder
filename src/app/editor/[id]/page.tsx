@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { Suspense, use, useState } from "react";
 import { notFound } from "next/navigation";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
@@ -15,6 +15,16 @@ import EducationSection from "@/components/editor/sections/EducationSection";
 import SkillsSection from "@/components/editor/sections/SkillsSection";
 import ProjectsSection from "@/components/editor/sections/ProjectsSection";
 import ResumePreview from "@/components/editor/preview/ResumePreview";
+import type { ResumeData } from "@/types/resume";
+
+const SECTION_COMPONENTS: Record<string, React.FC<{ resumeId: string; data: ResumeData }>> = {
+  experience: ExperienceSection,
+  education: EducationSection,
+  skills: SkillsSection,
+  projects: ProjectsSection,
+};
+
+const DEFAULT_ORDER = ["experience", "education", "skills", "projects"];
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -40,6 +50,8 @@ export default function EditorPage({ params }: Props) {
 
   const data = resume.data;
 
+  const sectionOrder = data.sectionOrder?.length ? data.sectionOrder : DEFAULT_ORDER;
+
   const formContent = (
     <Accordion
       value={activeSection ? [activeSection] : []}
@@ -47,16 +59,18 @@ export default function EditorPage({ params }: Props) {
       className="divide-y divide-border"
     >
       <PersonalInfoSection resumeId={id} data={data} />
-      <ExperienceSection resumeId={id} data={data} />
-      <EducationSection resumeId={id} data={data} />
-      <SkillsSection resumeId={id} data={data} />
-      <ProjectsSection resumeId={id} data={data} />
+      {sectionOrder.map((key) => {
+        const Section = SECTION_COMPONENTS[key];
+        return Section ? <Section key={key} resumeId={id} data={data} /> : null;
+      })}
     </Accordion>
   );
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <EditorToolbar resume={resume} />
+      <Suspense>
+        <EditorToolbar resume={resume} />
+      </Suspense>
 
       {/* Desktop: three-column layout */}
       <div className="hidden lg:grid flex-1" style={{ gridTemplateColumns: "240px 1fr 1fr" }}>
@@ -127,7 +141,7 @@ export default function EditorPage({ params }: Props) {
             </p>
           </div>
           <div className="flex-1 overflow-hidden">
-            <ResumePreview data={data} />
+            <ResumePreview data={data} templateId={resume.templateId} />
           </div>
         </div>
       </div>
@@ -150,20 +164,10 @@ export default function EditorPage({ params }: Props) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="edit" className="flex-1 overflow-auto mt-0">
-            <div className="flex">
-              <div className="w-14 border-r border-border flex flex-col items-center py-2 gap-2 bg-surface-soft/60">
-                <EditorNav
-                  resumeId={id}
-                  sectionOrder={data.sectionOrder ?? []}
-                  activeSection={activeSection ?? ""}
-                  onSelect={setActiveSection}
-                />
-              </div>
-              <div className="flex-1 px-4 py-4">{formContent}</div>
-            </div>
+            <div className="px-3 py-3 sm:px-4 sm:py-4">{formContent}</div>
           </TabsContent>
           <TabsContent value="preview" className="flex-1 overflow-hidden mt-0 h-full">
-            <ResumePreview data={data} />
+            <ResumePreview data={data} templateId={resume.templateId} />
           </TabsContent>
         </Tabs>
       </div>

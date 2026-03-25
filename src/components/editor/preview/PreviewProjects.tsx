@@ -1,49 +1,70 @@
 import { ProjectEntry } from "@/types/resume";
 import { formatMonthYear } from "@/lib/utils";
+import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
   projects: ProjectEntry[];
+  style: ResumeStyle;
 }
 
-export default function PreviewProjects({ projects }: Props) {
+export default function PreviewProjects({ projects, style: tmpl }: Props) {
   if (projects.length === 0) return null;
 
   return (
-    <div className="mb-5">
-      <h2 className="text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-400 mb-2 pb-1 border-b border-zinc-100">
+    <div style={{ marginBottom: "10pt" }}>
+      <h2
+        style={{
+          fontSize: "7pt",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "1.5pt",
+          color: hexWithAlpha(tmpl.accentColor, 0.4),
+          borderBottom: tmpl.sectionDivider === "line" ? `0.5pt solid ${hexWithAlpha(tmpl.accentColor, 0.15)}` : "none",
+          paddingBottom: "3pt",
+          marginBottom: "6pt",
+        }}
+      >
         Projects
       </h2>
-      <div className="space-y-3">
-        {projects.map((proj) => (
-          <div key={proj.id}>
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-[11px] font-bold text-zinc-800">
-                  {proj.name}
-                  {proj.url && (
-                    <span className="text-[8px] font-mono text-zinc-400 ml-1.5">
-                      {proj.url}
-                    </span>
-                  )}
-                </p>
-                {proj.technologies.length > 0 && (
-                  <p className="text-[8px] text-zinc-500">
-                    {proj.technologies.join(" · ")}
-                  </p>
-                )}
-              </div>
-              <span className="text-[8px] text-zinc-400 font-mono whitespace-nowrap">
-                {formatMonthYear(proj.startDate)} – {formatMonthYear(proj.endDate)}
-              </span>
-            </div>
-            {proj.description && (
-              <p className="text-[9px] text-zinc-600 mt-1 leading-relaxed">
-                {proj.description}
+      {projects.map((proj) => (
+        <div key={proj.id} style={{ marginBottom: "8pt" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <p
+                style={{
+                  fontSize: "9pt",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5pt",
+                  color: tmpl.accentColor,
+                }}
+              >
+                {proj.name}
               </p>
-            )}
+              {proj.technologies.length > 0 && (
+                <p style={{ fontSize: "8pt", color: "#6b7280", marginTop: "1pt" }}>
+                  {proj.technologies.join(" · ")}
+                </p>
+              )}
+            </div>
+            <span
+              style={{
+                fontSize: "7.5pt",
+                color: "#9ca3af",
+                textAlign: "right",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {formatMonthYear(proj.startDate)} – {formatMonthYear(proj.endDate)}
+            </span>
           </div>
-        ))}
-      </div>
+          {proj.description && (
+            <p style={{ fontSize: "8.5pt", color: "#374151", marginTop: "2pt", lineHeight: 1.4 }}>
+              {proj.description}
+            </p>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

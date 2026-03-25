@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Script from "next/script";
 import "./globals.css";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "sonner";
 
 const montserratAlternates = localFont({
   src: [
@@ -45,20 +45,19 @@ export default function RootLayout({
       className={`${montserratAlternates.variable} ${orbitron.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("architect-suite-theme");if(t==="dark")document.documentElement.classList.add("dark");else document.documentElement.classList.remove("dark")}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-background text-foreground">
-        <Script id="theme-init" strategy="beforeInteractive">{`
-          (() => {
-            try {
-              const theme = localStorage.getItem("architect-suite-theme");
-              if (theme === "dark") document.documentElement.classList.add("dark");
-              else document.documentElement.classList.remove("dark");
-            } catch {}
-          })();
-        `}</Script>
         <ThemeProvider>
           <SessionProvider>
             <TooltipProvider>
               {children}
+              <Toaster richColors position="bottom-right" />
             </TooltipProvider>
           </SessionProvider>
         </ThemeProvider>

@@ -50,6 +50,7 @@ export interface ResumeData {
   fullName: string;
   headline: string;
   summary: string;
+  photo?: string; // base64 data URL or external URL
   contact: ContactInfo;
   experience: ExperienceEntry[];
   education: EducationEntry[];
@@ -64,11 +65,13 @@ export interface ResumeData {
   };
   /** Ordered list of section IDs for the editor sidebar and PDF output. "personal" is always first. */
   sectionOrder: string[];
+  linkedInImported?: boolean;
 }
 
 export interface Resume {
   id: string;
   name: string;
+  templateId?: string;
   status: ResumeStatus;
   createdAt: string;
   updatedAt: string;

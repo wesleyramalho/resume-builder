@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlassCard from "@/components/ui/GlassCard";
@@ -8,8 +8,20 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { Eye, Download, GripVertical } from "lucide-react";
 
 const SECTION_ROWS = ["Work Experience", "Skills & Expertise", "Education"];
+// Each entry is an ordering of indices into SECTION_ROWS
+// All 6 permutations for varied reorder animation
+const REORDER_SEQUENCE = [
+  [0, 1, 2], // Work, Skills, Edu
+  [2, 0, 1], // Edu, Work, Skills
+  [1, 2, 0], // Skills, Edu, Work
+  [0, 2, 1], // Work, Edu, Skills
+  [2, 1, 0], // Edu, Skills, Work
+  [1, 0, 2], // Skills, Work, Edu
+];
 
 export default function LandingFeatures() {
+  const reorderRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -60,6 +72,40 @@ export default function LandingFeatures() {
         },
       }
     );
+
+    // Auto-play reorder animation on the section list (loops continuously)
+    if (reorderRef.current) {
+      const items = reorderRef.current.querySelectorAll<HTMLElement>(".reorder-item");
+      if (items.length === 3) {
+        const ROW_HEIGHT = items[0].offsetHeight + 8; // item height + gap
+
+        const tl = gsap.timeline({
+          repeat: -1,
+          repeatDelay: 2,
+          scrollTrigger: {
+            trigger: reorderRef.current,
+            start: "top 85%",
+            once: true,
+          },
+          delay: 1.5,
+        });
+
+        // Cycle through all permutations
+        for (let s = 1; s < REORDER_SEQUENCE.length; s++) {
+          const label = `step${s}`;
+          for (let i = 0; i < 3; i++) {
+            const to = REORDER_SEQUENCE[s].indexOf(i);
+            if (to !== i) {
+              tl.to(items[i], { y: (to - i) * ROW_HEIGHT, duration: 0.5, ease: "power2.inOut" }, label);
+            }
+          }
+          tl.to({}, { duration: 2 });
+        }
+
+        // Reset to original positions
+        tl.to(items, { y: 0, duration: 0.5, ease: "power2.inOut" }, "reset");
+      }
+    }
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
@@ -152,11 +198,11 @@ export default function LandingFeatures() {
             </div>
 
             {/* Section list mockup */}
-            <div className="mt-auto space-y-2">
+            <div ref={reorderRef} className="mt-auto space-y-2">
               {SECTION_ROWS.map((label, i) => (
                 <div
                   key={label}
-                  className={`flex items-center justify-between rounded-lg px-4 py-3 border ${
+                  className={`reorder-item flex items-center justify-between rounded-lg px-4 py-3 border ${
                     i === 0
                       ? "border-white/20 bg-white/10"
                       : "border-white/10 bg-white/5"

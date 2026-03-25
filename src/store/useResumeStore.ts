@@ -13,13 +13,14 @@ function computeStatus(data: ResumeData): ResumeStatus {
 
 interface ResumeStore {
   resumes: Resume[];
-  createResume: (name?: string, initialData?: Partial<ResumeData>) => Resume;
+  createResume: (name?: string, initialData?: Partial<ResumeData>, templateId?: string) => Resume;
   updateResume: (id: string, data: Partial<ResumeData>) => void;
   updateResumeName: (id: string, name: string) => void;
   deleteResume: (id: string) => void;
   duplicateResume: (id: string) => Resume | null;
   incrementExportCount: (id: string) => void;
   reorderSections: (id: string, newOrder: string[]) => void;
+  updateTemplateId: (id: string, templateId: string) => void;
 }
 
 const noopStorage = {
@@ -33,11 +34,12 @@ export const useResumeStore = create<ResumeStore>()(
     immer((set, get) => ({
       resumes: [],
 
-      createResume: (name = "Untitled Resume", initialData = {}) => {
+      createResume: (name = "Untitled Resume", initialData = {}, templateId?: string) => {
         const data: ResumeData = { ...createEmptyResumeData(), ...initialData };
         const resume: Resume = {
           id: generateId(),
           name,
+          templateId,
           status: computeStatus(data),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
@@ -106,6 +108,16 @@ export const useResumeStore = create<ResumeStore>()(
           const r = state.resumes.find((r) => r.id === id);
           if (r) {
             r.data.sectionOrder = newOrder;
+            r.updatedAt = new Date().toISOString();
+          }
+        });
+      },
+
+      updateTemplateId: (id, templateId) => {
+        set((state) => {
+          const r = state.resumes.find((r) => r.id === id);
+          if (r) {
+            r.templateId = templateId;
             r.updatedAt = new Date().toISOString();
           }
         });

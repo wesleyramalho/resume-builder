@@ -105,6 +105,9 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
               Dismiss
             </button>
           </div>
+          <p className="text-[9px] text-muted-foreground/60 mt-2 leading-relaxed">
+            Powered by open-source AI (Flan-T5, Apache 2.0). Suggestions may be inaccurate — always review before using.
+          </p>
         </div>
       )}
     </div>

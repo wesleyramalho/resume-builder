@@ -55,7 +55,7 @@ export default function ResumeCard({ resume }: Props) {
       <div className="group bg-card border border-border rounded-lg overflow-hidden hover:border-brand-secondary/50 transition-colors shadow-sm">
         {/* Thumbnail */}
         <div className="relative p-3 bg-surface-soft/70 cursor-pointer" onClick={handleEdit}>
-          <ResumeThumbnail data={resume.data} />
+          <ResumeThumbnail data={resume.data} templateId={resume.templateId} />
           {resume.status === "draft" && (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="bg-background/90 backdrop-blur-sm border border-border rounded-full px-3 py-1 flex items-center gap-1.5">

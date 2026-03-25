@@ -2,6 +2,10 @@ import { pipeline, type Text2TextGenerationPipeline } from "@huggingface/transfo
 import { buildPrompt } from "@/lib/aiPrompts";
 import type { WorkerRequest, WorkerResponse } from "@/types/ai-worker";
 
+interface GenerationOutput {
+  generated_text: string;
+}
+
 let generator: Text2TextGenerationPipeline | null = null;
 
 function post(msg: WorkerResponse) {
@@ -49,7 +53,7 @@ async function improve(id: string, text: string, fieldType: WorkerRequest & { ty
       const result = await generator(prompt, { max_new_tokens: 150 });
       const output = Array.isArray(result) ? result[0] : result;
       improved.push(
-        (output as { generated_text: string }).generated_text?.trim() ?? line
+        (output as GenerationOutput).generated_text?.trim() ?? line
       );
     }
 

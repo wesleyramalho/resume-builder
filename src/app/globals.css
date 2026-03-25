@@ -150,3 +150,16 @@ input:-webkit-autofill:active {
     display: none;
   }
 }
+
+@keyframes glow-border {
+  0%, 100% {
+    box-shadow: 0 0 8px 0 color-mix(in srgb, var(--brand-primary) 20%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 24px 6px color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  }
+}
+
+.animate-glow-border {
+  animation: glow-border 3s ease-in-out infinite;
+}

@@ -1,38 +1,74 @@
 import { SkillGroup } from "@/types/resume";
+import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
   skillGroups: SkillGroup[];
+  style: ResumeStyle;
 }
 
-export default function PreviewSkills({ skillGroups }: Props) {
+export default function PreviewSkills({ skillGroups, style: tmpl }: Props) {
   if (skillGroups.length === 0) return null;
 
   return (
-    <div className="mb-5">
-      <h2 className="text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-400 mb-2 pb-1 border-b border-zinc-100">
+    <div style={{ marginBottom: "10pt" }}>
+      <h2
+        style={{
+          fontSize: "7pt",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "1.5pt",
+          color: hexWithAlpha(tmpl.accentColor, 0.4),
+          borderBottom: tmpl.sectionDivider === "line" ? `0.5pt solid ${hexWithAlpha(tmpl.accentColor, 0.15)}` : "none",
+          paddingBottom: "3pt",
+          marginBottom: "6pt",
+        }}
+      >
         Technical Skills
       </h2>
-      <div className="space-y-1.5">
-        {skillGroups.map((group) => (
-          <div key={group.id} className="flex gap-2 items-start">
-            {group.category && (
-              <span className="text-[8px] font-mono text-zinc-400 uppercase tracking-wider mt-0.5 flex-shrink-0 w-16">
-                {group.category}
+      {skillGroups.map((group) => (
+        <div
+          key={group.id}
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            marginBottom: "3pt",
+          }}
+        >
+          {group.category && (
+            <span
+              style={{
+                fontSize: "7.5pt",
+                color: "#9ca3af",
+                textTransform: "uppercase",
+                letterSpacing: "0.5pt",
+                marginRight: "4pt",
+                marginTop: "2pt",
+                flexShrink: 0,
+              }}
+            >
+              {group.category}
+            </span>
+          )}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "4pt", marginTop: "2pt" }}>
+            {group.skills.map((skill, i) => (
+              <span
+                key={i}
+                style={{
+                  fontSize: "7.5pt",
+                  border: `0.5pt solid ${hexWithAlpha(tmpl.accentColor, 0.2)}`,
+                  color: "#6b7280",
+                  paddingLeft: "4pt",
+                  paddingRight: "4pt",
+                  paddingTop: "1.5pt",
+                  paddingBottom: "1.5pt",
+                }}
+              >
+                {skill}
               </span>
-            )}
-            <div className="flex flex-wrap gap-1">
-              {group.skills.map((skill, i) => (
-                <span
-                  key={i}
-                  className="text-[8px] font-mono px-1.5 py-0.5 border border-zinc-200 text-zinc-500 rounded-sm"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

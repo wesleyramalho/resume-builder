@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import LinkedInIcon from "@/components/icons/LinkedInIcon";
 
 const LINKEDIN_OAUTH_ENABLED = process.env.NEXT_PUBLIC_LINKEDIN_OAUTH_ENABLED === "true";
 
@@ -38,7 +39,7 @@ export default function LandingNav() {
 
         <Link
           href="/dashboard"
-          className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
           Dashboard
         </Link>
@@ -51,8 +52,9 @@ export default function LandingNav() {
             size="sm"
             variant="ghost"
             onClick={() => void handleLinkedInImport()}
-            className="hidden md:flex font-mono text-xs uppercase tracking-widest"
+            className="hidden md:flex font-mono text-xs uppercase tracking-widest gap-2"
           >
+            <LinkedInIcon className="w-4 h-4" />
             LinkedIn Import
           </Button>
         )}

@@ -6,6 +6,7 @@ export function mapLinkedInOAuthToResume(profile: LinkedInProfile): Partial<Resu
   return {
     fullName: profile.name ?? "",
     headline: profile.headline ?? "",
+    photo: profile.picture ?? undefined,
     contact: {
       email: profile.email ?? "",
       phone: "",
