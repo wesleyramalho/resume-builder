@@ -6,8 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-montserrat-alt), sans-serif;
-  --font-mono: var(--font-orbitron), monospace;
+  --font-sans: var(--font-jakarta), sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
 
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);

@@ -6,22 +6,20 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 
-const montserratAlternates = localFont({
-  src: [
-    { path: "../../public/fonts/montserrat-alternates-400.woff2", weight: "400" },
-    { path: "../../public/fonts/montserrat-alternates-600.woff2", weight: "600" },
-    { path: "../../public/fonts/montserrat-alternates-700.woff2", weight: "700" },
-  ],
-  variable: "--font-montserrat-alt",
+// Variable font — single file covers all weights (400–800)
+const plusJakartaSans = localFont({
+  src: "../../public/fonts/plus-jakarta-sans.woff2",
+  weight: "100 800",
+  variable: "--font-jakarta",
   display: "swap",
 });
 
-const orbitron = localFont({
+const spaceMono = localFont({
   src: [
-    { path: "../../public/fonts/orbitron-400-700.woff2", weight: "400" },
-    { path: "../../public/fonts/orbitron-400-700.woff2", weight: "700" },
+    { path: "../../public/fonts/space-mono-400.woff2", weight: "400" },
+    { path: "../../public/fonts/space-mono-700.woff2", weight: "700" },
   ],
-  variable: "--font-orbitron",
+  variable: "--font-space-mono",
   display: "swap",
 });
 
@@ -43,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserratAlternates.variable} ${orbitron.variable}`}
+      className={`${plusJakartaSans.variable} ${spaceMono.variable}`}
       suppressHydrationWarning
     >
       <head>

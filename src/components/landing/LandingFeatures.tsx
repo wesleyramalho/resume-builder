@@ -6,17 +6,25 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlassCard from "@/components/ui/GlassCard";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { Eye, Download, GripVertical } from "lucide-react";
+import Link from "next/link";
 
 const SECTION_ROWS = ["Work Experience", "Skills & Expertise", "Education"];
-// Each entry is an ordering of indices into SECTION_ROWS
-// All 6 permutations for varied reorder animation
-const REORDER_SEQUENCE = [
-  [0, 1, 2], // Work, Skills, Edu
-  [2, 0, 1], // Edu, Work, Skills
-  [1, 2, 0], // Skills, Edu, Work
-  [0, 2, 1], // Work, Edu, Skills
-  [2, 1, 0], // Edu, Skills, Work
-  [1, 0, 2], // Skills, Work, Edu
+// Each pair is 2 adjacent swaps that together complete one full rotation.
+// swap[1,2] then swap[0,1] shifts everyone down one position cleanly.
+// 3 pairs = 3 rotations → naturally returns to original order.
+const ROTATION_PAIRS: [[number, number], [number, number]][] = [
+  [
+    [1, 2],
+    [2, 0],
+  ],
+  [
+    [1, 2],
+    [0, 1],
+  ],
+  [
+    [1, 2],
+    [0, 1],
+  ],
 ];
 
 export default function LandingFeatures() {
@@ -25,7 +33,9 @@ export default function LandingFeatures() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced) return;
 
     gsap.fromTo(
@@ -41,7 +51,7 @@ export default function LandingFeatures() {
           start: "top 90%",
           once: true,
         },
-      }
+      },
     );
 
     // Left cards stagger up
@@ -50,7 +60,13 @@ export default function LandingFeatures() {
         gsap.fromTo(
           batch,
           { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, ease: "power2.out", stagger: 0.15 }
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power2.out",
+            stagger: 0.15,
+          },
         ),
       once: true,
       start: "top 85%",
@@ -70,18 +86,19 @@ export default function LandingFeatures() {
           start: "top 85%",
           once: true,
         },
-      }
+      },
     );
 
     // Auto-play reorder animation on the section list (loops continuously)
     if (reorderRef.current) {
-      const items = reorderRef.current.querySelectorAll<HTMLElement>(".reorder-item");
+      const items =
+        reorderRef.current.querySelectorAll<HTMLElement>(".reorder-item");
       if (items.length === 3) {
         const ROW_HEIGHT = items[0].offsetHeight + 8; // item height + gap
 
         const tl = gsap.timeline({
           repeat: -1,
-          repeatDelay: 2,
+          repeatDelay: 0,
           scrollTrigger: {
             trigger: reorderRef.current,
             start: "top 85%",
@@ -90,20 +107,55 @@ export default function LandingFeatures() {
           delay: 1.5,
         });
 
-        // Cycle through all permutations
-        for (let s = 1; s < REORDER_SEQUENCE.length; s++) {
-          const label = `step${s}`;
-          for (let i = 0; i < 3; i++) {
-            const to = REORDER_SEQUENCE[s].indexOf(i);
-            if (to !== i) {
-              tl.to(items[i], { y: (to - i) * ROW_HEIGHT, duration: 0.5, ease: "power2.inOut" }, label);
-            }
-          }
+        // Track current visual position of each DOM item
+        const pos = [0, 1, 2]; // pos[domIdx] = visualPos
+
+        for (const [swap1, swap2] of ROTATION_PAIRS) {
+          // First adjacent swap (fast)
+          const [visA1, visB1] = swap1;
+          const domA1 = pos.indexOf(visA1);
+          const domB1 = pos.indexOf(visB1);
+          pos[domA1] = visB1;
+          pos[domB1] = visA1;
+          tl.to(items[domA1], {
+            y: (pos[domA1] - domA1) * ROW_HEIGHT,
+            duration: 0.25,
+            ease: "power2.inOut",
+          });
+          tl.to(
+            items[domB1],
+            {
+              y: (pos[domB1] - domB1) * ROW_HEIGHT,
+              duration: 0.25,
+              ease: "power2.inOut",
+            },
+            "<",
+          );
+
+          // Second adjacent swap immediately after (fast) — completes the full rotation
+          const [visA2, visB2] = swap2;
+          const domA2 = pos.indexOf(visA2);
+          const domB2 = pos.indexOf(visB2);
+          pos[domA2] = visB2;
+          pos[domB2] = visA2;
+          tl.to(items[domA2], {
+            y: (pos[domA2] - domA2) * ROW_HEIGHT,
+            duration: 0.25,
+            ease: "power2.inOut",
+          });
+          tl.to(
+            items[domB2],
+            {
+              y: (pos[domB2] - domB2) * ROW_HEIGHT,
+              duration: 0.25,
+              ease: "power2.inOut",
+            },
+            "<",
+          );
+
+          // Pause to show the stable rotation state
           tl.to({}, { duration: 2 });
         }
-
-        // Reset to original positions
-        tl.to(items, { y: 0, duration: 0.5, ease: "power2.inOut" }, "reset");
       }
     }
 
@@ -137,20 +189,28 @@ export default function LandingFeatures() {
                   Preview in Real-Time
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Watch your professional story evolve instantly. Our dual-pane system
-                  ensures your output is pixel-perfect as you type.
+                  Watch your professional story evolve instantly. Our dual-pane
+                  system ensures your output is pixel-perfect as you type.
                 </p>
               </div>
               {/* Mini preview mockup */}
               <div className="mt-auto flex gap-2 opacity-60">
                 <div className="flex-1 bg-surface-soft rounded border border-border p-2 space-y-1.5">
                   {[70, 50, 85, 45].map((w, i) => (
-                    <div key={i} className="h-1 bg-surface-strong rounded" style={{ width: `${w}%` }} />
+                    <div
+                      key={i}
+                      className="h-1 bg-surface-strong rounded"
+                      style={{ width: `${w}%` }}
+                    />
                   ))}
                 </div>
                 <div className="flex-1 bg-surface-soft rounded border border-border p-2 space-y-1.5">
                   {[80, 55, 70, 40].map((w, i) => (
-                    <div key={i} className="h-1 bg-surface-strong rounded" style={{ width: `${w}%` }} />
+                    <div
+                      key={i}
+                      className="h-1 bg-surface-strong rounded"
+                      style={{ width: `${w}%` }}
+                    />
                   ))}
                 </div>
               </div>
@@ -159,41 +219,50 @@ export default function LandingFeatures() {
             {/* Easy Export */}
             <GlassCard className="feature-card-left opacity-0 p-6 flex flex-col gap-4 min-h-65">
               <div className="w-10 h-10 flex items-center justify-center rounded-md bg-surface-soft border border-border">
-                <Download className="w-5 h-5 text-foreground" strokeWidth={1.5} />
+                <Download
+                  className="w-5 h-5 text-foreground"
+                  strokeWidth={1.5}
+                />
               </div>
               <div>
                 <h3 className="font-sans font-semibold text-foreground text-lg mb-2">
                   Easy Export
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  High-fidelity PDF exports that bypass applicant tracking systems (ATS)
-                  with ease. Clean metadata, professional formatting, always.
+                  High-fidelity PDF exports that bypass applicant tracking
+                  systems (ATS) with ease. Clean metadata, professional
+                  formatting, always.
                 </p>
               </div>
               {/* PDF download mockup */}
               <div className="mt-auto">
-                <div className="inline-flex items-center gap-2 bg-foreground text-background text-[10px] font-mono uppercase tracking-widest rounded px-3 py-2">
+                <Link
+                  href="/dashboard"
+                  className="inline-flex cursor-pointer items-center gap-2 bg-foreground text-background text-[10px] font-mono uppercase tracking-widest rounded px-3 py-2"
+                >
                   <Download className="w-3 h-3" strokeWidth={2} />
                   Download PDF
-                </div>
+                </Link>
               </div>
             </GlassCard>
           </div>
 
           {/* Right column — tall dark card */}
-          <div
-            className="feature-card-right opacity-0 rounded-xl bg-foreground text-background p-6 flex flex-col gap-4 min-h-135"
-          >
+          <div className="feature-card-right opacity-0 rounded-xl bg-foreground text-background p-6 flex flex-col gap-4 min-h-135">
             <div className="w-10 h-10 flex items-center justify-center rounded-md bg-white/10">
-              <GripVertical className="w-5 h-5 text-background/70" strokeWidth={1.5} />
+              <GripVertical
+                className="w-5 h-5 text-background/70"
+                strokeWidth={1.5}
+              />
             </div>
             <div>
               <h3 className="font-sans font-semibold text-background text-lg mb-2">
                 Reorder Sections
               </h3>
               <p className="text-sm text-background/60 leading-relaxed">
-                Drag, drop, and re-architect your resume hierarchy. Prioritize your
-                strengths based on the specific role you&apos;re targeting with zero friction.
+                Drag, drop, and re-architect your resume hierarchy. Prioritize
+                your strengths based on the specific role you&apos;re targeting
+                with zero friction.
               </p>
             </div>
 
@@ -211,7 +280,9 @@ export default function LandingFeatures() {
                   <span className="text-xs font-mono uppercase tracking-widest text-background/70">
                     {label}
                   </span>
-                  <span className="text-background/30 text-sm font-mono">—</span>
+                  <span className="text-background/30 text-sm font-mono">
+                    —
+                  </span>
                 </div>
               ))}
             </div>

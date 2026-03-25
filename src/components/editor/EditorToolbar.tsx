@@ -72,8 +72,10 @@ export default function EditorToolbar({ resume }: Props) {
     if (intent !== "import" || hasConsumedImportIntent.current) return;
     if (status === "loading" || !session) return;
     hasConsumedImportIntent.current = true;
-    void handleLinkedInImport();
-    router.replace(`/editor/${resume.id}`);
+    void (async () => {
+      await handleLinkedInImport();
+      router.replace(`/editor/${resume.id}`);
+    })();
   }, [handleLinkedInImport, searchParams, session, status, resume.id, router]);
 
   return (
