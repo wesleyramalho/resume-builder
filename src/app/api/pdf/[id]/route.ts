@@ -18,7 +18,14 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Invalid data parameter" }, { status: 400 });
   }
 
-  const buffer = await generateResumePDF(resume);
+  let buffer: Buffer;
+  try {
+    buffer = await generateResumePDF(resume);
+  } catch (err) {
+    console.error("[pdf] generation error:", err);
+    const message = process.env.NODE_ENV === "development" ? String(err) : "PDF rendering failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
   const uint8 = new Uint8Array(buffer);
 
   return new NextResponse(uint8, {

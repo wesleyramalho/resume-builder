@@ -1,39 +1,131 @@
 "use client";
 
-import { User, Briefcase, GraduationCap, Zap, Code } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  useSortable,
+  arrayMove,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { User, Briefcase, GraduationCap, Zap, Code, FileText, GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useResumeStore } from "@/store/useResumeStore";
 
-const SECTIONS = [
-  { id: "personal", label: "Personal Info", icon: User },
-  { id: "experience", label: "Experience", icon: Briefcase },
-  { id: "education", label: "Education", icon: GraduationCap },
-  { id: "skills", label: "Skills", icon: Zap },
-  { id: "projects", label: "Projects", icon: Code },
-];
+const SECTION_META: Record<string, { label: string; icon: React.ElementType }> = {
+  personal:   { label: "Personal Info", icon: User },
+  experience: { label: "Experience",    icon: Briefcase },
+  education:  { label: "Education",     icon: GraduationCap },
+  skills:     { label: "Skills",        icon: Zap },
+  projects:   { label: "Projects",      icon: Code },
+  summary:    { label: "Summary",       icon: FileText },
+};
 
-interface Props {
+const DEFAULT_ORDER = ["experience", "education", "skills", "projects", "summary"];
+
+interface SortableItemProps {
+  id: string;
   activeSection: string;
   onSelect: (id: string) => void;
 }
 
-export default function EditorNav({ activeSection, onSelect }: Props) {
+function SortableItem({ id, activeSection, onSelect }: SortableItemProps) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id });
+
+  const meta = SECTION_META[id];
+  if (!meta) return null;
+  const Icon = meta.icon;
+
   return (
-    <nav className="flex flex-col gap-1 py-4">
-      {SECTIONS.map(({ id, label, icon: Icon }) => (
-        <button
-          key={id}
-          onClick={() => onSelect(id)}
-          className={cn(
-            "flex items-center gap-3 px-3 py-2.5 rounded-md text-left text-xs font-mono uppercase tracking-widest transition-colors",
-            activeSection === id
-              ? "bg-surface-strong text-foreground"
-              : "text-muted-foreground hover:text-foreground hover:bg-surface-soft"
-          )}
-        >
-          <Icon className="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
-          {label}
-        </button>
-      ))}
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      className={cn(
+        "flex items-center gap-1 rounded-md transition-colors",
+        isDragging && "opacity-50 bg-surface-strong",
+      )}
+    >
+      {/* Drag handle */}
+      <button
+        {...listeners}
+        {...attributes}
+        tabIndex={-1}
+        aria-label="Drag to reorder"
+        className="p-1 text-muted-foreground/40 hover:text-muted-foreground cursor-grab active:cursor-grabbing shrink-0"
+      >
+        <GripVertical className="w-3.5 h-3.5" strokeWidth={1.5} />
+      </button>
+
+      {/* Section button */}
+      <button
+        onClick={() => onSelect(id)}
+        className={cn(
+          "flex-1 flex items-center gap-2.5 px-2 py-2.5 rounded-md text-left text-xs font-mono uppercase tracking-widest transition-colors",
+          activeSection === id
+            ? "bg-surface-strong text-foreground"
+            : "text-muted-foreground hover:text-foreground hover:bg-surface-soft"
+        )}
+      >
+        <Icon className="w-4 h-4 shrink-0" strokeWidth={1.5} />
+        {meta.label}
+      </button>
+    </div>
+  );
+}
+
+interface Props {
+  resumeId: string;
+  sectionOrder: string[];
+  activeSection: string;
+  onSelect: (id: string) => void;
+}
+
+export default function EditorNav({ resumeId, sectionOrder, activeSection, onSelect }: Props) {
+  const reorderSections = useResumeStore((s) => s.reorderSections);
+  const order = sectionOrder.length > 0 ? sectionOrder : DEFAULT_ORDER;
+
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }));
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const oldIndex = order.indexOf(String(active.id));
+    const newIndex = order.indexOf(String(over.id));
+    if (oldIndex === -1 || newIndex === -1) return;
+    reorderSections(resumeId, arrayMove(order, oldIndex, newIndex));
+  }
+
+  return (
+    <nav className="flex flex-col gap-0.5 py-4">
+      {/* Personal Info is always pinned at top, non-draggable */}
+      <button
+        onClick={() => onSelect("personal")}
+        className={cn(
+          "flex items-center gap-2.5 px-3 py-2.5 ml-5 rounded-md text-left text-xs font-mono uppercase tracking-widest transition-colors",
+          activeSection === "personal"
+            ? "bg-surface-strong text-foreground"
+            : "text-muted-foreground hover:text-foreground hover:bg-surface-soft"
+        )}
+      >
+        <User className="w-4 h-4 shrink-0" strokeWidth={1.5} />
+        Personal Info
+      </button>
+
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={order} strategy={verticalListSortingStrategy}>
+          {order.map((id) => (
+            <SortableItem key={id} id={id} activeSection={activeSection} onSelect={onSelect} />
+          ))}
+        </SortableContext>
+      </DndContext>
     </nav>
   );
 }

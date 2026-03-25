@@ -17,13 +17,22 @@ export default function ResumeGrid({ resumes }: Props) {
   const createResume = useResumeStore((s) => s.createResume);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced || resumes.length === 0) return;
 
     gsap.fromTo(
       ".resume-card",
       { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.08, delay: 0.1 }
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.08,
+        delay: 0.1,
+      },
     );
   }, [resumes.length]);
 

@@ -1,40 +1,46 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import GlowBorderCanvas from "@/components/ui/GlowBorderCanvas";
-
-const LINKEDIN_OAUTH_ENABLED = process.env.NEXT_PUBLIC_LINKEDIN_OAUTH_ENABLED === "true";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function LandingCTA() {
+  const cardRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const [linkedInError, setLinkedInError] = useState<string | null>(null);
 
-  function handleStart() {
-    router.push("/dashboard");
-  }
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-  async function handleLinkedInImport() {
-    setLinkedInError(null);
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
 
-    if (!LINKEDIN_OAUTH_ENABLED) {
-      setLinkedInError("LinkedIn import is not configured yet. Add LinkedIn OAuth env values.");
-      return;
+    if (cardRef.current) {
+      gsap.fromTo(
+        cardRef.current,
+        { opacity: 0, scale: 0.96, y: 24 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
     }
-
-    try {
-      await signIn("linkedin", { callbackUrl: "/dashboard?intent=import" });
-    } catch {
-      setLinkedInError("LinkedIn sign-in is unavailable right now. Please try again shortly.");
-    }
-  }
+  }, []);
 
   return (
     <section className="py-32 px-6 md:px-12">
       <div className="max-w-2xl mx-auto text-center">
-        <div className="relative inline-block w-full">
+        <div ref={cardRef} className="relative inline-block w-full" style={{ opacity: 0 }}>
           {/* Glow border */}
           <GlowBorderCanvas
             borderRadius={12}
@@ -43,13 +49,13 @@ export default function LandingCTA() {
 
           <div className="relative bg-card border border-border rounded-xl p-12 shadow-sm">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
-              Minimal Effort Design
+              Start Your Story
             </p>
             <h2
               className="font-sans font-bold text-foreground mb-6"
               style={{ fontSize: "clamp(1.8rem, 4vw, 3.5rem)" }}
             >
-              Build Your Statement.
+              Build Your Resume.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto leading-relaxed">
               Join professionals who treat their resume as a career document, not a
@@ -58,25 +64,22 @@ export default function LandingCTA() {
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Button
                 size="lg"
-                onClick={handleStart}
+                onClick={() => router.push("/dashboard")}
                 className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest px-10"
               >
-                Start Drafting
+                Build Your Resume
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => void handleLinkedInImport()}
+                onClick={() => {
+                  document.getElementById("sample")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="font-mono text-xs uppercase tracking-widest px-8"
               >
-                Import from LinkedIn
+                View Gallery
               </Button>
             </div>
-            {linkedInError ? (
-              <p className="mt-4 text-[11px] text-destructive font-mono uppercase tracking-wider">
-                {linkedInError}
-              </p>
-            ) : null}
           </div>
         </div>
       </div>

@@ -54,7 +54,7 @@ export default function LandingResumeSample() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <SectionHeading className="sample-label mb-4 justify-center">
-            Minimal — By Design
+            Minimalist Design
           </SectionHeading>
           <h2
             className="font-sans font-bold text-foreground"
@@ -79,7 +79,7 @@ export default function LandingResumeSample() {
               Senior Technical Architect | New York City
             </p>
             <div className="flex flex-wrap gap-4 mt-3 text-xs text-text-subtle">
-              <span>alex.vaughn@architectsuite.pro</span>
+              <span>alex.vaughn@buildmyresume.io</span>
               <span>+1 (555) 847 3441</span>
               <span>New York, NY</span>
             </div>
@@ -118,7 +118,7 @@ export default function LandingResumeSample() {
                   "Maintained a team of 12 architects, fostering a culture of editorial design excellence.",
                 ].map((item, i) => (
                   <li key={i} className="text-xs text-muted-foreground flex gap-2">
-                    <span className="text-border mt-0.5 flex-shrink-0">•</span>
+                    <span className="text-border mt-0.5 shrink-0">•</span>
                     {item}
                   </li>
                 ))}
@@ -159,7 +159,7 @@ export default function LandingResumeSample() {
 
           {/* Quote */}
           <p className="mt-8 pt-6 border-t border-border text-xs text-text-subtle italic text-center">
-            &ldquo;ArchitectSuite transformed my resume from a simple list into a career statement.&rdquo;
+            &ldquo;Build My Resume transformed my resume from a simple list into a career statement.&rdquo;
           </p>
         </div>
       </div>
