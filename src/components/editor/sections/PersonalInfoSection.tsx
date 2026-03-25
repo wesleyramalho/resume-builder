@@ -4,6 +4,7 @@ import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/
 import { FormInput, FormTextarea } from "@/components/ui/FormInput";
 import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
+import AIImproveButton from "@/components/ui/AIImproveButton";
 
 interface Props {
   resumeId: string;
@@ -51,6 +52,13 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
           onChange={(e) => update({ summary: e.target.value })}
           placeholder="Dedicated to building scalable, design-forward products..."
           rows={3}
+          action={
+            <AIImproveButton
+              text={data.summary}
+              fieldType="summary"
+              onAccept={(v) => update({ summary: v })}
+            />
+          }
         />
 
         <div className="border-t border-border pt-4">
