@@ -6,10 +6,12 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 
-// Variable font — single file covers all weights (400–800)
 const plusJakartaSans = localFont({
-  src: "../../public/fonts/plus-jakarta-sans.woff2",
-  weight: "100 800",
+  src: [
+    { path: "../../public/fonts/plus-jakarta-sans.woff2", weight: "400" },
+    { path: "../../public/fonts/plus-jakarta-sans.woff2", weight: "600" },
+    { path: "../../public/fonts/plus-jakarta-sans.woff2", weight: "700" },
+  ],
   variable: "--font-jakarta",
   display: "swap",
 });
