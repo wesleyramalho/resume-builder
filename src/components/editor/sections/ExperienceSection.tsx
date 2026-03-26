@@ -66,7 +66,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
 
   return (
     <AccordionItem value="experience" className="border-border">
-      <AccordionTrigger className="text-sm font-mono uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
+      <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
         Experience
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
           {fields.length} {fields.length === 1 ? "entry" : "entries"}
@@ -78,7 +78,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
           return (
             <div key={field.id} className="border border-border bg-card rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between mb-1">
-                <p className="text-xs font-mono text-text-subtle">
+                <p className="text-xs font-sans text-text-subtle">
                   {exp?.company || `Experience ${idx + 1}`}
                 </p>
                 <button
@@ -169,7 +169,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
             current: false,
             description: "",
           })}
-          className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-mono text-xs uppercase tracking-widest gap-2 h-10"
+          className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-sans text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />
           Add Experience

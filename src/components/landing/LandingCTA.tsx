@@ -48,7 +48,7 @@ export default function LandingCTA() {
           />
 
           <div className="relative bg-card border border-border rounded-xl p-6 sm:p-12 shadow-sm">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
+            <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
               Start Your Story
             </p>
             <h2
@@ -65,7 +65,7 @@ export default function LandingCTA() {
               <Button
                 size="lg"
                 onClick={() => router.push("/dashboard")}
-                className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest px-10"
+                className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest px-10"
               >
                 Build Your Resume
               </Button>

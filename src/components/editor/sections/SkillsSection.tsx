@@ -83,7 +83,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
 
   return (
     <AccordionItem value="skills" className="border-border">
-      <AccordionTrigger className="text-sm font-mono uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
+      <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
         Skills
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
           {totalSkills} skills
@@ -116,7 +116,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
                 {skills.map((skill) => (
                   <span
                     key={skill}
-                    className="flex items-center gap-1 px-2 py-0.5 bg-surface-soft border border-border rounded text-xs font-mono"
+                    className="flex items-center gap-1 px-2 py-0.5 bg-surface-soft border border-border rounded text-xs font-sans"
                   >
                     {skill}
                     <button
@@ -161,7 +161,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
         <Button
           variant="ghost"
           onClick={() => append({ id: generateId(), category: "", skills: [] })}
-          className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-mono text-xs uppercase tracking-widest gap-2 h-10"
+          className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-sans text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />
           Add Skill Group

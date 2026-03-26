@@ -7,6 +7,7 @@ import ResumeGrid from "@/components/dashboard/ResumeGrid";
 // import CareerInsights from "@/components/dashboard/CareerInsights";
 import Link from "next/link";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Footer from "@/components/Footer";
 
 export default function DashboardPage() {
   const resumes = useResumeStore((s) => s.resumes);
@@ -18,7 +19,7 @@ export default function DashboardPage() {
         <div className="flex items-center gap-8">
           <Link
             href="/"
-            className="font-mono text-sm font-bold uppercase tracking-widest text-foreground"
+            className="font-sans text-sm font-bold uppercase tracking-widest text-foreground"
           >
             MyPDFCV
           </Link>
@@ -47,6 +48,7 @@ export default function DashboardPage() {
           </aside> */}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

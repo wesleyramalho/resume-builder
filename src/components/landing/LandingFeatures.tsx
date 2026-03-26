@@ -238,7 +238,7 @@ export default function LandingFeatures() {
               <div className="mt-auto">
                 <Link
                   href="/dashboard"
-                  className="inline-flex cursor-pointer items-center gap-2 bg-foreground text-background text-[10px] font-mono uppercase tracking-widest rounded px-3 py-2"
+                  className="inline-flex cursor-pointer items-center gap-2 bg-foreground text-background text-[10px] font-sans uppercase tracking-widest rounded px-3 py-2"
                 >
                   <Download className="w-3 h-3" strokeWidth={2} />
                   Download PDF
@@ -277,10 +277,10 @@ export default function LandingFeatures() {
                       : "border-white/10 bg-white/5"
                   }`}
                 >
-                  <span className="text-xs font-mono uppercase tracking-widest text-background/70">
+                  <span className="text-xs font-sans uppercase tracking-widest text-background/70">
                     {label}
                   </span>
-                  <span className="text-background/30 text-sm font-mono">
+                  <span className="text-background/30 text-sm font-sans">
                     —
                   </span>
                 </div>

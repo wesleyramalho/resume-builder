@@ -51,7 +51,7 @@ export default function MonthYearPicker({
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label htmlFor={id} className="text-xs font-mono uppercase tracking-widest text-text-subtle">
+        <label htmlFor={id} className="text-xs font-sans uppercase tracking-widest text-text-subtle">
           {label}
         </label>
       )}
@@ -79,7 +79,7 @@ export default function MonthYearPicker({
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <span className="text-sm font-mono font-semibold text-foreground">
+                <span className="text-sm font-sans font-semibold text-foreground">
                   {viewYear}
                 </span>
                 <button
@@ -100,7 +100,7 @@ export default function MonthYearPicker({
                       key={month}
                       type="button"
                       onClick={() => handleSelect(i)}
-                      className={`rounded-md px-2 py-1.5 text-xs font-mono transition-colors ${
+                      className={`rounded-md px-2 py-1.5 text-xs font-sans transition-colors ${
                         isSelected
                           ? "bg-foreground text-background"
                           : "text-foreground hover:bg-surface-soft"

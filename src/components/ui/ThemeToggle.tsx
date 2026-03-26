@@ -12,7 +12,7 @@ export default function ThemeToggle() {
       size="sm"
       variant="outline"
       onClick={toggleTheme}
-      className="font-mono text-[10px] uppercase tracking-widest gap-1.5"
+      className="font-sans text-[10px] uppercase tracking-widest gap-1.5"
       aria-label="Toggle color theme"
       title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >

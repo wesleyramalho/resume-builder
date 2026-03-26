@@ -33,7 +33,7 @@ export default function LandingNav() {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="flex items-center gap-8">
-        <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
+        <Link href="/" className="font-sans text-sm font-bold uppercase tracking-widest text-foreground">
           MyPDFCV
         </Link>
 
@@ -52,7 +52,7 @@ export default function LandingNav() {
             size="sm"
             variant="ghost"
             onClick={() => void handleLinkedInImport()}
-            className="hidden md:flex font-mono text-xs uppercase tracking-widest gap-2"
+            className="hidden md:flex font-sans text-xs uppercase tracking-widest gap-2"
           >
             <LinkedInIcon className="w-4 h-4" />
             LinkedIn Import
@@ -61,14 +61,14 @@ export default function LandingNav() {
         <Button
           size="sm"
           onClick={() => router.push("/dashboard")}
-          className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest"
+          className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest"
         >
           {session ? "My Resumes" : "Build Your Resume"}
         </Button>
       </div>
 
       {linkedInError ? (
-        <p className="absolute top-full right-6 mt-2 text-[10px] text-destructive font-mono uppercase tracking-wider">
+        <p className="absolute top-full right-6 mt-2 text-[10px] text-destructive font-sans uppercase tracking-wider">
           {linkedInError}
         </p>
       ) : null}

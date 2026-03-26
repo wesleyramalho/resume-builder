@@ -7,7 +7,7 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="border-b border-border px-6 md:px-12 py-4">
-        <Link href="/" className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
+        <Link href="/" className="font-sans text-sm font-bold uppercase tracking-widest text-foreground">
           MyPDFCV
         </Link>
       </nav>

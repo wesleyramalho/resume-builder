@@ -75,7 +75,7 @@ export default function LandingResumeSample() {
             <h3 className="text-2xl font-bold uppercase tracking-widest text-card-foreground">
               Alexander Vaughn
             </h3>
-            <p className="text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground mt-1">
+            <p className="text-xs font-sans uppercase tracking-[0.15em] text-muted-foreground mt-1">
               Senior Technical Architect | New York City
             </p>
             <div className="flex flex-wrap gap-4 mt-3 text-xs text-text-subtle">
@@ -87,7 +87,7 @@ export default function LandingResumeSample() {
 
           {/* Profile */}
           <div className="mb-6">
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-text-subtle mb-2">
+            <h4 className="text-[10px] font-sans uppercase tracking-[0.2em] text-text-subtle mb-2">
               Profile
             </h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -98,7 +98,7 @@ export default function LandingResumeSample() {
 
           {/* Experience */}
           <div className="mb-6">
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-text-subtle mb-3">
+            <h4 className="text-[10px] font-sans uppercase tracking-[0.2em] text-text-subtle mb-3">
               Professional Experience
             </h4>
             <div className="mb-4">
@@ -109,7 +109,7 @@ export default function LandingResumeSample() {
                   </p>
                   <p className="text-xs text-muted-foreground">Principal Systems Lead</p>
                 </div>
-                <span className="text-[10px] text-text-subtle font-mono">Jan 2019 – Present</span>
+                <span className="text-[10px] text-text-subtle font-sans">Jan 2019 – Present</span>
               </div>
               <ul className="mt-2 space-y-1">
                 {[
@@ -128,7 +128,7 @@ export default function LandingResumeSample() {
 
           {/* Education */}
           <div className="mb-6">
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-text-subtle mb-2">
+            <h4 className="text-[10px] font-sans uppercase tracking-[0.2em] text-text-subtle mb-2">
               Education
             </h4>
             <div className="flex justify-between">
@@ -136,20 +136,20 @@ export default function LandingResumeSample() {
                 <p className="text-sm font-bold text-card-foreground">Pratt Institute</p>
                 <p className="text-xs text-muted-foreground">Bachelor of Architecture & Art</p>
               </div>
-              <span className="text-[10px] text-text-subtle font-mono">Sep – 2008</span>
+              <span className="text-[10px] text-text-subtle font-sans">Sep – 2008</span>
             </div>
           </div>
 
           {/* Skills */}
           <div>
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-text-subtle mb-2">
+            <h4 className="text-[10px] font-sans uppercase tracking-[0.2em] text-text-subtle mb-2">
               Technical Skills
             </h4>
             <div className="flex flex-wrap gap-2">
               {["Revit", "AutoCAD", "Rhino 3D", "V-Ray", "Grasshopper"].map((s) => (
                 <span
                   key={s}
-                  className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider border border-border text-muted-foreground rounded"
+                  className="px-2 py-0.5 text-[10px] font-sans uppercase tracking-wider border border-border text-muted-foreground rounded"
                 >
                   {s}
                 </span>

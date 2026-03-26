@@ -96,7 +96,7 @@ export default function DashboardHeader() {
   return (
     <header className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between mb-12 gap-4">
       <div>
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-subtle mb-2">
+        <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-2">
           Portfolio Overview
         </p>
         <h1 className="font-sans font-bold text-foreground" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}>
@@ -111,7 +111,7 @@ export default function DashboardHeader() {
       <div className="flex flex-wrap items-center gap-2">
         <Button
           onClick={() => setPickerOpen(true)}
-          className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest gap-2"
+          className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest gap-2"
         >
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline">Create New Resume</span>
@@ -124,7 +124,7 @@ export default function DashboardHeader() {
               variant="outline"
               disabled={isImporting}
               onClick={() => void handleLinkedInImport(false)}
-              className="font-mono text-xs uppercase tracking-widest gap-2"
+              className="font-sans text-xs uppercase tracking-widest gap-2"
             >
               <LinkedInIcon className="w-4 h-4" />
               <span className="hidden sm:inline">{isImporting ? "Importing..." : "Import from LinkedIn"}</span>
@@ -133,7 +133,7 @@ export default function DashboardHeader() {
 
             <DropdownMenu>
               <DropdownMenuTrigger
-                className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-mono text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden"
+                className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden"
               >
                 {session.user?.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -161,7 +161,7 @@ export default function DashboardHeader() {
           <Button
             variant="outline"
             onClick={() => signIn("linkedin", { callbackUrl: "/dashboard?intent=import" })}
-            className="font-mono text-xs uppercase tracking-widest gap-2"
+            className="font-sans text-xs uppercase tracking-widest gap-2"
           >
             <LinkedInIcon className="w-4 h-4" />
             Sign In with LinkedIn
@@ -169,7 +169,7 @@ export default function DashboardHeader() {
         )}
       </div>
       {importError ? (
-        <p className="absolute -bottom-6 right-0 text-xs text-destructive font-mono">{importError}</p>
+        <p className="absolute -bottom-6 right-0 text-xs text-destructive font-sans">{importError}</p>
       ) : null}
 
       <TemplatePicker

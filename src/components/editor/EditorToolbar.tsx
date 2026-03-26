@@ -102,7 +102,7 @@ export default function EditorToolbar({ resume }: Props) {
       {/* Template switcher */}
       <button
         onClick={() => setTemplatePickerOpen(true)}
-        className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border hover:border-ring shrink-0"
+        className="flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border hover:border-ring shrink-0"
       >
         <Palette className="w-3 h-3" />
         <span className="hidden sm:inline">{currentTemplate?.name ?? "Default"}</span>
@@ -114,7 +114,7 @@ export default function EditorToolbar({ resume }: Props) {
       />
 
       {/* Save status */}
-      <div className="hidden sm:flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+      <div className="hidden sm:flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-muted-foreground">
         {saveStatus === "saving" ? (
           <>
             <Loader2 className="w-3 h-3 animate-spin" />
@@ -134,7 +134,7 @@ export default function EditorToolbar({ resume }: Props) {
           variant="outline"
           onClick={() => void handleLinkedInImport()}
           disabled={importing}
-          className="font-mono text-xs uppercase tracking-widest gap-2 h-8 hidden sm:inline-flex"
+          className="font-sans text-xs uppercase tracking-widest gap-2 h-8 hidden sm:inline-flex"
         >
           {importing ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -148,7 +148,7 @@ export default function EditorToolbar({ resume }: Props) {
         size="sm"
         onClick={() => exportPDF(resume)}
         disabled={exporting}
-        className="font-mono text-xs uppercase tracking-widest gap-2 h-8"
+        className="font-sans text-xs uppercase tracking-widest gap-2 h-8"
       >
         {exporting ? (
           <Loader2 className="w-3.5 h-3.5 animate-spin" />

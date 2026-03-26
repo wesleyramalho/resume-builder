@@ -36,24 +36,24 @@ export default function CareerInsights({ resumes }: Props) {
 
   return (
     <div className="space-y-4">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
+      <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
         Career Insights
       </p>
 
       {/* Total Exports */}
       <div className="bg-card border border-border rounded-lg p-5 shadow-sm">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-text-subtle mb-1">
+        <p className="font-sans text-[10px] uppercase tracking-widest text-text-subtle mb-1">
           Total Exports
         </p>
         <p className="font-sans font-bold text-3xl text-foreground">
           {totalExports}
         </p>
-        <p className="font-mono text-[10px] text-muted-foreground mt-1">PDFs</p>
+        <p className="font-sans text-[10px] text-muted-foreground mt-1">PDFs</p>
       </div>
 
       {/* Profile Score */}
       <div className="bg-card border border-border rounded-lg p-5 shadow-sm">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-text-subtle mb-1">
+        <p className="font-sans text-[10px] uppercase tracking-widest text-text-subtle mb-1">
           Profile Score
         </p>
         <p className="font-sans font-bold text-3xl text-foreground">
@@ -70,13 +70,13 @@ export default function CareerInsights({ resumes }: Props) {
 
       {/* Active Goal */}
       <div className="bg-brand-secondary text-white rounded-lg p-5">
-        <p className="font-mono text-[10px] uppercase tracking-widest opacity-60 mb-1">
+        <p className="font-sans text-[10px] uppercase tracking-widest opacity-60 mb-1">
           Completed Resumes
         </p>
         <p className="font-sans font-bold text-2xl">
           {completeCount} / {resumes.length}
         </p>
-        <button className="font-mono text-[10px] uppercase tracking-widest mt-2 opacity-60 hover:opacity-100 transition-opacity">
+        <button className="font-sans text-[10px] uppercase tracking-widest mt-2 opacity-60 hover:opacity-100 transition-opacity">
           View Plan →
         </button>
       </div>

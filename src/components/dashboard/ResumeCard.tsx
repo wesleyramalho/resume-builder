@@ -60,7 +60,7 @@ export default function ResumeCard({ resume }: Props) {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="bg-background/90 backdrop-blur-sm border border-border rounded-full px-3 py-1 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-amber-400">
+                <span className="font-sans text-[10px] uppercase tracking-widest text-amber-400">
                   Drafting
                 </span>
               </div>
@@ -79,7 +79,7 @@ export default function ResumeCard({ resume }: Props) {
             </h3>
             <Badge
               variant={resume.status === "complete" ? "default" : "secondary"}
-              className={`text-[10px] font-mono uppercase tracking-widest flex-shrink-0 ${
+              className={`text-[10px] font-sans uppercase tracking-widest flex-shrink-0 ${
                 resume.status === "complete"
                   ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20"
                   : "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20"
@@ -88,7 +88,7 @@ export default function ResumeCard({ resume }: Props) {
               {resume.status}
             </Badge>
           </div>
-          <p className="text-[11px] text-muted-foreground font-mono mb-3">
+          <p className="text-[11px] text-muted-foreground font-sans mb-3">
             {resume.status === "draft" ? "Created" : "Last edited"}{" "}
             {formatDate(resume.updatedAt)}
           </p>
@@ -98,7 +98,7 @@ export default function ResumeCard({ resume }: Props) {
             <Button
               size="sm"
               onClick={handleEdit}
-              className="flex-1 font-mono text-xs uppercase tracking-widest h-8"
+              className="flex-1 font-sans text-xs uppercase tracking-widest h-8"
             >
               {resume.status === "draft" ? "Continue Drafting" : "Edit"}
             </Button>

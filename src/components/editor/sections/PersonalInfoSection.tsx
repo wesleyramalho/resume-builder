@@ -66,7 +66,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
 
   return (
     <AccordionItem value="personal" className="border-border">
-      <AccordionTrigger className="text-sm font-mono uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
+      <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
         Personal Info
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-4">
@@ -92,7 +92,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
             className="hidden"
           />
           <div className="flex flex-col gap-1">
-            <p className="text-xs font-mono uppercase tracking-widest text-text-subtle">
+            <p className="text-xs font-sans uppercase tracking-widest text-text-subtle">
               Profile Photo
             </p>
             <p className="text-[10px] text-muted-foreground">
@@ -161,7 +161,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
         />
 
         <div className="border-t border-border pt-4">
-          <p className="text-xs font-mono uppercase tracking-widest text-text-subtle mb-3">Contact</p>
+          <p className="text-xs font-sans uppercase tracking-widest text-text-subtle mb-3">Contact</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput
               id="email"

@@ -56,7 +56,7 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
         type="button"
         disabled={disabled || status === "loading"}
         onClick={handleImprove}
-        className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="inline-flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest text-muted-foreground hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
         {status === "loading" ? (
           <>
@@ -75,13 +75,13 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
 
       {/* Error message */}
       {status === "error" && errorMsg && (
-        <p className="text-[10px] text-destructive font-mono">{errorMsg}</p>
+        <p className="text-[10px] text-destructive font-sans">{errorMsg}</p>
       )}
 
       {/* Suggestion panel */}
       {status === "suggestion" && suggestion && (
         <div className="rounded-md border border-brand-secondary/30 bg-brand-secondary/5 p-3">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-1.5">
+          <p className="text-[10px] font-sans uppercase tracking-widest text-muted-foreground mb-1.5">
             AI Suggestion
           </p>
           <p className="text-sm text-foreground whitespace-pre-line leading-relaxed">
@@ -91,7 +91,7 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
             <button
               type="button"
               onClick={handleAccept}
-              className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-brand-secondary hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-brand-secondary hover:text-foreground transition-colors"
             >
               <Check className="w-3 h-3" />
               Accept
@@ -99,7 +99,7 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
             <button
               type="button"
               onClick={handleDismiss}
-              className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
             >
               <X className="w-3 h-3" />
               Dismiss

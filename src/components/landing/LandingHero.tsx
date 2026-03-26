@@ -153,7 +153,7 @@ export default function LandingHero() {
             <Button
               size="lg"
               onClick={() => router.push("/dashboard")}
-              className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest"
+              className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest"
             >
               Start Drafting →
             </Button>
@@ -225,7 +225,7 @@ export default function LandingHero() {
                       className="w-3 h-3 text-foreground"
                       strokeWidth={1.5}
                     />
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-foreground">
+                    <span className="text-[9px] font-sans uppercase tracking-widest text-foreground">
                       Live Preview
                     </span>
                   </div>

@@ -68,7 +68,7 @@ function SortableItem({ id, activeSection, onSelect }: SortableItemProps) {
       <button
         onClick={() => onSelect(id)}
         className={cn(
-          "flex-1 flex items-center gap-2.5 px-2 py-2.5 rounded-md text-left text-xs font-mono uppercase tracking-widest transition-colors",
+          "flex-1 flex items-center gap-2.5 px-2 py-2.5 rounded-md text-left text-xs font-sans uppercase tracking-widest transition-colors",
           activeSection === id
             ? "bg-surface-strong text-foreground"
             : "text-muted-foreground hover:text-foreground hover:bg-surface-soft"
@@ -109,7 +109,7 @@ export default function EditorNav({ resumeId, sectionOrder, activeSection, onSel
       <button
         onClick={() => onSelect("personal")}
         className={cn(
-          "flex items-center gap-2.5 px-3 py-2.5 ml-5 rounded-md text-left text-xs font-mono uppercase tracking-widest transition-colors",
+          "flex items-center gap-2.5 px-3 py-2.5 ml-5 rounded-md text-left text-xs font-sans uppercase tracking-widest transition-colors",
           activeSection === "personal"
             ? "bg-surface-strong text-foreground"
             : "text-muted-foreground hover:text-foreground hover:bg-surface-soft"

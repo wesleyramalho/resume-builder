@@ -16,13 +16,13 @@ export default function Footer() {
           href="https://wesleyramalho.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
           <Image
             src="/pixel-me.svg"
             alt="Wesley Ramalho"
-            width={20}
-            height={20}
+            width={28}
+            height={28}
             className="rounded bg-black"
           />
           Created by wesleyramalho.com

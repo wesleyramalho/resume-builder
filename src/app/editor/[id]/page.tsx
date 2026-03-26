@@ -15,6 +15,7 @@ import EducationSection from "@/components/editor/sections/EducationSection";
 import SkillsSection from "@/components/editor/sections/SkillsSection";
 import ProjectsSection from "@/components/editor/sections/ProjectsSection";
 import ResumePreview from "@/components/editor/preview/ResumePreview";
+import Footer from "@/components/Footer";
 import type { ResumeData } from "@/types/resume";
 
 const SECTION_COMPONENTS: Record<string, React.FC<{ resumeId: string; data: ResumeData }>> = {
@@ -77,7 +78,7 @@ export default function EditorPage({ params }: Props) {
         {/* Left: nav sidebar */}
         <aside className="border-r border-border px-3 flex flex-col bg-surface-soft/60">
           <div className="mb-2 mt-3">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-subtle px-3">
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-text-subtle px-3">
               Professional Draft #1
             </p>
           </div>
@@ -89,11 +90,11 @@ export default function EditorPage({ params }: Props) {
           />
 
           <div className="mt-auto pb-4 px-3 space-y-2">
-            <button className="flex items-center gap-2 w-full text-xs font-mono text-muted-foreground hover:text-foreground transition-colors py-1">
+            <button className="flex items-center gap-2 w-full text-xs font-sans text-muted-foreground hover:text-foreground transition-colors py-1">
               <span className="text-base leading-none">⚙</span>
               Settings
             </button>
-            <button className="flex items-center gap-2 w-full text-xs font-mono text-muted-foreground hover:text-foreground transition-colors py-1">
+            <button className="flex items-center gap-2 w-full text-xs font-sans text-muted-foreground hover:text-foreground transition-colors py-1">
               <span className="text-base leading-none">?</span>
               Help Center
             </button>
@@ -104,7 +105,7 @@ export default function EditorPage({ params }: Props) {
         <div className="border-r border-border flex flex-col overflow-hidden bg-card">
           <div className="px-6 py-4 border-b border-border flex items-start justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-subtle">
+              <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-text-subtle">
                 {activeSection
                   ? `Section 01 — ${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}`
                   : "All Sections"}
@@ -136,7 +137,7 @@ export default function EditorPage({ params }: Props) {
         <div className="flex flex-col overflow-hidden">
           <div className="px-4 py-3 border-b border-border flex items-center gap-2 bg-card">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <p className="font-mono text-[10px] uppercase tracking-widest text-text-subtle">
+            <p className="font-sans text-[10px] uppercase tracking-widest text-text-subtle">
               Live Preview Rendering
             </p>
           </div>
@@ -152,13 +153,13 @@ export default function EditorPage({ params }: Props) {
           <TabsList className="rounded-none border-b border-border bg-transparent px-4 gap-4 h-11 justify-start">
             <TabsTrigger
               value="edit"
-              className="font-mono text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
+              className="font-sans text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
             >
               Edit
             </TabsTrigger>
             <TabsTrigger
               value="preview"
-              className="font-mono text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
+              className="font-sans text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
             >
               Preview
             </TabsTrigger>
@@ -171,6 +172,7 @@ export default function EditorPage({ params }: Props) {
           </TabsContent>
         </Tabs>
       </div>
+      <Footer />
     </div>
   );
 }

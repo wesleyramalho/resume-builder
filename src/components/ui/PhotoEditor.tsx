@@ -153,7 +153,7 @@ export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: Ph
             />
           </div>
 
-          <p className="text-[10px] text-muted-foreground font-mono">
+          <p className="text-[10px] text-muted-foreground font-sans">
             Drag to reposition
           </p>
 
@@ -166,7 +166,7 @@ export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: Ph
             >
               <ZoomOut className="w-4 h-4 text-muted-foreground" />
             </button>
-            <span className="text-xs font-mono text-muted-foreground w-10 text-center">
+            <span className="text-xs font-sans text-muted-foreground w-10 text-center">
               {Math.round(zoom * 100)}%
             </span>
             <button
@@ -182,13 +182,13 @@ export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: Ph
           <div className="flex gap-2 w-full">
             <Button
               variant="outline"
-              className="flex-1 font-mono text-xs uppercase tracking-widest"
+              className="flex-1 font-sans text-xs uppercase tracking-widest"
               onClick={() => onOpenChange(false)}
             >
               Cancel
             </Button>
             <Button
-              className="flex-1 bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest"
+              className="flex-1 bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest"
               onClick={handleSave}
             >
               Save
