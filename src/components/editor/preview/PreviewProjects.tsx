@@ -46,6 +46,11 @@ export default function PreviewProjects({ projects, style: tmpl }: Props) {
                   {proj.technologies.join(" · ")}
                 </p>
               )}
+              {proj.url && (
+                <p style={{ fontSize: "7.5pt", color: "#9ca3af", marginTop: "1pt" }}>
+                  {proj.url}
+                </p>
+              )}
             </div>
             <span
               style={{

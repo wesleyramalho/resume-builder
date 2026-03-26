@@ -117,6 +117,12 @@
     outline: 2px solid var(--focus-ring);
     outline-offset: 3px;
   }
+  @media (max-width: 768px) {
+    input:not([type="file"]):not([type="checkbox"]),
+    textarea {
+      font-size: 1rem; /* prevents iOS Safari auto-zoom on focus */
+    }
+  }
 }
 
 /* Better autofill blending for both themes */

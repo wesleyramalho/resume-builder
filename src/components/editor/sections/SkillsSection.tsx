@@ -27,13 +27,17 @@ type FormValues = z.infer<typeof formSchema>;
 export default function SkillsSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const updateResumeRef = useRef(updateResume);
+  updateResumeRef.current = updateResume;
+  const resumeIdRef = useRef(resumeId);
+  resumeIdRef.current = resumeId;
   const [newSkills, setNewSkills] = useState<Record<string, string>>({});
 
   const lastSyncedJson = useRef(JSON.stringify(data.skillGroups));
 
   const { register, control, watch, setValue, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { skillGroups: data.skillGroups },
+    defaultValues: { skillGroups: structuredClone(data.skillGroups) },
     mode: "onChange",
   });
 
@@ -45,7 +49,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
       debounceRef.current = setTimeout(() => {
         if (values.skillGroups) {
           lastSyncedJson.current = JSON.stringify(values.skillGroups);
-          updateResume(resumeId, { skillGroups: values.skillGroups as ResumeData["skillGroups"] });
+          updateResumeRef.current(resumeIdRef.current, { skillGroups: structuredClone(values.skillGroups) as ResumeData["skillGroups"] });
         }
       }, 300);
     });
@@ -53,12 +57,12 @@ export default function SkillsSection({ resumeId, data }: Props) {
       sub.unsubscribe();
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [watch, resumeId, updateResume]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeJson = JSON.stringify(data.skillGroups);
   useEffect(() => {
     if (storeJson === lastSyncedJson.current) return;
-    reset({ skillGroups: data.skillGroups });
+    reset({ skillGroups: structuredClone(data.skillGroups) });
   }, [storeJson]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function addSkill(groupIdx: number) {
@@ -113,9 +117,9 @@ export default function SkillsSection({ resumeId, data }: Props) {
 
               {/* Skill tags */}
               <div className="flex flex-wrap gap-1.5">
-                {skills.map((skill) => (
+                {skills.map((skill, si) => (
                   <span
-                    key={skill}
+                    key={`${si}-${skill}`}
                     className="flex items-center gap-1 px-2 py-0.5 bg-surface-soft border border-border rounded text-xs font-sans"
                   >
                     {skill}

@@ -29,12 +29,16 @@ type FormValues = z.infer<typeof formSchema>;
 export default function EducationSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const updateResumeRef = useRef(updateResume);
+  updateResumeRef.current = updateResume;
+  const resumeIdRef = useRef(resumeId);
+  resumeIdRef.current = resumeId;
 
   const lastSyncedJson = useRef(JSON.stringify(data.education));
 
   const { register, control, watch, setValue, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { education: data.education },
+    defaultValues: { education: structuredClone(data.education) },
     mode: "onChange",
   });
 
@@ -46,7 +50,7 @@ export default function EducationSection({ resumeId, data }: Props) {
       debounceRef.current = setTimeout(() => {
         if (values.education) {
           lastSyncedJson.current = JSON.stringify(values.education);
-          updateResume(resumeId, { education: values.education as ResumeData["education"] });
+          updateResumeRef.current(resumeIdRef.current, { education: structuredClone(values.education) as ResumeData["education"] });
         }
       }, 300);
     });
@@ -54,12 +58,12 @@ export default function EducationSection({ resumeId, data }: Props) {
       sub.unsubscribe();
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [watch, resumeId, updateResume]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeJson = JSON.stringify(data.education);
   useEffect(() => {
     if (storeJson === lastSyncedJson.current) return;
-    reset({ education: data.education });
+    reset({ education: structuredClone(data.education) });
   }, [storeJson]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

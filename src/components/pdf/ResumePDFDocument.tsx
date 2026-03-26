@@ -264,17 +264,22 @@ function EducationSection({ data, s }: PDFSectionProps) {
     <View style={s.section}>
       <Text style={s.sectionTitle}>Education</Text>
       {data.education.map((edu) => (
-        <View key={edu.id} style={s.eduItem}>
-          <View>
-            <Text style={s.eduSchool}>{edu.school}</Text>
-            <Text style={s.eduDegree}>
-              {[edu.degree, edu.field].filter(Boolean).join(" · ")}
-              {edu.gpa ? ` · GPA ${edu.gpa}` : ""}
+        <View key={edu.id} style={{ marginBottom: 6 }}>
+          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <View>
+              <Text style={s.eduSchool}>{edu.school}</Text>
+              <Text style={s.eduDegree}>
+                {[edu.degree, edu.field].filter(Boolean).join(" · ")}
+                {edu.gpa ? ` · GPA ${edu.gpa}` : ""}
+              </Text>
+            </View>
+            <Text style={s.expDate}>
+              {formatMonthYear(edu.startDate)} – {formatMonthYear(edu.endDate)}
             </Text>
           </View>
-          <Text style={s.expDate}>
-            {formatMonthYear(edu.startDate)} – {formatMonthYear(edu.endDate)}
-          </Text>
+          {edu.highlights ? (
+            <Text style={[s.bulletText, { marginTop: 2, fontStyle: "italic" }]}>{edu.highlights}</Text>
+          ) : null}
         </View>
       ))}
     </View>
@@ -318,6 +323,9 @@ function ProjectsSection({ data, s }: PDFSectionProps) {
                 <Text style={s.expTitle}>
                   {proj.technologies.join(" · ")}
                 </Text>
+              ) : null}
+              {proj.url ? (
+                <Text style={[s.expTitle, { color: "#9ca3af" }]}>{proj.url}</Text>
               ) : null}
             </View>
             <Text style={s.expDate}>
@@ -425,7 +433,7 @@ export default function ResumePDFDocument({ resume }: Props) {
               {data.headline}
             </Text>
             <View style={{ marginTop: 10, gap: 2 }}>
-              {[data.contact.location, data.contact.email, data.contact.phone].filter(Boolean).map((item, i) => (
+              {[data.contact.location, data.contact.email, data.contact.phone, data.contact.linkedin, data.contact.website].filter(Boolean).map((item, i) => (
                 <Text key={i} style={{ fontFamily: PDF_FONT, fontSize: 6.5, color: "rgba(255,255,255,0.6)", textAlign: "center" }}>
                   {item}
                 </Text>
@@ -436,10 +444,19 @@ export default function ResumePDFDocument({ resume }: Props) {
                 <Text style={{ fontFamily: PDF_FONT, fontSize: 6, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
                   Skills
                 </Text>
-                {data.skillGroups.flatMap((g) => g.skills).slice(0, 10).map((skill, i) => (
-                  <Text key={i} style={{ fontFamily: PDF_FONT, fontSize: 6.5, color: "rgba(255,255,255,0.8)", marginBottom: 2 }}>
-                    {skill}
-                  </Text>
+                {data.skillGroups.map((group, gi) => (
+                  <View key={gi} style={{ marginBottom: 4, width: "100%" }}>
+                    {group.category ? (
+                      <Text style={{ fontFamily: PDF_FONT, fontSize: 5.5, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 1 }}>
+                        {group.category}
+                      </Text>
+                    ) : null}
+                    {group.skills.map((skill, i) => (
+                      <Text key={i} style={{ fontFamily: PDF_FONT, fontSize: 6.5, color: "rgba(255,255,255,0.8)", marginBottom: 2 }}>
+                        {skill}
+                      </Text>
+                    ))}
+                  </View>
                 ))}
               </View>
             )}

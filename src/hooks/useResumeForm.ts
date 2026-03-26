@@ -29,9 +29,16 @@ export function useResumeForm<T extends FieldValues>({
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSyncedJson = useRef(JSON.stringify(defaultValues));
 
+  const updateResumeRef = useRef(updateResume);
+  updateResumeRef.current = updateResume;
+  const toResumeDataRef = useRef(toResumeData);
+  toResumeDataRef.current = toResumeData;
+  const resumeIdRef = useRef(resumeId);
+  resumeIdRef.current = resumeId;
+
   const form = useForm({
     resolver: zodResolver(schema),
-    defaultValues,
+    defaultValues: structuredClone(defaultValues) as DefaultValues<T>,
     mode: "onChange",
   }) as UseFormReturn<T>;
 
@@ -40,23 +47,23 @@ export function useResumeForm<T extends FieldValues>({
     const subscription = form.watch((values) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
-        const data = toResumeData(values as T);
+        const data = toResumeDataRef.current(values as T);
         lastSyncedJson.current = JSON.stringify(data);
-        updateResume(resumeId, data);
+        updateResumeRef.current(resumeIdRef.current, structuredClone(data));
       }, 300);
     });
     return () => {
       subscription.unsubscribe();
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [form, resumeId, updateResume, toResumeData]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Reset form when store data changes externally (not from our own writes)
   const currentJson = JSON.stringify(defaultValues);
   useEffect(() => {
     // Skip if this change came from our own form → store sync
     if (currentJson === lastSyncedJson.current) return;
-    form.reset(defaultValues);
+    form.reset(structuredClone(defaultValues));
   }, [currentJson]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return form;

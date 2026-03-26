@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -11,7 +11,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { projectEntrySchema } from "@/lib/schemas";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, X } from "lucide-react";
 import AIImproveButton from "@/components/ui/AIImproveButton";
 import MonthYearPicker from "@/components/ui/MonthYearPicker";
 
@@ -28,13 +28,33 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function ProjectsSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const [newTechs, setNewTechs] = useState<Record<string, string>>({});
+
+  function addTech(idx: number) {
+    const fieldId = fields[idx]?.id;
+    if (!fieldId) return;
+    const val = (newTechs[fieldId] ?? "").trim();
+    if (!val) return;
+    const current = watch(`projects.${idx}.technologies`) ?? [];
+    setValue(`projects.${idx}.technologies`, [...current, val]);
+    setNewTechs((prev) => ({ ...prev, [fieldId]: "" }));
+  }
+
+  function removeTech(idx: number, tech: string) {
+    const current = watch(`projects.${idx}.technologies`) ?? [];
+    setValue(`projects.${idx}.technologies`, current.filter((t) => t !== tech));
+  }
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const updateResumeRef = useRef(updateResume);
+  updateResumeRef.current = updateResume;
+  const resumeIdRef = useRef(resumeId);
+  resumeIdRef.current = resumeId;
 
   const lastSyncedJson = useRef(JSON.stringify(data.projects));
 
   const { register, control, watch, setValue, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { projects: data.projects },
+    defaultValues: { projects: structuredClone(data.projects) },
     mode: "onChange",
   });
 
@@ -46,7 +66,7 @@ export default function ProjectsSection({ resumeId, data }: Props) {
       debounceRef.current = setTimeout(() => {
         if (values.projects) {
           lastSyncedJson.current = JSON.stringify(values.projects);
-          updateResume(resumeId, { projects: values.projects as ResumeData["projects"] });
+          updateResumeRef.current(resumeIdRef.current, { projects: structuredClone(values.projects) as ResumeData["projects"] });
         }
       }, 300);
     });
@@ -54,12 +74,12 @@ export default function ProjectsSection({ resumeId, data }: Props) {
       sub.unsubscribe();
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [watch, resumeId, updateResume]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeJson = JSON.stringify(data.projects);
   useEffect(() => {
     if (storeJson === lastSyncedJson.current) return;
-    reset({ projects: data.projects });
+    reset({ projects: structuredClone(data.projects) });
   }, [storeJson]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -101,20 +121,42 @@ export default function ProjectsSection({ resumeId, data }: Props) {
                   placeholder="github.com/user/project"
                   {...register(`projects.${idx}.url`)}
                 />
-                <FormInput
-                  id={`projTech-${field.id}`}
-                  label="Technologies (comma separated)"
-                  placeholder="React, TypeScript, Node.js"
-                  className="sm:col-span-2"
-                  value={proj?.technologies?.join(", ") ?? ""}
-                  onChange={(e) => {
-                    const techs = e.target.value
-                      .split(",")
-                      .map((t) => t.trim())
-                      .filter(Boolean);
-                    setValue(`projects.${idx}.technologies`, techs);
-                  }}
-                />
+                <div className="sm:col-span-2 space-y-2">
+                  <p className="text-xs font-sans uppercase tracking-widest text-text-subtle">Technologies</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(proj?.technologies ?? []).map((tech, ti) => (
+                      <span
+                        key={`${ti}-${tech}`}
+                        className="flex items-center gap-1 px-2 py-0.5 bg-surface-soft border border-border rounded text-xs font-sans"
+                      >
+                        {tech}
+                        <button
+                          type="button"
+                          onClick={() => removeTech(idx, tech)}
+                          className="text-muted-foreground hover:text-destructive transition-colors"
+                          aria-label={`Remove ${tech}`}
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={newTechs[field.id] ?? ""}
+                      onChange={(e) => setNewTechs((prev) => ({ ...prev, [field.id]: e.target.value }))}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") { e.preventDefault(); addTech(idx); }
+                      }}
+                      placeholder="Type a technology and press Enter"
+                      className="flex-1 bg-input border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring transition-colors"
+                    />
+                    <Button size="sm" variant="ghost" onClick={() => addTech(idx)} className="border border-border hover:bg-muted h-8 text-xs">
+                      <Plus className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                </div>
                 <MonthYearPicker
                   id={`projStart-${field.id}`}
                   label="Start Date"

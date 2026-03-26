@@ -24,13 +24,6 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("architect-suite-theme");if(t==="dark")document.documentElement.classList.add("dark");else document.documentElement.classList.remove("dark")}catch(e){}})()`,
-          }}
-        />
-      </head>
       <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider>
           <SessionProvider>

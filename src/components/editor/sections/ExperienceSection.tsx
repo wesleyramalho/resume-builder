@@ -29,12 +29,16 @@ type FormValues = z.infer<typeof formSchema>;
 export default function ExperienceSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const updateResumeRef = useRef(updateResume);
+  updateResumeRef.current = updateResume;
+  const resumeIdRef = useRef(resumeId);
+  resumeIdRef.current = resumeId;
 
   const lastSyncedJson = useRef(JSON.stringify(data.experience));
 
   const { register, control, watch, setValue, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { experience: data.experience },
+    defaultValues: { experience: structuredClone(data.experience) },
     mode: "onChange",
   });
 
@@ -47,7 +51,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
       debounceRef.current = setTimeout(() => {
         if (values.experience) {
           lastSyncedJson.current = JSON.stringify(values.experience);
-          updateResume(resumeId, { experience: values.experience as ResumeData["experience"] });
+          updateResumeRef.current(resumeIdRef.current, { experience: structuredClone(values.experience) as ResumeData["experience"] });
         }
       }, 300);
     });
@@ -55,13 +59,13 @@ export default function ExperienceSection({ resumeId, data }: Props) {
       sub.unsubscribe();
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [watch, resumeId, updateResume]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Reset form when store data changes externally
   const storeJson = JSON.stringify(data.experience);
   useEffect(() => {
     if (storeJson === lastSyncedJson.current) return;
-    reset({ experience: data.experience });
+    reset({ experience: structuredClone(data.experience) });
   }, [storeJson]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

@@ -18,7 +18,10 @@ import ResumePreview from "@/components/editor/preview/ResumePreview";
 import Footer from "@/components/Footer";
 import type { ResumeData } from "@/types/resume";
 
-const SECTION_COMPONENTS: Record<string, React.FC<{ resumeId: string; data: ResumeData }>> = {
+const SECTION_COMPONENTS: Record<
+  string,
+  React.FC<{ resumeId: string; data: ResumeData }>
+> = {
   experience: ExperienceSection,
   education: EducationSection,
   skills: SkillsSection,
@@ -51,12 +54,16 @@ export default function EditorPage({ params }: Props) {
 
   const data = resume.data;
 
-  const sectionOrder = data.sectionOrder?.length ? data.sectionOrder : DEFAULT_ORDER;
+  const sectionOrder = data.sectionOrder?.length
+    ? data.sectionOrder
+    : DEFAULT_ORDER;
 
   const formContent = (
     <Accordion
       value={activeSection ? [activeSection] : []}
-      onValueChange={(v: string[]) => setActiveSection(v.length ? v[v.length - 1] : null)}
+      onValueChange={(v: string[]) =>
+        setActiveSection(v.length ? v[v.length - 1] : null)
+      }
       className="divide-y divide-border"
     >
       <PersonalInfoSection resumeId={id} data={data} />
@@ -74,7 +81,10 @@ export default function EditorPage({ params }: Props) {
       </Suspense>
 
       {/* Desktop: three-column layout */}
-      <div className="hidden lg:grid flex-1" style={{ gridTemplateColumns: "240px 1fr 1fr" }}>
+      <div
+        className="hidden lg:grid flex-1"
+        style={{ gridTemplateColumns: "240px 1fr 1fr" }}
+      >
         {/* Left: nav sidebar */}
         <aside className="border-r border-border px-3 flex flex-col bg-surface-soft/60">
           <div className="mb-2 mt-3">
@@ -88,17 +98,6 @@ export default function EditorPage({ params }: Props) {
             activeSection={activeSection ?? ""}
             onSelect={setActiveSection}
           />
-
-          <div className="mt-auto pb-4 px-3 space-y-2">
-            <button className="flex items-center gap-2 w-full text-xs font-sans text-muted-foreground hover:text-foreground transition-colors py-1">
-              <span className="text-base leading-none">⚙</span>
-              Settings
-            </button>
-            <button className="flex items-center gap-2 w-full text-xs font-sans text-muted-foreground hover:text-foreground transition-colors py-1">
-              <span className="text-base leading-none">?</span>
-              Help Center
-            </button>
-          </div>
         </aside>
 
         {/* Center: form */}
@@ -117,7 +116,9 @@ export default function EditorPage({ params }: Props) {
               </p>
             </div>
             <button
-              onClick={() => setActiveSection(activeSection ? null : "personal")}
+              onClick={() =>
+                setActiveSection(activeSection ? null : "personal")
+              }
               title={activeSection ? "Collapse all" : "Expand"}
               className="mt-0.5 shrink-0 text-muted-foreground hover:text-foreground transition-colors"
             >
@@ -167,7 +168,10 @@ export default function EditorPage({ params }: Props) {
           <TabsContent value="edit" className="flex-1 overflow-auto mt-0">
             <div className="px-3 py-3 sm:px-4 sm:py-4">{formContent}</div>
           </TabsContent>
-          <TabsContent value="preview" className="flex-1 overflow-hidden mt-0 h-full">
+          <TabsContent
+            value="preview"
+            className="flex-1 overflow-hidden mt-0 h-full"
+          >
             <ResumePreview data={data} templateId={resume.templateId} />
           </TabsContent>
         </Tabs>

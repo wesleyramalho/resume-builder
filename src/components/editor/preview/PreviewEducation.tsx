@@ -27,33 +27,33 @@ export default function PreviewEducation({ education, style: tmpl }: Props) {
         Education
       </h2>
       {education.map((edu) => (
-        <div
-          key={edu.id}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "6pt",
-          }}
-        >
-          <div>
-            <p style={{ fontSize: "9pt", fontWeight: 700, color: tmpl.accentColor }}>
-              {edu.school}
-            </p>
-            <p style={{ fontSize: "8pt", color: "#6b7280", marginTop: "1pt" }}>
-              {[edu.degree, edu.field].filter(Boolean).join(" · ")}
-              {edu.gpa ? ` · GPA ${edu.gpa}` : ""}
-            </p>
+        <div key={edu.id} style={{ marginBottom: "6pt" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <p style={{ fontSize: "9pt", fontWeight: 700, color: tmpl.accentColor }}>
+                {edu.school}
+              </p>
+              <p style={{ fontSize: "8pt", color: "#6b7280", marginTop: "1pt" }}>
+                {[edu.degree, edu.field].filter(Boolean).join(" · ")}
+                {edu.gpa ? ` · GPA ${edu.gpa}` : ""}
+              </p>
+            </div>
+            <span
+              style={{
+                fontSize: "7.5pt",
+                color: "#9ca3af",
+                textAlign: "right",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {formatMonthYear(edu.startDate)} – {formatMonthYear(edu.endDate)}
+            </span>
           </div>
-          <span
-            style={{
-              fontSize: "7.5pt",
-              color: "#9ca3af",
-              textAlign: "right",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {formatMonthYear(edu.startDate)} – {formatMonthYear(edu.endDate)}
-          </span>
+          {edu.highlights && (
+            <p style={{ fontSize: "7.5pt", color: "#6b7280", marginTop: "2pt", fontStyle: "italic" }}>
+              {edu.highlights}
+            </p>
+          )}
         </div>
       ))}
     </div>

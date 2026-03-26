@@ -121,7 +121,7 @@ export default function ResumePreview({ data, templateId }: Props) {
             </div>
             {/* Contact in sidebar */}
             <div style={{ fontSize: "6.5pt", color: "rgba(255,255,255,0.6)", textAlign: "center", lineHeight: 1.6 }}>
-              {[data.contact.location, data.contact.email, data.contact.phone].filter(Boolean).map((item, i) => (
+              {[data.contact.location, data.contact.email, data.contact.phone, data.contact.linkedin, data.contact.website].filter(Boolean).map((item, i) => (
                 <p key={i}>{item}</p>
               ))}
             </div>
@@ -131,11 +131,20 @@ export default function ResumePreview({ data, templateId }: Props) {
                 <p style={{ fontSize: "6pt", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "1pt", marginBottom: "4pt" }}>
                   Skills
                 </p>
-                {data.skillGroups.flatMap((g) => g.skills).slice(0, 10).map((skill, i) => (
-                  <p key={i} style={{ fontSize: "6.5pt", color: "rgba(255,255,255,0.8)", marginBottom: "2pt" }}>
-                    {skill}
-                  </p>
-                ))}
+                {data.skillGroups.map((group, gi) => (
+                <div key={gi} style={{ marginBottom: "4pt", width: "100%" }}>
+                  {group.category && (
+                    <p style={{ fontSize: "5.5pt", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.5pt", marginBottom: "1pt" }}>
+                      {group.category}
+                    </p>
+                  )}
+                  {group.skills.map((skill, i) => (
+                    <p key={i} style={{ fontSize: "6.5pt", color: "rgba(255,255,255,0.8)", marginBottom: "2pt" }}>
+                      {skill}
+                    </p>
+                  ))}
+                </div>
+              ))}
               </div>
             )}
           </div>
