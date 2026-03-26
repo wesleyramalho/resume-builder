@@ -23,13 +23,6 @@ export default function DashboardPage() {
           >
             MyPDFCV
           </Link>
-
-          <Link
-            href="/dashboard"
-            className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-          >
-            Dashboard
-          </Link>
         </div>
         <ThemeToggle />
       </nav>
