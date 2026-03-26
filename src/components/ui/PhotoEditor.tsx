@@ -22,7 +22,7 @@ const PREVIEW_SIZE = 200; // px — visible circle size
 
 export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: PhotoEditorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement | null>(null);
+  const [loadedImg, setLoadedImg] = useState<HTMLImageElement | null>(null);
   const [zoom, setZoom] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
@@ -34,7 +34,7 @@ export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: Ph
     if (!imageSrc) return;
     const img = new Image();
     img.onload = () => {
-      imgRef.current = img;
+      setLoadedImg(img);
       setZoom(1);
       setOffset({ x: 0, y: 0 });
     };
@@ -43,7 +43,7 @@ export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: Ph
 
   const drawPreview = useCallback(() => {
     const canvas = canvasRef.current;
-    const img = imgRef.current;
+    const img = loadedImg;
     if (!canvas || !img) return;
 
     const ctx = canvas.getContext("2d");
@@ -76,7 +76,7 @@ export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: Ph
     ctx.strokeStyle = "rgba(0,0,0,0.1)";
     ctx.lineWidth = 2;
     ctx.stroke();
-  }, [zoom, offset, imageSrc]);
+  }, [zoom, offset, loadedImg]);
 
   useEffect(() => {
     drawPreview();
@@ -101,7 +101,7 @@ export default function PhotoEditor({ open, onOpenChange, imageSrc, onSave }: Ph
   }
 
   function handleSave() {
-    const img = imgRef.current;
+    const img = loadedImg;
     if (!img) return;
 
     // Render at higher resolution for export
