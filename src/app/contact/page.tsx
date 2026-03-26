@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import Footer from "@/components/Footer";
+import SiteNav from "@/components/SiteNav";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import { Globe } from "lucide-react";
 import GitHubIcon from "@/components/icons/GitHubIcon";
@@ -10,13 +10,9 @@ export const metadata = { title: "Contact" };
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <nav className="border-b border-border px-6 md:px-12 py-4">
-        <Link href="/" className="font-sans text-sm font-bold uppercase tracking-widest text-foreground">
-          MyPDFCV
-        </Link>
-      </nav>
+      <SiteNav />
 
-      <main className="flex-1 max-w-3xl mx-auto px-6 py-12">
+      <main className="flex-1 max-w-3xl mx-auto px-6 pt-24 pb-12">
         <h1 className="font-sans font-bold text-3xl text-foreground mb-2">Contact</h1>
         <p className="text-sm text-muted-foreground mb-8">
           Get in touch with the creator of MyPDFCV.
