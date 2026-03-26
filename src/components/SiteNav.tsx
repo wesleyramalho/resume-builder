@@ -13,15 +13,11 @@ export default function SiteNav() {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="flex items-center gap-8">
-        <Link href="/" className="font-sans text-sm font-bold uppercase tracking-widest text-foreground">
-          MyPDFCV
-        </Link>
-
         <Link
-          href="/dashboard"
-          className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          href="/"
+          className="font-sans text-sm font-bold uppercase tracking-widest text-foreground"
         >
-          Dashboard
+          MyPDFCV
         </Link>
       </div>
 
