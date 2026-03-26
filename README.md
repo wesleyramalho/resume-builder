@@ -2,7 +2,8 @@
 
 **[mypdfcv.com](https://mypdfcv.com)** — A modern, client-side resume builder with real-time preview, AI-powered text improvement, and one-click PDF export.
 
-<img width="1510" height="800" alt="image" src="https://github.com/user-attachments/assets/8b44654a-40ed-48a6-83a1-18a1fba25e41" />
+<img width="1507" height="809" alt="image" src="https://github.com/user-attachments/assets/db6c8a49-abe6-4c1b-ad3c-ea2fb958e4c3" />
+<img width="1509" height="811" alt="image" src="https://github.com/user-attachments/assets/3191677f-a246-4ffb-95a3-50265bd232d0" />
 
 ## Features
 
