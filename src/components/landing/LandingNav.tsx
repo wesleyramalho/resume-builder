@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 
-const LINKEDIN_OAUTH_ENABLED = process.env.NEXT_PUBLIC_LINKEDIN_OAUTH_ENABLED === "true";
+const LINKEDIN_OAUTH_ENABLED =
+  process.env.NEXT_PUBLIC_LINKEDIN_OAUTH_ENABLED === "true";
 
 export default function LandingNav() {
   const { data: session } = useSession();
@@ -19,29 +20,29 @@ export default function LandingNav() {
     setLinkedInError(null);
 
     if (!LINKEDIN_OAUTH_ENABLED) {
-      setLinkedInError("LinkedIn import is not configured yet. Add LinkedIn OAuth env values.");
+      setLinkedInError(
+        "LinkedIn import is not configured yet. Add LinkedIn OAuth env values.",
+      );
       return;
     }
 
     try {
       await signIn("linkedin", { callbackUrl: "/dashboard?intent=import" });
     } catch {
-      setLinkedInError("LinkedIn sign-in is unavailable right now. Please try again shortly.");
+      setLinkedInError(
+        "LinkedIn sign-in is unavailable right now. Please try again shortly.",
+      );
     }
   }
 
   return (
     <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="flex items-center gap-8">
-        <Link href="/" className="font-sans text-sm font-bold uppercase tracking-widest text-foreground">
-          MyPDFCV
-        </Link>
-
         <Link
-          href="/dashboard"
-          className="hidden md:block text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          href="/"
+          className="font-sans text-sm font-bold uppercase tracking-widest text-foreground"
         >
-          Dashboard
+          MyPDFCV
         </Link>
       </div>
 
