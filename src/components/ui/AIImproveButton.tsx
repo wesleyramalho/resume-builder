@@ -62,7 +62,7 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
           <>
             <Loader2 className="w-3 h-3 animate-spin" />
             {isDownloading
-              ? `Downloading model… ${downloadProgress}%`
+              ? `Loading model… ${downloadProgress}%`
               : "Improving…"}
           </>
         ) : (
