@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { getTemplate } from "@/lib/resumeTemplates";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
+import ImportResumeIntoButton from "@/components/editor/ImportResumeIntoButton";
 
 interface Props {
   resume: Resume;
@@ -36,7 +37,9 @@ export default function EditorToolbar({ resume }: Props) {
   const [templatePickerOpen, setTemplatePickerOpen] = useState(false);
   const hasConsumedImportIntent = useRef(false);
 
-  const currentTemplate = resume.templateId ? getTemplate(resume.templateId) : null;
+  const currentTemplate = resume.templateId
+    ? getTemplate(resume.templateId)
+    : null;
 
   function handleTemplateSelect(templateId: string) {
     setTemplatePickerOpen(false);
@@ -47,7 +50,9 @@ export default function EditorToolbar({ resume }: Props) {
 
   const handleLinkedInImport = useCallback(async () => {
     if (!session) {
-      await signIn("linkedin", { callbackUrl: `/editor/${resume.id}?intent=import` });
+      await signIn("linkedin", {
+        callbackUrl: `/editor/${resume.id}?intent=import`,
+      });
       return;
     }
     setImporting(true);
@@ -100,13 +105,17 @@ export default function EditorToolbar({ resume }: Props) {
       />
 
       {/* Template switcher */}
-      <button
+      <Button
+        size="sm"
+        variant="outline"
         onClick={() => setTemplatePickerOpen(true)}
-        className="flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border hover:border-ring shrink-0"
+        className="font-sans text-xs uppercase tracking-widest gap-1.5 h-8 shrink-0"
       >
-        <Palette className="w-3 h-3" />
-        <span className="hidden sm:inline">{currentTemplate?.name ?? "Default"}</span>
-      </button>
+        <Palette className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">
+          {currentTemplate?.name ?? "Default"}
+        </span>
+      </Button>
       <TemplatePicker
         open={templatePickerOpen}
         onOpenChange={setTemplatePickerOpen}
@@ -128,6 +137,7 @@ export default function EditorToolbar({ resume }: Props) {
         )}
       </div>
 
+      <ImportResumeIntoButton resumeId={resume.id} />
       {!resume.data.linkedInImported && (
         <Button
           size="sm"

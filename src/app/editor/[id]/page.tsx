@@ -2,7 +2,7 @@
 
 import { Suspense, use, useState } from "react";
 import { notFound } from "next/navigation";
-import { ChevronUp, ChevronDown } from "lucide-react";
+import { ChevronUp, ChevronDown, Pencil, Eye } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
 import { Accordion } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -86,7 +86,7 @@ export default function EditorPage({ params }: Props) {
         style={{ gridTemplateColumns: "240px 1fr 1fr" }}
       >
         {/* Left: nav sidebar */}
-        <aside className="border-r border-border px-3 flex flex-col bg-surface-soft/60">
+        <aside className="border-r border-border px-3 flex flex-col bg-surface-soft/60 sticky top-0 h-screen overflow-auto">
           <div className="mb-2 mt-3">
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-text-subtle px-3">
               Professional Draft #1
@@ -102,7 +102,7 @@ export default function EditorPage({ params }: Props) {
 
         {/* Center: form */}
         <div className="border-r border-border flex flex-col overflow-hidden bg-card">
-          <div className="px-6 py-4 border-b border-border flex items-start justify-between gap-4">
+          <div className="px-6 py-4 border-b border-border flex items-start justify-between gap-4 sticky top-0 z-10 bg-card">
             <div>
               <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-text-subtle">
                 {activeSection
@@ -135,7 +135,7 @@ export default function EditorPage({ params }: Props) {
         </div>
 
         {/* Right: live preview */}
-        <div className="flex flex-col overflow-hidden">
+        <div className="flex flex-col overflow-hidden sticky top-0 h-screen">
           <div className="px-4 py-3 border-b border-border flex items-center gap-2 bg-card">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <p className="font-sans text-[10px] uppercase tracking-widest text-text-subtle">
@@ -151,17 +151,19 @@ export default function EditorPage({ params }: Props) {
       {/* Mobile: tabs */}
       <div className="lg:hidden flex-1">
         <Tabs defaultValue="edit" className="h-full flex flex-col">
-          <TabsList className="rounded-none border-b border-border bg-transparent px-4 gap-4 h-11 justify-start">
+          <TabsList className="rounded-none border-b border-border bg-background w-full h-12 p-0 gap-0 sticky top-0 z-20">
             <TabsTrigger
               value="edit"
-              className="font-sans text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
+              className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full border-b-2 border-transparent data-[state=active]:text-foreground data-[state=active]:border-foreground data-[state=active]:bg-surface-soft/50 text-muted-foreground transition-colors"
             >
+              <Pencil className="w-3.5 h-3.5" />
               Edit
             </TabsTrigger>
             <TabsTrigger
               value="preview"
-              className="font-sans text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
+              className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full border-b-2 border-transparent data-[state=active]:text-foreground data-[state=active]:border-foreground data-[state=active]:bg-surface-soft/50 text-muted-foreground transition-colors"
             >
+              <Eye className="w-3.5 h-3.5" />
               Preview
             </TabsTrigger>
           </TabsList>

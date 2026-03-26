@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Plus, LogOut } from "lucide-react";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
+import ImportResumeButton from "@/components/dashboard/ImportResumeButton";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -40,43 +41,54 @@ export default function DashboardHeader() {
       return;
     }
     const tmpl = getTemplate(templateId);
-    const resume = createResume(tmpl?.name ?? "Untitled Resume", tmpl?.sampleData, templateId);
+    const resume = createResume(
+      tmpl?.name ?? "Untitled Resume",
+      tmpl?.sampleData,
+      templateId,
+    );
     router.push(`/editor/${resume.id}`);
   }
 
-  const handleLinkedInImport = useCallback(async (consumeIntent: boolean) => {
-    setImportError(null);
+  const handleLinkedInImport = useCallback(
+    async (consumeIntent: boolean) => {
+      setImportError(null);
 
-    if (status === "loading") return;
+      if (status === "loading") return;
 
-    if (!session) {
-      await signIn("linkedin", { callbackUrl: "/dashboard?intent=import" });
-      return;
-    }
-
-    setIsImporting(true);
-    try {
-      const response = await fetch("/api/linkedin/import", { method: "POST" });
-      if (!response.ok) {
-        throw new Error("Unable to import your LinkedIn profile right now.");
+      if (!session) {
+        await signIn("linkedin", { callbackUrl: "/dashboard?intent=import" });
+        return;
       }
 
-      const result = (await response.json()) as LinkedInImportResponse;
-      if (!result.data) {
-        throw new Error("LinkedIn import returned no data.");
-      }
+      setIsImporting(true);
+      try {
+        const response = await fetch("/api/linkedin/import", {
+          method: "POST",
+        });
+        if (!response.ok) {
+          throw new Error("Unable to import your LinkedIn profile right now.");
+        }
 
-      const importedResume = createResume("LinkedIn Resume", result.data);
-      router.push(`/editor/${importedResume.id}`);
-    } catch (error) {
-      setImportError(error instanceof Error ? error.message : "Import failed.");
-      if (consumeIntent) {
-        router.replace("/dashboard");
+        const result = (await response.json()) as LinkedInImportResponse;
+        if (!result.data) {
+          throw new Error("LinkedIn import returned no data.");
+        }
+
+        const importedResume = createResume("LinkedIn Resume", result.data);
+        router.push(`/editor/${importedResume.id}`);
+      } catch (error) {
+        setImportError(
+          error instanceof Error ? error.message : "Import failed.",
+        );
+        if (consumeIntent) {
+          router.replace("/dashboard");
+        }
+      } finally {
+        setIsImporting(false);
       }
-    } finally {
-      setIsImporting(false);
-    }
-  }, [createResume, router, session, status]);
+    },
+    [createResume, router, session, status],
+  );
 
   useEffect(() => {
     const intent = searchParams.get("intent");
@@ -86,12 +98,13 @@ export default function DashboardHeader() {
     void handleLinkedInImport(true);
   }, [handleLinkedInImport, searchParams, status]);
 
-  const initials = session?.user?.name
-    ?.split(" ")
-    .map((n) => n[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase() ?? "?";
+  const initials =
+    session?.user?.name
+      ?.split(" ")
+      .map((n) => n[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() ?? "?";
 
   return (
     <header className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between mb-12 gap-4">
@@ -99,12 +112,15 @@ export default function DashboardHeader() {
         <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-2">
           Portfolio Overview
         </p>
-        <h1 className="font-sans font-bold text-foreground" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}>
+        <h1
+          className="font-sans font-bold text-foreground"
+          style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+        >
           My Resumes
         </h1>
         <p className="text-muted-foreground mt-2 max-w-sm">
-          Manage your career blueprints. Each version is optimized for authority and
-          editorial precision.
+          Manage your career blueprints. Each version is optimized for authority
+          and editorial precision.
         </p>
       </div>
 
@@ -118,6 +134,8 @@ export default function DashboardHeader() {
           <span className="sm:hidden">New Resume</span>
         </Button>
 
+        <ImportResumeButton />
+
         {session ? (
           <>
             <Button
@@ -127,14 +145,16 @@ export default function DashboardHeader() {
               className="font-sans text-xs uppercase tracking-widest gap-2"
             >
               <LinkedInIcon className="w-4 h-4" />
-              <span className="hidden sm:inline">{isImporting ? "Importing..." : "Import from LinkedIn"}</span>
-              <span className="sm:hidden">{isImporting ? "Importing..." : "Import"}</span>
+              <span className="hidden sm:inline">
+                {isImporting ? "Importing..." : "Import from LinkedIn"}
+              </span>
+              <span className="sm:hidden">
+                {isImporting ? "Importing..." : "Import"}
+              </span>
             </Button>
 
             <DropdownMenu>
-              <DropdownMenuTrigger
-                className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden"
-              >
+              <DropdownMenuTrigger className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden">
                 {session.user?.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -146,7 +166,10 @@ export default function DashboardHeader() {
                   initials
                 )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-card border-border">
+              <DropdownMenuContent
+                align="end"
+                className="bg-card border-border"
+              >
                 <DropdownMenuItem
                   onClick={() => signOut({ callbackUrl: "/" })}
                   className="text-destructive focus:text-destructive gap-2"
@@ -160,7 +183,9 @@ export default function DashboardHeader() {
         ) : (
           <Button
             variant="outline"
-            onClick={() => signIn("linkedin", { callbackUrl: "/dashboard?intent=import" })}
+            onClick={() =>
+              signIn("linkedin", { callbackUrl: "/dashboard?intent=import" })
+            }
             className="font-sans text-xs uppercase tracking-widest gap-2"
           >
             <LinkedInIcon className="w-4 h-4" />
@@ -169,7 +194,9 @@ export default function DashboardHeader() {
         )}
       </div>
       {importError ? (
-        <p className="absolute -bottom-6 right-0 text-xs text-destructive font-sans">{importError}</p>
+        <p className="absolute -bottom-6 right-0 text-xs text-destructive font-sans">
+          {importError}
+        </p>
       ) : null}
 
       <TemplatePicker
