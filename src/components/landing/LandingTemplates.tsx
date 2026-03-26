@@ -26,14 +26,20 @@ export default function LandingTemplates() {
 
   function handleUseTemplate(templateId: string) {
     const tmpl = getTemplate(templateId);
-    const resume = createResume(tmpl?.name ?? "Untitled Resume", tmpl?.sampleData, templateId);
+    const resume = createResume(
+      tmpl?.name ?? "Untitled Resume",
+      tmpl?.sampleData,
+      templateId,
+    );
     router.push(`/editor/${resume.id}`);
   }
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced) return;
 
     ScrollTrigger.batch(".template-card", {
@@ -41,7 +47,13 @@ export default function LandingTemplates() {
         gsap.fromTo(
           batch,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.12 }
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.12,
+          },
         ),
       once: true,
       start: "top 85%",
@@ -63,7 +75,7 @@ export default function LandingTemplates() {
           </h2>
           <p className="text-muted-foreground mt-2 max-w-md mx-auto">
             All 7 templates are ATS-friendly, fully customizable, and free to
-            export — no premium tier, no watermarks.
+            export, no premium tier, no watermarks.
           </p>
         </div>
 
@@ -93,8 +105,12 @@ export default function LandingTemplates() {
 
               {/* Template info */}
               <div className="mt-3 text-center">
-                <p className="font-sans font-semibold text-foreground">{tmpl.name}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{tmpl.description}</p>
+                <p className="font-sans font-semibold text-foreground">
+                  {tmpl.name}
+                </p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {tmpl.description}
+                </p>
               </div>
             </div>
           ))}

@@ -159,7 +159,7 @@ export default function LandingResumeSample() {
 
           {/* Quote */}
           <p className="mt-8 pt-6 border-t border-border text-xs text-text-subtle italic text-center">
-            &ldquo;MyPDFCV transformed my resume from a simple list into a career statement.&rdquo;
+            Everything runs locally in your browser. No data is sent to any server. No account needed. Just build and export.
           </p>
         </div>
       </div>

@@ -259,9 +259,8 @@ export default function LandingFeatures() {
                 Reorder Sections
               </h3>
               <p className="text-sm text-background/60 leading-relaxed">
-                Drag and drop to reorder your resume sections. Tailor the
-                layout for each role you&apos;re applying to — no copy-pasting
-                required.
+                Drag and drop to reorder your resume sections. Tailor the layout
+                for each role you&apos;re applying to, no copy-pasting required.
               </p>
             </div>
 

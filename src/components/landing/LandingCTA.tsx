@@ -14,7 +14,9 @@ export default function LandingCTA() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced) return;
 
     if (cardRef.current) {
@@ -32,7 +34,7 @@ export default function LandingCTA() {
             start: "top 85%",
             once: true,
           },
-        }
+        },
       );
     }
   }, []);
@@ -40,7 +42,11 @@ export default function LandingCTA() {
   return (
     <section className="py-32 px-6 md:px-12">
       <div className="max-w-2xl mx-auto text-center">
-        <div ref={cardRef} className="relative inline-block w-full" style={{ opacity: 0 }}>
+        <div
+          ref={cardRef}
+          className="relative inline-block w-full"
+          style={{ opacity: 0 }}
+        >
           {/* Glow border */}
           <GlowBorderCanvas
             borderRadius={12}
@@ -58,8 +64,8 @@ export default function LandingCTA() {
               Free Forever. No Catch.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto leading-relaxed">
-              No sign-up required. Your data stays in your browser.
-              Build, export, and land the job — without paying a cent.
+              No sign-up required. Your data stays in your browser. Build,
+              export, and land the job, without paying a cent.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Button
