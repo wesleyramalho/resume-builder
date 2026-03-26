@@ -347,8 +347,8 @@ function ProjectsSection({ data, s }: PDFSectionProps) {
   return (
     <View style={s.section}>
       <Text style={s.sectionTitle}>Projects</Text>
-      {data.projects.map((proj) => (
-        <View key={proj.id} style={s.expItem}>
+      {data.projects.map((proj, i) => (
+        <View key={proj.id} style={[s.expItem, i > 0 ? { marginTop: 8 } : {}]}>
           <View style={s.expHeader}>
             <View>
               <Text style={s.expCompany}>{proj.name}</Text>
