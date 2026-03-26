@@ -149,16 +149,16 @@ export default function EditorPage({ params }: Props) {
       {/* Mobile: tabs */}
       <div className="lg:hidden flex-1">
         <Tabs defaultValue="edit" className="h-full flex flex-col">
-          <TabsList className="rounded-none border-b border-border bg-transparent px-4 gap-4 h-10 justify-start">
+          <TabsList className="rounded-none border-b border-border bg-transparent px-4 gap-4 h-11 justify-start">
             <TabsTrigger
               value="edit"
-              className="font-mono text-[10px] uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
+              className="font-mono text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
             >
               Edit
             </TabsTrigger>
             <TabsTrigger
               value="preview"
-              className="font-mono text-[10px] uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
+              className="font-mono text-xs uppercase tracking-widest data-[state=active]:text-foreground data-[state=active]:border-b data-[state=active]:border-foreground rounded-none bg-transparent"
             >
               Preview
             </TabsTrigger>

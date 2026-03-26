@@ -155,7 +155,8 @@ export default function EditorToolbar({ resume }: Props) {
         ) : (
           <FileDown className="w-3.5 h-3.5" />
         )}
-        Export PDF
+        <span className="hidden sm:inline">Export PDF</span>
+        <span className="sm:hidden">Export</span>
       </Button>
       <ThemeToggle />
     </div>

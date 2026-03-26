@@ -7,7 +7,6 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-jakarta), sans-serif;
-  --font-mono: var(--font-space-mono), monospace;
 
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -152,11 +151,14 @@ input:-webkit-autofill:active {
 }
 
 @keyframes glow-border {
-  0%, 100% {
-    box-shadow: 0 0 8px 0 color-mix(in srgb, var(--brand-primary) 20%, transparent);
+  0%,
+  100% {
+    box-shadow: 0 0 8px 0
+      color-mix(in srgb, var(--brand-primary) 20%, transparent);
   }
   50% {
-    box-shadow: 0 0 24px 6px color-mix(in srgb, var(--brand-primary) 35%, transparent);
+    box-shadow: 0 0 24px 6px
+      color-mix(in srgb, var(--brand-primary) 35%, transparent);
   }
 }
 

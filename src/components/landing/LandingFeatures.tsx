@@ -9,21 +9,21 @@ import { Eye, Download, GripVertical } from "lucide-react";
 import Link from "next/link";
 
 const SECTION_ROWS = ["Work Experience", "Skills & Expertise", "Education"];
-// Each pair is 2 adjacent swaps that together complete one full rotation.
-// swap[1,2] then swap[0,1] shifts everyone down one position cleanly.
+// Each pair is 2 adjacent swaps that together rotate all 3 items down by one position.
+// swap[0,1] then swap[1,2]: top two swap, then bottom two swap → full rotation.
 // 3 pairs = 3 rotations → naturally returns to original order.
 const ROTATION_PAIRS: [[number, number], [number, number]][] = [
   [
+    [0, 1],
     [1, 2],
-    [2, 0],
   ],
   [
-    [1, 2],
     [0, 1],
+    [1, 2],
   ],
   [
-    [1, 2],
     [0, 1],
+    [1, 2],
   ],
 ];
 
@@ -119,20 +119,20 @@ export default function LandingFeatures() {
           pos[domB1] = visA1;
           tl.to(items[domA1], {
             y: (pos[domA1] - domA1) * ROW_HEIGHT,
-            duration: 0.25,
+            duration: 0.4,
             ease: "power2.inOut",
           });
           tl.to(
             items[domB1],
             {
               y: (pos[domB1] - domB1) * ROW_HEIGHT,
-              duration: 0.25,
+              duration: 0.4,
               ease: "power2.inOut",
             },
             "<",
           );
 
-          // Second adjacent swap immediately after (fast) — completes the full rotation
+          // Second adjacent swap immediately after — completes the full rotation
           const [visA2, visB2] = swap2;
           const domA2 = pos.indexOf(visA2);
           const domB2 = pos.indexOf(visB2);
@@ -140,14 +140,14 @@ export default function LandingFeatures() {
           pos[domB2] = visA2;
           tl.to(items[domA2], {
             y: (pos[domA2] - domA2) * ROW_HEIGHT,
-            duration: 0.25,
+            duration: 0.4,
             ease: "power2.inOut",
           });
           tl.to(
             items[domB2],
             {
               y: (pos[domB2] - domB2) * ROW_HEIGHT,
-              duration: 0.25,
+              duration: 0.4,
               ease: "power2.inOut",
             },
             "<",

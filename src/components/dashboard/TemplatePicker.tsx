@@ -30,7 +30,7 @@ function getSampleData(templateId: string): ResumeData {
 export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="sm:max-w-2xl flex flex-col max-h-[90vh]">
         <DialogHeader>
           <DialogTitle>Choose a Template</DialogTitle>
           <DialogDescription>
@@ -38,6 +38,7 @@ export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) 
           </DialogDescription>
         </DialogHeader>
 
+        <div className="overflow-y-auto">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
           {/* Blank option */}
           <button
@@ -72,6 +73,7 @@ export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) 
               </p>
             </button>
           ))}
+        </div>
         </div>
       </DialogContent>
     </Dialog>

@@ -105,7 +105,7 @@ export default function ResumeCard({ resume }: Props) {
 
             <DropdownMenu>
               <DropdownMenuTrigger
-                className="h-8 w-8 border border-border hover:bg-muted rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                className="h-9 w-9 sm:h-8 sm:w-8 border border-border hover:bg-muted rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
               >
                 <MoreHorizontal className="w-4 h-4" />
               </DropdownMenuTrigger>

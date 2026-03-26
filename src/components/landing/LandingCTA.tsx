@@ -47,7 +47,7 @@ export default function LandingCTA() {
             className="absolute inset-0 w-full h-full pointer-events-none"
           />
 
-          <div className="relative bg-card border border-border rounded-xl p-12 shadow-sm">
+          <div className="relative bg-card border border-border rounded-xl p-6 sm:p-12 shadow-sm">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
               Start Your Story
             </p>

@@ -94,7 +94,7 @@ export default function DashboardHeader() {
     .toUpperCase() ?? "?";
 
   return (
-    <header className="relative flex items-start justify-between mb-12">
+    <header className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between mb-12 gap-4">
       <div>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-subtle mb-2">
           Portfolio Overview
@@ -108,13 +108,14 @@ export default function DashboardHeader() {
         </p>
       </div>
 
-      <div className="flex items-center gap-3 mt-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button
           onClick={() => setPickerOpen(true)}
           className="bg-foreground text-background hover:bg-foreground/90 font-mono text-xs uppercase tracking-widest gap-2"
         >
           <Plus className="w-4 h-4" />
-          Create New Resume
+          <span className="hidden sm:inline">Create New Resume</span>
+          <span className="sm:hidden">New Resume</span>
         </Button>
 
         {session ? (
@@ -126,7 +127,8 @@ export default function DashboardHeader() {
               className="font-mono text-xs uppercase tracking-widest gap-2"
             >
               <LinkedInIcon className="w-4 h-4" />
-              {isImporting ? "Importing..." : "Import from LinkedIn"}
+              <span className="hidden sm:inline">{isImporting ? "Importing..." : "Import from LinkedIn"}</span>
+              <span className="sm:hidden">{isImporting ? "Importing..." : "Import"}</span>
             </Button>
 
             <DropdownMenu>

@@ -14,25 +14,6 @@ const plusJakartaSans = localFont({
   display: "swap",
 });
 
-const spaceMono = localFont({
-  src: [
-    { path: "../../public/fonts/space-mono-400.woff2", weight: "400" },
-    { path: "../../public/fonts/space-mono-700.woff2", weight: "700" },
-  ],
-  variable: "--font-space-mono",
-  display: "swap",
-});
-
-export const metadata: Metadata = {
-  metadataBase: new URL("https://mypdfcv.com"),
-  title: {
-    default: "MyPDFCV — Curate Your Career Narrative",
-    template: "%s | MyPDFCV",
-  },
-  description:
-    "Build professional, ATS-ready resumes with real-time preview and one-click PDF export.",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,7 +22,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${spaceMono.variable}`}
+      className={`${plusJakartaSans.variable}`}
       suppressHydrationWarning
     >
       <head>
