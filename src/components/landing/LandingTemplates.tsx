@@ -54,16 +54,16 @@ export default function LandingTemplates() {
     <section className="py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 text-center">
-          <SectionHeading className="mb-3">Templates</SectionHeading>
+          <SectionHeading className="mb-3">7 Free Templates</SectionHeading>
           <h2
             className="font-sans font-bold text-foreground"
             style={{ fontSize: "clamp(1.6rem, 3vw, 3rem)" }}
           >
-            Resume Templates
+            Pick a Style. Export for Free.
           </h2>
           <p className="text-muted-foreground mt-2 max-w-md mx-auto">
-            Choose a style that fits your career story. Each template is ATS-friendly
-            and ready to export.
+            All 7 templates are ATS-friendly, fully customizable, and free to
+            export — no premium tier, no watermarks.
           </p>
         </div>
 

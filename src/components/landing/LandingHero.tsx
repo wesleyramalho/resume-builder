@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Eye, User, Briefcase, GraduationCap } from "lucide-react";
 
 const HEADLINE_WORDS = [
-  { text: "Curate", teal: false },
   { text: "Your", teal: false },
-  { text: "Career", teal: true },
-  { text: "Narrative.", teal: false },
+  { text: "Resume,", teal: false },
+  { text: "Free", teal: true },
+  { text: "Forever.", teal: false },
 ];
 
 export default function LandingHero() {
@@ -140,13 +140,13 @@ export default function LandingHero() {
                 )}
               </React.Fragment>
             ))}
-            <span className="sr-only">Curate Your Career Narrative.</span>
+            <span className="sr-only">Your Resume, Free Forever.</span>
           </h1>
 
-          <p className="hero-subtitle text-base md:text-lg text-muted-foreground max-w-md leading-relaxed mb-8">
-            Move beyond form fields. Treat your resume like a high-end
-            publication with real-time editorial tools designed for professional
-            authority.
+          <p className="hero-subtitle text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed mb-8">
+            Build professional resumes with real-time preview, 7 templates, and
+            one-click PDF export. No paywall, no sign-up, no data sent to
+            servers. 100% free and open source.
           </p>
 
           <div className="hero-cta flex flex-wrap gap-3">
@@ -155,7 +155,7 @@ export default function LandingHero() {
               onClick={() => router.push("/dashboard")}
               className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest"
             >
-              Start Drafting →
+              Build Your Resume →
             </Button>
           </div>
         </div>

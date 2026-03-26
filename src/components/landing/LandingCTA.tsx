@@ -49,17 +49,17 @@ export default function LandingCTA() {
 
           <div className="relative bg-card border border-border rounded-xl p-6 sm:p-12 shadow-sm">
             <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
-              Start Your Story
+              Ready When You Are
             </p>
             <h2
               className="font-sans font-bold text-foreground mb-6"
               style={{ fontSize: "clamp(1.8rem, 4vw, 3.5rem)" }}
             >
-              Build Your Resume.
+              Free Forever. No Catch.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto leading-relaxed">
-              Join professionals who treat their resume as a career document, not a
-              form submission.
+              No sign-up required. Your data stays in your browser.
+              Build, export, and land the job — without paying a cent.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Button

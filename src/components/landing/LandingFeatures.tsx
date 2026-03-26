@@ -166,12 +166,12 @@ export default function LandingFeatures() {
     <section className="py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="features-heading mb-12">
-          <SectionHeading className="mb-3">The Toolkit</SectionHeading>
+          <SectionHeading className="mb-3">Everything You Need</SectionHeading>
           <h2
             className="font-sans font-bold text-foreground"
             style={{ fontSize: "clamp(1.6rem, 3vw, 3rem)" }}
           >
-            Precision Instruments for Your Profile
+            No Catch. No Paywall. Just Tools.
           </h2>
         </div>
 
@@ -189,8 +189,8 @@ export default function LandingFeatures() {
                   Preview in Real-Time
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Watch your professional story evolve instantly. Our dual-pane
-                  system ensures your output is pixel-perfect as you type.
+                  See every change instantly as you type. Our dual-pane editor
+                  shows your final PDF in real time — no surprises at export.
                 </p>
               </div>
               {/* Mini preview mockup */}
@@ -229,9 +229,8 @@ export default function LandingFeatures() {
                   Easy Export
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  High-fidelity PDF exports that bypass applicant tracking
-                  systems (ATS) with ease. Clean metadata, professional
-                  formatting, always.
+                  One-click PDF export — no account, no payment, no limits.
+                  ATS-friendly formatting with clean metadata, every time.
                 </p>
               </div>
               {/* PDF download mockup */}
@@ -260,9 +259,9 @@ export default function LandingFeatures() {
                 Reorder Sections
               </h3>
               <p className="text-sm text-background/60 leading-relaxed">
-                Drag, drop, and re-architect your resume hierarchy. Prioritize
-                your strengths based on the specific role you&apos;re targeting
-                with zero friction.
+                Drag and drop to reorder your resume sections. Tailor the
+                layout for each role you&apos;re applying to — no copy-pasting
+                required.
               </p>
             </div>
 

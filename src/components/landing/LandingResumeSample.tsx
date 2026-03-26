@@ -54,13 +54,13 @@ export default function LandingResumeSample() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <SectionHeading className="sample-label mb-4 justify-center">
-            Minimalist Design
+            Privacy First
           </SectionHeading>
           <h2
             className="font-sans font-bold text-foreground"
             style={{ fontSize: "clamp(2rem, 4vw, 4rem)" }}
           >
-            Designed to be Read.
+            Your Data Never Leaves Your Browser.
           </h2>
         </div>
 
