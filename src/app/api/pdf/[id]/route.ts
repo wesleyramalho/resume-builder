@@ -2,20 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateResumePDF } from "@/lib/pdf";
 import { Resume } from "@/types/resume";
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const encoded = searchParams.get("data");
-
-  if (!encoded) {
-    return NextResponse.json({ error: "Missing data parameter" }, { status: 400 });
-  }
-
+export async function POST(req: NextRequest) {
   let resume: Resume;
   try {
-    const json = decodeURIComponent(atob(encoded));
-    resume = JSON.parse(json) as Resume;
+    resume = (await req.json()) as Resume;
   } catch {
-    return NextResponse.json({ error: "Invalid data parameter" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
   let buffer: Buffer;

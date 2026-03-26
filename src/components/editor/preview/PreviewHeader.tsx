@@ -44,13 +44,17 @@ export default function PreviewHeader({ data, style: tmpl }: Props) {
     <div
       style={{
         borderBottom: hasBg ? "none" : `0.5pt solid ${hexWithAlpha(tmpl.accentColor, 0.25)}`,
-        paddingBottom: "10pt",
+        paddingBottom: hasBg ? "20pt" : "10pt",
         marginBottom: "10pt",
         ...(hasBg
           ? {
               backgroundColor: tmpl.headerBgColor,
-              margin: "-40pt -48pt 10pt -48pt",
-              padding: "20pt 48pt",
+              marginTop: "-40pt",
+              marginLeft: "-48pt",
+              marginRight: "-48pt",
+              paddingTop: "30pt",
+              paddingLeft: "48pt",
+              paddingRight: "48pt",
               borderRadius: 0,
             }
           : {}),
@@ -71,6 +75,8 @@ export default function PreviewHeader({ data, style: tmpl }: Props) {
             textTransform: "uppercase",
             letterSpacing: "1.5pt",
             color: textColor,
+            margin: 0,
+            marginBottom: "8pt",
           }}
         >
           {fullName || <span style={{ color: "#d1d5db" }}>Your Name</span>}
@@ -81,7 +87,9 @@ export default function PreviewHeader({ data, style: tmpl }: Props) {
             textTransform: "uppercase",
             letterSpacing: "1.5pt",
             color: subtextColor,
+            margin: 0,
             marginTop: "2pt",
+            marginBottom: "4pt",
           }}
         >
           {headline || <span style={{ color: "#d1d5db" }}>Your Headline</span>}

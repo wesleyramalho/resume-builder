@@ -1,14 +1,26 @@
-import { Document, Font, Image, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import {
+  Document,
+  Font,
+  Image,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer";
 import { Resume } from "@/types/resume";
 import { formatMonthYear } from "@/lib/utils";
-import { getResumeStyle, hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
+import {
+  getResumeStyle,
+  hexWithAlpha,
+  type ResumeStyle,
+} from "@/lib/resumeTemplates";
 export const PDF_FONT = "Helvetica";
 
 // Disable automatic hyphenation so words don't break mid-word
 Font.registerHyphenationCallback((word) => [word]);
 
 function buildStyles(tmpl: ResumeStyle) {
-  const { accentColor: accent, sectionDivider: divider, headerBgColor, headerLayout } = tmpl;
+  const { accentColor: accent, sectionDivider: divider, headerBgColor } = tmpl;
   const hasBg = !!headerBgColor;
   const nameColor = hasBg ? "#ffffff" : accent;
   const headlineColor = hasBg ? "rgba(255,255,255,0.7)" : "#6b7280";
@@ -28,23 +40,31 @@ function buildStyles(tmpl: ResumeStyle) {
       borderBottomColor: hexWithAlpha(accent, 0.25),
       paddingBottom: 10,
       marginBottom: 10,
-      ...(hasBg ? {
-        backgroundColor: headerBgColor,
-        marginHorizontal: -48,
-        marginTop: -40,
-        paddingHorizontal: 48,
-        paddingTop: 20,
-      } : {}),
-      ...(headerLayout === "centered" ? { alignItems: "center" as const } : {}),
+      ...(hasBg
+        ? {
+            backgroundColor: headerBgColor,
+            marginHorizontal: -48,
+            marginTop: -40,
+            paddingHorizontal: 48,
+            paddingTop: 30,
+            paddingBottom: 20,
+          }
+        : {}),
+      ...(tmpl.photoPosition === "top-center"
+        ? { alignItems: "center" as const }
+        : {}),
     },
     name: {
       fontSize: 16,
       fontFamily: PDF_FONT,
       fontWeight: 700,
       textTransform: "uppercase",
-      letterSpacing: 1.5,
+      marginLeft: "-5px",
       color: nameColor,
-      ...(headerLayout === "centered" ? { textAlign: "center" as const } : {}),
+      marginBottom: 8,
+      ...(tmpl.photoPosition === "top-center"
+        ? { textAlign: "center" as const }
+        : {}),
     },
     headline: {
       fontSize: 8,
@@ -53,7 +73,10 @@ function buildStyles(tmpl: ResumeStyle) {
       letterSpacing: 1.5,
       color: headlineColor,
       marginTop: 2,
-      ...(headerLayout === "centered" ? { textAlign: "center" as const } : {}),
+      marginBottom: 4,
+      ...(tmpl.photoPosition === "top-center"
+        ? { textAlign: "center" as const }
+        : {}),
     },
     contactRow: {
       flexDirection: "row",
@@ -61,7 +84,9 @@ function buildStyles(tmpl: ResumeStyle) {
       flexWrap: "wrap",
       gap: 8,
       marginTop: 4,
-      ...(headerLayout === "centered" ? { justifyContent: "center" as const } : {}),
+      ...(tmpl.photoPosition === "top-center"
+        ? { justifyContent: "center" as const }
+        : {}),
     },
     contactText: {
       fontFamily: PDF_FONT,
@@ -265,7 +290,13 @@ function EducationSection({ data, s }: PDFSectionProps) {
       <Text style={s.sectionTitle}>Education</Text>
       {data.education.map((edu) => (
         <View key={edu.id} style={{ marginBottom: 6 }}>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+            }}
+          >
             <View>
               <Text style={s.eduSchool}>{edu.school}</Text>
               <Text style={s.eduDegree}>
@@ -278,7 +309,9 @@ function EducationSection({ data, s }: PDFSectionProps) {
             </Text>
           </View>
           {edu.highlights ? (
-            <Text style={[s.bulletText, { marginTop: 2, fontStyle: "italic" }]}>{edu.highlights}</Text>
+            <Text style={[s.bulletText, { marginTop: 2, fontStyle: "italic" }]}>
+              {edu.highlights}
+            </Text>
           ) : null}
         </View>
       ))}
@@ -320,12 +353,12 @@ function ProjectsSection({ data, s }: PDFSectionProps) {
             <View>
               <Text style={s.expCompany}>{proj.name}</Text>
               {proj.technologies.length > 0 ? (
-                <Text style={s.expTitle}>
-                  {proj.technologies.join(" · ")}
-                </Text>
+                <Text style={s.expTitle}>{proj.technologies.join(" · ")}</Text>
               ) : null}
               {proj.url ? (
-                <Text style={[s.expTitle, { color: "#9ca3af" }]}>{proj.url}</Text>
+                <Text style={[s.expTitle, { color: "#9ca3af" }]}>
+                  {proj.url}
+                </Text>
               ) : null}
             </View>
             <Text style={s.expDate}>
@@ -360,30 +393,47 @@ export default function ResumePDFDocument({ resume }: Props) {
   const hasSidebar = !!tmpl.sidebarColor;
 
   const headerBlock = !hasSidebar ? (
-    <View style={[
-      s.header,
-      {
-        flexDirection: tmpl.photoPosition === "top-center" ? "column" : "row",
-        gap: 10,
-        alignItems: tmpl.photoPosition === "top-center" ? "center" : "flex-start",
-      },
-    ]}>
+    <View
+      style={[
+        s.header,
+        {
+          flexDirection: tmpl.photoPosition === "top-center" ? "column" : "row",
+          alignItems:
+            tmpl.photoPosition === "top-center" ? "center" : "flex-start",
+        },
+      ]}
+    >
       {data.photo && tmpl.photoPosition !== "top-right" ? (
         <Image
           src={data.photo}
           style={{
-            width: 32, height: 32, borderRadius: 16,
-            ...(tmpl.headerBgColor ? { borderWidth: 2, borderColor: "rgba(255,255,255,0.3)" } : {}),
+            width: 32,
+            height: 32,
+            borderRadius: 16,
+            ...(tmpl.photoPosition === "top-center"
+              ? { marginBottom: 10 }
+              : { marginRight: 10 }),
+            ...(tmpl.headerBgColor
+              ? { borderWidth: 2, borderColor: "rgba(255,255,255,0.3)" }
+              : {}),
           }}
         />
       ) : null}
-      <View style={{ flex: 1 }}>
+      <View
+        style={{
+          ...(tmpl.photoPosition === "top-center"
+            ? { width: "100%" }
+            : { flex: 1 }),
+        }}
+      >
         <Text style={s.name}>{data.fullName}</Text>
         {data.headline ? <Text style={s.headline}>{data.headline}</Text> : null}
         {contactParts.length > 0 && (
           <View style={s.contactRow}>
             {contactParts.map((c, i) => (
-              <Text key={i} style={s.contactText}>{c}</Text>
+              <Text key={i} style={s.contactText}>
+                {c}
+              </Text>
             ))}
           </View>
         )}
@@ -392,8 +442,13 @@ export default function ResumePDFDocument({ resume }: Props) {
         <Image
           src={data.photo}
           style={{
-            width: 32, height: 32, borderRadius: 16,
-            ...(tmpl.headerBgColor ? { borderWidth: 2, borderColor: "rgba(255,255,255,0.3)" } : {}),
+            width: 32,
+            height: 32,
+            borderRadius: 16,
+            marginLeft: 10,
+            ...(tmpl.headerBgColor
+              ? { borderWidth: 2, borderColor: "rgba(255,255,255,0.3)" }
+              : {}),
           }}
         />
       ) : null}
@@ -417,42 +472,124 @@ export default function ResumePDFDocument({ resume }: Props) {
   if (hasSidebar) {
     return (
       <Document>
-        <Page size="A4" style={[s.page, { paddingHorizontal: 0, paddingVertical: 0, flexDirection: "row" }]}>
+        <Page
+          size="A4"
+          style={[
+            s.page,
+            { paddingHorizontal: 0, paddingVertical: 0, flexDirection: "row" },
+          ]}
+        >
           {/* Sidebar */}
-          <View style={{ width: "30%", backgroundColor: tmpl.sidebarColor, padding: 20, alignItems: "center" }}>
+          <View
+            style={{
+              width: "30%",
+              backgroundColor: tmpl.sidebarColor,
+              padding: 20,
+              alignItems: "center",
+            }}
+          >
             {data.photo ? (
               <Image
                 src={data.photo}
-                style={{ width: 60, height: 60, borderRadius: 30, marginBottom: 8, borderWidth: 2, borderColor: "rgba(255,255,255,0.3)" }}
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
+                  marginBottom: 8,
+                  borderWidth: 2,
+                  borderColor: "rgba(255,255,255,0.3)",
+                }}
               />
             ) : null}
-            <Text style={{ fontFamily: PDF_FONT, fontSize: 10, fontWeight: 700, color: "#ffffff", textTransform: "uppercase", letterSpacing: 1, textAlign: "center" }}>
+            <Text
+              style={{
+                fontFamily: PDF_FONT,
+                fontSize: 10,
+                fontWeight: 700,
+                color: "#ffffff",
+                textTransform: "uppercase",
+                letterSpacing: 1,
+                textAlign: "center",
+              }}
+            >
               {data.fullName}
             </Text>
-            <Text style={{ fontFamily: PDF_FONT, fontSize: 7, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: 0.5, marginTop: 2, textAlign: "center" }}>
+            <Text
+              style={{
+                fontFamily: PDF_FONT,
+                fontSize: 7,
+                color: "rgba(255,255,255,0.7)",
+                textTransform: "uppercase",
+                letterSpacing: 0.5,
+                marginTop: 2,
+                textAlign: "center",
+              }}
+            >
               {data.headline}
             </Text>
             <View style={{ marginTop: 10, gap: 2 }}>
-              {[data.contact.location, data.contact.email, data.contact.phone, data.contact.linkedin, data.contact.website].filter(Boolean).map((item, i) => (
-                <Text key={i} style={{ fontFamily: PDF_FONT, fontSize: 6.5, color: "rgba(255,255,255,0.6)", textAlign: "center" }}>
-                  {item}
-                </Text>
-              ))}
+              {[
+                data.contact.location,
+                data.contact.email,
+                data.contact.phone,
+                data.contact.linkedin,
+                data.contact.website,
+              ]
+                .filter(Boolean)
+                .map((item, i) => (
+                  <Text
+                    key={i}
+                    style={{
+                      fontFamily: PDF_FONT,
+                      fontSize: 6.5,
+                      color: "rgba(255,255,255,0.6)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {item}
+                  </Text>
+                ))}
             </View>
             {data.skillGroups.length > 0 && (
               <View style={{ marginTop: 12, width: "100%" }}>
-                <Text style={{ fontFamily: PDF_FONT, fontSize: 6, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
+                <Text
+                  style={{
+                    fontFamily: PDF_FONT,
+                    fontSize: 6,
+                    color: "rgba(255,255,255,0.5)",
+                    textTransform: "uppercase",
+                    letterSpacing: 1,
+                    marginBottom: 4,
+                  }}
+                >
                   Skills
                 </Text>
                 {data.skillGroups.map((group, gi) => (
                   <View key={gi} style={{ marginBottom: 4, width: "100%" }}>
                     {group.category ? (
-                      <Text style={{ fontFamily: PDF_FONT, fontSize: 5.5, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 1 }}>
+                      <Text
+                        style={{
+                          fontFamily: PDF_FONT,
+                          fontSize: 5.5,
+                          color: "rgba(255,255,255,0.4)",
+                          textTransform: "uppercase",
+                          letterSpacing: 0.5,
+                          marginBottom: 1,
+                        }}
+                      >
                         {group.category}
                       </Text>
                     ) : null}
                     {group.skills.map((skill, i) => (
-                      <Text key={i} style={{ fontFamily: PDF_FONT, fontSize: 6.5, color: "rgba(255,255,255,0.8)", marginBottom: 2 }}>
+                      <Text
+                        key={i}
+                        style={{
+                          fontFamily: PDF_FONT,
+                          fontSize: 6.5,
+                          color: "rgba(255,255,255,0.8)",
+                          marginBottom: 2,
+                        }}
+                      >
                         {skill}
                       </Text>
                     ))}

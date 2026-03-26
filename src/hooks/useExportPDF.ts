@@ -15,10 +15,11 @@ export function useExportPDF() {
   async function exportPDF(resume: Resume) {
     setExporting(true);
     try {
-      const encoded = btoa(encodeURIComponent(JSON.stringify(resume)));
-      const res = await fetch(
-        `/api/pdf/${resume.id}?data=${encodeURIComponent(encoded)}`,
-      );
+      const res = await fetch(`/api/pdf/${resume.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(resume),
+      });
       if (!res.ok) {
         const body = (await res.json().catch(() => ({}))) as PDFErrorResponse;
         throw new Error(body.error ?? `PDF generation failed (${res.status})`);
