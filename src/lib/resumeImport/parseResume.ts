@@ -196,6 +196,127 @@ function isDateLine(line: string): boolean {
 }
 
 function parseExperience(lines: string[]): ExperienceEntry[] {
+  // Find all date line indices
+  const dateIndices: number[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trim() && isDateLine(lines[i])) {
+      dateIndices.push(i);
+    }
+  }
+
+  // LinkedIn format: date lines with at least 2 lines before them (company + title)
+  const isLinkedInFormat =
+    dateIndices.length > 0 && dateIndices.some((di) => di >= 2);
+
+  if (isLinkedInFormat) {
+    return parseExperienceByDateAnchors(lines, dateIndices);
+  }
+
+  // Fallback: block-based parsing for standard resumes
+  return parseExperienceByBlocks(lines);
+}
+
+/** LinkedIn: anchor on date lines, look back for company/title, forward for location + description */
+function parseExperienceByDateAnchors(
+  lines: string[],
+  dateIndices: number[],
+): ExperienceEntry[] {
+  const entries: ExperienceEntry[] = [];
+
+  for (let d = 0; d < dateIndices.length; d++) {
+    const dateIdx = dateIndices[d];
+
+    // Company and title are the 2 lines before the date
+    let company = "";
+    let title = "";
+
+    if (dateIdx >= 2) {
+      const l2 = lines[dateIdx - 2].trim();
+      const l1 = lines[dateIdx - 1].trim();
+      if (l2 && l2.length < 60 && !l2.startsWith("-") && !l2.startsWith("•")) {
+        company = l2;
+      }
+      if (l1 && l1.length < 60 && !l1.startsWith("-") && !l1.startsWith("•")) {
+        title = l1;
+      }
+    } else if (dateIdx >= 1) {
+      const l1 = lines[dateIdx - 1].trim();
+      if (l1 && l1.length < 60 && !l1.startsWith("-") && !l1.startsWith("•")) {
+        company = l1;
+      }
+    }
+
+    // Parse dates from the date line
+    DATE_RANGE_RE.lastIndex = 0;
+    const dateMatch = lines[dateIdx].match(DATE_RANGE_RE);
+    let startDate = "";
+    let endDate: string | null = "";
+    let current = false;
+
+    if (dateMatch) {
+      const parts = dateMatch[0].split(/\s*[-–—]+\s*/i).filter(Boolean);
+      if (parts.length >= 2) {
+        startDate = normalizeToYYYYMM(parts[0]) ?? "";
+        if (/present|current|now|presente|atual/i.test(parts[parts.length - 1])) {
+          endDate = null;
+          current = true;
+        } else {
+          endDate = normalizeToYYYYMM(parts[parts.length - 1]) ?? "";
+        }
+      }
+    }
+
+    // Location: line right after date, if short and not a bullet/date
+    let location = "";
+    const afterDate = dateIdx + 1;
+    if (afterDate < lines.length) {
+      const loc = lines[afterDate].trim();
+      if (
+        loc &&
+        loc.length < 50 &&
+        !loc.startsWith("-") &&
+        !loc.startsWith("•") &&
+        !isDateLine(loc)
+      ) {
+        location = loc;
+      }
+    }
+
+    // Description: from after date+location until 2 lines before the next date line
+    const descStart = location ? afterDate + 1 : afterDate;
+    const nextDateIdx =
+      d + 1 < dateIndices.length ? dateIndices[d + 1] : lines.length;
+    // Next entry's company starts 2 lines before next date
+    const descEnd =
+      d + 1 < dateIndices.length
+        ? Math.max(descStart, nextDateIdx - 2)
+        : lines.length;
+
+    const descLines: string[] = [];
+    for (let j = descStart; j < descEnd; j++) {
+      const cleaned = cleanLine(lines[j]);
+      if (cleaned) descLines.push(cleaned);
+    }
+
+    if (company || title) {
+      entries.push({
+        id: generateId(),
+        company,
+        title,
+        location,
+        startDate,
+        endDate,
+        current,
+        description: descLines.join("\n"),
+      });
+    }
+  }
+
+  return entries;
+}
+
+/** Standard resumes: split by blank lines, heuristic company/title detection */
+function parseExperienceByBlocks(lines: string[]): ExperienceEntry[] {
   const entries: ExperienceEntry[] = [];
   const blocks = splitIntoBlocks(lines);
 
@@ -220,62 +341,41 @@ function parseExperience(lines: string[]): ExperienceEntry[] {
       }
     }
 
-    // LinkedIn format: Company / Title / Date / Location / Description
-    const dateLineIdx = block.findIndex((l) => isDateLine(l));
+    const titleLines = block.filter(
+      (l) =>
+        !isDateLine(l) &&
+        !l.startsWith("•") &&
+        !l.startsWith("-") &&
+        l.length < 80,
+    );
 
     let company = "";
     let title = "";
     let location = "";
 
-    if (dateLineIdx >= 2) {
-      // LinkedIn pattern: lines before date are company then title
-      company = block[0];
-      title = block[1];
-      // Line after date might be location (short, no bullets)
-      if (dateLineIdx + 1 < block.length) {
-        const locCandidate = block[dateLineIdx + 1];
-        if (locCandidate.length < 50 && !locCandidate.startsWith("-") && !locCandidate.startsWith("•")) {
-          location = locCandidate;
-        }
-      }
-    } else {
-      // Fallback: original heuristic
-      const titleLines = block.filter(
-        (l) =>
-          !isDateLine(l) &&
-          !l.startsWith("•") &&
-          !l.startsWith("-") &&
-          l.length < 80,
-      );
-
-      if (titleLines.length >= 2) {
+    if (titleLines.length >= 2) {
+      company = titleLines[0];
+      title = titleLines[1];
+    } else if (titleLines.length === 1) {
+      const split = titleLines[0].split(/\s*[|–—@]\s*/);
+      if (split.length >= 2) {
+        title = split[0];
+        company = split[1];
+      } else {
         company = titleLines[0];
-        title = titleLines[1];
-      } else if (titleLines.length === 1) {
-        const split = titleLines[0].split(/\s*[|–—@]\s*/);
-        if (split.length >= 2) {
-          title = split[0];
-          company = split[1];
-        } else {
-          company = titleLines[0];
-        }
       }
     }
 
-    // Extract location from text if not found yet
-    if (!location) {
-      const locMatch = blockText.match(LOCATION_RE);
-      if (locMatch) location = locMatch[0];
-    }
+    const locMatch = blockText.match(LOCATION_RE);
+    if (locMatch) location = locMatch[0];
 
-    // Description: everything that isn't company/title/date/location
-    const skipLines = new Set<string>();
-    if (company) skipLines.add(company);
-    if (title) skipLines.add(title);
-    if (location) skipLines.add(location);
+    const skipSet = new Set<string>();
+    if (company) skipSet.add(company);
+    if (title) skipSet.add(title);
+    if (location) skipSet.add(location);
 
     const descLines = block
-      .filter((l) => !skipLines.has(l) && !isDateLine(l))
+      .filter((l) => !skipSet.has(l) && !isDateLine(l))
       .map(cleanLine)
       .filter(Boolean);
 
