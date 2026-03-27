@@ -5,7 +5,7 @@ export const metadata = { title: "Cookie Policy" };
 
 export default function CookiesPage() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col overflow-x-hidden">
       <SiteNav />
 
       <main className="flex-1 max-w-3xl mx-auto px-6 pt-24 pb-12">
