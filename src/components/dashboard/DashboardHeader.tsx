@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Plus, LogOut } from "lucide-react";
+import { Plus, LogOut, Upload, MoreVertical, Loader2 } from "lucide-react";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import ImportResumeButton from "@/components/dashboard/ImportResumeButton";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useResumeStore } from "@/store/useResumeStore";
 import type { ResumeData } from "@/types/resume";
 
@@ -22,6 +28,8 @@ interface LinkedInImportResponse {
 }
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
 import { getTemplate } from "@/lib/resumeTemplates";
+import { importResumeFromFile } from "@/lib/resumeImport";
+import { toast } from "sonner";
 
 export default function DashboardHeader() {
   const { data: session, status } = useSession();
@@ -32,6 +40,43 @@ export default function DashboardHeader() {
   const [importError, setImportError] = useState<string | null>(null);
   const [isImporting, setIsImporting] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const mobileFileInputRef = useRef<HTMLInputElement>(null);
+  const [mobileImporting, setMobileImporting] = useState(false);
+
+  async function handleMobileFileImport(
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+
+    setMobileImporting(true);
+    try {
+      const { data, textLength } = await importResumeFromFile(file);
+      if (textLength < 50) {
+        toast.warning(
+          "Very little text was extracted. The file may be a scanned document.",
+        );
+      }
+      const resume = createResume("Imported Resume", data);
+      const exp = data.experience?.length ?? 0;
+      const edu = data.education?.length ?? 0;
+      const skills =
+        data.skillGroups?.reduce((n, g) => n + g.skills.length, 0) ?? 0;
+      toast.success(
+        `Imported: ${exp} experience, ${edu} education${skills > 0 ? `, ${skills} skills` : ""}`,
+      );
+      router.push(`/editor/${resume.id}`);
+    } catch (err) {
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Failed to parse resume. Please try a different file.",
+      );
+    } finally {
+      setMobileImporting(false);
+    }
+  }
 
   function handleTemplateSelect(templateId: string) {
     setPickerOpen(false);
@@ -125,17 +170,28 @@ export default function DashboardHeader() {
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
+        {/* Hidden file input for mobile dropdown import */}
+        <input
+          ref={mobileFileInputRef}
+          type="file"
+          accept=".pdf,.docx,.doc"
+          onChange={handleMobileFileImport}
+          className="hidden"
+        />
+
+        {/* Desktop buttons (hidden on mobile) */}
         <Button
           size="sm"
           onClick={() => setPickerOpen(true)}
-          className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest gap-2"
+          className="hidden sm:inline-flex bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest gap-2"
         >
           <Plus className="w-4 h-4" />
-          <span className="hidden sm:inline">Create New Resume</span>
-          <span className="sm:hidden">New Resume</span>
+          Create New Resume
         </Button>
 
-        <ImportResumeButton />
+        <div className="hidden sm:flex">
+          <ImportResumeButton />
+        </div>
 
         {session ? (
           <>
@@ -155,6 +211,7 @@ export default function DashboardHeader() {
               </span>
             </Button>
 
+            {/* User avatar dropdown (always visible) */}
             <DropdownMenu>
               <DropdownMenuTrigger className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden">
                 {session.user?.image ? (
@@ -168,10 +225,7 @@ export default function DashboardHeader() {
                   initials
                 )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="bg-card border-border"
-              >
+              <DropdownMenuContent align="end" className="bg-card border-border">
                 <DropdownMenuItem
                   onClick={() => signOut({ callbackUrl: "/" })}
                   className="text-destructive focus:text-destructive gap-2"
