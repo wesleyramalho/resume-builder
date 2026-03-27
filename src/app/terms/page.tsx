@@ -114,7 +114,8 @@ export default function TermsPage() {
               MyPDFCV is built with open-source software. The following key
               libraries are used under their respective licenses:
             </p>
-            <div className="mt-3 overflow-x-auto">
+            {/* Desktop: table */}
+            <div className="mt-3 hidden sm:block overflow-x-auto">
               <table className="w-full text-sm border-collapse">
                 <thead>
                   <tr className="border-b border-border">
@@ -157,6 +158,23 @@ export default function TermsPage() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile: stacked cards */}
+            <div className="mt-3 sm:hidden space-y-3">
+              {[
+                { library: "Xenova/flan-t5-small", license: "Apache 2.0", purpose: "AI text improvement model" },
+                { library: "@huggingface/transformers", license: "Apache 2.0", purpose: "AI model runtime (WebAssembly)" },
+                { library: "pdfjs-dist (Mozilla)", license: "Apache 2.0", purpose: "PDF text extraction" },
+                { library: "mammoth.js", license: "BSD-2-Clause", purpose: "DOCX text extraction" },
+                { library: "@react-pdf/renderer", license: "MIT", purpose: "PDF generation" },
+              ].map((item) => (
+                <div key={item.library} className="text-sm border border-border/50 rounded-md p-3 space-y-1">
+                  <p className="text-foreground font-semibold">{item.library}</p>
+                  <p><span className="text-foreground/70">License:</span> {item.license}</p>
+                  <p><span className="text-foreground/70">Purpose:</span> {item.purpose}</p>
+                </div>
+              ))}
             </div>
             <p className="mt-3">
               Full license texts are available in each library&apos;s respective
