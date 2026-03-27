@@ -171,3 +171,30 @@ input:-webkit-autofill:active {
 .animate-glow-border {
   animation: glow-border 3s ease-in-out infinite;
 }
+
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-glow-travel {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+.tab-glow-border {
+  --glow-angle: 0deg;
+  border: 1px solid transparent !important;
+  background:
+    linear-gradient(var(--background), var(--background)) padding-box,
+    conic-gradient(
+        from var(--glow-angle),
+        transparent 55%,
+        color-mix(in srgb, var(--foreground) 50%, transparent) 75%,
+        transparent 95%
+      )
+      border-box;
+  animation: border-glow-travel 3s linear infinite;
+}
