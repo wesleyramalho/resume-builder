@@ -112,7 +112,7 @@ export default function LandingHero() {
         {/* Left: copy */}
         <div>
           <h1
-            className="font-sans font-bold leading-[1.05] tracking-tight mb-6 [perspective:800px]"
+            className="font-sans font-bold leading-[1.05] tracking-tight mb-6 [perspective:800px] overflow-hidden"
             style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)" }}
           >
             {HEADLINE_WORDS.map((word, wi) => (
