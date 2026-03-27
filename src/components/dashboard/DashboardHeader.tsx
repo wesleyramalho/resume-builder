@@ -126,6 +126,7 @@ export default function DashboardHeader() {
 
       <div className="flex flex-wrap items-center gap-2">
         <Button
+          size="sm"
           onClick={() => setPickerOpen(true)}
           className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest gap-2"
         >
@@ -139,6 +140,7 @@ export default function DashboardHeader() {
         {session ? (
           <>
             <Button
+              size="sm"
               variant="outline"
               disabled={isImporting}
               onClick={() => void handleLinkedInImport(false)}
@@ -182,6 +184,7 @@ export default function DashboardHeader() {
           </>
         ) : (
           <Button
+            size="sm"
             variant="outline"
             onClick={() =>
               signIn("linkedin", { callbackUrl: "/dashboard?intent=import" })

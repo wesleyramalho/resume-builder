@@ -59,12 +59,12 @@ export default function ImportResumeIntoButton({ resumeId }: Props) {
         size="sm"
         disabled={importing}
         onClick={() => fileInputRef.current?.click()}
-        className="font-sans text-xs uppercase tracking-widest gap-1.5 h-8"
+        className="font-sans text-xs uppercase tracking-widest gap-1.5"
       >
         {importing ? (
-          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          <Loader2 className="animate-spin" />
         ) : (
-          <Upload className="w-3.5 h-3.5" />
+          <Upload />
         )}
         <span className="hidden sm:inline">
           {importing ? "Importing..." : "Import"}
