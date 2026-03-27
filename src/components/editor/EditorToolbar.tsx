@@ -169,7 +169,7 @@ export default function EditorToolbar({ resume }: Props) {
         size="sm"
         variant="outline"
         onClick={() => setTemplatePickerOpen(true)}
-        className="font-sans text-xs uppercase tracking-widest gap-1.5 shrink-0"
+        className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-1.5 shrink-0"
       >
         <Palette />
         <span className="hidden sm:inline">
