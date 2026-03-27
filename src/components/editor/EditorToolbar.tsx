@@ -11,6 +11,12 @@ import { useResumeAutoSave } from "@/hooks/useResumeAutoSave";
 import { useExportPDF } from "@/hooks/useExportPDF";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { getTemplate } from "@/lib/resumeTemplates";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
@@ -139,20 +145,32 @@ export default function EditorToolbar({ resume }: Props) {
 
       <ImportResumeIntoButton resumeId={resume.id} />
       {!resume.data.linkedInImported && (
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => void handleLinkedInImport()}
-          disabled={importing}
-          className="font-sans text-xs uppercase tracking-widest gap-2 h-8 hidden sm:inline-flex"
-        >
-          {importing ? (
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-          ) : (
-            <LinkedInIcon className="w-3.5 h-3.5" />
-          )}
-          <span className="hidden md:inline">Import</span>
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              render={(props) => (
+                <Button
+                  {...props}
+                  size="sm"
+                  variant="outline"
+                  onClick={() => void handleLinkedInImport()}
+                  disabled={importing}
+                  className="font-sans text-xs uppercase tracking-widest gap-2 h-8 hidden sm:inline-flex"
+                >
+                  {importing ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <LinkedInIcon className="w-3.5 h-3.5" />
+                  )}
+                  <span className="hidden md:inline">Start with LinkedIn</span>
+                </Button>
+              )}
+            />
+            <TooltipContent>
+              Imports limited info like your profile photo, name, and headline
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
       <Button
         size="sm"
