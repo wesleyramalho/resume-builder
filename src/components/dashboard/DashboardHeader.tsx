@@ -273,10 +273,7 @@ export default function DashboardHeader() {
                   initials
                 )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="bg-card border-border"
-              >
+              <DropdownMenuContent align="end" className="bg-card border-border">
                 <DropdownMenuItem
                   onClick={() => signOut({ callbackUrl: "/" })}
                   className="text-destructive focus:text-destructive gap-2"

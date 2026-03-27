@@ -19,6 +19,12 @@ import { useResumeAutoSave } from "@/hooks/useResumeAutoSave";
 import { useExportPDF } from "@/hooks/useExportPDF";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { getTemplate } from "@/lib/resumeTemplates";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
