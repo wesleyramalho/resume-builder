@@ -56,7 +56,7 @@ export default function LandingNav() {
             className="hidden md:flex font-sans text-xs uppercase tracking-widest gap-2"
           >
             <LinkedInIcon className="w-4 h-4" />
-            LinkedIn Import
+            Start with LinkedIn
           </Button>
         )}
         <Button
