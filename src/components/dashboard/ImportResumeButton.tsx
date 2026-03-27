@@ -66,36 +66,23 @@ export default function ImportResumeButton() {
         onChange={handleFile}
         className="hidden"
       />
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger
-            render={(props) => (
-              <Button
-                {...props}
-                variant="outline"
-                disabled={importing}
-                onClick={() => fileInputRef.current?.click()}
-                className="font-sans text-xs uppercase tracking-widest gap-1.5"
-              >
-                {importing ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Upload className="w-4 h-4" />
-                )}
-                <span className="hidden sm:inline">
-                  {importing ? "Importing..." : "Import Resume"}
-                </span>
-                <span className="sm:hidden">
-                  {importing ? "..." : "Import"}
-                </span>
-              </Button>
-            )}
-          />
-          <TooltipContent>
-            Import from a PDF or Word document
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Button
+        size="sm"
+        variant="outline"
+        disabled={importing}
+        onClick={() => fileInputRef.current?.click()}
+        className="font-sans text-xs uppercase tracking-widest gap-1.5"
+      >
+        {importing ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <Upload />
+        )}
+        <span className="hidden sm:inline">
+          {importing ? "Importing..." : "Import Resume"}
+        </span>
+        <span className="sm:hidden">{importing ? "..." : "Import"}</span>
+      </Button>
     </>
   );
 }

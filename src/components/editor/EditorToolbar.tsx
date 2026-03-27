@@ -169,9 +169,9 @@ export default function EditorToolbar({ resume }: Props) {
         size="sm"
         variant="outline"
         onClick={() => setTemplatePickerOpen(true)}
-        className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-1.5 h-8 shrink-0"
+        className="font-sans text-xs uppercase tracking-widest gap-1.5 shrink-0"
       >
-        <Palette className="w-3.5 h-3.5" />
+        <Palette />
         <span className="hidden sm:inline">
           {currentTemplate?.name ?? "Default"}
         </span>
@@ -204,32 +204,20 @@ export default function EditorToolbar({ resume }: Props) {
 
       {/* LinkedIn button (desktop only) */}
       {!resume.data.linkedInImported && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger
-              render={(props) => (
-                <Button
-                  {...props}
-                  size="sm"
-                  variant="outline"
-                  onClick={() => void handleLinkedInImport()}
-                  disabled={importing}
-                  className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-2 h-8"
-                >
-                  {importing ? (
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  ) : (
-                    <LinkedInIcon className="w-3.5 h-3.5" />
-                  )}
-                  <span className="hidden md:inline">Start with LinkedIn</span>
-                </Button>
-              )}
-            />
-            <TooltipContent>
-              Imports limited info like your profile photo, name, and headline
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => void handleLinkedInImport()}
+          disabled={importing}
+          className="font-sans text-xs uppercase tracking-widest gap-2 hidden sm:inline-flex"
+        >
+          {importing ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <LinkedInIcon />
+          )}
+          <span className="hidden md:inline">Import</span>
+        </Button>
       )}
 
       {/* Mobile action menu */}
@@ -271,12 +259,12 @@ export default function EditorToolbar({ resume }: Props) {
         size="sm"
         onClick={() => exportPDF(resume)}
         disabled={exporting}
-        className="font-sans text-xs uppercase tracking-widest gap-2 h-8"
+        className="font-sans text-xs uppercase tracking-widest gap-2"
       >
         {exporting ? (
-          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          <Loader2 className="animate-spin" />
         ) : (
-          <FileDown className="w-3.5 h-3.5" />
+          <FileDown />
         )}
         <span className="hidden sm:inline">Export PDF</span>
         <span className="sm:hidden">Export</span>

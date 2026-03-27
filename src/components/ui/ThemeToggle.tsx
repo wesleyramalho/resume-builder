@@ -12,11 +12,11 @@ export default function ThemeToggle() {
       <Button
         size="sm"
         variant="outline"
-        className="font-sans text-xs uppercase tracking-widest gap-1.5 h-8 opacity-0"
+        className="font-sans text-xs uppercase tracking-widest gap-1.5 opacity-0"
         aria-label="Toggle color theme"
         disabled
       >
-        <Sun className="w-3.5 h-3.5" />
+        <Sun />
         Light
       </Button>
     );
@@ -27,14 +27,14 @@ export default function ThemeToggle() {
       size="sm"
       variant="outline"
       onClick={toggleTheme}
-      className="font-sans text-xs uppercase tracking-widest gap-1.5 h-8"
+      className="font-sans text-xs uppercase tracking-widest gap-1.5"
       aria-label="Toggle color theme"
       title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       {theme === "light" ? (
-        <Moon className="w-3.5 h-3.5" />
+        <Moon />
       ) : (
-        <Sun className="w-3.5 h-3.5" />
+        <Sun />
       )}
       {theme === "light" ? "Dark" : "Light"}
     </Button>
