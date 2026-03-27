@@ -204,20 +204,32 @@ export default function EditorToolbar({ resume }: Props) {
 
       {/* LinkedIn button (desktop only) */}
       {!resume.data.linkedInImported && (
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => void handleLinkedInImport()}
-          disabled={importing}
-          className="font-sans text-xs uppercase tracking-widest gap-2 hidden sm:inline-flex"
-        >
-          {importing ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            <LinkedInIcon />
-          )}
-          <span className="hidden md:inline">Import</span>
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              render={(props) => (
+                <Button
+                  {...props}
+                  size="sm"
+                  variant="outline"
+                  onClick={() => void handleLinkedInImport()}
+                  disabled={importing}
+                  className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-2"
+                >
+                  {importing ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    <LinkedInIcon />
+                  )}
+                  <span className="hidden md:inline">Start with LinkedIn</span>
+                </Button>
+              )}
+            />
+            <TooltipContent>
+              Imports limited info like your profile photo, name, and headline
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
 
       {/* Mobile action menu */}
