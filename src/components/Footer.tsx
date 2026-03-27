@@ -28,12 +28,12 @@ export default function Footer() {
           Created by wesleyramalho.com
         </a>
 
-        <nav className="flex flex-wrap items-center gap-4">
+        <nav className="grid grid-cols-2 gap-x-4 gap-y-2 justify-items-center md:flex md:items-center md:gap-4">
           {LEGAL_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer text-center"
             >
               {link.label}
             </Link>
