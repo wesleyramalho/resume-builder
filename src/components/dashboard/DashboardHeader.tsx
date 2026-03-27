@@ -195,21 +195,71 @@ export default function DashboardHeader() {
 
         {session ? (
           <>
-            <Button
-              size="sm"
-              variant="outline"
-              disabled={isImporting}
-              onClick={() => void handleLinkedInImport(false)}
-              className="font-sans text-xs uppercase tracking-widest gap-2"
-            >
-              <LinkedInIcon className="w-4 h-4" />
-              <span className="hidden sm:inline">
-                {isImporting ? "Importing..." : "Import from LinkedIn"}
-              </span>
-              <span className="sm:hidden">
-                {isImporting ? "Importing..." : "Import"}
-              </span>
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger
+                  render={(props) => (
+                    <Button
+                      {...props}
+                      size="sm"
+                      variant="outline"
+                      disabled={isImporting}
+                      onClick={() => void handleLinkedInImport(false)}
+                      className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-2"
+                    >
+                      <LinkedInIcon className="w-4 h-4" />
+                      {isImporting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />{" "}
+                          Importing...
+                        </>
+                      ) : (
+                        "Start with LinkedIn"
+                      )}
+                    </Button>
+                  )}
+                />
+                <TooltipContent>
+                  Imports limited info like your profile photo, name, and
+                  headline
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Mobile action menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="sm:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-border bg-surface-soft hover:bg-surface-strong transition-colors">
+                <MoreVertical className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="bg-card border-border"
+              >
+                <DropdownMenuItem
+                  onClick={() => setPickerOpen(true)}
+                  className="gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Create New Resume
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => mobileFileInputRef.current?.click()}
+                  disabled={mobileImporting}
+                  className="gap-2"
+                >
+                  <Upload className="w-4 h-4" />
+                  {mobileImporting ? "Importing..." : "Import Resume"}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => void handleLinkedInImport(false)}
+                  disabled={isImporting}
+                  className="gap-2"
+                >
+                  <LinkedInIcon className="w-4 h-4" />
+                  {isImporting ? "Importing..." : "Start with LinkedIn"}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* User avatar dropdown (always visible) */}
             <DropdownMenu>
@@ -237,17 +287,31 @@ export default function DashboardHeader() {
             </DropdownMenu>
           </>
         ) : (
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() =>
-              signIn("linkedin", { callbackUrl: "/dashboard?intent=import" })
-            }
-            className="font-sans text-xs uppercase tracking-widest gap-2"
-          >
-            <LinkedInIcon className="w-4 h-4" />
-            Sign In with LinkedIn
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger
+                render={(props) => (
+                  <Button
+                    {...props}
+                    size="sm"
+                    variant="outline"
+                    onClick={() =>
+                      signIn("linkedin", {
+                        callbackUrl: "/dashboard?intent=import",
+                      })
+                    }
+                    className="font-sans text-xs uppercase tracking-widest gap-2"
+                  >
+                    <LinkedInIcon className="w-4 h-4" />
+                    Start with LinkedIn
+                  </Button>
+                )}
+              />
+              <TooltipContent>
+                Imports limited info like your profile photo, name, and headline
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         )}
       </div>
       {importError ? (
