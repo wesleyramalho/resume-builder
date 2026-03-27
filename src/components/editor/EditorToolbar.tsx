@@ -3,7 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
-import { FileDown, ArrowLeft, Check, Loader2, Palette } from "lucide-react";
+import {
+  FileDown,
+  ArrowLeft,
+  Check,
+  Loader2,
+  Palette,
+  MoreVertical,
+  Upload,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Resume, ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
@@ -21,6 +29,13 @@ import { getTemplate } from "@/lib/resumeTemplates";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
 import ImportResumeIntoButton from "@/components/editor/ImportResumeIntoButton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { importResumeFromFile } from "@/lib/resumeImport";
 
 interface Props {
   resume: Resume;
@@ -42,6 +57,8 @@ export default function EditorToolbar({ resume }: Props) {
   const [importing, setImporting] = useState(false);
   const [templatePickerOpen, setTemplatePickerOpen] = useState(false);
   const hasConsumedImportIntent = useRef(false);
+  const mobileFileInputRef = useRef<HTMLInputElement>(null);
+  const [mobileImporting, setMobileImporting] = useState(false);
 
   const currentTemplate = resume.templateId
     ? getTemplate(resume.templateId)
@@ -51,6 +68,34 @@ export default function EditorToolbar({ resume }: Props) {
     setTemplatePickerOpen(false);
     if (templateId !== "blank") {
       updateTemplateId(resume.id, templateId);
+    }
+  }
+
+  async function handleMobileFileImport(
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+
+    setMobileImporting(true);
+    try {
+      const { data, textLength } = await importResumeFromFile(file);
+      if (textLength < 50) {
+        toast.warning(
+          "Very little text was extracted. The file may be a scanned document.",
+        );
+      }
+      updateResume(resume.id, data);
+      const exp = data.experience?.length ?? 0;
+      const edu = data.education?.length ?? 0;
+      toast.success(`Imported: ${exp} experience, ${edu} education entries`);
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Failed to parse resume.",
+      );
+    } finally {
+      setMobileImporting(false);
     }
   }
 
@@ -90,7 +135,16 @@ export default function EditorToolbar({ resume }: Props) {
   }, [handleLinkedInImport, searchParams, session, status, resume.id, router]);
 
   return (
-    <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-30 overflow-x-auto">
+    <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-30">
+      {/* Hidden file input for mobile dropdown import */}
+      <input
+        ref={mobileFileInputRef}
+        type="file"
+        accept=".pdf,.docx,.doc"
+        onChange={handleMobileFileImport}
+        className="hidden"
+      />
+
       <button
         onClick={() => router.push("/dashboard")}
         className="text-muted-foreground hover:text-foreground transition-colors"
@@ -105,17 +159,17 @@ export default function EditorToolbar({ resume }: Props) {
       <input
         value={resume.name}
         onChange={(e) => updateResumeName(resume.id, e.target.value)}
-        className="flex-1 bg-transparent text-sm font-sans text-foreground placeholder:text-muted-foreground focus:outline-none"
+        className="flex-1 min-w-0 bg-transparent text-sm font-sans text-foreground placeholder:text-muted-foreground focus:outline-none"
         placeholder="Resume Name"
         aria-label="Resume name"
       />
 
-      {/* Template switcher */}
+      {/* Template switcher (desktop only) */}
       <Button
         size="sm"
         variant="outline"
         onClick={() => setTemplatePickerOpen(true)}
-        className="font-sans text-xs uppercase tracking-widest gap-1.5 h-8 shrink-0"
+        className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-1.5 h-8 shrink-0"
       >
         <Palette className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">
@@ -128,7 +182,7 @@ export default function EditorToolbar({ resume }: Props) {
         onSelect={handleTemplateSelect}
       />
 
-      {/* Save status */}
+      {/* Save status (desktop only) */}
       <div className="hidden sm:flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-muted-foreground">
         {saveStatus === "saving" ? (
           <>
@@ -143,7 +197,12 @@ export default function EditorToolbar({ resume }: Props) {
         )}
       </div>
 
-      <ImportResumeIntoButton resumeId={resume.id} />
+      {/* Import file button (desktop only) */}
+      <div className="hidden sm:flex">
+        <ImportResumeIntoButton resumeId={resume.id} />
+      </div>
+
+      {/* LinkedIn button (desktop only) */}
       {!resume.data.linkedInImported && (
         <TooltipProvider>
           <Tooltip>
@@ -155,7 +214,7 @@ export default function EditorToolbar({ resume }: Props) {
                   variant="outline"
                   onClick={() => void handleLinkedInImport()}
                   disabled={importing}
-                  className="font-sans text-xs uppercase tracking-widest gap-2 h-8 hidden sm:inline-flex"
+                  className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-2 h-8"
                 >
                   {importing ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -172,6 +231,42 @@ export default function EditorToolbar({ resume }: Props) {
           </Tooltip>
         </TooltipProvider>
       )}
+
+      {/* Mobile action menu */}
+      <DropdownMenu>
+        <DropdownMenuTrigger className="sm:hidden inline-flex items-center justify-center w-8 h-8 rounded-md border border-border bg-surface-soft hover:bg-surface-strong transition-colors shrink-0">
+          <MoreVertical className="w-4 h-4" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="bg-card border-border">
+          <DropdownMenuItem
+            onClick={() => setTemplatePickerOpen(true)}
+            className="gap-2"
+          >
+            <Palette className="w-4 h-4" />
+            {currentTemplate?.name ?? "Change Template"}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => mobileFileInputRef.current?.click()}
+            disabled={mobileImporting}
+            className="gap-2"
+          >
+            <Upload className="w-4 h-4" />
+            {mobileImporting ? "Importing..." : "Import File"}
+          </DropdownMenuItem>
+          {!resume.data.linkedInImported && (
+            <DropdownMenuItem
+              onClick={() => void handleLinkedInImport()}
+              disabled={importing}
+              className="gap-2"
+            >
+              <LinkedInIcon className="w-4 h-4" />
+              {importing ? "Importing..." : "Start with LinkedIn"}
+            </DropdownMenuItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {/* Export PDF (always visible) */}
       <Button
         size="sm"
         onClick={() => exportPDF(resume)}

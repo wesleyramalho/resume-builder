@@ -43,7 +43,9 @@ export default function DashboardHeader() {
   const mobileFileInputRef = useRef<HTMLInputElement>(null);
   const [mobileImporting, setMobileImporting] = useState(false);
 
-  async function handleMobileFileImport(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleMobileFileImport(
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) {
     const file = e.target.files?.[0];
     if (!file) return;
     e.target.value = "";
@@ -52,16 +54,25 @@ export default function DashboardHeader() {
     try {
       const { data, textLength } = await importResumeFromFile(file);
       if (textLength < 50) {
-        toast.warning("Very little text was extracted. The file may be a scanned document.");
+        toast.warning(
+          "Very little text was extracted. The file may be a scanned document.",
+        );
       }
       const resume = createResume("Imported Resume", data);
       const exp = data.experience?.length ?? 0;
       const edu = data.education?.length ?? 0;
-      const skills = data.skillGroups?.reduce((n, g) => n + g.skills.length, 0) ?? 0;
-      toast.success(`Imported: ${exp} experience, ${edu} education${skills > 0 ? `, ${skills} skills` : ""}`);
+      const skills =
+        data.skillGroups?.reduce((n, g) => n + g.skills.length, 0) ?? 0;
+      toast.success(
+        `Imported: ${exp} experience, ${edu} education${skills > 0 ? `, ${skills} skills` : ""}`,
+      );
       router.push(`/editor/${resume.id}`);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to parse resume. Please try a different file.");
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Failed to parse resume. Please try a different file.",
+      );
     } finally {
       setMobileImporting(false);
     }
@@ -196,7 +207,10 @@ export default function DashboardHeader() {
                     >
                       <LinkedInIcon className="w-4 h-4" />
                       {isImporting ? (
-                        <><Loader2 className="w-4 h-4 animate-spin" /> Importing...</>
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />{" "}
+                          Importing...
+                        </>
                       ) : (
                         "Start with LinkedIn"
                       )}
@@ -204,7 +218,8 @@ export default function DashboardHeader() {
                   )}
                 />
                 <TooltipContent>
-                  Imports limited info like your profile photo, name, and headline
+                  Imports limited info like your profile photo, name, and
+                  headline
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -214,8 +229,14 @@ export default function DashboardHeader() {
               <DropdownMenuTrigger className="sm:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-border bg-surface-soft hover:bg-surface-strong transition-colors">
                 <MoreVertical className="w-4 h-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-card border-border">
-                <DropdownMenuItem onClick={() => setPickerOpen(true)} className="gap-2">
+              <DropdownMenuContent
+                align="end"
+                className="bg-card border-border"
+              >
+                <DropdownMenuItem
+                  onClick={() => setPickerOpen(true)}
+                  className="gap-2"
+                >
                   <Plus className="w-4 h-4" />
                   Create New Resume
                 </DropdownMenuItem>
@@ -272,7 +293,9 @@ export default function DashboardHeader() {
                     {...props}
                     variant="outline"
                     onClick={() =>
-                      signIn("linkedin", { callbackUrl: "/dashboard?intent=import" })
+                      signIn("linkedin", {
+                        callbackUrl: "/dashboard?intent=import",
+                      })
                     }
                     className="font-sans text-xs uppercase tracking-widest gap-2"
                   >

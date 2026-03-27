@@ -7,6 +7,12 @@ import { Upload, Loader2 } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function ImportResumeButton() {
   const router = useRouter();
@@ -60,22 +66,36 @@ export default function ImportResumeButton() {
         onChange={handleFile}
         className="hidden"
       />
-      <Button
-        variant="outline"
-        disabled={importing}
-        onClick={() => fileInputRef.current?.click()}
-        className="font-sans text-xs uppercase tracking-widest gap-1.5"
-      >
-        {importing ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
-        ) : (
-          <Upload className="w-4 h-4" />
-        )}
-        <span className="hidden sm:inline">
-          {importing ? "Importing..." : "Import Resume"}
-        </span>
-        <span className="sm:hidden">{importing ? "..." : "Import"}</span>
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={(props) => (
+              <Button
+                {...props}
+                variant="outline"
+                disabled={importing}
+                onClick={() => fileInputRef.current?.click()}
+                className="font-sans text-xs uppercase tracking-widest gap-1.5"
+              >
+                {importing ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Upload className="w-4 h-4" />
+                )}
+                <span className="hidden sm:inline">
+                  {importing ? "Importing..." : "Import Resume"}
+                </span>
+                <span className="sm:hidden">
+                  {importing ? "..." : "Import"}
+                </span>
+              </Button>
+            )}
+          />
+          <TooltipContent>
+            Import from a PDF or Word document
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </>
   );
 }

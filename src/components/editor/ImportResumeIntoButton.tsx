@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import { useResumeStore } from "@/store/useResumeStore";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Props {
   resumeId: string;
@@ -54,22 +60,34 @@ export default function ImportResumeIntoButton({ resumeId }: Props) {
         onChange={handleFile}
         className="hidden"
       />
-      <Button
-        variant="outline"
-        size="sm"
-        disabled={importing}
-        onClick={() => fileInputRef.current?.click()}
-        className="font-sans text-xs uppercase tracking-widest gap-1.5 h-8"
-      >
-        {importing ? (
-          <Loader2 className="w-3.5 h-3.5 animate-spin" />
-        ) : (
-          <Upload className="w-3.5 h-3.5" />
-        )}
-        <span className="hidden sm:inline">
-          {importing ? "Importing..." : "Import"}
-        </span>
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={(props) => (
+              <Button
+                {...props}
+                variant="outline"
+                size="sm"
+                disabled={importing}
+                onClick={() => fileInputRef.current?.click()}
+                className="font-sans text-xs uppercase tracking-widest gap-1.5 h-8"
+              >
+                {importing ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Upload className="w-3.5 h-3.5" />
+                )}
+                <span className="hidden sm:inline">
+                  {importing ? "Importing..." : "Import"}
+                </span>
+              </Button>
+            )}
+          />
+          <TooltipContent>
+            Import from a PDF or Word document
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </>
   );
 }
