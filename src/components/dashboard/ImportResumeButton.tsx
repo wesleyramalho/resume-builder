@@ -65,23 +65,33 @@ export default function ImportResumeButton() {
         onChange={handleFile}
         className="hidden"
       />
-      <Button
-        size="sm"
-        variant="outline"
-        disabled={importing}
-        onClick={() => fileInputRef.current?.click()}
-        className="font-sans text-xs uppercase tracking-widest gap-1.5"
-      >
-        {importing ? (
-          <Loader2 className="animate-spin" />
-        ) : (
-          <Upload />
-        )}
-        <span className="hidden sm:inline">
-          {importing ? tc("importing") : t("importResume")}
-        </span>
-        <span className="sm:hidden">{importing ? "..." : tc("import")}</span>
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={(props) => (
+              <Button
+                {...props}
+                size="sm"
+                variant="outline"
+                disabled={importing}
+                onClick={() => fileInputRef.current?.click()}
+                className="font-sans text-xs uppercase tracking-widest gap-1.5"
+              >
+                {importing ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  <Upload />
+                )}
+                <span className="hidden sm:inline">
+                  {importing ? tc("importing") : t("importResume")}
+                </span>
+                <span className="sm:hidden">{importing ? "..." : tc("import")}</span>
+              </Button>
+            )}
+          />
+          <TooltipContent>{tc("importFileTooltip")}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </>
   );
 }

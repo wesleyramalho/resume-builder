@@ -20,7 +20,9 @@
     "entries": "entries",
     "dragToReorder": "Drag to reorder",
     "remove": "Remove",
-    "back": "Back"
+    "back": "Back",
+    "importFileTooltip": "Import from a PDF or Word document",
+    "linkedInTooltip": "Imports limited info like your profile photo, name, and headline"
   },
   "landing": {
     "headlineYour": "Your",

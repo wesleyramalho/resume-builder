@@ -24,6 +24,12 @@ import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { importResumeFromFile } from "@/lib/resumeImport";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const LANGUAGES = [
   { code: "en", flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
@@ -147,10 +153,19 @@ export default function EditorToolbar({ resume }: Props) {
       <div className="hidden sm:flex"><ImportResumeIntoButton resumeId={resume.id} /></div>
 
       {!resume.data.linkedInImported && (
-        <Button size="sm" variant="outline" onClick={() => void handleLinkedInImport()} disabled={importing} className="font-sans text-xs uppercase tracking-widest gap-2 hidden sm:inline-flex">
-          {importing ? <Loader2 className="animate-spin" /> : <LinkedInIcon />}
-          <span className="hidden md:inline">{tc("import")}</span>
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              render={(props) => (
+                <Button {...props} size="sm" variant="outline" onClick={() => void handleLinkedInImport()} disabled={importing} className="font-sans text-xs uppercase tracking-widest gap-2 hidden sm:inline-flex">
+                  {importing ? <Loader2 className="animate-spin" /> : <LinkedInIcon />}
+                  <span className="hidden md:inline">{tc("import")}</span>
+                </Button>
+              )}
+            />
+            <TooltipContent>{tc("linkedInTooltip")}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
 
       <DropdownMenu>
