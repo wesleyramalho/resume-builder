@@ -15,6 +15,7 @@ import ExperienceSection from "@/components/editor/sections/ExperienceSection";
 import EducationSection from "@/components/editor/sections/EducationSection";
 import SkillsSection from "@/components/editor/sections/SkillsSection";
 import ProjectsSection from "@/components/editor/sections/ProjectsSection";
+import SummarySection from "@/components/editor/sections/SummarySection";
 import ResumePreview from "@/components/editor/preview/ResumePreview";
 import Footer from "@/components/Footer";
 import type { ResumeData } from "@/types/resume";
@@ -23,13 +24,14 @@ const SECTION_COMPONENTS: Record<
   string,
   React.FC<{ resumeId: string; data: ResumeData }>
 > = {
+  summary: SummarySection,
   experience: ExperienceSection,
   education: EducationSection,
   skills: SkillsSection,
   projects: ProjectsSection,
 };
 
-const DEFAULT_ORDER = ["experience", "education", "skills", "projects"];
+const DEFAULT_ORDER = ["summary", "experience", "education", "skills", "projects"];
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -156,14 +158,14 @@ export default function EditorPage({ params }: Props) {
           <TabsList className="rounded-none border-b border-border bg-background w-full h-12 p-0 gap-0 sticky top-0 z-20">
             <TabsTrigger
               value="edit"
-              className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full border-b-2 border-transparent data-[state=active]:text-foreground data-[state=active]:border-foreground data-[state=active]:bg-surface-soft/50 text-muted-foreground transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full text-muted-foreground transition-colors data-[state=active]:text-foreground data-[state=active]:tab-glow-border"
             >
               <Pencil className="w-3.5 h-3.5" />
               {t("tabEdit")}
             </TabsTrigger>
             <TabsTrigger
               value="preview"
-              className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full border-b-2 border-transparent data-[state=active]:text-foreground data-[state=active]:border-foreground data-[state=active]:bg-surface-soft/50 text-muted-foreground transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full text-muted-foreground transition-colors data-[state=active]:text-foreground data-[state=active]:tab-glow-border"
             >
               <Eye className="w-3.5 h-3.5" />
               {t("tabPreview")}

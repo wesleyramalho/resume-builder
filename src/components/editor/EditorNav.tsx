@@ -38,7 +38,7 @@ const SECTION_KEYS: Record<string, string> = {
   summary: "summary",
 };
 
-const DEFAULT_ORDER = ["experience", "education", "skills", "projects", "summary"];
+const DEFAULT_ORDER = ["summary", "experience", "education", "skills", "projects"];
 
 interface SortableItemProps {
   id: string;

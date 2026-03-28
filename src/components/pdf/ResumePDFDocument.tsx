@@ -75,7 +75,7 @@ function buildStyles(tmpl: ResumeStyle) {
       fontFamily: PDF_FONT,
       fontWeight: 700,
       textTransform: "uppercase",
-      marginLeft: "-5px",
+      letterSpacing: 1.5,
       color: nameColor,
       marginBottom: 8,
       ...(tmpl.photoPosition === "top-center"
@@ -329,7 +329,7 @@ function EducationSection({ data, s, localeTag, presentLabel, t }: PDFSectionPro
             </Text>
           </View>
           {edu.highlights ? (
-            <Text style={[s.bulletText, { marginTop: 2, fontStyle: "italic" }]}>
+            <Text style={{ fontFamily: PDF_FONT, fontSize: 7.5, color: "#6b7280", marginTop: 2, fontStyle: "italic" }}>
               {edu.highlights}
             </Text>
           ) : null}
