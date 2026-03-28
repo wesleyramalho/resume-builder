@@ -21,6 +21,10 @@ const DEFAULT_ORDER = [
 const PAPER_WIDTH_PX = 793.7;
 /** A4 height in CSS px (297mm ≈ 1122.5px at 96dpi) */
 const PAGE_HEIGHT_PX = 1122.5;
+/** Vertical padding per page in CSS px (40pt × 4/3) — matches PDF paddingVertical: 40 */
+const PADDING_V_PX = 40 * (4 / 3);
+/** Usable content height per page after subtracting top + bottom padding */
+const CONTENT_PER_PAGE = PAGE_HEIGHT_PX - 2 * PADDING_V_PX;
 
 interface Props {
   data: ResumeData;
@@ -70,7 +74,7 @@ export default function ResumePreview({ data, templateId }: Props) {
     return () => ro.disconnect();
   }, []);
 
-  const pages = Math.max(1, Math.ceil(contentHeight / PAGE_HEIGHT_PX));
+  const pages = Math.max(1, Math.ceil((contentHeight - 2 * PADDING_V_PX) / CONTENT_PER_PAGE));
 
   const sectionTitleStyle: React.CSSProperties = {
     fontSize: "7pt",
@@ -210,23 +214,26 @@ export default function ResumePreview({ data, templateId }: Props) {
           })}
         </div>
 
-        {/* Page separation overlays */}
-        {Array.from({ length: pages - 1 }, (_, i) => (
-          <div
-            key={`page-sep-${i}`}
-            style={{
-              position: "absolute",
-              top: `${(i + 1) * PAGE_HEIGHT_PX - 12}px`,
-              left: "-4px",
-              right: "-4px",
-              height: "24px",
-              background: "rgb(244 244 245)",
-              boxShadow:
-                "inset 0 1px 3px rgba(0,0,0,0.08), inset 0 -1px 3px rgba(0,0,0,0.08)",
-              zIndex: 10,
-            }}
-          />
-        ))}
+        {/* Page separation overlays — covers bottom padding of page N + top padding of page N+1 */}
+        {Array.from({ length: pages - 1 }, (_, i) => {
+          const breakTop = PADDING_V_PX + (i + 1) * CONTENT_PER_PAGE;
+          return (
+            <div
+              key={`page-sep-${i}`}
+              style={{
+                position: "absolute",
+                top: `${breakTop}px`,
+                left: "-4px",
+                right: "-4px",
+                height: `${2 * PADDING_V_PX}px`,
+                background: "rgb(244 244 245)",
+                boxShadow:
+                  "inset 0 2px 4px rgba(0,0,0,0.06), inset 0 -2px 4px rgba(0,0,0,0.06)",
+                zIndex: 10,
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );
