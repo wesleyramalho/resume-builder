@@ -16,6 +16,7 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSelect: (templateId: string) => void;
+  hideBlank?: boolean;
 }
 
 function getSampleData(templateId: string): ResumeData {
@@ -27,7 +28,7 @@ function getSampleData(templateId: string): ResumeData {
   } as ResumeData;
 }
 
-export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) {
+export default function TemplatePicker({ open, onOpenChange, onSelect, hideBlank }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-2xl flex flex-col max-h-[90vh]">
@@ -41,6 +42,7 @@ export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) 
         <div className="overflow-y-auto">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
           {/* Blank option */}
+          {!hideBlank && (
           <button
             onClick={() => onSelect("blank")}
             className="text-left rounded-lg border border-dashed border-border p-3 hover:border-ring hover:bg-surface-soft transition-colors"
@@ -53,6 +55,7 @@ export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) 
               Start from scratch
             </p>
           </button>
+          )}
 
           {/* Templates with previews */}
           {TEMPLATES.map((tmpl) => (
