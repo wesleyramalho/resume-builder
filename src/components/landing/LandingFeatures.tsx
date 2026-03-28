@@ -248,7 +248,7 @@ export default function LandingFeatures() {
 
           {/* Right column — tall dark card */}
           <div className="feature-card-right opacity-0 rounded-xl bg-foreground text-background p-6 flex flex-col gap-4 min-h-135">
-            <div className="w-10 h-10 flex items-center justify-center rounded-md bg-white/10">
+            <div className="w-10 h-10 flex items-center justify-center rounded-md bg-white/10 border border-white/10">
               <GripVertical
                 className="w-5 h-5 text-background/70"
                 strokeWidth={1.5}
