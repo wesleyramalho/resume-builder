@@ -14,6 +14,7 @@ import ExperienceSection from "@/components/editor/sections/ExperienceSection";
 import EducationSection from "@/components/editor/sections/EducationSection";
 import SkillsSection from "@/components/editor/sections/SkillsSection";
 import ProjectsSection from "@/components/editor/sections/ProjectsSection";
+import SummarySection from "@/components/editor/sections/SummarySection";
 import ResumePreview from "@/components/editor/preview/ResumePreview";
 import Footer from "@/components/Footer";
 import type { ResumeData } from "@/types/resume";
@@ -22,13 +23,14 @@ const SECTION_COMPONENTS: Record<
   string,
   React.FC<{ resumeId: string; data: ResumeData }>
 > = {
+  summary: SummarySection,
   experience: ExperienceSection,
   education: EducationSection,
   skills: SkillsSection,
   projects: ProjectsSection,
 };
 
-const DEFAULT_ORDER = ["experience", "education", "skills", "projects"];
+const DEFAULT_ORDER = ["summary", "experience", "education", "skills", "projects"];
 
 interface Props {
   params: Promise<{ id: string }>;

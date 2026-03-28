@@ -11,7 +11,6 @@ export const contactSchema = z.object({
 export const personalInfoSchema = z.object({
   fullName: z.string(),
   headline: z.string(),
-  summary: z.string(),
   contact: contactSchema,
 });
 

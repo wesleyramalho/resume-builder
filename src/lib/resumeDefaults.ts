@@ -23,6 +23,6 @@ export function createEmptyResumeData(): ResumeData {
       skills: true,
       projects: true,
     },
-    sectionOrder: ["experience", "education", "skills", "projects", "summary"],
+    sectionOrder: ["summary", "experience", "education", "skills", "projects"],
   };
 }
