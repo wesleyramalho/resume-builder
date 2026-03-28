@@ -38,6 +38,7 @@ Font.registerHyphenationCallback((word) => [word]);
 function buildStyles(tmpl: ResumeStyle) {
   const { accentColor: accent, sectionDivider: divider, headerBgColor } = tmpl;
   const hasBg = !!headerBgColor;
+  const isCentered = tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered";
   const nameColor = hasBg ? "#ffffff" : accent;
   const headlineColor = hasBg ? "rgba(255,255,255,0.7)" : "#6b7280";
   const contactColor = hasBg ? "rgba(255,255,255,0.6)" : "#9ca3af";
@@ -66,7 +67,7 @@ function buildStyles(tmpl: ResumeStyle) {
             paddingBottom: 20,
           }
         : {}),
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { alignItems: "center" as const }
         : {}),
     },
@@ -78,7 +79,7 @@ function buildStyles(tmpl: ResumeStyle) {
       letterSpacing: 1.5,
       color: nameColor,
       marginBottom: 8,
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { textAlign: "center" as const }
         : {}),
     },
@@ -90,7 +91,7 @@ function buildStyles(tmpl: ResumeStyle) {
       color: headlineColor,
       marginTop: 2,
       marginBottom: 4,
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { textAlign: "center" as const }
         : {}),
     },
@@ -100,7 +101,7 @@ function buildStyles(tmpl: ResumeStyle) {
       flexWrap: "wrap",
       gap: 8,
       marginTop: 4,
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { justifyContent: "center" as const }
         : {}),
     },
@@ -420,9 +421,9 @@ export default function ResumePDFDocument({ resume, locale = "en" }: Props) {
       style={[
         s.header,
         {
-          flexDirection: tmpl.photoPosition === "top-center" ? "column" : "row",
+          flexDirection: (tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered") ? "column" : "row",
           alignItems:
-            tmpl.photoPosition === "top-center" ? "center" : "flex-start",
+            (tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered") ? "center" : "flex-start",
         },
       ]}
     >
@@ -433,7 +434,7 @@ export default function ResumePDFDocument({ resume, locale = "en" }: Props) {
             width: 32,
             height: 32,
             borderRadius: 16,
-            ...(tmpl.photoPosition === "top-center"
+            ...((tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered")
               ? { marginBottom: 10 }
               : { marginRight: 10 }),
             ...(tmpl.headerBgColor
@@ -444,7 +445,7 @@ export default function ResumePDFDocument({ resume, locale = "en" }: Props) {
       ) : null}
       <View
         style={{
-          ...(tmpl.photoPosition === "top-center"
+          ...((tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered")
             ? { width: "100%" }
             : { flex: 1 }),
         }}
