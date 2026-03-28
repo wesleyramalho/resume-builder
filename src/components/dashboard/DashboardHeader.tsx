@@ -155,7 +155,7 @@ export default function DashboardHeader() {
     <header className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between mb-12 gap-4">
       <div>
         <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-2">
-          Your Resumes
+          Dashboard
         </p>
         <h1
           className="font-sans font-bold text-foreground"
