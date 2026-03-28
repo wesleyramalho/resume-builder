@@ -7,6 +7,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useResumeForm } from "@/hooks/useResumeForm";
 import { personalInfoSchema, PersonalInfoFormValues } from "@/lib/schemas";
+import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
 import PhotoEditor from "@/components/ui/PhotoEditor";
 import { Camera, X } from "lucide-react";
@@ -21,6 +22,8 @@ const MAX_PHOTO_SIZE = 500 * 1024; // 500KB
 
 export default function PersonalInfoSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editorOpen, setEditorOpen] = useState(false);
   const [editorSrc, setEditorSrc] = useState("");
@@ -48,7 +51,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > MAX_PHOTO_SIZE) {
-      toast.error("Photo must be under 500KB");
+      toast.error(t("photoTooLarge"));
       return;
     }
     const reader = new FileReader();
@@ -67,7 +70,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
   return (
     <AccordionItem value="personal" className="border-border">
       <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
-        Personal Info
+        {t("personalInfo")}
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-4">
         {/* Photo upload */}
@@ -93,10 +96,10 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
           />
           <div className="flex flex-col gap-1">
             <p className="text-xs font-sans uppercase tracking-widest text-text-subtle">
-              Profile Photo
+              {t("profilePhoto")}
             </p>
             <p className="text-[10px] text-muted-foreground">
-              Optional. Max 500KB.
+              {t("photoOptional")}
             </p>
             {data.photo && (
               <div className="flex gap-2 mt-0.5">
@@ -108,7 +111,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
                   }}
                   className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Edit
+                  {tc("edit")}
                 </button>
                 <button
                   type="button"
@@ -116,7 +119,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
                   className="inline-flex items-center gap-1 text-[10px] text-destructive hover:text-destructive/80 transition-colors"
                 >
                   <X className="w-3 h-3" />
-                  Remove
+                  {tc("remove")}
                 </button>
               </div>
             )}
@@ -133,22 +136,22 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormInput
             id="fullName"
-            label="Full Name"
-            placeholder="Alexander Vaughn"
+            label={t("fullName")}
+            placeholder={t("fullNamePlaceholder")}
             {...register("fullName")}
           />
           <FormInput
             id="headline"
-            label="Headline"
-            placeholder="Senior Software Engineer"
+            label={t("headline")}
+            placeholder={t("headlinePlaceholder")}
             {...register("headline")}
           />
         </div>
 
         <FormTextarea
           id="summary"
-          label="Professional Summary"
-          placeholder="Dedicated to building scalable, design-forward products..."
+          label={t("professionalSummary")}
+          placeholder={t("summaryPlaceholder")}
           rows={3}
           {...register("summary")}
           action={
@@ -161,38 +164,38 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
         />
 
         <div className="border-t border-border pt-4">
-          <p className="text-xs font-sans uppercase tracking-widest text-text-subtle mb-3">Contact</p>
+          <p className="text-xs font-sans uppercase tracking-widest text-text-subtle mb-3">{t("contact")}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput
               id="email"
-              label="Email"
+              label={t("email")}
               type="email"
-              placeholder="alex@example.com"
+              placeholder={t("emailPlaceholder")}
               {...register("contact.email")}
             />
             <FormInput
               id="phone"
-              label="Phone"
+              label={t("phone")}
               type="tel"
-              placeholder="+1 (555) 123 4567"
+              placeholder={t("phonePlaceholder")}
               {...register("contact.phone")}
             />
             <FormInput
               id="location"
-              label="Location"
-              placeholder="New York, NY"
+              label={t("location")}
+              placeholder={t("locationPlaceholder")}
               {...register("contact.location")}
             />
             <FormInput
               id="linkedin"
-              label="LinkedIn"
-              placeholder="linkedin.com/in/yourprofile"
+              label={t("linkedin")}
+              placeholder={t("linkedinPlaceholder")}
               {...register("contact.linkedin")}
             />
             <FormInput
               id="website"
-              label="Website"
-              placeholder="yourwebsite.com"
+              label={t("website")}
+              placeholder={t("websitePlaceholder")}
               className="sm:col-span-2"
               {...register("contact.website")}
             />

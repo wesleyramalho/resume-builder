@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
-import { SessionProvider } from "@/components/providers/SessionProvider";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "sonner";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -54,26 +51,20 @@ const plusJakartaSans = localFont({
   display: "swap",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${plusJakartaSans.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground">
-        <ThemeProvider>
-          <SessionProvider>
-            <TooltipProvider>
-              {children}
-              <Toaster richColors position="bottom-right" />
-            </TooltipProvider>
-          </SessionProvider>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

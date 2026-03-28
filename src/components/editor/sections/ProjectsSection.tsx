@@ -12,6 +12,7 @@ import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { projectEntrySchema } from "@/lib/schemas";
 import { Plus, Trash2, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
 import MonthYearPicker from "@/components/ui/MonthYearPicker";
 
@@ -28,6 +29,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function ProjectsSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const t = useTranslations("editor");
   const [newTechs, setNewTechs] = useState<Record<string, string>>({});
 
   function addTech(idx: number) {
@@ -85,7 +87,7 @@ export default function ProjectsSection({ resumeId, data }: Props) {
   return (
     <AccordionItem value="projects" className="border-border border-b-0">
       <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
-        Projects
+        {t("projects")}
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
           {fields.length} {fields.length === 1 ? "project" : "projects"}
         </span>
@@ -97,12 +99,12 @@ export default function ProjectsSection({ resumeId, data }: Props) {
             <div key={field.id} className="border border-border bg-card rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-sans text-text-subtle">
-                  {proj?.name || `Project ${idx + 1}`}
+                  {proj?.name || t("projectFallback", { idx: idx + 1 })}
                 </p>
                 <button
                   onClick={() => remove(idx)}
                   className="text-muted-foreground hover:text-destructive transition-colors"
-                  aria-label="Remove project"
+                  aria-label={t("removeProject")}
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -111,18 +113,18 @@ export default function ProjectsSection({ resumeId, data }: Props) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <FormInput
                   id={`projName-${field.id}`}
-                  label="Project Name"
-                  placeholder="My Awesome Project"
+                  label={t("projectName")}
+                  placeholder={t("projectPlaceholder")}
                   {...register(`projects.${idx}.name`)}
                 />
                 <FormInput
                   id={`projUrl-${field.id}`}
-                  label="URL (optional)"
-                  placeholder="github.com/user/project"
+                  label={t("urlOptional")}
+                  placeholder={t("urlPlaceholder")}
                   {...register(`projects.${idx}.url`)}
                 />
                 <div className="sm:col-span-2 space-y-2">
-                  <p className="text-xs font-sans uppercase tracking-widest text-text-subtle">Technologies</p>
+                  <p className="text-xs font-sans uppercase tracking-widest text-text-subtle">{t("technologies")}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {(proj?.technologies ?? []).map((tech, ti) => (
                       <span
@@ -149,7 +151,7 @@ export default function ProjectsSection({ resumeId, data }: Props) {
                       onKeyDown={(e) => {
                         if (e.key === "Enter") { e.preventDefault(); addTech(idx); }
                       }}
-                      placeholder="Type a technology and press Enter"
+                      placeholder={t("typeTechEnter")}
                       className="flex-1 bg-input border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring transition-colors"
                     />
                     <Button size="sm" variant="ghost" onClick={() => addTech(idx)} className="border border-border hover:bg-muted h-8 text-xs">
@@ -159,22 +161,22 @@ export default function ProjectsSection({ resumeId, data }: Props) {
                 </div>
                 <MonthYearPicker
                   id={`projStart-${field.id}`}
-                  label="Start Date"
+                  label={t("startDate")}
                   value={proj?.startDate ?? ""}
                   onChange={(v) => setValue(`projects.${idx}.startDate`, v)}
                 />
                 <MonthYearPicker
                   id={`projEnd-${field.id}`}
-                  label="End Date"
+                  label={t("endDate")}
                   value={proj?.endDate ?? ""}
                   onChange={(v) => setValue(`projects.${idx}.endDate`, v || null)}
                 />
               </div>
               <FormTextarea
                 id={`projDesc-${field.id}`}
-                label="Description"
+                label={t("description")}
                 rows={3}
-                placeholder="A platform that helps..."
+                placeholder={t("projectDescPlaceholder")}
                 {...register(`projects.${idx}.description`)}
                 action={
                   <AIImproveButton
@@ -202,7 +204,7 @@ export default function ProjectsSection({ resumeId, data }: Props) {
           className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-sans text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />
-          Add Project
+          {t("addProject")}
         </Button>
       </AccordionContent>
     </AccordionItem>

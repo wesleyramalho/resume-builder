@@ -1,11 +1,20 @@
-import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "./i18n/config";
 
-export default function proxy() {
+const intlMiddleware = createMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: "as-needed",
+});
+
+export default function proxy(request: NextRequest) {
+  const response = intlMiddleware(request);
+
   const isDev = process.env.NODE_ENV === "development";
 
   const csp = [
     "default-src 'self'",
-    // In dev, React needs eval() for error overlays and debugging
     `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://media.licdn.com https://lh3.googleusercontent.com",
@@ -16,7 +25,6 @@ export default function proxy() {
     "frame-ancestors 'none'",
   ].join("; ");
 
-  const response = NextResponse.next();
   response.headers.set("Content-Security-Policy", csp);
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
@@ -25,5 +33,7 @@ export default function proxy() {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|icon.svg|sitemap.xml|robots.txt).*)",
+  ],
 };

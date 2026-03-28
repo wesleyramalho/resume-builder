@@ -4,15 +4,23 @@ import { Resume } from "@/types/resume";
 
 export async function POST(req: NextRequest) {
   let resume: Resume;
+  let locale: string = "en";
   try {
-    resume = (await req.json()) as Resume;
+    const body = await req.json();
+    // Support both { ...resume } and { resume, locale } shapes
+    if (body.data && body.id) {
+      resume = body as Resume;
+      locale = body.locale ?? "en";
+    } else {
+      resume = body as Resume;
+    }
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
   let buffer: Buffer;
   try {
-    buffer = await generateResumePDF(resume);
+    buffer = await generateResumePDF(resume, locale);
   } catch (err) {
     console.error("[pdf] generation error:", err);
     const message = process.env.NODE_ENV === "development" ? String(err) : "PDF rendering failed";

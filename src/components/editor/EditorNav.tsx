@@ -16,16 +16,26 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { User, Briefcase, GraduationCap, Zap, Code, FileText, GripVertical } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useResumeStore } from "@/store/useResumeStore";
 
-const SECTION_META: Record<string, { label: string; icon: React.ElementType }> = {
-  personal:   { label: "Personal Info", icon: User },
-  experience: { label: "Experience",    icon: Briefcase },
-  education:  { label: "Education",     icon: GraduationCap },
-  skills:     { label: "Skills",        icon: Zap },
-  projects:   { label: "Projects",      icon: Code },
-  summary:    { label: "Summary",       icon: FileText },
+const SECTION_ICONS: Record<string, React.ElementType> = {
+  personal: User,
+  experience: Briefcase,
+  education: GraduationCap,
+  skills: Zap,
+  projects: Code,
+  summary: FileText,
+};
+
+const SECTION_KEYS: Record<string, string> = {
+  personal: "personalInfo",
+  experience: "experience",
+  education: "education",
+  skills: "skills",
+  projects: "projects",
+  summary: "summary",
 };
 
 const DEFAULT_ORDER = ["experience", "education", "skills", "projects", "summary"];
@@ -39,10 +49,12 @@ interface SortableItemProps {
 function SortableItem({ id, activeSection, onSelect }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id });
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
 
-  const meta = SECTION_META[id];
-  if (!meta) return null;
-  const Icon = meta.icon;
+  const Icon = SECTION_ICONS[id];
+  const labelKey = SECTION_KEYS[id];
+  if (!Icon || !labelKey) return null;
 
   return (
     <div
@@ -58,7 +70,7 @@ function SortableItem({ id, activeSection, onSelect }: SortableItemProps) {
         {...listeners}
         {...attributes}
         tabIndex={-1}
-        aria-label="Drag to reorder"
+        aria-label={tc("dragToReorder")}
         className="p-1 text-muted-foreground/40 hover:text-muted-foreground cursor-grab active:cursor-grabbing shrink-0"
       >
         <GripVertical className="w-3.5 h-3.5" strokeWidth={1.5} />
@@ -75,7 +87,7 @@ function SortableItem({ id, activeSection, onSelect }: SortableItemProps) {
         )}
       >
         <Icon className="w-4 h-4 shrink-0" strokeWidth={1.5} />
-        {meta.label}
+        {t(labelKey)}
       </button>
     </div>
   );
@@ -90,6 +102,7 @@ interface Props {
 
 export default function EditorNav({ resumeId, sectionOrder, activeSection, onSelect }: Props) {
   const reorderSections = useResumeStore((s) => s.reorderSections);
+  const t = useTranslations("editor");
   const order = sectionOrder.length > 0 ? sectionOrder : DEFAULT_ORDER;
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }));
@@ -116,7 +129,7 @@ export default function EditorNav({ resumeId, sectionOrder, activeSection, onSel
         )}
       >
         <User className="w-4 h-4 shrink-0" strokeWidth={1.5} />
-        Personal Info
+        {t("personalInfo")}
       </button>
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>

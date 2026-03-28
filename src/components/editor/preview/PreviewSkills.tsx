@@ -1,4 +1,5 @@
 import { SkillGroup } from "@/types/resume";
+import { useTranslations } from "next-intl";
 import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function PreviewSkills({ skillGroups, style: tmpl }: Props) {
+  const t = useTranslations("resume");
   if (skillGroups.length === 0) return null;
 
   return (
@@ -23,7 +25,7 @@ export default function PreviewSkills({ skillGroups, style: tmpl }: Props) {
           marginBottom: "6pt",
         }}
       >
-        Technical Skills
+        {t("technicalSkills")}
       </h2>
       {skillGroups.map((group) => (
         <div

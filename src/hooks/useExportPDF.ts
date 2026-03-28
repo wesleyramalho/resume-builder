@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "next-intl";
 import { Resume } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 
@@ -11,6 +12,7 @@ interface PDFErrorResponse {
 export function useExportPDF() {
   const [exporting, setExporting] = useState(false);
   const incrementExportCount = useResumeStore((s) => s.incrementExportCount);
+  const locale = useLocale();
 
   async function exportPDF(resume: Resume) {
     setExporting(true);
@@ -18,7 +20,7 @@ export function useExportPDF() {
       const res = await fetch(`/api/pdf/${resume.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(resume),
+        body: JSON.stringify({ ...resume, locale }),
       });
       if (!res.ok) {
         const body = (await res.json().catch(() => ({}))) as PDFErrorResponse;

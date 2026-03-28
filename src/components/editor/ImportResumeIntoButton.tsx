@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Upload, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useResumeStore } from "@/store/useResumeStore";
 import { importResumeFromFile } from "@/lib/resumeImport";
@@ -21,6 +22,8 @@ export default function ImportResumeIntoButton({ resumeId }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importing, setImporting] = useState(false);
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -32,19 +35,17 @@ export default function ImportResumeIntoButton({ resumeId }: Props) {
       const { data, textLength } = await importResumeFromFile(file);
 
       if (textLength < 50) {
-        toast.warning(
-          "Very little text was extracted. The file may be a scanned document.",
-        );
+        toast.warning(t("scanWarning"));
       }
 
       updateResume(resumeId, data);
 
       const exp = data.experience?.length ?? 0;
       const edu = data.education?.length ?? 0;
-      toast.success(`Imported: ${exp} experience, ${edu} education entries`);
+      toast.success(t("importSuccess", { exp, edu }));
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to parse resume.",
+        err instanceof Error ? err.message : t("parseFailed"),
       );
     } finally {
       setImporting(false);
@@ -73,7 +74,7 @@ export default function ImportResumeIntoButton({ resumeId }: Props) {
           <Upload />
         )}
         <span className="hidden sm:inline">
-          {importing ? "Importing..." : "Import"}
+          {importing ? tc("importing") : tc("import")}
         </span>
       </Button>
     </>

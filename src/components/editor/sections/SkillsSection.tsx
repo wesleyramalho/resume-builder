@@ -11,6 +11,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { skillGroupSchema } from "@/lib/schemas";
+import { useTranslations } from "next-intl";
 import { Plus, Trash2, X } from "lucide-react";
 
 interface Props {
@@ -26,6 +27,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function SkillsSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const t = useTranslations("editor");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
   updateResumeRef.current = updateResume;
@@ -88,9 +90,9 @@ export default function SkillsSection({ resumeId, data }: Props) {
   return (
     <AccordionItem value="skills" className="border-border">
       <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
-        Skills
+        {t("skills")}
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
-          {totalSkills} skills
+          {t("skillsCount", { count: totalSkills })}
         </span>
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-4">
@@ -101,15 +103,15 @@ export default function SkillsSection({ resumeId, data }: Props) {
               <div className="flex items-center gap-2">
                 <FormInput
                   id={`skillCat-${field.id}`}
-                  label="Category"
-                  placeholder="Frontend, Languages, Tools..."
+                  label={t("category")}
+                  placeholder={t("categoryPlaceholder")}
                   className="flex-1"
                   {...register(`skillGroups.${idx}.category`)}
                 />
                 <button
                   onClick={() => remove(idx)}
                   className="text-muted-foreground hover:text-destructive transition-colors mt-5"
-                  aria-label="Remove skill group"
+                  aria-label={t("removeSkillGroup")}
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -146,7 +148,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
                       addSkill(idx);
                     }
                   }}
-                  placeholder="Type a skill and press Enter"
+                  placeholder={t("typeSkillEnter")}
                   className="flex-1 bg-input border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring transition-colors"
                 />
                 <Button
@@ -168,7 +170,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
           className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-sans text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />
-          Add Skill Group
+          {t("addSkillGroup")}
         </Button>
       </AccordionContent>
     </AccordionItem>

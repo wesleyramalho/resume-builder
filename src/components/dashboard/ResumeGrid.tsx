@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Plus } from "lucide-react";
 import gsap from "gsap";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Resume } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { getTemplate } from "@/lib/resumeTemplates";
@@ -18,6 +19,7 @@ export default function ResumeGrid({ resumes }: Props) {
   const router = useRouter();
   const createResume = useResumeStore((s) => s.createResume);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const t = useTranslations("dashboard");
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -60,7 +62,6 @@ export default function ResumeGrid({ resumes }: Props) {
           </div>
         ))}
 
-        {/* New Resume card */}
         <button
           onClick={() => setPickerOpen(true)}
           className="group border border-dashed border-border rounded-lg aspect-[3/4] flex flex-col items-center justify-center gap-3 hover:border-brand-secondary/60 hover:bg-surface-soft transition-all text-muted-foreground hover:text-foreground"
@@ -69,9 +70,9 @@ export default function ResumeGrid({ resumes }: Props) {
             <Plus className="w-5 h-5" />
           </div>
           <div className="text-center">
-            <p className="font-sans font-medium text-sm">New Career Path</p>
+            <p className="font-sans font-medium text-sm">{t("newCareerPath")}</p>
             <p className="font-sans text-[10px] uppercase tracking-widest text-muted-foreground/60 mt-1">
-              Choose a template to start
+              {t("chooseTemplateToStart")}
             </p>
           </div>
         </button>

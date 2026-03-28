@@ -2,6 +2,7 @@
 
 import { Suspense, use, useState } from "react";
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { ChevronUp, ChevronDown, Pencil, Eye } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
 import { Accordion } from "@/components/ui/accordion";
@@ -34,19 +35,20 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
-const SECTION_DESCRIPTIONS: Record<string, string> = {
-  personal: "Detail your professional trajectory.",
-  experience: "Highlight your most relevant career milestones.",
-  education: "Academic foundation and credentials.",
-  skills: "Technical proficiencies and expertise areas.",
-  projects: "Showcase your notable projects and work.",
-  summary: "A brief professional summary statement.",
+const SECTION_DESC_KEYS: Record<string, string> = {
+  personal: "sectionDescPersonal",
+  experience: "sectionDescExperience",
+  education: "sectionDescEducation",
+  skills: "sectionDescSkills",
+  projects: "sectionDescProjects",
+  summary: "sectionDescSummary",
 };
 
 export default function EditorPage({ params }: Props) {
   const { id } = use(params);
   const resume = useResumeStore((s) => s.resumes.find((r) => r.id === id));
   const [activeSection, setActiveSection] = useState<string | null>("personal");
+  const t = useTranslations("editor");
 
   if (!resume) {
     notFound();
@@ -89,7 +91,7 @@ export default function EditorPage({ params }: Props) {
         <aside className="border-r border-border px-3 flex flex-col bg-surface-soft/60 sticky top-0 h-screen overflow-auto">
           <div className="mb-2 mt-3">
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-text-subtle px-3">
-              Professional Draft #1
+              {t("professionalDraft")}
             </p>
           </div>
           <EditorNav
@@ -107,12 +109,12 @@ export default function EditorPage({ params }: Props) {
               <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-text-subtle">
                 {activeSection
                   ? `Section 01 — ${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}`
-                  : "All Sections"}
+                  : t("allSections")}
               </p>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {activeSection
-                  ? SECTION_DESCRIPTIONS[activeSection]
-                  : "Click a section below to expand it."}
+                  ? t(SECTION_DESC_KEYS[activeSection])
+                  : t("clickToExpand")}
               </p>
             </div>
             <button
@@ -139,7 +141,7 @@ export default function EditorPage({ params }: Props) {
           <div className="px-4 py-3 border-b border-border flex items-center gap-2 bg-card">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <p className="font-sans text-[10px] uppercase tracking-widest text-text-subtle">
-              Live Preview Rendering
+              {t("livePreviewRendering")}
             </p>
           </div>
           <div className="flex-1 overflow-hidden">
@@ -157,14 +159,14 @@ export default function EditorPage({ params }: Props) {
               className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full border-b-2 border-transparent data-[state=active]:text-foreground data-[state=active]:border-foreground data-[state=active]:bg-surface-soft/50 text-muted-foreground transition-colors"
             >
               <Pencil className="w-3.5 h-3.5" />
-              Edit
+              {t("tabEdit")}
             </TabsTrigger>
             <TabsTrigger
               value="preview"
               className="flex-1 flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-widest rounded-none h-full border-b-2 border-transparent data-[state=active]:text-foreground data-[state=active]:border-foreground data-[state=active]:bg-surface-soft/50 text-muted-foreground transition-colors"
             >
               <Eye className="w-3.5 h-3.5" />
-              Preview
+              {t("tabPreview")}
             </TabsTrigger>
           </TabsList>
           <TabsContent value="edit" className="flex-1 overflow-auto mt-0">
