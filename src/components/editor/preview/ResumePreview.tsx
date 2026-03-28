@@ -23,8 +23,9 @@ const PAPER_WIDTH_PX = 793.7;
 const PAGE_HEIGHT_PX = 1122.5;
 /** Vertical padding per page in CSS px (40pt × 4/3) — matches PDF paddingVertical: 40 */
 const PADDING_V_PX = 40 * (4 / 3);
-/** Usable content height per page after subtracting top + bottom padding */
+/** Usable content area per PDF page (A4 height minus top + bottom padding) */
 const CONTENT_PER_PAGE = PAGE_HEIGHT_PX - 2 * PADDING_V_PX;
+
 
 interface Props {
   data: ResumeData;
@@ -214,7 +215,7 @@ export default function ResumePreview({ data, templateId }: Props) {
           })}
         </div>
 
-        {/* Page separation overlays — covers bottom padding of page N + top padding of page N+1 */}
+        {/* Page break indicators — non-covering lines at PDF page boundaries */}
         {Array.from({ length: pages - 1 }, (_, i) => {
           const breakTop = PADDING_V_PX + (i + 1) * CONTENT_PER_PAGE;
           return (
@@ -223,15 +224,30 @@ export default function ResumePreview({ data, templateId }: Props) {
               style={{
                 position: "absolute",
                 top: `${breakTop}px`,
-                left: "-4px",
-                right: "-4px",
-                height: `${2 * PADDING_V_PX}px`,
-                background: "rgb(244 244 245)",
-                boxShadow:
-                  "inset 0 2px 4px rgba(0,0,0,0.06), inset 0 -2px 4px rgba(0,0,0,0.06)",
+                left: "-16px",
+                right: "-16px",
+                height: 0,
+                borderTop: "1.5px dashed rgba(0,0,0,0.15)",
                 zIndex: 10,
               }}
-            />
+            >
+              <span
+                style={{
+                  position: "absolute",
+                  left: "20px",
+                  top: "-8px",
+                  fontSize: "7pt",
+                  color: "rgba(0,0,0,0.25)",
+                  fontFamily: "sans-serif",
+                  background: "white",
+                  padding: "0 4pt",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                Page {i + 1} · Page {i + 2}
+              </span>
+            </div>
           );
         })}
       </div>
