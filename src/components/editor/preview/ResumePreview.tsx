@@ -20,6 +20,9 @@ const DEFAULT_ORDER = [
 /** A4 width in CSS px (210mm ≈ 793.7px at 96dpi) */
 const PAPER_WIDTH_PX = 793.7;
 
+/** A4 height in CSS px (297mm ≈ 1122.5px at 96dpi) */
+const PAGE_HEIGHT_PX = 1122.5;
+
 interface Props {
   data: ResumeData;
   templateId?: string;
@@ -29,8 +32,10 @@ export default function ResumePreview({ data, templateId }: Props) {
   const order = data.sectionOrder?.length ? data.sectionOrder : DEFAULT_ORDER;
   const style = getResumeStyle(templateId);
   const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [containerWidth, setContainerWidth] = useState(PAPER_WIDTH_PX);
+  const [contentHeight, setContentHeight] = useState(PAGE_HEIGHT_PX);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -51,6 +56,24 @@ export default function ResumePreview({ data, templateId }: Props) {
     return () => ro.disconnect();
   }, []);
 
+  /* Track content height to calculate page count */
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    function measure() {
+      setContentHeight(el!.scrollHeight);
+    }
+
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const pages = Math.ceil(contentHeight / PAGE_HEIGHT_PX);
+
   const sectionTitleStyle: React.CSSProperties = {
     fontSize: "7pt",
     fontWeight: 700,
@@ -69,10 +92,12 @@ export default function ResumePreview({ data, templateId }: Props) {
       style={{ padding: "16px" }}
     >
       <div
+        ref={contentRef}
         className="bg-white shadow-lg"
         style={{
+          position: "relative",
           width: `${PAPER_WIDTH_PX}px`,
-          minHeight: "1122.5px",
+          minHeight: `${pages * PAGE_HEIGHT_PX}px`,
           fontFamily: "Helvetica, Arial, sans-serif",
           fontSize: "9pt",
           color: "#1a1a1a",
@@ -186,6 +211,36 @@ export default function ResumePreview({ data, templateId }: Props) {
             return null;
           })}
         </div>
+
+        {/* Page break indicators */}
+        {Array.from({ length: pages - 1 }, (_, i) => (
+          <div
+            key={`page-break-${i}`}
+            style={{
+              position: "absolute",
+              top: `${(i + 1) * PAGE_HEIGHT_PX}px`,
+              left: 0,
+              right: 0,
+              borderTop: "1px dashed rgba(0,0,0,0.2)",
+              height: 0,
+              zIndex: 10,
+            }}
+          >
+            <span
+              style={{
+                position: "absolute",
+                right: "8pt",
+                top: "-10pt",
+                fontSize: "7pt",
+                color: "rgba(0,0,0,0.3)",
+                background: "white",
+                padding: "0 4pt",
+              }}
+            >
+              Page {i + 2}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
