@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Sparkles, Loader2, Check, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useAIImprove } from "@/hooks/useAIImprove";
 import type { FieldType } from "@/types/ai-worker";
 
@@ -14,10 +15,11 @@ interface AIImproveButtonProps {
 type Status = "idle" | "loading" | "suggestion" | "error";
 
 export default function AIImproveButton({ text, fieldType, onAccept }: AIImproveButtonProps) {
-  const { improve } = useAIImprove();
+  const { improve, modelStatus, downloadProgress } = useAIImprove();
   const [status, setStatus] = useState<Status>("idle");
   const [suggestion, setSuggestion] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const t = useTranslations("ai");
 
   const disabled = text.trim().length < 10;
 
@@ -46,9 +48,10 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
     setStatus("idle");
   }
 
+  const isDownloading = status === "loading" && modelStatus === "downloading";
+
   return (
     <div className="flex flex-col gap-2">
-      {/* Trigger button */}
       <button
         type="button"
         disabled={disabled || status === "loading"}
@@ -58,72 +61,51 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
         {status === "loading" ? (
           <>
             <Loader2 className="w-3 h-3 animate-spin" />
-            Improving…
+            {isDownloading
+              ? t("loadingModel", { progress: downloadProgress })
+              : t("improving")}
           </>
         ) : (
           <>
             <Sparkles className="w-3 h-3" />
-            Improve
+            {t("improve")}
           </>
         )}
       </button>
 
-      {/* Error message */}
       {status === "error" && errorMsg && (
         <p className="text-[10px] text-destructive font-sans">{errorMsg}</p>
       )}
 
-      {/* Suggestion panel — shown during loading (skeleton) and after result */}
-      {(status === "loading" || (status === "suggestion" && suggestion)) && (
+      {status === "suggestion" && suggestion && (
         <div className="rounded-md border border-brand-secondary/30 bg-brand-secondary/5 p-3">
           <p className="text-[10px] font-sans uppercase tracking-widest text-muted-foreground mb-1.5">
-            {status === "loading" ? "Generating suggestion…" : "AI Suggestion"}
+            {t("suggestion")}
           </p>
-
-          {status === "loading" ? (
-            <div className="space-y-2.5">
-              <div className="h-3.5 rounded bg-muted/60 animate-pulse w-full" />
-              <div
-                className="h-3.5 rounded bg-muted/60 animate-pulse w-[92%]"
-                style={{ animationDelay: "150ms" }}
-              />
-              <div
-                className="h-3.5 rounded bg-muted/60 animate-pulse w-[78%]"
-                style={{ animationDelay: "300ms" }}
-              />
-              <div
-                className="h-3.5 rounded bg-muted/60 animate-pulse w-[85%]"
-                style={{ animationDelay: "450ms" }}
-              />
-            </div>
-          ) : (
-            <>
-              <p className="text-sm text-foreground whitespace-pre-line leading-relaxed">
-                {suggestion}
-              </p>
-              <div className="flex items-center gap-2 mt-2">
-                <button
-                  type="button"
-                  onClick={handleAccept}
-                  className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-brand-secondary hover:text-foreground transition-colors"
-                >
-                  <Check className="w-3 h-3" />
-                  Accept
-                </button>
-                <button
-                  type="button"
-                  onClick={handleDismiss}
-                  className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <X className="w-3 h-3" />
-                  Dismiss
-                </button>
-              </div>
-              <p className="text-[9px] text-muted-foreground/60 mt-2 leading-relaxed">
-                Powered by open-source AI (Flan-T5, Apache 2.0). Suggestions may be inaccurate — always review before using.
-              </p>
-            </>
-          )}
+          <p className="text-sm text-foreground whitespace-pre-line leading-relaxed">
+            {suggestion}
+          </p>
+          <div className="flex items-center gap-2 mt-2">
+            <button
+              type="button"
+              onClick={handleAccept}
+              className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-brand-secondary hover:text-foreground transition-colors"
+            >
+              <Check className="w-3 h-3" />
+              {t("accept")}
+            </button>
+            <button
+              type="button"
+              onClick={handleDismiss}
+              className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="w-3 h-3" />
+              {t("dismiss")}
+            </button>
+          </div>
+          <p className="text-[9px] text-muted-foreground/60 mt-2 leading-relaxed">
+            {t("disclaimer")}
+          </p>
         </div>
       )}
     </div>

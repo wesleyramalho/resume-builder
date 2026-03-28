@@ -26,6 +26,7 @@ import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { experienceEntrySchema } from "@/lib/schemas";
 import { Plus, Trash2, GripVertical } from "lucide-react";
+import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
 import MonthYearPicker from "@/components/ui/MonthYearPicker";
 
@@ -52,6 +53,8 @@ interface SortableExpItemProps {
 function SortableExpItem({ field, idx, register, setValue, watch, remove }: SortableExpItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: field.id });
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
 
   const exp = watch(`experience.${idx}`);
 
@@ -67,19 +70,19 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
             {...listeners}
             {...attributes}
             tabIndex={-1}
-            aria-label="Drag to reorder"
+            aria-label={tc("dragToReorder")}
             className="p-1 text-muted-foreground/40 hover:text-muted-foreground cursor-grab active:cursor-grabbing shrink-0"
           >
             <GripVertical className="w-3.5 h-3.5" strokeWidth={1.5} />
           </button>
           <p className="text-xs font-sans text-text-subtle">
-            {exp?.company || `Experience ${idx + 1}`}
+            {exp?.company || t("experienceFallback", { idx: idx + 1 })}
           </p>
         </div>
         <button
           onClick={() => remove(idx)}
           className="text-muted-foreground hover:text-destructive transition-colors"
-          aria-label="Remove experience"
+          aria-label={t("removeExperience")}
         >
           <Trash2 className="w-4 h-4" />
         </button>
@@ -88,33 +91,33 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <FormInput
           id={`company-${field.id}`}
-          label="Company / Studio"
-          placeholder="Metropolis Design Group"
+          label={t("companyStudio")}
+          placeholder={t("companyPlaceholder")}
           {...register(`experience.${idx}.company`)}
         />
         <FormInput
           id={`title-${field.id}`}
-          label="Position"
-          placeholder="Senior Architect"
+          label={t("position")}
+          placeholder={t("positionPlaceholder")}
           {...register(`experience.${idx}.title`)}
         />
         <FormInput
           id={`location-${field.id}`}
-          label="Location"
-          placeholder="New York, NY"
+          label={t("location")}
+          placeholder={t("locationPlaceholder")}
           {...register(`experience.${idx}.location`)}
         />
         <div />
         <MonthYearPicker
           id={`startDate-${field.id}`}
-          label="Start Date"
+          label={t("startDate")}
           value={exp?.startDate ?? ""}
           onChange={(v) => setValue(`experience.${idx}.startDate`, v)}
         />
         <div className="space-y-1">
           <MonthYearPicker
             id={`endDate-${field.id}`}
-            label="End Date"
+            label={t("endDate")}
             value={exp?.endDate ?? ""}
             disabled={exp?.current}
             onChange={(v) => setValue(`experience.${idx}.endDate`, v || null)}
@@ -129,15 +132,15 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
               }}
               className="rounded"
             />
-            Present
+            {tc("present")}
           </label>
         </div>
       </div>
 
       <FormTextarea
         id={`desc-${field.id}`}
-        label="Description (one bullet per line)"
-        placeholder={"Led a team of 12 junior architects...\nImplemented BIM workflows..."}
+        label={t("descriptionBullets")}
+        placeholder={t("descriptionPlaceholder")}
         rows={4}
         {...register(`experience.${idx}.description`)}
         action={
@@ -154,6 +157,8 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
 
 export default function ExperienceSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
   updateResumeRef.current = updateResume;
@@ -208,9 +213,9 @@ export default function ExperienceSection({ resumeId, data }: Props) {
   return (
     <AccordionItem value="experience" className="border-border">
       <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
-        Experience
+        {t("experience")}
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
-          {fields.length} {fields.length === 1 ? "entry" : "entries"}
+          {fields.length} {fields.length === 1 ? tc("entry") : tc("entries")}
         </span>
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-6">
@@ -245,7 +250,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
           className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-sans text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />
-          Add Experience
+          {t("addExperience")}
         </Button>
       </AccordionContent>
     </AccordionItem>

@@ -1,5 +1,6 @@
 import { ProjectEntry } from "@/types/resume";
 import { formatMonthYear } from "@/lib/utils";
+import { useTranslations, useLocale } from "next-intl";
 import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
@@ -8,6 +9,9 @@ interface Props {
 }
 
 export default function PreviewProjects({ projects, style: tmpl }: Props) {
+  const t = useTranslations("resume");
+  const locale = useLocale();
+  const localeTag = locale === "pt-BR" ? "pt-BR" : "en-US";
   if (projects.length === 0) return null;
 
   return (
@@ -24,7 +28,7 @@ export default function PreviewProjects({ projects, style: tmpl }: Props) {
           marginBottom: "6pt",
         }}
       >
-        Projects
+        {t("projects")}
       </h2>
       {projects.map((proj) => (
         <div key={proj.id} style={{ marginBottom: "8pt" }}>
@@ -60,7 +64,7 @@ export default function PreviewProjects({ projects, style: tmpl }: Props) {
                 whiteSpace: "nowrap",
               }}
             >
-              {formatMonthYear(proj.startDate)} – {formatMonthYear(proj.endDate)}
+              {formatMonthYear(proj.startDate, localeTag, t("present"))} – {formatMonthYear(proj.endDate, localeTag, t("present"))}
             </span>
           </div>
           {proj.description && (

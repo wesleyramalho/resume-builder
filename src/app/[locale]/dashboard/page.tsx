@@ -1,16 +1,18 @@
 "use client";
 
 import { Suspense } from "react";
+import { useTranslations } from "next-intl";
 import { useResumeStore } from "@/store/useResumeStore";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import ResumeGrid from "@/components/dashboard/ResumeGrid";
-// import CareerInsights from "@/components/dashboard/CareerInsights";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import Footer from "@/components/Footer";
 
 export default function DashboardPage() {
   const resumes = useResumeStore((s) => s.resumes);
+  const t = useTranslations("common");
 
   return (
     <div className="min-h-screen bg-background">
@@ -21,10 +23,13 @@ export default function DashboardPage() {
             href="/"
             className="font-sans text-sm font-bold uppercase tracking-widest text-foreground"
           >
-            MyPDFCV
+            {t("appName")}
           </Link>
         </div>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <ThemeToggle />
+        </div>
       </nav>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
@@ -36,9 +41,6 @@ export default function DashboardPage() {
           <div>
             <ResumeGrid resumes={resumes} />
           </div>
-          {/* <aside>
-            <CareerInsights resumes={resumes} />
-          </aside> */}
         </div>
       </div>
       <Footer />

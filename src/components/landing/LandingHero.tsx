@@ -3,22 +3,24 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Eye, User, Briefcase, GraduationCap } from "lucide-react";
-
-const HEADLINE_WORDS = [
-  { text: "Your", teal: false },
-  { text: "Resume,", teal: false },
-  { text: "Free", teal: true },
-  { text: "Forever.", teal: false },
-];
 
 export default function LandingHero() {
   const hasAnimated = useRef(false);
   const mockupRef = useRef<HTMLDivElement>(null);
   const heroCardsRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const t = useTranslations("landing");
+
+  const HEADLINE_WORDS = [
+    { text: t("headlineYour"), teal: false },
+    { text: t("headlineResume"), teal: false },
+    { text: t("headlineFree"), teal: true },
+    { text: t("headlineForever"), teal: false },
+  ];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -60,7 +62,6 @@ export default function LandingHero() {
       { opacity: 1, x: 0, duration: 1.2, ease: "power2.out", delay: 0.5 },
     );
 
-    // Subtle parallax drift on scroll
     if (mockupRef.current) {
       gsap.to(mockupRef.current, {
         y: -30,
@@ -74,14 +75,13 @@ export default function LandingHero() {
       });
     }
 
-    // Auto-play card swap animation in hero mockup
     if (heroCardsRef.current) {
       const cards =
         heroCardsRef.current.querySelectorAll<HTMLElement>(".hero-card");
       if (cards.length >= 2) {
-        const card1 = cards[0]; // section 2 (highlighted)
-        const card2 = cards[1]; // section 3
-        const gap = 8; // gap-2 = 8px
+        const card1 = cards[0];
+        const card2 = cards[1];
+        const gap = 8;
         const h1 = card1.offsetHeight + gap;
         const h2 = card2.offsetHeight + gap;
 
@@ -98,7 +98,6 @@ export default function LandingHero() {
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 px-6 md:px-12 overflow-hidden">
-      {/* Background gradient */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -109,7 +108,6 @@ export default function LandingHero() {
       />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left: copy */}
         <div>
           <h1
             className="font-sans font-bold leading-[1.05] tracking-tight mb-6 [perspective:800px] overflow-hidden"
@@ -140,13 +138,11 @@ export default function LandingHero() {
                 )}
               </React.Fragment>
             ))}
-            <span className="sr-only">Your Resume, Free Forever.</span>
+            <span className="sr-only">{t("headlineSr")}</span>
           </h1>
 
           <p className="hero-subtitle text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed mb-8">
-            Build professional resumes with real-time preview, 7 templates, and
-            one-click PDF export. No paywall, no sign-up, no data sent to
-            servers. 100% free and open source.
+            {t("subtitle")}
           </p>
 
           <div className="hero-cta flex flex-wrap gap-3">
@@ -155,16 +151,14 @@ export default function LandingHero() {
               onClick={() => router.push("/dashboard")}
               className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest"
             >
-              Build Your Resume →
+              {t("cta")}
             </Button>
           </div>
         </div>
 
-        {/* Right: app UI mockup */}
         <div ref={mockupRef} className="hero-mockup hidden lg:block">
           <div className="bg-surface-soft rounded-xl border border-border p-3 shadow-lg animate-glow-border">
             <div className="flex gap-2 h-[340px]">
-              {/* Left sidebar */}
               <div className="w-[30%] bg-card rounded-lg border border-border p-3 flex flex-col gap-1.5">
                 <div className="h-1.5 bg-surface-strong rounded w-20 mb-3" />
                 {[User, Briefcase, GraduationCap].map((Icon, i) => (
@@ -181,9 +175,7 @@ export default function LandingHero() {
                 ))}
               </div>
 
-              {/* Right content */}
               <div className="flex-1 flex flex-col gap-2">
-                {/* Section 1 – header */}
                 <div className="bg-card rounded-lg border border-border p-3">
                   <div className="flex items-start gap-2 mb-2">
                     <div className="w-px h-8 bg-foreground/20 rounded-full" />
@@ -196,13 +188,11 @@ export default function LandingHero() {
                   </div>
                 </div>
 
-                {/* Swappable sections */}
                 <div ref={heroCardsRef} className="flex flex-col gap-2">
                   <div className="hero-card bg-accent/40 rounded-lg border border-brand-primary/20 p-3 relative">
                     <div className="h-1.5 bg-muted-foreground/20 rounded w-16 mb-2" />
                     <div className="h-3 bg-foreground/50 rounded w-36 mb-1.5" />
                     <div className="h-1.5 bg-muted-foreground/20 rounded w-3/4" />
-                    {/* Drag handle */}
                     <div className="absolute top-3 right-3 grid grid-cols-2 gap-[3px]">
                       {Array.from({ length: 6 }).map((_, i) => (
                         <div
@@ -218,7 +208,6 @@ export default function LandingHero() {
                   </div>
                 </div>
 
-                {/* Live Preview button */}
                 <div className="flex justify-end mt-auto">
                   <div className="flex items-center gap-1.5 bg-surface-soft border border-border rounded-lg px-3 py-1.5">
                     <Eye
@@ -226,7 +215,7 @@ export default function LandingHero() {
                       strokeWidth={1.5}
                     />
                     <span className="text-[9px] font-sans uppercase tracking-widest text-foreground">
-                      Live Preview
+                      {t("livePreview")}
                     </span>
                   </div>
                 </div>

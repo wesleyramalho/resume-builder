@@ -26,6 +26,7 @@ import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { educationEntrySchema } from "@/lib/schemas";
 import { Plus, Trash2, GripVertical } from "lucide-react";
+import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
 import MonthYearPicker from "@/components/ui/MonthYearPicker";
 
@@ -52,6 +53,8 @@ interface SortableEduItemProps {
 function SortableEduItem({ field, idx, register, setValue, watch, remove }: SortableEduItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: field.id });
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
 
   const edu = watch(`education.${idx}`);
 
@@ -67,19 +70,19 @@ function SortableEduItem({ field, idx, register, setValue, watch, remove }: Sort
             {...listeners}
             {...attributes}
             tabIndex={-1}
-            aria-label="Drag to reorder"
+            aria-label={tc("dragToReorder")}
             className="p-1 text-muted-foreground/40 hover:text-muted-foreground cursor-grab active:cursor-grabbing shrink-0"
           >
             <GripVertical className="w-3.5 h-3.5" strokeWidth={1.5} />
           </button>
           <p className="text-xs font-sans text-text-subtle">
-            {edu?.school || `Education ${idx + 1}`}
+            {edu?.school || t("educationFallback", { idx: idx + 1 })}
           </p>
         </div>
         <button
           onClick={() => remove(idx)}
           className="text-muted-foreground hover:text-destructive transition-colors"
-          aria-label="Remove education"
+          aria-label={t("removeEducation")}
         >
           <Trash2 className="w-4 h-4" />
         </button>
@@ -88,45 +91,45 @@ function SortableEduItem({ field, idx, register, setValue, watch, remove }: Sort
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <FormInput
           id={`school-${field.id}`}
-          label="School"
-          placeholder="Pratt Institute"
+          label={t("school")}
+          placeholder={t("schoolPlaceholder")}
           {...register(`education.${idx}.school`)}
         />
         <FormInput
           id={`degree-${field.id}`}
-          label="Degree"
-          placeholder="Bachelor of Architecture"
+          label={t("degree")}
+          placeholder={t("degreePlaceholder")}
           {...register(`education.${idx}.degree`)}
         />
         <FormInput
           id={`field-${field.id}`}
-          label="Field of Study"
-          placeholder="Architecture & Art"
+          label={t("fieldOfStudy")}
+          placeholder={t("fieldPlaceholder")}
           {...register(`education.${idx}.field`)}
         />
         <FormInput
           id={`gpa-${field.id}`}
-          label="GPA (optional)"
-          placeholder="3.9"
+          label={t("gpaOptional")}
+          placeholder={t("gpaPlaceholder")}
           {...register(`education.${idx}.gpa`)}
         />
         <MonthYearPicker
           id={`eduStart-${field.id}`}
-          label="Start Date"
+          label={t("startDate")}
           value={edu?.startDate ?? ""}
           onChange={(v) => setValue(`education.${idx}.startDate`, v)}
         />
         <MonthYearPicker
           id={`eduEnd-${field.id}`}
-          label="End Date"
+          label={t("endDate")}
           value={edu?.endDate ?? ""}
           onChange={(v) => setValue(`education.${idx}.endDate`, v || null)}
         />
       </div>
       <FormTextarea
         id={`eduHighlights-${field.id}`}
-        label="Highlights (optional)"
-        placeholder="Dean's List, relevant coursework, thesis..."
+        label={t("highlightsOptional")}
+        placeholder={t("highlightsPlaceholder")}
         rows={2}
         {...register(`education.${idx}.highlights`)}
         action={
@@ -143,6 +146,8 @@ function SortableEduItem({ field, idx, register, setValue, watch, remove }: Sort
 
 export default function EducationSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
   updateResumeRef.current = updateResume;
@@ -195,9 +200,9 @@ export default function EducationSection({ resumeId, data }: Props) {
   return (
     <AccordionItem value="education" className="border-border">
       <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
-        Education
+        {t("education")}
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
-          {fields.length} {fields.length === 1 ? "entry" : "entries"}
+          {fields.length} {fields.length === 1 ? tc("entry") : tc("entries")}
         </span>
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-4">
@@ -232,7 +237,7 @@ export default function EducationSection({ resumeId, data }: Props) {
           className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-sans text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />
-          Add Education
+          {t("addEducation")}
         </Button>
       </AccordionContent>
     </AccordionItem>

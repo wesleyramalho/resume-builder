@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 
 const LINKEDIN_OAUTH_ENABLED =
@@ -14,24 +15,22 @@ const LINKEDIN_OAUTH_ENABLED =
 export default function LandingNav() {
   const { data: session } = useSession();
   const router = useRouter();
+  const t = useTranslations("landing");
+  const tc = useTranslations("common");
   const [linkedInError, setLinkedInError] = useState<string | null>(null);
 
   async function handleLinkedInImport() {
     setLinkedInError(null);
 
     if (!LINKEDIN_OAUTH_ENABLED) {
-      setLinkedInError(
-        "LinkedIn import is not configured yet. Add LinkedIn OAuth env values.",
-      );
+      setLinkedInError(t("linkedInNotConfigured"));
       return;
     }
 
     try {
       await signIn("linkedin", { callbackUrl: "/dashboard?intent=import" });
     } catch {
-      setLinkedInError(
-        "LinkedIn sign-in is unavailable right now. Please try again shortly.",
-      );
+      setLinkedInError(t("linkedInUnavailable"));
     }
   }
 
@@ -42,11 +41,12 @@ export default function LandingNav() {
           href="/"
           className="font-sans text-sm font-bold uppercase tracking-widest text-foreground"
         >
-          MyPDFCV
+          {tc("appName")}
         </Link>
       </div>
 
       <div className="flex items-center gap-2 md:gap-3">
+        <LanguageSwitcher />
         <ThemeToggle />
         {!session && LINKEDIN_OAUTH_ENABLED && (
           <Button
@@ -56,7 +56,7 @@ export default function LandingNav() {
             className="hidden md:flex font-sans text-xs uppercase tracking-widest gap-2"
           >
             <LinkedInIcon className="w-4 h-4" />
-            Start with LinkedIn
+            {t("startWithLinkedIn")}
           </Button>
         )}
         <Button
@@ -64,8 +64,8 @@ export default function LandingNav() {
           onClick={() => router.push("/dashboard")}
           className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest"
         >
-          <span className="sm:hidden">{session ? "Resumes" : "Start"}</span>
-          <span className="hidden sm:inline">{session ? "My Resumes" : "Build Your Resume"}</span>
+          <span className="sm:hidden">{session ? tc("resumes") : tc("start")}</span>
+          <span className="hidden sm:inline">{session ? tc("myResumes") : tc("buildYourResume")}</span>
         </Button>
       </div>
 

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import GlowBorderCanvas from "@/components/ui/GlowBorderCanvas";
 import gsap from "gsap";
@@ -10,6 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default function LandingCTA() {
   const cardRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const t = useTranslations("landing");
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -47,7 +49,6 @@ export default function LandingCTA() {
           className="relative inline-block w-full"
           style={{ opacity: 0 }}
         >
-          {/* Glow border */}
           <GlowBorderCanvas
             borderRadius={12}
             className="absolute inset-0 w-full h-full pointer-events-none"
@@ -55,17 +56,16 @@ export default function LandingCTA() {
 
           <div className="relative bg-card border border-border rounded-xl p-6 sm:p-12 shadow-sm">
             <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-4">
-              Ready When You Are
+              {t("ctaLabel")}
             </p>
             <h2
               className="font-sans font-bold text-foreground mb-6"
               style={{ fontSize: "clamp(1.8rem, 4vw, 3.5rem)" }}
             >
-              Free Forever. No Catch.
+              {t("ctaHeading")}
             </h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto leading-relaxed">
-              No sign-up required. Your data stays in your browser. Build,
-              export, and land the job, without paying a cent.
+              {t("ctaDesc")}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Button
@@ -73,7 +73,7 @@ export default function LandingCTA() {
                 onClick={() => router.push("/dashboard")}
                 className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest px-10"
               >
-                Build Your Resume
+                {t("ctaButton")}
               </Button>
             </div>
           </div>

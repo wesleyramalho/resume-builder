@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { ResumeData } from "@/types/resume";
+import { useTranslations } from "next-intl";
 import { getResumeStyle, hexWithAlpha } from "@/lib/resumeTemplates";
 import PreviewHeader from "./PreviewHeader";
 import PreviewExperience from "./PreviewExperience";
@@ -28,6 +29,7 @@ interface Props {
 export default function ResumePreview({ data, templateId }: Props) {
   const order = data.sectionOrder?.length ? data.sectionOrder : DEFAULT_ORDER;
   const style = getResumeStyle(templateId);
+  const t = useTranslations("resume");
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [containerWidth, setContainerWidth] = useState(PAPER_WIDTH_PX);
@@ -113,7 +115,7 @@ export default function ResumePreview({ data, templateId }: Props) {
             )}
             <div style={{ textAlign: "center" }}>
               <p style={{ fontSize: "10pt", fontWeight: 700, color: "#ffffff", textTransform: "uppercase", letterSpacing: "1pt" }}>
-                {data.fullName || "Your Name"}
+                {data.fullName || t("yourName")}
               </p>
               <p style={{ fontSize: "7pt", color: "rgba(255,255,255,0.7)", marginTop: "2pt", textTransform: "uppercase", letterSpacing: "0.5pt" }}>
                 {data.headline}
@@ -129,7 +131,7 @@ export default function ResumePreview({ data, templateId }: Props) {
             {data.skillGroups.length > 0 && (
               <div style={{ width: "100%", marginTop: "8pt" }}>
                 <p style={{ fontSize: "6pt", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "1pt", marginBottom: "4pt" }}>
-                  Skills
+                  {t("skills")}
                 </p>
                 {data.skillGroups.map((group, gi) => (
                 <div key={gi} style={{ marginBottom: "4pt", width: "100%" }}>
@@ -169,7 +171,7 @@ export default function ResumePreview({ data, templateId }: Props) {
             if (id === "summary" && data.sections.summary && data.summary)
               return (
                 <div key={id} style={{ marginBottom: "10pt" }}>
-                  <h2 style={sectionTitleStyle}>Profile</h2>
+                  <h2 style={sectionTitleStyle}>{t("profile")}</h2>
                   <p style={{ fontSize: "9pt", color: "#4b5563", lineHeight: 1.5 }}>
                     {data.summary}
                   </p>

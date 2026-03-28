@@ -1,5 +1,6 @@
 import { EducationEntry } from "@/types/resume";
 import { formatMonthYear } from "@/lib/utils";
+import { useTranslations, useLocale } from "next-intl";
 import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
@@ -8,6 +9,10 @@ interface Props {
 }
 
 export default function PreviewEducation({ education, style: tmpl }: Props) {
+  const t = useTranslations("resume");
+  const locale = useLocale();
+  const localeTag = locale === "pt-BR" ? "pt-BR" : "en-US";
+
   if (education.length === 0) return null;
 
   return (
@@ -24,7 +29,7 @@ export default function PreviewEducation({ education, style: tmpl }: Props) {
           marginBottom: "6pt",
         }}
       >
-        Education
+        {t("education")}
       </h2>
       {education.map((edu) => (
         <div key={edu.id} style={{ marginBottom: "6pt" }}>
@@ -46,7 +51,7 @@ export default function PreviewEducation({ education, style: tmpl }: Props) {
                 whiteSpace: "nowrap",
               }}
             >
-              {formatMonthYear(edu.startDate)} – {formatMonthYear(edu.endDate)}
+              {formatMonthYear(edu.startDate, localeTag, t("present"))} – {formatMonthYear(edu.endDate, localeTag, t("present"))}
             </span>
           </div>
           {edu.highlights && (

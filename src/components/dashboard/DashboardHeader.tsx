@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Plus, LogOut, Upload, MoreVertical, Loader2 } from "lucide-react";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import ImportResumeButton from "@/components/dashboard/ImportResumeButton";
@@ -35,6 +37,8 @@ export default function DashboardHeader() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const locale = useLocale();
+  const t = useTranslations("dashboard");
   const createResume = useResumeStore((s) => s.createResume);
   const hasConsumedImportIntent = useRef(false);
   const [importError, setImportError] = useState<string | null>(null);
@@ -54,9 +58,7 @@ export default function DashboardHeader() {
     try {
       const { data, textLength } = await importResumeFromFile(file);
       if (textLength < 50) {
-        toast.warning(
-          "Very little text was extracted. The file may be a scanned document.",
-        );
+        toast.warning(t("scanWarning"));
       }
       const resume = createResume("Imported Resume", data);
       const exp = data.experience?.length ?? 0;
@@ -64,14 +66,12 @@ export default function DashboardHeader() {
       const skills =
         data.skillGroups?.reduce((n, g) => n + g.skills.length, 0) ?? 0;
       toast.success(
-        `Imported: ${exp} experience, ${edu} education${skills > 0 ? `, ${skills} skills` : ""}`,
+        t("importSuccess", { exp, edu, skills: skills > 0 ? `, ${skills} skills` : "" }),
       );
       router.push(`/editor/${resume.id}`);
     } catch (err) {
       toast.error(
-        err instanceof Error
-          ? err.message
-          : "Failed to parse resume. Please try a different file.",
+        err instanceof Error ? err.message : t("parseFailed"),
       );
     } finally {
       setMobileImporting(false);
@@ -79,6 +79,7 @@ export default function DashboardHeader() {
   }
 
   function handleTemplateSelect(templateId: string) {
+    setPickerOpen(false);
     if (templateId === "blank") {
       const resume = createResume();
       router.push(`/editor/${resume.id}`);
@@ -93,6 +94,8 @@ export default function DashboardHeader() {
     router.push(`/editor/${resume.id}`);
   }
 
+  const callbackUrl = locale === "en" ? "/dashboard?intent=import" : `/${locale}/dashboard?intent=import`;
+
   const handleLinkedInImport = useCallback(
     async (consumeIntent: boolean) => {
       setImportError(null);
@@ -100,7 +103,7 @@ export default function DashboardHeader() {
       if (status === "loading") return;
 
       if (!session) {
-        await signIn("linkedin", { callbackUrl: "/dashboard?intent=import" });
+        await signIn("linkedin", { callbackUrl });
         return;
       }
 
@@ -110,19 +113,19 @@ export default function DashboardHeader() {
           method: "POST",
         });
         if (!response.ok) {
-          throw new Error("Unable to import your LinkedIn profile right now.");
+          throw new Error(t("importError"));
         }
 
         const result = (await response.json()) as LinkedInImportResponse;
         if (!result.data) {
-          throw new Error("LinkedIn import returned no data.");
+          throw new Error(t("importNoData"));
         }
 
         const importedResume = createResume("LinkedIn Resume", result.data);
         router.push(`/editor/${importedResume.id}`);
       } catch (error) {
         setImportError(
-          error instanceof Error ? error.message : "Import failed.",
+          error instanceof Error ? error.message : t("importFailed"),
         );
         if (consumeIntent) {
           router.replace("/dashboard");
@@ -131,7 +134,7 @@ export default function DashboardHeader() {
         setIsImporting(false);
       }
     },
-    [createResume, router, session, status],
+    [createResume, router, session, status, callbackUrl, t],
   );
 
   useEffect(() => {
@@ -154,21 +157,20 @@ export default function DashboardHeader() {
     <header className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between mb-12 gap-4">
       <div>
         <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-2">
-          Dashboard
+          {t("portfolioOverview")}
         </p>
         <h1
           className="font-sans font-bold text-foreground"
           style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
         >
-          My Resumes
+          {t("title")}
         </h1>
         <p className="text-muted-foreground mt-2 max-w-sm">
-          Create, import, and tailor each version for the role you want.
+          {t("subtitle")}
         </p>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        {/* Hidden file input for mobile dropdown import */}
         <input
           ref={mobileFileInputRef}
           type="file"
@@ -177,14 +179,13 @@ export default function DashboardHeader() {
           className="hidden"
         />
 
-        {/* Desktop buttons (hidden on mobile) */}
         <Button
           size="sm"
           onClick={() => setPickerOpen(true)}
           className="hidden sm:inline-flex bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest gap-2"
         >
           <Plus className="w-4 h-4" />
-          Create New Resume
+          {t("createNew")}
         </Button>
 
         <div className="hidden sm:flex">
@@ -193,73 +194,22 @@ export default function DashboardHeader() {
 
         {session ? (
           <>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger
-                  render={(props) => (
-                    <Button
-                      {...props}
-                      size="sm"
-                      variant="outline"
-                      disabled={isImporting}
-                      onClick={() => void handleLinkedInImport(false)}
-                      className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-2"
-                    >
-                      <LinkedInIcon className="w-4 h-4" />
-                      {isImporting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />{" "}
-                          Importing...
-                        </>
-                      ) : (
-                        "Start with LinkedIn"
-                      )}
-                    </Button>
-                  )}
-                />
-                <TooltipContent>
-                  Imports limited info like your profile photo, name, and
-                  headline
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Button
+              size="sm"
+              variant="outline"
+              disabled={isImporting}
+              onClick={() => void handleLinkedInImport(false)}
+              className="font-sans text-xs uppercase tracking-widest gap-2"
+            >
+              <LinkedInIcon className="w-4 h-4" />
+              <span className="hidden sm:inline">
+                {isImporting ? t("importFailed") : t("importFromLinkedIn")}
+              </span>
+              <span className="sm:hidden">
+                {isImporting ? "..." : t("importFromLinkedIn")}
+              </span>
+            </Button>
 
-            {/* Mobile action menu */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className="sm:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-border bg-surface-soft hover:bg-surface-strong transition-colors">
-                <MoreVertical className="w-4 h-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="bg-card border-border"
-              >
-                <DropdownMenuItem
-                  onClick={() => setPickerOpen(true)}
-                  className="gap-2"
-                >
-                  <Plus className="w-4 h-4" />
-                  Create New Resume
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => mobileFileInputRef.current?.click()}
-                  disabled={mobileImporting}
-                  className="gap-2"
-                >
-                  <Upload className="w-4 h-4" />
-                  {mobileImporting ? "Importing..." : "Import Resume"}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => void handleLinkedInImport(false)}
-                  disabled={isImporting}
-                  className="gap-2"
-                >
-                  <LinkedInIcon className="w-4 h-4" />
-                  {isImporting ? "Importing..." : "Start with LinkedIn"}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* User avatar dropdown (always visible) */}
             <DropdownMenu>
               <DropdownMenuTrigger className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden">
                 {session.user?.image ? (
@@ -279,37 +229,23 @@ export default function DashboardHeader() {
                   className="text-destructive focus:text-destructive gap-2"
                 >
                   <LogOut className="w-4 h-4" />
-                  Sign Out
+                  {t("signOut")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </>
         ) : (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger
-                render={(props) => (
-                  <Button
-                    {...props}
-                    size="sm"
-                    variant="outline"
-                    onClick={() =>
-                      signIn("linkedin", {
-                        callbackUrl: "/dashboard?intent=import",
-                      })
-                    }
-                    className="font-sans text-xs uppercase tracking-widest gap-2"
-                  >
-                    <LinkedInIcon className="w-4 h-4" />
-                    Start with LinkedIn
-                  </Button>
-                )}
-              />
-              <TooltipContent>
-                Imports limited info like your profile photo, name, and headline
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() =>
+              signIn("linkedin", { callbackUrl })
+            }
+            className="font-sans text-xs uppercase tracking-widest gap-2"
+          >
+            <LinkedInIcon className="w-4 h-4" />
+            {t("signInLinkedIn")}
+          </Button>
         )}
       </div>
       {importError ? (

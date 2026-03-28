@@ -3,10 +3,10 @@ import ResumePDFDocument from "@/components/pdf/ResumePDFDocument";
 import { Resume } from "@/types/resume";
 import React from "react";
 
-export async function generateResumePDF(resume: Resume): Promise<Buffer> {
-  // Cast via unknown to satisfy @react-pdf/renderer's strict DocumentProps expectation
+export async function generateResumePDF(resume: Resume, locale: string = "en"): Promise<Buffer> {
   const element = React.createElement(ResumePDFDocument, {
     resume,
+    locale,
   }) as unknown as React.ReactElement<
     import("@react-pdf/renderer").DocumentProps
   >;
