@@ -40,7 +40,6 @@ export default function ResumeGrid({ resumes }: Props) {
   }, [resumes.length]);
 
   function handleTemplateSelect(templateId: string) {
-    setPickerOpen(false);
     if (templateId === "blank") {
       const resume = createResume();
       router.push(`/editor/${resume.id}`);
