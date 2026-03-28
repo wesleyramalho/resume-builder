@@ -199,9 +199,26 @@
     "dismiss": "Dismiss",
     "disclaimer": "Powered by open-source AI (Flan-T5, Apache 2.0). Suggestions may be inaccurate — always review before using."
   },
+  "templates": {
+    "modern": "Modern",
+    "modernDesc": "Clean layout with blue accents. Pre-filled for a software engineer.",
+    "classic": "Classic",
+    "classicDesc": "Traditional centered layout, text-only. Pre-filled for a business analyst.",
+    "minimal": "Minimal",
+    "minimalDesc": "Sleek and minimal with green accents. Pre-filled for a designer.",
+    "executive": "Executive",
+    "executiveDesc": "Navy sidebar for executive and corporate roles.",
+    "bold": "Bold",
+    "boldDesc": "Deep red header banner. Strong and confident.",
+    "balanced": "Balanced",
+    "balancedDesc": "Dark sidebar accent with centered photo. Great for trades and hands-on roles.",
+    "clear": "Clear",
+    "clearDesc": "Teal header banner with right-aligned photo. Clean and modern."
+  },
   "footer": {
     "createdBy": "Created by wesleyramalho.com",
     "privacyPolicy": "Privacy Policy",
+    "openSource": "Open Source",
     "termsOfService": "Terms of Service",
     "cookiePolicy": "Cookie Policy",
     "contact": "Contact",
@@ -227,7 +244,7 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: March 25, 2026",
+    "lastUpdated": "Last updated: March 28, 2026",
     "s1h": "1. Data Storage",
     "s1": "MyPDFCV is a client-side application. All resume data you create is stored exclusively in your browser's localStorage. We do not collect, transmit, or store your resume data on any server.",
     "s2h": "2. LinkedIn OAuth",
@@ -251,7 +268,7 @@
   },
   "terms": {
     "title": "Terms of Service",
-    "lastUpdated": "Last updated: March 25, 2026",
+    "lastUpdated": "Last updated: March 28, 2026",
     "s1h": "1. Acceptance of Terms",
     "s1": "By accessing and using MyPDFCV, you agree to be bound by these Terms of Service. If you do not agree, please do not use the service.",
     "s2h": "2. Service Description",
@@ -279,7 +296,7 @@
   },
   "cookies": {
     "title": "Cookie Policy",
-    "lastUpdated": "Last updated: March 25, 2026",
+    "lastUpdated": "Last updated: March 28, 2026",
     "s1h": "1. What We Use",
     "s1intro": "MyPDFCV does not use cookies. Instead, we use your browser's localStorage to store:",
     "s1items": ["Your resume data (content, section order, template choice)", "Your theme preference (light or dark mode)"],

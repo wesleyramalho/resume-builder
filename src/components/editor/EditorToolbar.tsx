@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 import { useTranslations, useLocale } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import {
   FileDown, ArrowLeft, Check, Loader2, Palette, MoreVertical, Upload,
 } from "lucide-react";
@@ -21,15 +21,21 @@ import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
 import ImportResumeIntoButton from "@/components/editor/ImportResumeIntoButton";
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { importResumeFromFile } from "@/lib/resumeImport";
+
+const LANGUAGES = [
+  { code: "en", flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
+  { code: "pt-BR", flag: "\u{1F1E7}\u{1F1F7}", label: "Portugu\u00EAs (Brasil)" },
+];
 
 interface Props { resume: Resume }
 interface LinkedInImportResponse { data?: Partial<ResumeData> }
 
 export default function EditorToolbar({ resume }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
   const locale = useLocale();
@@ -166,6 +172,19 @@ export default function EditorToolbar({ resume }: Props) {
               {importing ? tc("importing") : t("startWithLinkedIn")}
             </DropdownMenuItem>
           )}
+          <DropdownMenuSeparator />
+          {LANGUAGES.map((lang) => (
+            <DropdownMenuItem
+              key={lang.code}
+              onClick={() => {
+                if (lang.code !== locale) router.replace(pathname, { locale: lang.code });
+              }}
+              className={`gap-2 ${locale === lang.code ? "font-medium" : ""}`}
+            >
+              <span className="text-base leading-none">{lang.flag}</span>
+              {lang.label}
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -174,7 +193,7 @@ export default function EditorToolbar({ resume }: Props) {
         <span className="hidden sm:inline">{t("exportPdf")}</span>
         <span className="sm:hidden">{tc("export")}</span>
       </Button>
-      <LanguageSwitcher />
+      <div className="hidden sm:flex"><LanguageSwitcher /></div>
       <ThemeToggle />
     </div>
   );

@@ -61,7 +61,7 @@
     "subtitle": "Crie, importe e adapte cada versão para a vaga desejada.",
     "createNew": "Criar Novo Currículo",
     "importFromLinkedIn": "Importar do LinkedIn",
-    "signInLinkedIn": "Entrar com LinkedIn",
+    "signInLinkedIn": "Começar com LinkedIn",
     "signOut": "Sair",
     "newCareerPath": "Nova Trajetória",
     "chooseTemplateToStart": "Escolha um template para começar",
@@ -199,12 +199,29 @@
     "dismiss": "Descartar",
     "disclaimer": "Desenvolvido com IA open-source (Flan-T5, Apache 2.0). Sugestões podem ser imprecisas — sempre revise antes de usar."
   },
+  "templates": {
+    "modern": "Moderno",
+    "modernDesc": "Layout limpo com detalhes em azul. Pré-preenchido para engenheiro de software.",
+    "classic": "Clássico",
+    "classicDesc": "Layout centralizado tradicional, apenas texto. Pré-preenchido para analista de negócios.",
+    "minimal": "Minimalista",
+    "minimalDesc": "Clean e minimalista com detalhes em verde. Pré-preenchido para designer.",
+    "executive": "Executivo",
+    "executiveDesc": "Barra lateral azul-marinho para cargos executivos e corporativos.",
+    "bold": "Destaque",
+    "boldDesc": "Banner vermelho no cabeçalho. Forte e confiante.",
+    "balanced": "Equilibrado",
+    "balancedDesc": "Barra lateral escura com foto centralizada. Ótimo para profissões técnicas e práticas.",
+    "clear": "Clareza",
+    "clearDesc": "Banner verde-azulado com foto à direita. Limpo e moderno."
+  },
   "footer": {
     "createdBy": "Criado por wesleyramalho.com",
     "privacyPolicy": "Política de Privacidade",
     "termsOfService": "Termos de Serviço",
     "cookiePolicy": "Política de Cookies",
     "contact": "Contato",
+    "openSource": "Open Source",
     "copyright": "MyPDFCV. Todos os direitos reservados."
   },
   "notFound": {
@@ -227,7 +244,7 @@
   },
   "privacy": {
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 25 de março de 2026",
+    "lastUpdated": "Última atualização: 28 de março de 2026",
     "s1h": "1. Armazenamento de Dados",
     "s1": "O MyPDFCV é uma aplicação client-side. Todos os dados de currículo que você cria são armazenados exclusivamente no localStorage do seu navegador. Não coletamos, transmitimos ou armazenamos seus dados de currículo em nenhum servidor.",
     "s2h": "2. OAuth do LinkedIn",
@@ -251,7 +268,7 @@
   },
   "terms": {
     "title": "Termos de Serviço",
-    "lastUpdated": "Última atualização: 25 de março de 2026",
+    "lastUpdated": "Última atualização: 28 de março de 2026",
     "s1h": "1. Aceitação dos Termos",
     "s1": "Ao acessar e usar o MyPDFCV, você concorda em estar vinculado a estes Termos de Serviço. Se você não concordar, por favor não use o serviço.",
     "s2h": "2. Descrição do Serviço",
@@ -279,7 +296,7 @@
   },
   "cookies": {
     "title": "Política de Cookies",
-    "lastUpdated": "Última atualização: 25 de março de 2026",
+    "lastUpdated": "Última atualização: 28 de março de 2026",
     "s1h": "1. O Que Utilizamos",
     "s1intro": "O MyPDFCV não usa cookies. Em vez disso, usamos o localStorage do seu navegador para armazenar:",
     "s1items": ["Seus dados de currículo (conteúdo, ordem das seções, escolha de template)", "Sua preferência de tema (modo claro ou escuro)"],

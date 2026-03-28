@@ -25,6 +25,7 @@ export default function LandingTemplates() {
   const router = useRouter();
   const createResume = useResumeStore((s) => s.createResume);
   const t = useTranslations("landing");
+  const tt = useTranslations("templates");
 
   function handleUseTemplate(templateId: string) {
     const tmpl = getTemplate(templateId);
@@ -104,10 +105,10 @@ export default function LandingTemplates() {
 
               <div className="mt-3 text-center">
                 <p className="font-sans font-semibold text-foreground">
-                  {tmpl.name}
+                  {tt(tmpl.id)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  {tmpl.description}
+                  {tt(`${tmpl.id}Desc`)}
                 </p>
               </div>
             </div>

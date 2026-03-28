@@ -30,6 +30,7 @@ function getSampleData(templateId: string): ResumeData {
 
 export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) {
   const t = useTranslations("dashboard");
+  const tt = useTranslations("templates");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -68,9 +69,9 @@ export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) 
                   templateId={tmpl.id}
                 />
               </div>
-              <p className="text-xs font-semibold text-foreground">{tmpl.name}</p>
+              <p className="text-xs font-semibold text-foreground">{tt(tmpl.id)}</p>
               <p className="text-[9px] text-muted-foreground leading-relaxed mt-0.5">
-                {tmpl.description}
+                {tt(`${tmpl.id}Desc`)}
               </p>
             </button>
           ))}

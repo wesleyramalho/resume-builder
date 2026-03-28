@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import GitHubIcon from "@/components/icons/GitHubIcon";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -23,7 +23,8 @@ export default function Footer() {
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/pixel-me.svg"
             alt="Wesley Ramalho"
             width={28}
@@ -43,6 +44,15 @@ export default function Footer() {
               {link.label}
             </Link>
           ))}
+          <a
+            href="https://github.com/wesleyramalho/resume-builder"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer text-center inline-flex items-center gap-1"
+          >
+            <GitHubIcon className="w-3.5 h-3.5" />
+            {t("openSource")}
+          </a>
         </nav>
       </div>
 
