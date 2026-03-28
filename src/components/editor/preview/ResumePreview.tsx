@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, type ReactNode } from "react";
 import { ResumeData } from "@/types/resume";
 import { getResumeStyle, hexWithAlpha } from "@/lib/resumeTemplates";
 import PreviewHeader from "./PreviewHeader";
@@ -21,11 +21,8 @@ const DEFAULT_ORDER = [
 const PAPER_WIDTH_PX = 793.7;
 /** A4 height in CSS px (297mm ≈ 1122.5px at 96dpi) */
 const PAGE_HEIGHT_PX = 1122.5;
-/** Vertical padding per page in CSS px (40pt × 4/3) — matches PDF paddingVertical: 40 */
-const PADDING_V_PX = 40 * (4 / 3);
-/** Usable content area per PDF page (A4 height minus top + bottom padding) */
-const CONTENT_PER_PAGE = PAGE_HEIGHT_PX - 2 * PADDING_V_PX;
-
+/** Gap between page sheets in px */
+const PAGE_GAP = 24;
 
 interface Props {
   data: ResumeData;
@@ -36,7 +33,7 @@ export default function ResumePreview({ data, templateId }: Props) {
   const order = data.sectionOrder?.length ? data.sectionOrder : DEFAULT_ORDER;
   const style = getResumeStyle(templateId);
   const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const measuringRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [containerWidth, setContainerWidth] = useState(PAPER_WIDTH_PX);
   const [contentHeight, setContentHeight] = useState(PAGE_HEIGHT_PX);
@@ -61,7 +58,7 @@ export default function ResumePreview({ data, templateId }: Props) {
   }, []);
 
   useEffect(() => {
-    const el = contentRef.current;
+    const el = measuringRef.current;
     if (!el) return;
 
     function measure() {
@@ -75,7 +72,7 @@ export default function ResumePreview({ data, templateId }: Props) {
     return () => ro.disconnect();
   }, []);
 
-  const pages = Math.max(1, Math.ceil((contentHeight - 2 * PADDING_V_PX) / CONTENT_PER_PAGE));
+  const pages = Math.max(1, Math.ceil(contentHeight / PAGE_HEIGHT_PX));
 
   const sectionTitleStyle: React.CSSProperties = {
     fontSize: "7pt",
@@ -88,29 +85,10 @@ export default function ResumePreview({ data, templateId }: Props) {
     marginBottom: "6pt",
   };
 
-  return (
-    <div
-      ref={containerRef}
-      className="w-full h-full overflow-auto scrollbar-none bg-zinc-100"
-      style={{ padding: "16px" }}
-    >
-      <div
-        ref={contentRef}
-        className="bg-white shadow-lg"
-        style={{
-          position: "relative",
-          width: `${PAPER_WIDTH_PX}px`,
-          minHeight: `${PAGE_HEIGHT_PX}px`,
-          fontFamily: "Helvetica, Arial, sans-serif",
-          fontSize: "9pt",
-          color: "#1a1a1a",
-          transformOrigin: "top left",
-          transform: `scale(${scale})`,
-          marginLeft: scale < 1 ? `${containerWidth / 2 - (PAPER_WIDTH_PX * scale) / 2 - 16}px` : "auto",
-          marginRight: scale < 1 ? "0" : "auto",
-          display: style.sidebarColor ? "flex" : "block",
-        }}
-      >
+  /* Build resume content as a renderable element */
+  function renderContent(): ReactNode {
+    return (
+      <>
         {/* Sidebar strip */}
         {style.sidebarColor && (
           <div
@@ -214,42 +192,68 @@ export default function ResumePreview({ data, templateId }: Props) {
             return null;
           })}
         </div>
+      </>
+    );
+  }
 
-        {/* Page break indicators — non-covering lines at PDF page boundaries */}
-        {Array.from({ length: pages - 1 }, (_, i) => {
-          const breakTop = PADDING_V_PX + (i + 1) * CONTENT_PER_PAGE;
-          return (
-            <div
-              key={`page-sep-${i}`}
-              style={{
-                position: "absolute",
-                top: `${breakTop}px`,
-                left: "-16px",
-                right: "-16px",
-                height: 0,
-                borderTop: "1.5px dashed rgba(0,0,0,0.15)",
-                zIndex: 10,
-              }}
-            >
-              <span
-                style={{
-                  position: "absolute",
-                  left: "20px",
-                  top: "-8px",
-                  fontSize: "7pt",
-                  color: "rgba(0,0,0,0.25)",
-                  fontFamily: "sans-serif",
-                  background: "white",
-                  padding: "0 4pt",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}
-              >
-                Page {i + 1} · Page {i + 2}
-              </span>
+  const contentStyles: React.CSSProperties = {
+    width: `${PAPER_WIDTH_PX}px`,
+    minHeight: `${PAGE_HEIGHT_PX}px`,
+    fontFamily: "Helvetica, Arial, sans-serif",
+    fontSize: "9pt",
+    color: "#1a1a1a",
+    display: style.sidebarColor ? "flex" : "block",
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full h-full overflow-auto scrollbar-none bg-zinc-100"
+      style={{ padding: "16px" }}
+    >
+      {/* Hidden measuring copy — full height, not clipped */}
+      <div
+        ref={measuringRef}
+        aria-hidden
+        style={{
+          ...contentStyles,
+          position: "absolute",
+          visibility: "hidden",
+          pointerEvents: "none",
+        }}
+      >
+        {renderContent()}
+      </div>
+
+      {/* Visible pages */}
+      <div
+        style={{
+          transformOrigin: "top left",
+          transform: `scale(${scale})`,
+          marginLeft: scale < 1 ? `${containerWidth / 2 - (PAPER_WIDTH_PX * scale) / 2 - 16}px` : "auto",
+          marginRight: scale < 1 ? "0" : "auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: `${PAGE_GAP}px`,
+        }}
+      >
+        {Array.from({ length: pages }, (_, pageIndex) => (
+          <div
+            key={pageIndex}
+            className="bg-white shadow-lg"
+            style={{
+              width: `${PAPER_WIDTH_PX}px`,
+              height: `${PAGE_HEIGHT_PX}px`,
+              overflow: "hidden",
+            }}
+          >
+            <div style={{ marginTop: `${-(pageIndex * PAGE_HEIGHT_PX)}px` }}>
+              <div style={contentStyles}>
+                {renderContent()}
+              </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );
