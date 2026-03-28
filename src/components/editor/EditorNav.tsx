@@ -28,7 +28,7 @@ const SECTION_META: Record<string, { label: string; icon: React.ElementType }> =
   summary:    { label: "Summary",       icon: FileText },
 };
 
-const DEFAULT_ORDER = ["experience", "education", "skills", "projects", "summary"];
+const DEFAULT_ORDER = ["summary", "experience", "education", "skills", "projects"];
 
 interface SortableItemProps {
   id: string;
