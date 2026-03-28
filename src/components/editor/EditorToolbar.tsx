@@ -180,6 +180,7 @@ export default function EditorToolbar({ resume }: Props) {
         open={templatePickerOpen}
         onOpenChange={setTemplatePickerOpen}
         onSelect={handleTemplateSelect}
+        hideBlank
       />
 
       {/* Save status (desktop only) */}
