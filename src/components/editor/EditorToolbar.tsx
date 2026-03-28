@@ -234,7 +234,7 @@ export default function EditorToolbar({ resume }: Props) {
 
       {/* Mobile action menu */}
       <DropdownMenu>
-        <DropdownMenuTrigger className="sm:hidden inline-flex items-center justify-center w-8 h-8 rounded-md border border-border bg-surface-soft hover:bg-surface-strong transition-colors shrink-0">
+        <DropdownMenuTrigger className="sm:hidden inline-flex items-center justify-center w-7 h-7 rounded-md border border-border bg-surface-soft hover:bg-surface-strong transition-colors shrink-0">
           <MoreVertical className="w-4 h-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="bg-card border-border">

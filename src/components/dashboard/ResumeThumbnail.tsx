@@ -92,26 +92,35 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
   // Sidebar layout
   if (sidebarColor) {
     return (
-      <div className="w-full aspect-[3/4] bg-white relative overflow-hidden rounded pointer-events-none select-none flex">
-        {/* Sidebar */}
-        <div style={{ width: "30%", backgroundColor: sidebarColor, padding: "0.5rem 0.35rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.2rem", flexShrink: 0 }}>
-          {data.photo && (
-            <div style={{ width: "1.2rem", height: "1.2rem", borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: "0.35rem", fontWeight: 700, color: "rgba(255,255,255,0.8)" }}>
-                {(data.fullName || "?").split(" ").map(n => n[0]).join("").slice(0, 2)}
-              </span>
-            </div>
-          )}
-          <p style={{ fontSize: "0.3rem", fontWeight: 700, color: "#ffffff", textTransform: "uppercase", textAlign: "center", letterSpacing: "0.03em", lineHeight: 1.2 }}>
-            {data.fullName || "Name"}
-          </p>
-          <p style={{ fontSize: "0.2rem", color: "rgba(255,255,255,0.5)", textAlign: "center", lineHeight: 1.2 }}>
-            {data.headline}
-          </p>
-        </div>
-        {/* Content */}
-        <div style={{ flex: 1, padding: "0.75rem", fontFamily: "Helvetica, Arial, sans-serif", color: "#1a1a1a", fontSize: "0.5rem" }}>
-          {contentBlock}
+      <div className="w-full aspect-[3/4] bg-white relative overflow-hidden rounded pointer-events-none select-none">
+        <div
+          className="absolute origin-top-left flex"
+          style={{
+            width: "400%",
+            height: "400%",
+            transform: "scale(0.25)",
+          }}
+        >
+          {/* Sidebar */}
+          <div style={{ width: "30%", backgroundColor: sidebarColor, padding: "2rem 1.4rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.8rem", flexShrink: 0 }}>
+            {data.photo && (
+              <div style={{ width: "4.8rem", height: "4.8rem", borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)", border: "2px solid rgba(255,255,255,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: "1.4rem", fontWeight: 700, color: "rgba(255,255,255,0.8)" }}>
+                  {(data.fullName || "?").split(" ").map(n => n[0]).join("").slice(0, 2)}
+                </span>
+              </div>
+            )}
+            <p style={{ fontSize: "1.2rem", fontWeight: 700, color: "#ffffff", textTransform: "uppercase", textAlign: "center", letterSpacing: "0.03em", lineHeight: 1.2 }}>
+              {data.fullName || "Name"}
+            </p>
+            <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", textAlign: "center", lineHeight: 1.2 }}>
+              {data.headline}
+            </p>
+          </div>
+          {/* Content */}
+          <div style={{ flex: 1, padding: "2rem", fontFamily: "Helvetica, Arial, sans-serif", color: "#1a1a1a" }}>
+            {contentBlock}
+          </div>
         </div>
       </div>
     );
