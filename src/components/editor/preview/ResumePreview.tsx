@@ -21,6 +21,10 @@ const DEFAULT_ORDER = [
 const PAPER_WIDTH_PX = 793.7;
 /** A4 height in CSS px (297mm ≈ 1122.5px at 96dpi) */
 const PAGE_HEIGHT_PX = 1122.5;
+/** Vertical padding per page in CSS px (40pt × 4/3) — matches PDF paddingVertical: 40 */
+const PADDING_V_PX = 40 * (4 / 3);
+/** Usable content area per PDF page (page height minus top + bottom padding) */
+const CONTENT_PER_PAGE = PAGE_HEIGHT_PX - 2 * PADDING_V_PX;
 /** Gap between page sheets in px */
 const PAGE_GAP = 24;
 
@@ -72,7 +76,7 @@ export default function ResumePreview({ data, templateId }: Props) {
     return () => ro.disconnect();
   }, []);
 
-  const pages = Math.max(1, Math.ceil(contentHeight / PAGE_HEIGHT_PX));
+  const pages = Math.max(1, Math.ceil((contentHeight - 2 * PADDING_V_PX) / CONTENT_PER_PAGE));
 
   const sectionTitleStyle: React.CSSProperties = {
     fontSize: "7pt",
@@ -247,7 +251,7 @@ export default function ResumePreview({ data, templateId }: Props) {
               overflow: "hidden",
             }}
           >
-            <div style={{ marginTop: `${-(pageIndex * PAGE_HEIGHT_PX)}px` }}>
+            <div style={{ marginTop: `${-(pageIndex * CONTENT_PER_PAGE)}px` }}>
               <div style={contentStyles}>
                 {renderContent()}
               </div>
