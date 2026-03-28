@@ -20,7 +20,9 @@
     "entries": "itens",
     "dragToReorder": "Arraste para reordenar",
     "remove": "Remover",
-    "back": "Voltar"
+    "back": "Voltar",
+    "importFileTooltip": "Importar de um PDF ou documento Word",
+    "linkedInTooltip": "Importa informações limitadas como foto de perfil, nome e título profissional"
   },
   "landing": {
     "headlineYour": "Seu",
