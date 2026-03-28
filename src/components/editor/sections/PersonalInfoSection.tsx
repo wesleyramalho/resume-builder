@@ -2,13 +2,12 @@
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useCallback, useRef, useState } from "react";
-import { FormInput, FormTextarea } from "@/components/ui/FormInput";
+import { FormInput } from "@/components/ui/FormInput";
 import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useResumeForm } from "@/hooks/useResumeForm";
 import { personalInfoSchema, PersonalInfoFormValues } from "@/lib/schemas";
 import { useTranslations } from "next-intl";
-import AIImproveButton from "@/components/ui/AIImproveButton";
 import PhotoEditor from "@/components/ui/PhotoEditor";
 import { Camera, X } from "lucide-react";
 import { toast } from "sonner";
@@ -33,19 +32,16 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
     [],
   );
 
-  const { register, setValue, watch } = useResumeForm<PersonalInfoFormValues>({
+  const { register } = useResumeForm<PersonalInfoFormValues>({
     resumeId,
     schema: personalInfoSchema,
     defaultValues: {
       fullName: data.fullName,
       headline: data.headline,
-      summary: data.summary,
       contact: { ...data.contact },
     },
     toResumeData,
   });
-
-  const summary = watch("summary");
 
   function handlePhotoSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -147,21 +143,6 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
             {...register("headline")}
           />
         </div>
-
-        <FormTextarea
-          id="summary"
-          label={t("professionalSummary")}
-          placeholder={t("summaryPlaceholder")}
-          rows={3}
-          {...register("summary")}
-          action={
-            <AIImproveButton
-              text={summary}
-              fieldType="summary"
-              onAccept={(v) => setValue("summary", v)}
-            />
-          }
-        />
 
         <div className="border-t border-border pt-4">
           <p className="text-xs font-sans uppercase tracking-widest text-text-subtle mb-3">{t("contact")}</p>
