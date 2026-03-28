@@ -68,9 +68,9 @@ export default function ResumeGrid({ resumes }: Props) {
             <Plus className="w-5 h-5" />
           </div>
           <div className="text-center">
-            <p className="font-sans font-medium text-sm">New Career Path</p>
+            <p className="font-sans font-medium text-sm">New Resume</p>
             <p className="font-sans text-[10px] uppercase tracking-widest text-muted-foreground/60 mt-1">
-              Choose a template to start
+              Pick a template to get started
             </p>
           </div>
         </button>

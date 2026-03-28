@@ -154,7 +154,7 @@ export default function DashboardHeader() {
     <header className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between mb-12 gap-4">
       <div>
         <p className="font-sans text-xs uppercase tracking-[0.2em] text-text-subtle mb-2">
-          Portfolio Overview
+          Dashboard
         </p>
         <h1
           className="font-sans font-bold text-foreground"
@@ -163,8 +163,7 @@ export default function DashboardHeader() {
           My Resumes
         </h1>
         <p className="text-muted-foreground mt-2 max-w-sm">
-          Manage your career blueprints. Each version is optimized for authority
-          and editorial precision.
+          Create, import, and tailor each version for the role you want.
         </p>
       </div>
 
