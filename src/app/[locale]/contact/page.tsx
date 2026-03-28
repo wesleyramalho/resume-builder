@@ -29,7 +29,7 @@ export default function ContactPage() {
                 alt="Wesley Ramalho"
                 width={40}
                 height={40}
-                unoptimized
+
                 className="rounded-lg bg-black"
               />
               <h2 className="font-sans font-semibold text-lg text-foreground">Wesley Ramalho</h2>

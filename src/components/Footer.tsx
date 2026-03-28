@@ -29,7 +29,7 @@ export default function Footer() {
             alt="Wesley Ramalho"
             width={28}
             height={28}
-            unoptimized
+
             className="rounded bg-black"
           />
           {t("createdBy")}
