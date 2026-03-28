@@ -79,7 +79,6 @@ export default function DashboardHeader() {
   }
 
   function handleTemplateSelect(templateId: string) {
-    setPickerOpen(false);
     if (templateId === "blank") {
       const resume = createResume();
       router.push(`/editor/${resume.id}`);
