@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Footer from "@/components/Footer";
 import SiteNav from "@/components/SiteNav";
@@ -23,8 +24,7 @@ export default function ContactPage() {
         <div className="space-y-6">
           <div className="bg-card border border-border rounded-lg p-6 space-y-4">
             <div className="flex items-center gap-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/pixel-me.svg"
                 alt="Wesley Ramalho"
                 width={40}

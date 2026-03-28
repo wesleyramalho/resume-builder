@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import GitHubIcon from "@/components/icons/GitHubIcon";
@@ -23,8 +24,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/pixel-me.svg"
             alt="Wesley Ramalho"
             width={28}
