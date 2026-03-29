@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -25,6 +25,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { educationEntrySchema } from "@/lib/schemas";
+import { resolveValidationError } from "@/lib/resolve-validation-error";
 import { Plus, Trash2, GripVertical } from "lucide-react";
 import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
@@ -48,15 +49,18 @@ interface SortableEduItemProps {
   setValue: ReturnType<typeof useForm<FormValues>>["setValue"];
   watch: ReturnType<typeof useForm<FormValues>>["watch"];
   remove: (idx: number) => void;
+  errors: FieldErrors<FormValues>;
+  tv: (key: string) => string;
 }
 
-function SortableEduItem({ field, idx, register, setValue, watch, remove }: SortableEduItemProps) {
+function SortableEduItem({ field, idx, register, setValue, watch, remove, errors, tv }: SortableEduItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: field.id });
   const t = useTranslations("editor");
   const tc = useTranslations("common");
 
   const edu = watch(`education.${idx}`);
+  const fieldErrors = errors.education?.[idx];
 
   return (
     <div
@@ -93,24 +97,32 @@ function SortableEduItem({ field, idx, register, setValue, watch, remove }: Sort
           id={`school-${field.id}`}
           label={t("school")}
           placeholder={t("schoolPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.school?.message, tv)}
           {...register(`education.${idx}.school`)}
         />
         <FormInput
           id={`degree-${field.id}`}
           label={t("degree")}
           placeholder={t("degreePlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.degree?.message, tv)}
           {...register(`education.${idx}.degree`)}
         />
         <FormInput
           id={`field-${field.id}`}
           label={t("fieldOfStudy")}
           placeholder={t("fieldPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.field?.message, tv)}
           {...register(`education.${idx}.field`)}
         />
         <FormInput
           id={`gpa-${field.id}`}
           label={t("gpaOptional")}
           placeholder={t("gpaPlaceholder")}
+          maxLength={10}
+          error={resolveValidationError(fieldErrors?.gpa?.message, tv)}
           {...register(`education.${idx}.gpa`)}
         />
         <MonthYearPicker
@@ -131,6 +143,8 @@ function SortableEduItem({ field, idx, register, setValue, watch, remove }: Sort
         label={t("highlightsOptional")}
         placeholder={t("highlightsPlaceholder")}
         rows={2}
+        maxLength={2000}
+        error={resolveValidationError(fieldErrors?.highlights?.message, tv)}
         {...register(`education.${idx}.highlights`)}
         action={
           <AIImproveButton
@@ -148,6 +162,7 @@ export default function EducationSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const t = useTranslations("editor");
   const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
   updateResumeRef.current = updateResume;
@@ -156,10 +171,10 @@ export default function EducationSection({ resumeId, data }: Props) {
 
   const lastSyncedJson = useRef(JSON.stringify(data.education));
 
-  const { register, control, watch, setValue, reset } = useForm<FormValues>({
+  const { register, control, watch, setValue, reset, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { education: structuredClone(data.education) },
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const { fields, append, remove, move } = useFieldArray({ control, name: "education" });
@@ -218,6 +233,8 @@ export default function EducationSection({ resumeId, data }: Props) {
                 setValue={setValue}
                 watch={watch}
                 remove={remove}
+                errors={errors}
+                tv={tv}
               />
             ))}
           </SortableContext>

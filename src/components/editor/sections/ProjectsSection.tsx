@@ -11,6 +11,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { projectEntrySchema } from "@/lib/schemas";
+import { resolveValidationError } from "@/lib/resolve-validation-error";
 import { Plus, Trash2, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
@@ -30,6 +31,7 @@ type FormValues = z.infer<typeof formSchema>;
 export default function ProjectsSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const t = useTranslations("editor");
+  const tv = useTranslations("validation");
   const [newTechs, setNewTechs] = useState<Record<string, string>>({});
 
   function addTech(idx: number) {
@@ -57,10 +59,10 @@ export default function ProjectsSection({ resumeId, data }: Props) {
 
   const lastSyncedJson = useRef(JSON.stringify(data.projects));
 
-  const { register, control, watch, setValue, reset } = useForm<FormValues>({
+  const { register, control, watch, setValue, reset, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { projects: structuredClone(data.projects) },
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: "projects" });
@@ -98,6 +100,7 @@ export default function ProjectsSection({ resumeId, data }: Props) {
       <AccordionContent className="pb-6 space-y-4">
         {fields.map((field, idx) => {
           const proj = watch(`projects.${idx}`);
+          const fieldErrors = errors.projects?.[idx];
           return (
             <div key={field.id} className="border border-border bg-card rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
@@ -118,12 +121,16 @@ export default function ProjectsSection({ resumeId, data }: Props) {
                   id={`projName-${field.id}`}
                   label={t("projectName")}
                   placeholder={t("projectPlaceholder")}
+                  maxLength={100}
+                  error={resolveValidationError(fieldErrors?.name?.message, tv)}
                   {...register(`projects.${idx}.name`)}
                 />
                 <FormInput
                   id={`projUrl-${field.id}`}
                   label={t("urlOptional")}
                   placeholder={t("urlPlaceholder")}
+                  maxLength={200}
+                  error={resolveValidationError(fieldErrors?.url?.message, tv)}
                   {...register(`projects.${idx}.url`)}
                 />
                 <div className="sm:col-span-2 space-y-2">
@@ -154,6 +161,7 @@ export default function ProjectsSection({ resumeId, data }: Props) {
                       onKeyDown={(e) => {
                         if (e.key === "Enter") { e.preventDefault(); addTech(idx); }
                       }}
+                      maxLength={50}
                       placeholder={t("typeTechEnter")}
                       className="flex-1 bg-input border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring transition-colors"
                     />
@@ -179,7 +187,9 @@ export default function ProjectsSection({ resumeId, data }: Props) {
                 id={`projDesc-${field.id}`}
                 label={t("description")}
                 rows={3}
+                maxLength={3000}
                 placeholder={t("projectDescPlaceholder")}
+                error={resolveValidationError(fieldErrors?.description?.message, tv)}
                 {...register(`projects.${idx}.description`)}
                 action={
                   <AIImproveButton

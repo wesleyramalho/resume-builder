@@ -30,7 +30,7 @@
     "headlineFree": "Free",
     "headlineForever": "Forever.",
     "headlineSr": "Your Resume, Free Forever.",
-    "subtitle": "Build professional resumes with real-time preview, 7 templates, and one-click PDF export. No paywall, no sign-up, no data sent to servers. 100% free and open source.",
+    "subtitle": "Build professional resumes with real-time preview, 7 templates, and one-click PDF export. No paywall, no sign-up, no data stored on servers. 100% free and open source.",
     "cta": "Build Your Resume",
     "livePreview": "Live Preview",
     "featuresLabel": "Everything You Need",
@@ -318,6 +318,11 @@
     "s10": "We reserve the right to modify these terms at any time. Continued use of the service after changes constitutes acceptance of the updated terms.",
     "s11h": "11. Contact",
     "s11": "For questions about these terms, please visit www.wesleyramalho.com/contact."
+  },
+  "validation": {
+    "invalidEmail": "Please enter a valid email address",
+    "invalidUrl": "Please enter a valid URL",
+    "tooLong": "This field is too long"
   },
   "cookies": {
     "title": "Cookie Policy",

@@ -7,10 +7,11 @@ export async function POST(req: NextRequest) {
   let locale: string = "en";
   try {
     const body = await req.json();
-    // Support both { ...resume } and { resume, locale } shapes
+    locale = body.locale ?? "en";
+    // Accept any structurally valid JSON — don't reject based on schema
+    // validation. Users should be able to export at any stage of editing.
     if (body.data && body.id) {
       resume = body as Resume;
-      locale = body.locale ?? "en";
     } else {
       resume = body as Resume;
     }

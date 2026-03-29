@@ -7,6 +7,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useResumeForm } from "@/hooks/useResumeForm";
 import { personalInfoSchema, PersonalInfoFormValues } from "@/lib/schemas";
+import { resolveValidationError } from "@/lib/resolve-validation-error";
 import { useTranslations } from "next-intl";
 import PhotoEditor from "@/components/ui/PhotoEditor";
 import { Camera, X } from "lucide-react";
@@ -23,6 +24,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const t = useTranslations("editor");
   const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editorOpen, setEditorOpen] = useState(false);
   const [editorSrc, setEditorSrc] = useState("");
@@ -32,7 +34,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
     [],
   );
 
-  const { register } = useResumeForm<PersonalInfoFormValues>({
+  const { register, formState: { errors } } = useResumeForm<PersonalInfoFormValues>({
     resumeId,
     schema: personalInfoSchema,
     defaultValues: {
@@ -134,12 +136,16 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
             id="fullName"
             label={t("fullName")}
             placeholder={t("fullNamePlaceholder")}
+            maxLength={100}
+            error={resolveValidationError(errors.fullName?.message, tv)}
             {...register("fullName")}
           />
           <FormInput
             id="headline"
             label={t("headline")}
             placeholder={t("headlinePlaceholder")}
+            maxLength={150}
+            error={resolveValidationError(errors.headline?.message, tv)}
             {...register("headline")}
           />
         </div>
@@ -152,6 +158,8 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
               label={t("email")}
               type="email"
               placeholder={t("emailPlaceholder")}
+              maxLength={255}
+              error={resolveValidationError(errors.contact?.email?.message, tv)}
               {...register("contact.email")}
             />
             <FormInput
@@ -159,18 +167,24 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
               label={t("phone")}
               type="tel"
               placeholder={t("phonePlaceholder")}
+              maxLength={30}
+              error={resolveValidationError(errors.contact?.phone?.message, tv)}
               {...register("contact.phone")}
             />
             <FormInput
               id="location"
               label={t("location")}
               placeholder={t("locationPlaceholder")}
+              maxLength={100}
+              error={resolveValidationError(errors.contact?.location?.message, tv)}
               {...register("contact.location")}
             />
             <FormInput
               id="linkedin"
               label={t("linkedin")}
               placeholder={t("linkedinPlaceholder")}
+              maxLength={200}
+              error={resolveValidationError(errors.contact?.linkedin?.message, tv)}
               {...register("contact.linkedin")}
             />
             <FormInput
@@ -178,6 +192,8 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
               label={t("website")}
               placeholder={t("websitePlaceholder")}
               className="sm:col-span-2"
+              maxLength={200}
+              error={resolveValidationError(errors.contact?.website?.message, tv)}
               {...register("contact.website")}
             />
           </div>
