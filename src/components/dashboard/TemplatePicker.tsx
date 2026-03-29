@@ -17,6 +17,7 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSelect: (templateId: string) => void;
+  hideBlank?: boolean;
 }
 
 function getSampleData(templateId: string): ResumeData {
@@ -28,7 +29,7 @@ function getSampleData(templateId: string): ResumeData {
   } as ResumeData;
 }
 
-export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) {
+export default function TemplatePicker({ open, onOpenChange, onSelect, hideBlank }: Props) {
   const t = useTranslations("dashboard");
   const tt = useTranslations("templates");
 
@@ -44,6 +45,7 @@ export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) 
 
         <div className="overflow-y-auto">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+          {!hideBlank && (
           <button
             onClick={() => onSelect("blank")}
             className="text-left rounded-lg border border-dashed border-border p-3 hover:border-ring hover:bg-surface-soft transition-colors"
@@ -56,6 +58,7 @@ export default function TemplatePicker({ open, onOpenChange, onSelect }: Props) 
               {t("startFromScratch")}
             </p>
           </button>
+          )}
 
           {TEMPLATES.map((tmpl) => (
             <button
