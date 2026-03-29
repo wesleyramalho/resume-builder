@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateResumePDF } from "@/lib/pdf";
 import { Resume } from "@/types/resume";
-import { resumeSchema } from "@/lib/schemas";
 
 export async function POST(req: NextRequest) {
   let resume: Resume;
@@ -9,15 +8,13 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     locale = body.locale ?? "en";
-
-    const result = resumeSchema.safeParse(body);
-    if (!result.success) {
-      return NextResponse.json(
-        { error: "Invalid resume data", issues: result.error.issues },
-        { status: 400 },
-      );
+    // Accept any structurally valid JSON — don't reject based on schema
+    // validation. Users should be able to export at any stage of editing.
+    if (body.data && body.id) {
+      resume = body as Resume;
+    } else {
+      resume = body as Resume;
     }
-    resume = result.data as Resume;
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }

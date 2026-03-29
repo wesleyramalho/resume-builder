@@ -68,37 +68,6 @@ export const projectEntrySchema = z.object({
   endDate: z.string().nullable(),
 });
 
-export const resumeDataSchema = z.object({
-  fullName: z.string().max(100),
-  headline: z.string().max(150),
-  summary: z.string().max(5000),
-  photo: z.string().optional(),
-  contact: contactSchema,
-  experience: z.array(experienceEntrySchema),
-  education: z.array(educationEntrySchema),
-  skillGroups: z.array(skillGroupSchema),
-  projects: z.array(projectEntrySchema),
-  sections: z.object({
-    summary: z.boolean(),
-    experience: z.boolean(),
-    education: z.boolean(),
-    skills: z.boolean(),
-    projects: z.boolean(),
-  }),
-  sectionOrder: z.array(z.string()),
-  linkedInImported: z.boolean().optional(),
-});
-
-export const resumeSchema = z.object({
-  id: z.string(),
-  name: z.string().max(200),
-  templateId: z.string().optional(),
-  status: z.enum(["draft", "complete"]),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  exportCount: z.number(),
-  data: resumeDataSchema,
-});
 
 export type PersonalInfoFormValues = z.infer<typeof personalInfoSchema>;
 export type ExperienceEntryFormValues = z.infer<typeof experienceEntrySchema>;
