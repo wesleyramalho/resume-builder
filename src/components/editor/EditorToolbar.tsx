@@ -6,7 +6,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import {
-  FileDown, ArrowLeft, Check, Loader2, Palette, MoreVertical, Upload,
+  FileDown, ArrowLeft, Check, Loader2, Palette, Upload,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Resume, ResumeData } from "@/types/resume";
@@ -21,8 +21,9 @@ import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
 import ImportResumeIntoButton from "@/components/editor/ImportResumeIntoButton";
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import MoreMenuTrigger from "@/components/ui/MoreMenuTrigger";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import {
   Tooltip,
@@ -169,9 +170,7 @@ export default function EditorToolbar({ resume }: Props) {
       )}
 
       <DropdownMenu>
-        <DropdownMenuTrigger className="sm:hidden inline-flex items-center justify-center w-8 h-8 rounded-md border border-border bg-surface-soft hover:bg-surface-strong transition-colors shrink-0">
-          <MoreVertical className="w-4 h-4" />
-        </DropdownMenuTrigger>
+        <MoreMenuTrigger className="sm:hidden" />
         <DropdownMenuContent align="end" className="bg-card border-border">
           <DropdownMenuItem onClick={() => setTemplatePickerOpen(true)} className="gap-2">
             <Palette className="w-4 h-4" />

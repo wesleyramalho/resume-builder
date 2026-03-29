@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MoreHorizontal, Pencil, FileDown, Copy, Trash2 } from "lucide-react";
+import { Pencil, FileDown, Copy, Trash2 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -10,8 +10,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import MoreMenuTrigger from "@/components/ui/MoreMenuTrigger";
 import {
   Dialog,
   DialogContent,
@@ -105,11 +105,7 @@ export default function ResumeCard({ resume }: Props) {
             </Button>
 
             <DropdownMenu>
-              <DropdownMenuTrigger
-                className="h-9 w-9 sm:h-8 sm:w-8 border border-border hover:bg-muted rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <MoreHorizontal className="w-4 h-4" />
-              </DropdownMenuTrigger>
+              <MoreMenuTrigger className="h-9 w-9 sm:h-8 sm:w-8" />
               <DropdownMenuContent align="end" className="bg-card border-border">
                 <DropdownMenuItem onClick={handleEdit} className="gap-2">
                   <Pencil className="w-4 h-4" />
