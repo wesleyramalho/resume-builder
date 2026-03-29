@@ -38,6 +38,28 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in the values:
+
+| Variable | Description |
+| --- | --- |
+| `AUTH_SECRET` | NextAuth.js secret for session encryption |
+| `NEXTAUTH_URL` | App URL for NextAuth.js callbacks |
+| `LINKEDIN_CLIENT_ID` | LinkedIn OAuth app client ID |
+| `LINKEDIN_CLIENT_SECRET` | LinkedIn OAuth app client secret |
+| `NEXT_PUBLIC_LINKEDIN_OAUTH_ENABLED` | Enable/disable LinkedIn import feature (`true`/`false`) |
+| `NEXT_PUBLIC_APP_URL` | Public-facing app URL |
+
 ## LinkedIn OAuth Setup (Optional)
 
 To enable "Import from LinkedIn", add these to `.env.local`:
@@ -59,6 +81,21 @@ LinkedIn app requirements:
 The production site runs at **[mypdfcv.com](https://mypdfcv.com)**.
 
 Recommended deployment: [Vercel](https://vercel.com) (zero-config for Next.js).
+
+## Contributing
+
+Contributions are welcome! To get started:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feat/your-feature`)
+3. Commit your changes
+4. Push to your fork and open a Pull Request
+
+Please make sure your code passes linting (`npm run lint`) before submitting.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
