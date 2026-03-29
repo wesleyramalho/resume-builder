@@ -105,7 +105,7 @@ export default function ResumeCard({ resume }: Props) {
             </Button>
 
             <DropdownMenu>
-              <MoreMenuTrigger orientation="horizontal" className="h-9 w-9 sm:h-8 sm:w-8" />
+              <MoreMenuTrigger className="h-9 w-9 sm:h-8 sm:w-8" />
               <DropdownMenuContent align="end" className="bg-card border-border">
                 <DropdownMenuItem onClick={handleEdit} className="gap-2">
                   <Pencil className="w-4 h-4" />
