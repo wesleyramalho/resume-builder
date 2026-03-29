@@ -85,7 +85,12 @@
     "importFailed": "Falha na importação.",
     "scanWarning": "Pouco texto foi extraído. O arquivo pode ser um documento escaneado.",
     "importSuccess": "Importado: {exp} experiência(s), {edu} formação(ões){skills}",
-    "parseFailed": "Falha ao analisar o currículo. Tente um arquivo diferente."
+    "parseFailed": "Falha ao analisar o currículo. Tente um arquivo diferente.",
+    "statusDraft": "Rascunho",
+    "statusComplete": "Completo",
+    "importedResume": "Currículo Importado",
+    "untitledResume": "Currículo Sem Título",
+    "skillsSuffix": ", {count} habilidades"
   },
   "editor": {
     "personalInfo": "Dados Pessoais",

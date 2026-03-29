@@ -87,7 +87,7 @@ export default function ResumeCard({ resume }: Props) {
                   : "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20"
               }`}
             >
-              {resume.status}
+              {resume.status === "complete" ? t("statusComplete") : t("statusDraft")}
             </Badge>
           </div>
           <p className="text-[11px] text-muted-foreground font-sans mb-3">

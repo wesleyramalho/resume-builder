@@ -85,7 +85,12 @@
     "importFailed": "Import failed.",
     "scanWarning": "Very little text was extracted. The file may be a scanned document.",
     "importSuccess": "Imported: {exp} experience, {edu} education{skills}",
-    "parseFailed": "Failed to parse resume. Please try a different file."
+    "parseFailed": "Failed to parse resume. Please try a different file.",
+    "statusDraft": "Draft",
+    "statusComplete": "Complete",
+    "importedResume": "Imported Resume",
+    "untitledResume": "Untitled Resume",
+    "skillsSuffix": ", {count} skills"
   },
   "editor": {
     "personalInfo": "Personal Info",
