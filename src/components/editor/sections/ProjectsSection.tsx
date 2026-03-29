@@ -48,9 +48,12 @@ export default function ProjectsSection({ resumeId, data }: Props) {
   }
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
-  updateResumeRef.current = updateResume;
   const resumeIdRef = useRef(resumeId);
-  resumeIdRef.current = resumeId;
+
+  useEffect(() => {
+    updateResumeRef.current = updateResume;
+    resumeIdRef.current = resumeId;
+  });
 
   const lastSyncedJson = useRef(JSON.stringify(data.projects));
 

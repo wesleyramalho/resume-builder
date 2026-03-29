@@ -427,6 +427,7 @@ export default function ResumePDFDocument({ resume, locale = "en" }: Props) {
       ]}
     >
       {data.photo && tmpl.photoPosition !== "top-right" ? (
+        // eslint-disable-next-line jsx-a11y/alt-text -- @react-pdf/renderer Image
         <Image
           src={data.photo}
           style={{
@@ -462,6 +463,7 @@ export default function ResumePDFDocument({ resume, locale = "en" }: Props) {
         )}
       </View>
       {data.photo && tmpl.photoPosition === "top-right" ? (
+        // eslint-disable-next-line jsx-a11y/alt-text -- @react-pdf/renderer Image
         <Image
           src={data.photo}
           style={{
@@ -514,6 +516,7 @@ export default function ResumePDFDocument({ resume, locale = "en" }: Props) {
             }}
           >
             {data.photo ? (
+              // eslint-disable-next-line jsx-a11y/alt-text -- @react-pdf/renderer Image
               <Image
                 src={data.photo}
                 style={{

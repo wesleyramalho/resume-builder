@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { Plus, LogOut, Upload, MoreVertical, Loader2 } from "lucide-react";
+import { Plus, LogOut } from "lucide-react";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import ImportResumeButton from "@/components/dashboard/ImportResumeButton";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,7 @@ export default function DashboardHeader() {
   const [isImporting, setIsImporting] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const mobileFileInputRef = useRef<HTMLInputElement>(null);
-  const [mobileImporting, setMobileImporting] = useState(false);
+  const [, setMobileImporting] = useState(false);
 
   async function handleMobileFileImport(
     e: React.ChangeEvent<HTMLInputElement>,

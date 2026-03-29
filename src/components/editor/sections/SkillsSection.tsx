@@ -46,6 +46,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
   const { fields, append, remove } = useFieldArray({ control, name: "skillGroups" });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const sub = watch((values) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {

@@ -8,6 +8,7 @@ export function useResumeAutoSave(id: string) {
   const data = useResumeStore((s) => s.resumes.find((r) => r.id === id)?.data);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStatus("saving");
     const t = setTimeout(() => setStatus("saved"), 600);
     return () => clearTimeout(t);

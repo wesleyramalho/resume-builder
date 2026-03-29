@@ -3,7 +3,8 @@ import { auth } from "@/auth";
 import { mapLinkedInOAuthToResume } from "@/lib/linkedin";
 import { LinkedInProfile } from "@/types/linkedin";
 
-export async function POST(req: NextRequest) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function POST(_req: NextRequest) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
