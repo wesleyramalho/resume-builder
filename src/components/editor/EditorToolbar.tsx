@@ -140,7 +140,7 @@ export default function EditorToolbar({ resume }: Props) {
         <Palette />
         <span className="hidden sm:inline">{currentTemplate?.name ?? "Default"}</span>
       </Button>
-      <TemplatePicker open={templatePickerOpen} onOpenChange={setTemplatePickerOpen} onSelect={handleTemplateSelect} />
+      <TemplatePicker open={templatePickerOpen} onOpenChange={setTemplatePickerOpen} onSelect={handleTemplateSelect} hideBlank />
 
       <div className="hidden sm:flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-muted-foreground">
         {saveStatus === "saving" ? (
