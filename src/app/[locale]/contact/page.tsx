@@ -25,7 +25,7 @@ export default function ContactPage() {
           <div className="bg-card border border-border rounded-lg p-6 space-y-4">
             <div className="flex items-center gap-3">
               <Image
-                src="/pixel-me.svg"
+                src="/pixel-me.png"
                 alt="Wesley Ramalho"
                 width={40}
                 height={40}
