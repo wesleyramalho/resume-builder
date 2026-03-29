@@ -11,6 +11,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { skillGroupSchema } from "@/lib/schemas";
+import { resolveValidationError } from "@/lib/resolve-validation-error";
 import { useTranslations } from "next-intl";
 import { Plus, Trash2, X } from "lucide-react";
 
@@ -28,6 +29,7 @@ type FormValues = z.infer<typeof formSchema>;
 export default function SkillsSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const t = useTranslations("editor");
+  const tv = useTranslations("validation");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
   updateResumeRef.current = updateResume;
@@ -37,10 +39,10 @@ export default function SkillsSection({ resumeId, data }: Props) {
 
   const lastSyncedJson = useRef(JSON.stringify(data.skillGroups));
 
-  const { register, control, watch, setValue, reset } = useForm<FormValues>({
+  const { register, control, watch, setValue, reset, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { skillGroups: structuredClone(data.skillGroups) },
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: "skillGroups" });
@@ -107,6 +109,8 @@ export default function SkillsSection({ resumeId, data }: Props) {
                   label={t("category")}
                   placeholder={t("categoryPlaceholder")}
                   className="flex-1"
+                  maxLength={50}
+                  error={resolveValidationError(errors.skillGroups?.[idx]?.category?.message, tv)}
                   {...register(`skillGroups.${idx}.category`)}
                 />
                 <button
@@ -149,6 +153,7 @@ export default function SkillsSection({ resumeId, data }: Props) {
                       addSkill(idx);
                     }
                   }}
+                  maxLength={50}
                   placeholder={t("typeSkillEnter")}
                   className="flex-1 bg-input border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring transition-colors"
                 />

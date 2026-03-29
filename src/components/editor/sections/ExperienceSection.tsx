@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -25,6 +25,7 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { experienceEntrySchema } from "@/lib/schemas";
+import { resolveValidationError } from "@/lib/resolve-validation-error";
 import { Plus, Trash2, GripVertical } from "lucide-react";
 import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
@@ -48,15 +49,18 @@ interface SortableExpItemProps {
   setValue: ReturnType<typeof useForm<FormValues>>["setValue"];
   watch: ReturnType<typeof useForm<FormValues>>["watch"];
   remove: (idx: number) => void;
+  errors: FieldErrors<FormValues>;
+  tv: (key: string) => string;
 }
 
-function SortableExpItem({ field, idx, register, setValue, watch, remove }: SortableExpItemProps) {
+function SortableExpItem({ field, idx, register, setValue, watch, remove, errors, tv }: SortableExpItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: field.id });
   const t = useTranslations("editor");
   const tc = useTranslations("common");
 
   const exp = watch(`experience.${idx}`);
+  const fieldErrors = errors.experience?.[idx];
 
   return (
     <div
@@ -93,18 +97,24 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
           id={`company-${field.id}`}
           label={t("companyStudio")}
           placeholder={t("companyPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.company?.message, tv)}
           {...register(`experience.${idx}.company`)}
         />
         <FormInput
           id={`title-${field.id}`}
           label={t("position")}
           placeholder={t("positionPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.title?.message, tv)}
           {...register(`experience.${idx}.title`)}
         />
         <FormInput
           id={`location-${field.id}`}
           label={t("location")}
           placeholder={t("locationPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.location?.message, tv)}
           {...register(`experience.${idx}.location`)}
         />
         <div />
@@ -142,6 +152,8 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
         label={t("descriptionBullets")}
         placeholder={t("descriptionPlaceholder")}
         rows={4}
+        maxLength={3000}
+        error={resolveValidationError(fieldErrors?.description?.message, tv)}
         {...register(`experience.${idx}.description`)}
         action={
           <AIImproveButton
@@ -159,6 +171,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
   const t = useTranslations("editor");
   const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
   updateResumeRef.current = updateResume;
@@ -167,10 +180,10 @@ export default function ExperienceSection({ resumeId, data }: Props) {
 
   const lastSyncedJson = useRef(JSON.stringify(data.experience));
 
-  const { register, control, watch, setValue, reset } = useForm<FormValues>({
+  const { register, control, watch, setValue, reset, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { experience: structuredClone(data.experience) },
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const { fields, append, remove, move } = useFieldArray({ control, name: "experience" });
@@ -231,6 +244,8 @@ export default function ExperienceSection({ resumeId, data }: Props) {
                 setValue={setValue}
                 watch={watch}
                 remove={remove}
+                errors={errors}
+                tv={tv}
               />
             ))}
           </SortableContext>

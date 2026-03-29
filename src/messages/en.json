@@ -319,6 +319,11 @@
     "s11h": "11. Contact",
     "s11": "For questions about these terms, please visit www.wesleyramalho.com/contact."
   },
+  "validation": {
+    "invalidEmail": "Please enter a valid email address",
+    "invalidUrl": "Please enter a valid URL",
+    "tooLong": "This field is too long"
+  },
   "cookies": {
     "title": "Cookie Policy",
     "lastUpdated": "Last updated: March 28, 2026",

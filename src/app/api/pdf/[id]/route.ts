@@ -1,19 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateResumePDF } from "@/lib/pdf";
 import { Resume } from "@/types/resume";
+import { resumeSchema } from "@/lib/schemas";
 
 export async function POST(req: NextRequest) {
   let resume: Resume;
   let locale: string = "en";
   try {
     const body = await req.json();
-    // Support both { ...resume } and { resume, locale } shapes
-    if (body.data && body.id) {
-      resume = body as Resume;
-      locale = body.locale ?? "en";
-    } else {
-      resume = body as Resume;
+    locale = body.locale ?? "en";
+
+    const result = resumeSchema.safeParse(body);
+    if (!result.success) {
+      return NextResponse.json(
+        { error: "Invalid resume data", issues: result.error.issues },
+        { status: 400 },
+      );
     }
+    resume = result.data as Resume;
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
