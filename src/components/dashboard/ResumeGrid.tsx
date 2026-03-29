@@ -49,7 +49,7 @@ export default function ResumeGrid({ resumes }: Props) {
       return;
     }
     const tmpl = getTemplate(templateId);
-    const resume = createResume(tmpl?.name ?? "Untitled Resume", tmpl?.sampleData, templateId);
+    const resume = createResume(tmpl?.name ?? t("untitledResume"), tmpl?.sampleData, templateId);
     router.push(`/editor/${resume.id}`);
   }
 

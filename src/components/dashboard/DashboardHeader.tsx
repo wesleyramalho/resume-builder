@@ -61,13 +61,13 @@ export default function DashboardHeader() {
       if (textLength < 50) {
         toast.warning(t("scanWarning"));
       }
-      const resume = createResume("Imported Resume", data);
+      const resume = createResume(t("importedResume"), data);
       const exp = data.experience?.length ?? 0;
       const edu = data.education?.length ?? 0;
       const skills =
         data.skillGroups?.reduce((n, g) => n + g.skills.length, 0) ?? 0;
       toast.success(
-        t("importSuccess", { exp, edu, skills: skills > 0 ? `, ${skills} skills` : "" }),
+        t("importSuccess", { exp, edu, skills: skills > 0 ? t("skillsSuffix", { count: skills }) : "" }),
       );
       router.push(`/editor/${resume.id}`);
     } catch (err) {
@@ -88,7 +88,7 @@ export default function DashboardHeader() {
     }
     const tmpl = getTemplate(templateId);
     const resume = createResume(
-      tmpl?.name ?? "Untitled Resume",
+      tmpl?.name ?? t("untitledResume"),
       tmpl?.sampleData,
       templateId,
     );
@@ -122,7 +122,7 @@ export default function DashboardHeader() {
           throw new Error(t("importNoData"));
         }
 
-        const importedResume = createResume("LinkedIn Resume", result.data);
+        const importedResume = createResume(t("importedResume"), result.data);
         router.push(`/editor/${importedResume.id}`);
       } catch (error) {
         setImportError(
