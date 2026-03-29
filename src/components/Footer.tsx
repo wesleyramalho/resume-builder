@@ -25,7 +25,7 @@ export default function Footer() {
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
           <Image
-            src="/pixel-me.svg"
+            src="/pixel-me.png"
             alt="Wesley Ramalho"
             width={28}
             height={28}
