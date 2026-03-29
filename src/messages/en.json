@@ -257,10 +257,22 @@
     "s4": "When you import a PDF or DOCX file, the document is processed entirely in your browser. We do not upload, transmit, or store your uploaded documents on any server. The file is read into memory, text is extracted to populate your resume fields, and the original file data is immediately discarded. No copy of your uploaded document is retained.",
     "s5h": "5. GDPR Compliance (EU/EEA Users)",
     "s5intro": "If you are located in the European Union or European Economic Area, the following applies under the General Data Protection Regulation (GDPR):",
-    "s5items": ["Data controller: Wesley Ramalho. For inquiries, visit www.wesleyramalho.com/contact.", "Legal basis: Consent. You choose to use the service and provide information voluntarily.", "Data processed: Only the resume content you type or import. All data is stored in your browser's localStorage and is not transmitted to our servers.", "No cross-border transfers: Your personal data is not transferred to any server. It remains in your browser. The only exception is the optional LinkedIn OAuth flow, which is governed by LinkedIn's own privacy policy.", "Your rights: You have the right to access, rectify, erase, restrict processing, object to processing, and port your data. Since all data is stored locally in your browser, you can export as PDF (access & portability), edit directly (rectification), or clear localStorage (erasure).", "No automated decision-making: We do not use your data for automated decision-making or profiling. The AI text improvement feature generates suggestions that you manually review and accept or reject."],
+    "s5items": [
+      "Data controller: Wesley Ramalho. For inquiries, visit www.wesleyramalho.com/contact.",
+      "Legal basis: Consent. You choose to use the service and provide information voluntarily.",
+      "Data processed: Only the resume content you type or import. All data is stored in your browser's localStorage and is not transmitted to our servers.",
+      "No cross-border transfers: Your personal data is not transferred to any server. It remains in your browser. The only exception is the optional LinkedIn OAuth flow, which is governed by LinkedIn's own privacy policy.",
+      "Your rights: You have the right to access, rectify, erase, restrict processing, object to processing, and port your data. Since all data is stored locally in your browser, you can export as PDF (access & portability), edit directly (rectification), or clear localStorage (erasure).",
+      "No automated decision-making: We do not use your data for automated decision-making or profiling. The AI text improvement feature generates suggestions that you manually review and accept or reject."
+    ],
     "s6h": "6. CCPA Compliance (California Users)",
     "s6intro": "If you are a California resident, the following applies under the California Consumer Privacy Act (CCPA):",
-    "s6items": ["We do not sell personal information. We do not share personal information with third parties for monetary or other valuable consideration.", "We do not collect personal information on our servers. All resume data is stored in your browser's localStorage only.", "Right to delete: You can delete all data at any time by clearing your browser's localStorage or removing individual resumes from the dashboard.", "Right to know: The categories of information processed are limited to resume content you voluntarily create (name, contact details, work history, education, skills), stored locally only."],
+    "s6items": [
+      "We do not sell personal information. We do not share personal information with third parties for monetary or other valuable consideration.",
+      "We do not collect personal information on our servers. All resume data is stored in your browser's localStorage only.",
+      "Right to delete: You can delete all data at any time by clearing your browser's localStorage or removing individual resumes from the dashboard.",
+      "Right to know: The categories of information processed are limited to resume content you voluntarily create (name, contact details, work history, education, skills), stored locally only."
+    ],
     "s7h": "7. Children's Privacy",
     "s7": "This service is not directed at children under 13 years of age (COPPA) or under 16 years of age (GDPR). We do not knowingly collect personal information from children. Since all data is stored locally in the user's browser and not transmitted to us, we have no means to identify the age of our users.",
     "s8h": "8. Cookies & Tracking",
@@ -281,7 +293,13 @@
     "s4": "The document import feature processes PDF and DOCX files entirely in your browser. Uploaded files are read into memory for text extraction and immediately discarded. We do not upload, transmit, or store your documents. Text extraction quality varies depending on the document format and structure.",
     "s5h": "5. Open-Source Software",
     "s5": "MyPDFCV is built with open-source software. The following key libraries are used under their respective licenses:",
-    "s5libs": ["Xenova/flan-t5-small — Apache 2.0 — AI text improvement model", "@huggingface/transformers — Apache 2.0 — AI model runtime (WebAssembly)", "pdfjs-dist (Mozilla) — Apache 2.0 — PDF text extraction", "mammoth.js — BSD-2-Clause — DOCX text extraction", "@react-pdf/renderer — MIT — PDF generation"],
+    "s5libs": [
+      "Xenova/flan-t5-small — Apache 2.0 — AI text improvement model",
+      "@huggingface/transformers — Apache 2.0 — AI model runtime (WebAssembly)",
+      "pdfjs-dist (Mozilla) — Apache 2.0 — PDF text extraction",
+      "mammoth.js — BSD-2-Clause — DOCX text extraction",
+      "@react-pdf/renderer — MIT — PDF generation"
+    ],
     "s5note": "Full license texts are available in each library's respective repository. Use of these libraries does not imply endorsement by their creators or maintainers.",
     "s6h": "6. No Warranty",
     "s6": "This service is provided \"as is\" and \"as available\" without warranties of any kind, either express or implied. We do not warrant that the service will be uninterrupted, error-free, or that any data will be preserved. Since all data is stored in your browser's localStorage, clearing your browser data will permanently delete your resumes.",
@@ -301,13 +319,20 @@
     "lastUpdated": "Last updated: March 28, 2026",
     "s1h": "1. What We Use",
     "s1intro": "MyPDFCV does not use cookies. Instead, we use your browser's localStorage to store:",
-    "s1items": ["Your resume data (content, section order, template choice)", "Your theme preference (light or dark mode)"],
+    "s1items": [
+      "Your resume data (content, section order, template choice)",
+      "Your theme preference (light or dark mode)"
+    ],
     "s1note": "This data never leaves your browser and is not transmitted to any server.",
     "s2h": "2. No Tracking",
     "s2": "We do not use any analytics, tracking pixels, advertising cookies, or third-party tracking tools. Your browsing activity on this site is not monitored or recorded.",
     "s3h": "3. Third-Party Services & Downloads",
     "s3intro": "The following third-party resources may be downloaded and cached by your browser during normal use of MyPDFCV:",
-    "s3items": ["AI models: The text improvement feature downloads an open-source AI model (Xenova/flan-t5-small) from Hugging Face's CDN on first use. This is cached by your browser using standard HTTP caching, not cookies.", "PDF processing: The document import feature uses PDF.js (by Mozilla) which may load a worker script. This is also cached by standard browser caching.", "LinkedIn OAuth: If you choose to sign in with LinkedIn, LinkedIn's own cookie and privacy policies apply to the authentication flow. We do not control LinkedIn's use of cookies. Please refer to LinkedIn's Cookie Policy for more information."],
+    "s3items": [
+      "AI models: The text improvement feature downloads an open-source AI model (Xenova/flan-t5-small) from Hugging Face's CDN on first use. This is cached by your browser using standard HTTP caching, not cookies.",
+      "PDF processing: The document import feature uses PDF.js (by Mozilla) which may load a worker script. This is also cached by standard browser caching.",
+      "LinkedIn OAuth: If you choose to sign in with LinkedIn, LinkedIn's own cookie and privacy policies apply to the authentication flow. We do not control LinkedIn's use of cookies. Please refer to LinkedIn's Cookie Policy for more information."
+    ],
     "s3note": "These downloads are subject to the respective providers' privacy policies. No personal data from your resumes is sent to these providers.",
     "s4h": "4. Clearing Data",
     "s4": "You can remove all stored data at any time by clearing your browser's localStorage. This will permanently delete all resume data and preferences. In most browsers, this can be done via Settings > Privacy > Clear browsing data > Cookies and site data.",
