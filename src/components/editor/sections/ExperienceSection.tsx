@@ -188,6 +188,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
 
   // Auto-sync to store
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const sub = watch((values) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {

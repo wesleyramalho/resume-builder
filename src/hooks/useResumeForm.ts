@@ -44,6 +44,7 @@ export function useResumeForm<T extends FieldValues>({
 
   // Watch all values and sync to store with debounce
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const subscription = form.watch((values) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
