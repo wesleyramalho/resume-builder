@@ -3,20 +3,22 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ResumeThumbnail from "@/components/dashboard/ResumeThumbnail";
 import { TEMPLATES, getTemplate } from "@/lib/resumeTemplates";
+import { getLocalizedSampleData } from "@/lib/localizedSampleData";
 import { createEmptyResumeData } from "@/lib/resumeDefaults";
 import { useResumeStore } from "@/store/useResumeStore";
 import type { ResumeData } from "@/types/resume";
 
-function getSampleData(templateId: string): ResumeData {
+function getSampleData(templateId: string, locale: string): ResumeData {
   const tmpl = TEMPLATES.find((t) => t.id === templateId);
+  const localizedData = getLocalizedSampleData(templateId, locale);
   return {
     ...createEmptyResumeData(),
-    ...tmpl?.sampleData,
+    ...(localizedData ?? tmpl?.sampleData),
     photo: tmpl?.previewPhoto,
   } as ResumeData;
 }
@@ -24,6 +26,7 @@ function getSampleData(templateId: string): ResumeData {
 export default function LandingTemplates() {
   const router = useRouter();
   const createResume = useResumeStore((s) => s.createResume);
+  const locale = useLocale();
   const t = useTranslations("landing");
   const tt = useTranslations("templates");
 
@@ -90,7 +93,7 @@ export default function LandingTemplates() {
             >
               <div className="relative mb-2 overflow-hidden rounded">
                 <ResumeThumbnail
-                  data={getSampleData(tmpl.id)}
+                  data={getSampleData(tmpl.id, locale)}
                   templateId={tmpl.id}
                 />
                 <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
