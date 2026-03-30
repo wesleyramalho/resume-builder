@@ -81,21 +81,18 @@ export default function LandingTemplates() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {TEMPLATES.map((tmpl) => (
             <div
               key={tmpl.id}
-              className="template-card opacity-0 group cursor-pointer"
+              className="template-card opacity-0 group cursor-pointer rounded-lg border border-border p-3 hover:border-ring transition-colors"
               onClick={() => handleUseTemplate(tmpl.id)}
             >
-              <div className="relative bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-4 bg-surface-soft/50 max-h-[320px] overflow-hidden">
-                  <ResumeThumbnail
-                    data={getSampleData(tmpl.id)}
-                    templateId={tmpl.id}
-                  />
-                </div>
-
+              <div className="relative mb-2 overflow-hidden rounded">
+                <ResumeThumbnail
+                  data={getSampleData(tmpl.id)}
+                  templateId={tmpl.id}
+                />
                 <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-background text-foreground font-sans text-xs uppercase tracking-widest px-4 py-2 rounded-md">
                     {t("useTemplate")}
@@ -103,14 +100,12 @@ export default function LandingTemplates() {
                 </div>
               </div>
 
-              <div className="mt-3 text-center">
-                <p className="font-sans font-semibold text-foreground">
-                  {tt(tmpl.id)}
-                </p>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {tt(`${tmpl.id}Desc`)}
-                </p>
-              </div>
+              <p className="text-xs font-semibold text-foreground">
+                {tt(tmpl.id)}
+              </p>
+              <p className="text-[9px] text-muted-foreground leading-relaxed mt-0.5">
+                {tt(`${tmpl.id}Desc`)}
+              </p>
             </div>
           ))}
         </div>
