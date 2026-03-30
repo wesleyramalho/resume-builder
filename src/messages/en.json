@@ -30,7 +30,7 @@
     "headlineFree": "Free",
     "headlineForever": "Forever.",
     "headlineSr": "Your Resume, Free Forever.",
-    "subtitle": "Build professional resumes with real-time preview, 7 templates, and one-click PDF export. No paywall, no sign-up, no data stored on servers. 100% free and open source.",
+    "subtitle": "Build professional resumes with real-time preview, 7 templates, and one-click PDF export in multiple languages. No paywall, no sign-up, no data stored on servers. 100% free and open source.",
     "cta": "Build Your Resume",
     "livePreview": "Live Preview",
     "featuresLabel": "Everything You Need",
@@ -239,7 +239,7 @@
   },
   "metadata": {
     "defaultTitle": "MyPDFCV — Free Resume Builder",
-    "description": "Build professional resumes with real-time preview, 7 templates, and free PDF export. No paywall, no sign-up. 100% free and open source.",
+    "description": "Build professional resumes with real-time preview, 7 templates, and free PDF export in multiple languages. No paywall, no sign-up. 100% free and open source.",
     "landingTitle": "Free Resume Builder — No Sign-up Required",
     "landingDescription": "Create professional resumes with real-time preview, 7 free templates, AI text improvement, and one-click PDF export in multiple languages. Your data stays in your browser."
   },
