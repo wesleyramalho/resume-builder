@@ -30,7 +30,7 @@
     "headlineFree": "Free",
     "headlineForever": "Forever.",
     "headlineSr": "Your Resume, Free Forever.",
-    "subtitle": "Build professional resumes with real-time preview, 7 templates, and one-click PDF export. No paywall, no sign-up, no data stored on servers. 100% free and open source.",
+    "subtitle": "Build professional resumes with real-time preview, 7 templates, and one-click PDF export in multiple languages. No paywall, no sign-up, no data stored on servers. 100% free and open source.",
     "cta": "Build Your Resume",
     "livePreview": "Live Preview",
     "featuresLabel": "Everything You Need",
@@ -38,7 +38,7 @@
     "previewTitle": "Preview in Real-Time",
     "previewDesc": "See every change instantly as you type. Our dual-pane editor shows your final PDF in real time — no surprises at export.",
     "exportTitle": "Easy Export",
-    "exportDesc": "One-click PDF export — no account, no payment, no limits. ATS-friendly formatting with clean metadata, every time.",
+    "exportDesc": "One-click PDF export in multiple languages — no account, no payment, no limits. ATS-friendly formatting with clean metadata, every time.",
     "downloadPdf": "Download PDF",
     "reorderTitle": "Reorder Sections",
     "reorderDesc": "Drag and drop to reorder your resume sections. Tailor the layout for each role you're applying to, no copy-pasting required.",
@@ -239,9 +239,9 @@
   },
   "metadata": {
     "defaultTitle": "MyPDFCV — Free Resume Builder",
-    "description": "Build professional resumes with real-time preview, 7 templates, and free PDF export. No paywall, no sign-up. 100% free and open source.",
+    "description": "Build professional resumes with real-time preview, 7 templates, and free PDF export in multiple languages. No paywall, no sign-up. 100% free and open source.",
     "landingTitle": "Free Resume Builder — No Sign-up Required",
-    "landingDescription": "Create professional resumes with real-time preview, 7 free templates, AI text improvement, and one-click PDF export. Your data stays in your browser."
+    "landingDescription": "Create professional resumes with real-time preview, 7 free templates, AI text improvement, and one-click PDF export in multiple languages. Your data stays in your browser."
   },
   "contactPage": {
     "title": "Contact",

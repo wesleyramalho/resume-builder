@@ -30,7 +30,7 @@
     "headlineFree": "Gratis",
     "headlineForever": "Siempre.",
     "headlineSr": "Tu Currículum, Gratis Siempre.",
-    "subtitle": "Crea currículums profesionales con vista previa en tiempo real, 7 plantillas y exportación a PDF con un clic. Sin pagos, sin registro, sin datos almacenados en servidores. 100% gratis y de código abierto.",
+    "subtitle": "Crea currículums profesionales con vista previa en tiempo real, 7 plantillas y exportación a PDF en varios idiomas con un clic. Sin pagos, sin registro, sin datos almacenados en servidores. 100% gratis y de código abierto.",
     "cta": "Crea tu Currículum",
     "livePreview": "Vista Previa en Vivo",
     "featuresLabel": "Todo lo que Necesitas",
@@ -38,7 +38,7 @@
     "previewTitle": "Vista Previa en Tiempo Real",
     "previewDesc": "Ve cada cambio al instante mientras escribes. Nuestro editor de doble panel muestra tu PDF final en tiempo real, sin sorpresas al exportar.",
     "exportTitle": "Exportación Fácil",
-    "exportDesc": "Exportación a PDF con un clic, sin cuenta, sin pago, sin límites. Formato compatible con ATS y metadatos limpios, siempre.",
+    "exportDesc": "Exportación a PDF con un clic en varios idiomas, sin cuenta, sin pago, sin límites. Formato compatible con ATS y metadatos limpios, siempre.",
     "downloadPdf": "Descargar PDF",
     "reorderTitle": "Reordena Secciones",
     "reorderDesc": "Arrastra y suelta para reordenar las secciones de tu currículum. Adapta el diseño para cada puesto al que apliques, sin necesidad de copiar y pegar.",
@@ -239,9 +239,9 @@
   },
   "metadata": {
     "defaultTitle": "MyPDFCV — Creador de Currículums Gratis",
-    "description": "Crea currículums profesionales con vista previa en tiempo real, 7 plantillas y exportación gratuita a PDF. Sin pagos, sin registro. 100% gratis y de código abierto.",
+    "description": "Crea currículums profesionales con vista previa en tiempo real, 7 plantillas y exportación gratuita a PDF en varios idiomas. Sin pagos, sin registro. 100% gratis y de código abierto.",
     "landingTitle": "Creador de Currículums Gratis — Sin Registro",
-    "landingDescription": "Crea currículums profesionales con vista previa en tiempo real, 7 plantillas gratis, mejora de texto con IA y exportación a PDF con un clic. Tus datos permanecen en tu navegador."
+    "landingDescription": "Crea currículums profesionales con vista previa en tiempo real, 7 plantillas gratis, mejora de texto con IA y exportación a PDF con un clic en varios idiomas. Tus datos permanecen en tu navegador."
   },
   "contactPage": {
     "title": "Contacto",
