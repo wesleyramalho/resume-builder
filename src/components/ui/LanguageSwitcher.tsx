@@ -12,6 +12,7 @@ import {
 const LANGUAGES = [
   { code: "en" as const, flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
   { code: "pt-BR" as const, flag: "\u{1F1E7}\u{1F1F7}", label: "Portugu\u00EAs (Brasil)" },
+  { code: "es" as const, flag: "\u{1F1EA}\u{1F1F8}", label: "Español" },
 ];
 
 export default function LanguageSwitcher() {
@@ -34,7 +35,7 @@ export default function LanguageSwitcher() {
         aria-label="Switch language"
       >
         <span className="text-base leading-none">{current.flag}</span>
-        <span className="uppercase text-xs font-medium">{current.code === "en" ? "EN" : "PT"}</span>
+        <span className="uppercase text-xs font-medium">{current.code.split("-")[0].toUpperCase()}</span>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="bg-card border-border min-w-[180px]">

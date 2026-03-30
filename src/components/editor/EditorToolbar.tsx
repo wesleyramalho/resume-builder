@@ -35,6 +35,7 @@ import {
 const LANGUAGES = [
   { code: "en", flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
   { code: "pt-BR", flag: "\u{1F1E7}\u{1F1F7}", label: "Portugu\u00EAs (Brasil)" },
+  { code: "es", flag: "\u{1F1EA}\u{1F1F8}", label: "Español" },
 ];
 
 interface Props { resume: Resume }
@@ -137,7 +138,7 @@ export default function EditorToolbar({ resume }: Props) {
         aria-label={t("resumeName")}
       />
 
-      <Button size="sm" variant="outline" onClick={() => setTemplatePickerOpen(true)} className="font-sans text-xs uppercase tracking-widest gap-1.5 shrink-0">
+      <Button size="sm" variant="outline" onClick={() => setTemplatePickerOpen(true)} className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-1.5 shrink-0">
         <Palette />
         <span className="hidden sm:inline">{currentTemplate?.name ?? "Default"}</span>
       </Button>
