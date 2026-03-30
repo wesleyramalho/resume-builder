@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { ResumeData } from "@/types/resume";
 import { getResumeStyle, hexWithAlpha } from "@/lib/resumeTemplates";
 
@@ -7,6 +10,7 @@ interface Props {
 }
 
 export default function ResumeThumbnail({ data, templateId }: Props) {
+  const t = useTranslations("resume");
   const style = getResumeStyle(templateId);
   const { accentColor, sectionDivider, sidebarColor, headerBgColor, headerLayout } = style;
   const dividerBorder = sectionDivider === "line" ? `1px solid ${hexWithAlpha(accentColor, 0.15)}` : "none";
@@ -49,7 +53,7 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
       {data.summary && (
         <div style={{ marginBottom: "0.75rem" }}>
           <p style={{ fontSize: "0.6rem", color: hexWithAlpha(accentColor, 0.4), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.35rem", borderBottom: dividerBorder, paddingBottom: "0.2rem" }}>
-            Profile
+            {t("profile")}
           </p>
           <p style={{ fontSize: "0.7rem", color: "#4b5563", lineHeight: 1.5 }}>
             {data.summary.slice(0, 120)}
@@ -61,7 +65,7 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
       {data.experience.length > 0 && (
         <div style={{ marginBottom: "0.75rem" }}>
           <p style={{ fontSize: "0.6rem", color: hexWithAlpha(accentColor, 0.4), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.35rem", borderBottom: dividerBorder, paddingBottom: "0.2rem" }}>
-            Experience
+            {t("professionalExperience")}
           </p>
           {data.experience.slice(0, 2).map((exp) => (
             <div key={exp.id} style={{ marginBottom: "0.5rem" }}>
@@ -76,7 +80,7 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
       {data.education.length > 0 && (
         <div style={{ marginBottom: "0.75rem" }}>
           <p style={{ fontSize: "0.6rem", color: hexWithAlpha(accentColor, 0.4), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.35rem", borderBottom: dividerBorder, paddingBottom: "0.2rem" }}>
-            Education
+            {t("education")}
           </p>
           {data.education.slice(0, 1).map((edu) => (
             <div key={edu.id}>
@@ -146,7 +150,7 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
         {data.skillGroups.length > 0 && (
           <div>
             <p style={{ fontSize: "0.6rem", color: hexWithAlpha(accentColor, 0.4), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.35rem", borderBottom: dividerBorder, paddingBottom: "0.2rem" }}>
-              Skills
+              {t("skills")}
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem" }}>
               {data.skillGroups.flatMap((g) => g.skills).slice(0, 8).map((skill, i) => (
