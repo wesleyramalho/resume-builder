@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import SectionHeading from "@/components/ui/SectionHeading";
-import ResumeThumbnail from "@/components/dashboard/ResumeThumbnail";
+import ResumePreview from "@/components/editor/preview/ResumePreview";
 import { TEMPLATES, getTemplate } from "@/lib/resumeTemplates";
 import { getLocalizedSampleData } from "@/lib/localizedSampleData";
 import { createEmptyResumeData } from "@/lib/resumeDefaults";
@@ -91,12 +91,14 @@ export default function LandingTemplates() {
               className="template-card opacity-0 group cursor-pointer rounded-lg border border-border p-3 hover:border-ring transition-colors"
               onClick={() => handleUseTemplate(tmpl.id)}
             >
-              <div className="relative mb-2 overflow-hidden rounded">
-                <ResumeThumbnail
-                  data={getSampleData(tmpl.id, locale)}
-                  templateId={tmpl.id}
-                />
-                <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <div className="relative mb-2 overflow-hidden rounded aspect-3/4">
+                <div className="absolute inset-0 pointer-events-none">
+                  <ResumePreview
+                    data={getSampleData(tmpl.id, locale)}
+                    templateId={tmpl.id}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
                   <span className="bg-background text-foreground font-sans text-xs uppercase tracking-widest px-4 py-2 rounded-md">
                     {t("useTemplate")}
                   </span>
