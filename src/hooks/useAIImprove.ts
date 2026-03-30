@@ -3,6 +3,7 @@
 import { useCallback, useSyncExternalStore } from "react";
 import type { FieldType, WorkerResponse } from "@/types/ai-worker";
 import { generateId } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 type ModelStatus = "idle" | "downloading" | "ready" | "error";
 
@@ -104,6 +105,7 @@ export function useAIImprove() {
       return new Promise<string>((resolve, reject) => {
         pendingRequests.set(id, { resolve, reject });
         w.postMessage({ type: "improve", id, text, fieldType });
+        track("ai_improve_requested", { fieldType });
       });
     },
     [],

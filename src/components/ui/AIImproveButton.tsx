@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Sparkles, Loader2, Check, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useAIImprove } from "@/hooks/useAIImprove";
+import { track } from "@/lib/analytics";
 import type { FieldType } from "@/types/ai-worker";
 
 interface AIImproveButtonProps {
@@ -38,7 +39,10 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
   }
 
   function handleAccept() {
-    if (suggestion) onAccept(suggestion);
+    if (suggestion) {
+      onAccept(suggestion);
+      track("ai_improve_accepted", { fieldType });
+    }
     setSuggestion(null);
     setStatus("idle");
   }

@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { track } from "@/lib/analytics";
 
 const LANGUAGES = [
   { code: "en" as const, flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
@@ -24,6 +25,7 @@ export default function LanguageSwitcher() {
 
   function selectLocale(code: string) {
     if (code !== locale) {
+      track("locale_changed", { from: locale, to: code });
       router.replace(pathname, { locale: code });
     }
   }
