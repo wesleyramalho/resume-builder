@@ -67,7 +67,7 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
           <p style={{ fontSize: "0.6rem", color: hexWithAlpha(accentColor, 0.4), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.35rem", borderBottom: dividerBorder, paddingBottom: "0.2rem" }}>
             {t("professionalExperience")}
           </p>
-          {data.experience.slice(0, 2).map((exp) => (
+          {data.experience.slice(0, 3).map((exp) => (
             <div key={exp.id} style={{ marginBottom: "0.5rem" }}>
               <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", color: accentColor }}>{exp.company}</p>
               <p style={{ fontSize: "0.6rem", color: "#6b7280" }}>{exp.title}</p>
@@ -82,7 +82,7 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
           <p style={{ fontSize: "0.6rem", color: hexWithAlpha(accentColor, 0.4), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.35rem", borderBottom: dividerBorder, paddingBottom: "0.2rem" }}>
             {t("education")}
           </p>
-          {data.education.slice(0, 1).map((edu) => (
+          {data.education.slice(0, 2).map((edu) => (
             <div key={edu.id}>
               <p style={{ fontSize: "0.7rem", fontWeight: 700, color: accentColor }}>{edu.school}</p>
               <p style={{ fontSize: "0.6rem", color: "#6b7280" }}>{[edu.degree, edu.field].filter(Boolean).join(" · ")}</p>
