@@ -45,6 +45,12 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
             <p style={{ fontSize: "0.75rem", color: headerBgColor ? "rgba(255,255,255,0.7)" : "#6b7280", marginTop: "0.15rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
               {data.headline || "Your Headline"}
             </p>
+            {/* Contact row */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginTop: "0.3rem", fontSize: "0.5rem", color: headerBgColor ? "rgba(255,255,255,0.5)" : "#9ca3af", ...(isCentered ? { justifyContent: "center" } : {}) }}>
+              {[data.contact.email, data.contact.location, data.contact.phone].filter(Boolean).map((c, i) => (
+                <span key={i}>{c}</span>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -69,8 +75,16 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
           </p>
           {data.experience.slice(0, 3).map((exp) => (
             <div key={exp.id} style={{ marginBottom: "0.5rem" }}>
-              <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", color: accentColor }}>{exp.company}</p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", color: accentColor }}>{exp.company}</p>
+                <p style={{ fontSize: "0.45rem", color: "#9ca3af", whiteSpace: "nowrap" }}>{exp.startDate} — {exp.current ? t("present") : exp.endDate}</p>
+              </div>
               <p style={{ fontSize: "0.6rem", color: "#6b7280" }}>{exp.title}</p>
+              {exp.description && (
+                <p style={{ fontSize: "0.5rem", color: "#9ca3af", lineHeight: 1.4, marginTop: "0.15rem" }}>
+                  {exp.description.split("\n")[0]?.slice(0, 80)}
+                </p>
+              )}
             </div>
           ))}
         </div>
@@ -83,9 +97,31 @@ export default function ResumeThumbnail({ data, templateId }: Props) {
             {t("education")}
           </p>
           {data.education.slice(0, 2).map((edu) => (
-            <div key={edu.id}>
-              <p style={{ fontSize: "0.7rem", fontWeight: 700, color: accentColor }}>{edu.school}</p>
+            <div key={edu.id} style={{ marginBottom: "0.35rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <p style={{ fontSize: "0.7rem", fontWeight: 700, color: accentColor }}>{edu.school}</p>
+                <p style={{ fontSize: "0.45rem", color: "#9ca3af", whiteSpace: "nowrap" }}>{edu.startDate} — {edu.endDate}</p>
+              </div>
               <p style={{ fontSize: "0.6rem", color: "#6b7280" }}>{[edu.degree, edu.field].filter(Boolean).join(" · ")}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Projects */}
+      {data.projects && data.projects.length > 0 && (
+        <div style={{ marginBottom: "0.75rem" }}>
+          <p style={{ fontSize: "0.6rem", color: hexWithAlpha(accentColor, 0.4), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.35rem", borderBottom: dividerBorder, paddingBottom: "0.2rem" }}>
+            {t("projects")}
+          </p>
+          {data.projects.slice(0, 1).map((proj) => (
+            <div key={proj.id}>
+              <p style={{ fontSize: "0.7rem", fontWeight: 700, color: accentColor }}>{proj.name}</p>
+              {proj.description && (
+                <p style={{ fontSize: "0.5rem", color: "#9ca3af", lineHeight: 1.4, marginTop: "0.1rem" }}>
+                  {proj.description.slice(0, 80)}
+                </p>
+              )}
             </div>
           ))}
         </div>
