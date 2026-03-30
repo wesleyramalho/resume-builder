@@ -137,7 +137,7 @@ export default function EditorToolbar({ resume }: Props) {
         aria-label={t("resumeName")}
       />
 
-      <Button size="sm" variant="outline" onClick={() => setTemplatePickerOpen(true)} className="font-sans text-xs uppercase tracking-widest gap-1.5 shrink-0">
+      <Button size="sm" variant="outline" onClick={() => setTemplatePickerOpen(true)} className="hidden sm:inline-flex font-sans text-xs uppercase tracking-widest gap-1.5 shrink-0">
         <Palette />
         <span className="hidden sm:inline">{currentTemplate?.name ?? "Default"}</span>
       </Button>
