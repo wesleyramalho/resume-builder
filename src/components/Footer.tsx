@@ -29,7 +29,6 @@ export default function Footer() {
             alt="Wesley Ramalho"
             width={28}
             height={28}
-
             className="rounded bg-black"
           />
           {t("createdBy")}
@@ -46,7 +45,7 @@ export default function Footer() {
             </Link>
           ))}
           <a
-            href="https://github.com/wesleyramalho/resume-builder"
+            href="https://github.com/wesleyramalho/mypdfcv"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer text-center inline-flex items-center gap-1"
