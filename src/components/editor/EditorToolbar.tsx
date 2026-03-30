@@ -35,6 +35,7 @@ import {
 const LANGUAGES = [
   { code: "en", flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
   { code: "pt-BR", flag: "\u{1F1E7}\u{1F1F7}", label: "Portugu\u00EAs (Brasil)" },
+  { code: "es", flag: "\u{1F1EA}\u{1F1F8}", label: "Español" },
 ];
 
 interface Props { resume: Resume }

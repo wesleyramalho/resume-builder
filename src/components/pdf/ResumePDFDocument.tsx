@@ -16,12 +16,14 @@ import {
 } from "@/lib/resumeTemplates";
 import enMessages from "@/messages/en.json";
 import ptBRMessages from "@/messages/pt-BR.json";
+import esMessages from "@/messages/es.json";
 
 export const PDF_FONT = "Helvetica";
 
 const messagesMap: Record<string, typeof enMessages> = {
   en: enMessages,
   "pt-BR": ptBRMessages,
+  es: esMessages,
 };
 
 function getT(locale: string) {
