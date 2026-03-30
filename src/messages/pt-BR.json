@@ -38,7 +38,7 @@
     "previewTitle": "Pré-visualização em Tempo Real",
     "previewDesc": "Veja cada alteração instantaneamente enquanto digita. Nosso editor dual-pane mostra o PDF final em tempo real, sem surpresas na exportação.",
     "exportTitle": "Exportação Fácil",
-    "exportDesc": "Exportação em PDF com um clique, sem conta, sem pagamento, sem limites. Formatação compatível com ATS e metadados limpos, sempre.",
+    "exportDesc": "Exportação em PDF com um clique em vários idiomas, sem conta, sem pagamento, sem limites. Formatação compatível com ATS e metadados limpos, sempre.",
     "downloadPdf": "Baixar PDF",
     "reorderTitle": "Reordenar Seções",
     "reorderDesc": "Arraste e solte para reordenar as seções do seu currículo. Adapte o layout para cada vaga, sem copiar e colar.",
@@ -241,7 +241,7 @@
     "defaultTitle": "MyPDFCV — Criador de Currículos Gratuito",
     "description": "Crie currículos profissionais com pré-visualização em tempo real, 7 templates e exportação gratuita em PDF. Sem paywall, sem cadastro. 100% grátis e open source.",
     "landingTitle": "Criador de Currículos Gratuito — Sem Cadastro",
-    "landingDescription": "Crie currículos profissionais com pré-visualização em tempo real, 7 templates gratuitos, melhoria de texto com IA e exportação em PDF com um clique. Seus dados ficam no seu navegador."
+    "landingDescription": "Crie currículos profissionais com pré-visualização em tempo real, 7 templates gratuitos, melhoria de texto com IA e exportação em PDF com um clique em vários idiomas. Seus dados ficam no seu navegador."
   },
   "contactPage": {
     "title": "Contato",
