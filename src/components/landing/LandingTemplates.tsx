@@ -85,14 +85,19 @@ export default function LandingTemplates() {
           {TEMPLATES.map((tmpl) => (
             <div
               key={tmpl.id}
-              className="template-card opacity-0 cursor-pointer rounded-lg border border-border p-3 hover:border-ring hover:bg-surface-soft transition-colors"
+              className="template-card opacity-0 group cursor-pointer rounded-lg border border-border p-3 hover:border-ring transition-colors"
               onClick={() => handleUseTemplate(tmpl.id)}
             >
-              <div className="mb-2">
+              <div className="relative mb-2 overflow-hidden rounded">
                 <ResumeThumbnail
                   data={getSampleData(tmpl.id)}
                   templateId={tmpl.id}
                 />
+                <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="bg-background text-foreground font-sans text-xs uppercase tracking-widest px-4 py-2 rounded-md">
+                    {t("useTemplate")}
+                  </span>
+                </div>
               </div>
 
               <p className="text-xs font-semibold text-foreground">
