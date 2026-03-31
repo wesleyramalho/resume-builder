@@ -22,7 +22,8 @@
     "remove": "Eliminar",
     "back": "Volver",
     "importFileTooltip": "Importar desde un documento PDF o Word",
-    "linkedInTooltip": "Importa información limitada como tu foto de perfil, nombre y titular"
+    "linkedInTooltip": "Solo importa foto, nombre, titular y correo. Experiencia, educación y habilidades deben agregarse manualmente.",
+    "linkedInLimited": "Solo foto, nombre y titular"
   },
   "landing": {
     "headlineYour": "Tu",
@@ -177,7 +178,7 @@
     "scanWarning": "Se extrajo muy poco texto. El archivo puede ser un documento escaneado.",
     "importSuccess": "Importado: {exp} experiencia, {edu} entradas de educación",
     "parseFailed": "No se pudo analizar el currículum.",
-    "linkedInImported": "Perfil de LinkedIn importado",
+    "linkedInImported": "Perfil de LinkedIn importado — agrega experiencia, educación y habilidades para completar tu currículum.",
     "linkedInFailed": "No se pudo importar el perfil de LinkedIn",
     "skillsCount": "{count} habilidades",
     "projectCount": "{count, plural, one {# proyecto} other {# proyectos}}",
