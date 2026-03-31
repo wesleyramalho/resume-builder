@@ -33,14 +33,14 @@ export const metadata: Metadata = {
     description:
       "Build professional resumes for free. No sign-up, no paywall, open source.",
     url: "https://mypdfcv.com",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://mypdfcv.com/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "MyPDFCV — Free Resume Builder",
     description:
       "Build professional resumes for free. No sign-up, no paywall, open source.",
-    images: ["/og-image.png"],
+    images: ["https://mypdfcv.com/og-image.png"],
   },
   robots: { index: true, follow: true },
 };
