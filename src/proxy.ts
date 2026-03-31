@@ -15,11 +15,11 @@ export default function proxy(request: NextRequest) {
 
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+    `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://us-assets.i.posthog.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://media.licdn.com https://lh3.googleusercontent.com",
     "font-src 'self'",
-    "connect-src 'self' https://api.linkedin.com https://huggingface.co",
+    "connect-src 'self' https://api.linkedin.com https://huggingface.co https://us.i.posthog.com https://us-assets.i.posthog.com",
     "worker-src 'self' blob:",
     "object-src 'none'",
     "frame-ancestors 'none'",
