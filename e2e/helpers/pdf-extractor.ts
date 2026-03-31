@@ -1,19 +1,30 @@
 import fs from "fs";
 import type { Download } from "@playwright/test";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
 /**
  * Extracts all text content from a Playwright Download object (PDF).
+ * Uses pdfjs-dist directly for reliable parsing of modern PDFs.
  */
 export async function extractTextFromDownload(
   download: Download,
 ): Promise<string> {
   const filePath = await download.path();
   if (!filePath) throw new Error("Download has no file path");
-  const buffer = fs.readFileSync(filePath);
-  // pdf-parse v1 uses a default export function
-  const pdfParse = (await import("pdf-parse")).default;
-  const result = await pdfParse(buffer);
-  return result.text as string;
+
+  const data = new Uint8Array(fs.readFileSync(filePath));
+  const pdf = await pdfjsLib.getDocument({ data }).promise;
+
+  let fullText = "";
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    const page = await pdf.getPage(pageNum);
+    const textContent = await page.getTextContent();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pageText = textContent.items.map((item: any) => item.str).join("");
+    fullText += pageText;
+  }
+
+  return fullText;
 }
 
 /**
@@ -26,7 +37,7 @@ export function normalizeText(text: string): string {
 
 /**
  * Normalizes PDF text by stripping ALL whitespace then lowercasing.
- * PDF renderers like @react-pdf add letter-spacing that pdf-parse extracts as
+ * PDF renderers like @react-pdf add letter-spacing that pdfjs extracts as
  * spaces between characters (e.g. "a l e x" instead of "alex").
  */
 export function normalizePdfText(text: string): string {
