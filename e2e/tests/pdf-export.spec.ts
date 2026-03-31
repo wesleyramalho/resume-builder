@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { seedResumes } from "../fixtures/seed-localstorage";
 import { TEST_RESUME, EXPECTED } from "../fixtures/test-resume";
-import { extractTextFromDownload } from "../helpers/pdf-extractor";
+import { extractTextFromDownload, pdfContains } from "../helpers/pdf-extractor";
 import { assertResumeContent } from "../helpers/content-assertions";
 
 test.describe("PDF Export", () => {
@@ -25,7 +25,7 @@ test.describe("PDF Export", () => {
     const download = await downloadPromise;
 
     const pdfText = await extractTextFromDownload(download);
-    expect(pdfText.toLowerCase()).toContain(EXPECTED.fullName.toLowerCase());
+    expect(pdfContains(pdfText, EXPECTED.fullName)).toBe(true);
   });
 
   test("PDF contains all experience entries", async ({ page }) => {
@@ -35,7 +35,7 @@ test.describe("PDF Export", () => {
 
     const pdfText = await extractTextFromDownload(download);
     for (const company of EXPECTED.companies) {
-      expect(pdfText.toLowerCase()).toContain(company.toLowerCase());
+      expect(pdfContains(pdfText, company), `PDF missing "${company}"`).toBe(true);
     }
   });
 
@@ -46,7 +46,7 @@ test.describe("PDF Export", () => {
 
     const pdfText = await extractTextFromDownload(download);
     for (const school of EXPECTED.schools) {
-      expect(pdfText.toLowerCase()).toContain(school.toLowerCase());
+      expect(pdfContains(pdfText, school), `PDF missing "${school}"`).toBe(true);
     }
   });
 
@@ -57,7 +57,7 @@ test.describe("PDF Export", () => {
 
     const pdfText = await extractTextFromDownload(download);
     for (const skill of EXPECTED.skills) {
-      expect(pdfText.toLowerCase()).toContain(skill.toLowerCase());
+      expect(pdfContains(pdfText, skill), `PDF missing "${skill}"`).toBe(true);
     }
   });
 

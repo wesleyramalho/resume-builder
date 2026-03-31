@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { seedResumes } from "../fixtures/seed-localstorage";
 import { TEST_RESUME, EXPECTED } from "../fixtures/test-resume";
-import { extractTextFromDownload, normalizeText } from "../helpers/pdf-extractor";
+import { extractTextFromDownload, normalizeText, pdfContains } from "../helpers/pdf-extractor";
 
 test.describe("Preview ↔ PDF Consistency", () => {
   test("preview and PDF contain the same resume content", async ({ page }) => {
@@ -28,7 +28,6 @@ test.describe("Preview ↔ PDF Consistency", () => {
     ];
 
     const normalizedPreview = normalizeText(previewText);
-    const normalizedPdf = normalizeText(pdfText);
 
     for (const term of terms) {
       const lower = term.toLowerCase();
@@ -37,9 +36,9 @@ test.describe("Preview ↔ PDF Consistency", () => {
         `Preview should contain "${term}"`,
       ).toContain(lower);
       expect(
-        normalizedPdf,
+        pdfContains(pdfText, term),
         `PDF should contain "${term}"`,
-      ).toContain(lower);
+      ).toBe(true);
     }
   });
 
@@ -55,7 +54,7 @@ test.describe("Preview ↔ PDF Consistency", () => {
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: /export/i }).click();
     const download = await downloadPromise;
-    const pdfText = normalizeText(await extractTextFromDownload(download));
+    const pdfText = await extractTextFromDownload(download);
 
     // Check that key phrases from experience descriptions appear in both
     const keyPhrases = [
@@ -68,9 +67,10 @@ test.describe("Preview ↔ PDF Consistency", () => {
       expect(previewText, `Preview should contain "${phrase}"`).toContain(
         phrase.toLowerCase(),
       );
-      expect(pdfText, `PDF should contain "${phrase}"`).toContain(
-        phrase.toLowerCase(),
-      );
+      expect(
+        pdfContains(pdfText, phrase),
+        `PDF should contain "${phrase}"`,
+      ).toBe(true);
     }
   });
 });

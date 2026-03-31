@@ -4,7 +4,7 @@ import {
   TEMPLATE_EXPECTATIONS,
   type TestResume,
 } from "../fixtures/test-resume";
-import { extractTextFromDownload, normalizeText } from "../helpers/pdf-extractor";
+import { extractTextFromDownload, normalizeText, pdfContains } from "../helpers/pdf-extractor";
 
 /**
  * Builds a full TestResume from a template's expected data.
@@ -108,17 +108,17 @@ for (const templateId of templateIds) {
       const downloadPromise = page.waitForEvent("download");
       await page.getByRole("button", { name: /export/i }).click();
       const download = await downloadPromise;
-      const pdfText = normalizeText(await extractTextFromDownload(download));
+      const pdfText = await extractTextFromDownload(download);
 
-      expect(pdfText).toContain(expected.fullName.toLowerCase());
+      expect(pdfContains(pdfText, expected.fullName)).toBe(true);
       for (const company of expected.companies) {
-        expect(pdfText).toContain(company.toLowerCase());
+        expect(pdfContains(pdfText, company), `PDF missing "${company}"`).toBe(true);
       }
       for (const school of expected.schools) {
-        expect(pdfText).toContain(school.toLowerCase());
+        expect(pdfContains(pdfText, school), `PDF missing "${school}"`).toBe(true);
       }
       for (const skill of expected.skills) {
-        expect(pdfText).toContain(skill.toLowerCase());
+        expect(pdfContains(pdfText, skill), `PDF missing "${skill}"`).toBe(true);
       }
     });
 
@@ -130,7 +130,7 @@ for (const templateId of templateIds) {
       const downloadPromise = page.waitForEvent("download");
       await page.getByRole("button", { name: /export/i }).click();
       const download = await downloadPromise;
-      const pdfText = normalizeText(await extractTextFromDownload(download));
+      const pdfText = await extractTextFromDownload(download);
 
       const terms = [
         expected.fullName,
@@ -142,7 +142,7 @@ for (const templateId of templateIds) {
       for (const term of terms) {
         const lower = term.toLowerCase();
         expect(previewText, `Preview missing "${term}"`).toContain(lower);
-        expect(pdfText, `PDF missing "${term}"`).toContain(lower);
+        expect(pdfContains(pdfText, term), `PDF missing "${term}"`).toBe(true);
       }
     });
   });

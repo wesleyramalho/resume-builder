@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { normalizeText } from "./pdf-extractor";
+import { normalizeText, pdfContains } from "./pdf-extractor";
 
 interface ExpectedContent {
   fullName: string;
@@ -12,41 +12,37 @@ interface ExpectedContent {
 /**
  * Asserts that a text blob (from preview innerText or PDF extraction)
  * contains all expected resume content.
+ * For PDF text, uses space-stripping comparison to handle letter-spacing artifacts.
  */
 export function assertResumeContent(
   rawText: string,
   expected: ExpectedContent,
   label: string,
 ): void {
-  const text = normalizeText(rawText);
+  const isPdf = label.toLowerCase().includes("pdf");
 
-  expect(text, `${label}: should contain full name`).toContain(
-    expected.fullName.toLowerCase(),
-  );
+  function contains(text: string, term: string): boolean {
+    if (isPdf) return pdfContains(text, term);
+    return normalizeText(text).includes(term.toLowerCase());
+  }
+
+  expect(contains(rawText, expected.fullName), `${label}: should contain full name`).toBe(true);
 
   for (const company of expected.companies) {
-    expect(text, `${label}: should contain company "${company}"`).toContain(
-      company.toLowerCase(),
-    );
+    expect(contains(rawText, company), `${label}: should contain company "${company}"`).toBe(true);
   }
 
   for (const school of expected.schools) {
-    expect(text, `${label}: should contain school "${school}"`).toContain(
-      school.toLowerCase(),
-    );
+    expect(contains(rawText, school), `${label}: should contain school "${school}"`).toBe(true);
   }
 
   for (const skill of expected.skills) {
-    expect(text, `${label}: should contain skill "${skill}"`).toContain(
-      skill.toLowerCase(),
-    );
+    expect(contains(rawText, skill), `${label}: should contain skill "${skill}"`).toBe(true);
   }
 
   if (expected.projectNames) {
     for (const project of expected.projectNames) {
-      expect(text, `${label}: should contain project "${project}"`).toContain(
-        project.toLowerCase(),
-      );
+      expect(contains(rawText, project), `${label}: should contain project "${project}"`).toBe(true);
     }
   }
 }
