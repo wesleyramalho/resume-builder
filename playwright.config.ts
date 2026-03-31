@@ -10,7 +10,7 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3099",
     trace: "on-first-retry",
-    screenshot: "only-on-failure",
+    screenshot: "on",
   },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
