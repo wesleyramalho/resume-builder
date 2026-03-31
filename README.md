@@ -48,6 +48,24 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 
+## E2E Tests
+
+End-to-end tests use [Playwright](https://playwright.dev) and cover preview rendering, PDF export, and cross-surface consistency across all 7 templates.
+
+```bash
+# Install browsers (first time only)
+npx playwright install chromium
+
+# Run all tests
+npx playwright test
+
+# Run with HTML report
+npx playwright test --reporter=html
+npx playwright show-report
+```
+
+Tests start a dev server on port 3099 automatically. To run against an existing server, set `PLAYWRIGHT_BASE_URL`.
+
 ## Environment Variables
 
 Copy `.env.example` to `.env.local` and fill in the values:
