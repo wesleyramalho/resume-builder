@@ -8,6 +8,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useResumeStore } from "@/store/useResumeStore";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import { toast } from "sonner";
+import { track } from "@/lib/analytics";
 import {
   Tooltip,
   TooltipContent,
@@ -37,6 +38,7 @@ export default function ImportResumeButton() {
       }
 
       const resume = createResume("Imported Resume", data);
+      track("file_imported", { fileType: file.name.split(".").pop() });
 
       const exp = data.experience?.length ?? 0;
       const edu = data.education?.length ?? 0;

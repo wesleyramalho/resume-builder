@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import MoreMenuTrigger from "@/components/ui/MoreMenuTrigger";
 import { importResumeFromFile } from "@/lib/resumeImport";
+import { track } from "@/lib/analytics";
 import {
   Tooltip,
   TooltipContent,
@@ -64,7 +65,10 @@ export default function EditorToolbar({ resume }: Props) {
 
   function handleTemplateSelect(templateId: string) {
     setTemplatePickerOpen(false);
-    if (templateId !== "blank") updateTemplateId(resume.id, templateId);
+    if (templateId !== "blank") {
+      updateTemplateId(resume.id, templateId);
+      track("template_selected", { templateId });
+    }
   }
 
   async function handleMobileFileImport(e: React.ChangeEvent<HTMLInputElement>) {

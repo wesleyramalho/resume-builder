@@ -32,6 +32,7 @@ import TemplatePicker from "@/components/dashboard/TemplatePicker";
 import { getTemplate } from "@/lib/resumeTemplates";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import { toast } from "sonner";
+import { track } from "@/lib/analytics";
 
 export default function DashboardHeader() {
   const { data: session, status } = useSession();
@@ -62,6 +63,7 @@ export default function DashboardHeader() {
         toast.warning(t("scanWarning"));
       }
       const resume = createResume(t("importedResume"), data);
+      track("file_imported", { fileType: file.name.split(".").pop() });
       const exp = data.experience?.length ?? 0;
       const edu = data.education?.length ?? 0;
       const skills =
@@ -81,6 +83,7 @@ export default function DashboardHeader() {
 
   function handleTemplateSelect(templateId: string) {
     setPickerOpen(false);
+    track("template_selected", { templateId });
     if (templateId === "blank") {
       const resume = createResume();
       router.push(`/editor/${resume.id}`);
@@ -123,6 +126,7 @@ export default function DashboardHeader() {
         }
 
         const importedResume = createResume(t("importedResume"), result.data);
+        track("linkedin_import");
         router.push(`/editor/${importedResume.id}`);
       } catch (error) {
         setImportError(

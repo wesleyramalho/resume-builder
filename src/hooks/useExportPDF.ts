@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocale } from "next-intl";
 import { Resume } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
+import { track } from "@/lib/analytics";
 
 interface PDFErrorResponse {
   error?: string;
@@ -34,6 +35,7 @@ export function useExportPDF() {
       a.click();
       URL.revokeObjectURL(url);
       incrementExportCount(resume.id);
+      track("pdf_exported", { templateId: resume.templateId, locale });
     } catch (err) {
       console.error("Export PDF error:", err);
     } finally {
