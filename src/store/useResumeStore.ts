@@ -6,6 +6,7 @@ import { immer } from "zustand/middleware/immer";
 import { Resume, ResumeData, ResumeStatus } from "@/types/resume";
 import { generateId } from "@/lib/utils";
 import { createEmptyResumeData } from "@/lib/resumeDefaults";
+import { track } from "@/lib/analytics";
 
 function computeStatus(data: ResumeData): ResumeStatus {
   return data.fullName.trim() && data.experience.length > 0 ? "complete" : "draft";
@@ -49,6 +50,9 @@ export const useResumeStore = create<ResumeStore>()(
         set((state) => {
           state.resumes.unshift(resume);
         });
+        const hasData = initialData && Object.keys(initialData).length > 0;
+        const source = hasData ? "import" : templateId ? "template" : "blank";
+        track("resume_created", { templateId, source });
         return resume;
       },
 
@@ -76,6 +80,7 @@ export const useResumeStore = create<ResumeStore>()(
         set((state) => {
           state.resumes = state.resumes.filter((r) => r.id !== id);
         });
+        track("resume_deleted");
       },
 
       duplicateResume: (id) => {
@@ -93,6 +98,7 @@ export const useResumeStore = create<ResumeStore>()(
         set((state) => {
           state.resumes.unshift(copy);
         });
+        track("resume_duplicated");
         return copy;
       },
 

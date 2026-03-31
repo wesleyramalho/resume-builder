@@ -39,11 +39,12 @@ export function useResumeForm<T extends FieldValues>({
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: structuredClone(defaultValues) as DefaultValues<T>,
-    mode: "onChange",
+    mode: "onTouched",
   }) as UseFormReturn<T>;
 
   // Watch all values and sync to store with debounce
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const subscription = form.watch((values) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {

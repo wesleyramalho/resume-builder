@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { Sparkles, Loader2, Check, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useAIImprove } from "@/hooks/useAIImprove";
+import { track } from "@/lib/analytics";
 import type { FieldType } from "@/types/ai-worker";
 
 interface AIImproveButtonProps {
@@ -18,6 +20,7 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
   const [status, setStatus] = useState<Status>("idle");
   const [suggestion, setSuggestion] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const t = useTranslations("ai");
 
   const disabled = text.trim().length < 10;
 
@@ -36,7 +39,10 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
   }
 
   function handleAccept() {
-    if (suggestion) onAccept(suggestion);
+    if (suggestion) {
+      onAccept(suggestion);
+      track("ai_improve_accepted", { fieldType });
+    }
     setSuggestion(null);
     setStatus("idle");
   }
@@ -46,12 +52,10 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
     setStatus("idle");
   }
 
-  // Downloading state label
   const isDownloading = status === "loading" && modelStatus === "downloading";
 
   return (
     <div className="flex flex-col gap-2">
-      {/* Trigger button */}
       <button
         type="button"
         disabled={disabled || status === "loading"}
@@ -62,27 +66,25 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
           <>
             <Loader2 className="w-3 h-3 animate-spin" />
             {isDownloading
-              ? `Loading model… ${downloadProgress}%`
-              : "Improving…"}
+              ? t("loadingModel", { progress: downloadProgress })
+              : t("improving")}
           </>
         ) : (
           <>
             <Sparkles className="w-3 h-3" />
-            Improve
+            {t("improve")}
           </>
         )}
       </button>
 
-      {/* Error message */}
       {status === "error" && errorMsg && (
         <p className="text-[10px] text-destructive font-sans">{errorMsg}</p>
       )}
 
-      {/* Suggestion panel */}
       {status === "suggestion" && suggestion && (
         <div className="rounded-md border border-brand-secondary/30 bg-brand-secondary/5 p-3">
           <p className="text-[10px] font-sans uppercase tracking-widest text-muted-foreground mb-1.5">
-            AI Suggestion
+            {t("suggestion")}
           </p>
           <p className="text-sm text-foreground whitespace-pre-line leading-relaxed">
             {suggestion}
@@ -94,7 +96,7 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
               className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-brand-secondary hover:text-foreground transition-colors"
             >
               <Check className="w-3 h-3" />
-              Accept
+              {t("accept")}
             </button>
             <button
               type="button"
@@ -102,11 +104,11 @@ export default function AIImproveButton({ text, fieldType, onAccept }: AIImprove
               className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
             >
               <X className="w-3 h-3" />
-              Dismiss
+              {t("dismiss")}
             </button>
           </div>
           <p className="text-[9px] text-muted-foreground/60 mt-2 leading-relaxed">
-            Powered by open-source AI (Flan-T5, Apache 2.0). Suggestions may be inaccurate — always review before using.
+            {t("disclaimer")}
           </p>
         </div>
       )}

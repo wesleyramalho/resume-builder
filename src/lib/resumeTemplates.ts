@@ -73,6 +73,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           description:
             "Built Next.js deployment pipeline optimizations reducing build times by 30%\nContributed to open-source tooling used by 500K+ developers\nImplemented edge caching strategy that cut API latency by 60%",
         },
+        {
+          id: generateId(),
+          company: "Mosaic Labs",
+          title: "Junior Software Engineer",
+          location: "San Francisco, CA",
+          startDate: "2017-05",
+          endDate: "2018-05",
+          current: false,
+          description:
+            "Developed internal tooling for CI/CD pipelines using Python and Bash\nBuilt RESTful APIs serving 10K+ daily requests with Node.js and Express\nParticipated in on-call rotation and resolved production incidents within SLA",
+        },
       ],
       education: [
         {
@@ -84,6 +95,15 @@ export const TEMPLATES: ResumeTemplate[] = [
           endDate: "2018-05",
           gpa: "3.8",
           highlights: "Dean's List, Teaching Assistant for CS 61B",
+        },
+        {
+          id: generateId(),
+          school: "AWS",
+          degree: "Certification",
+          field: "AWS Solutions Architect Associate",
+          startDate: "2020-01",
+          endDate: "2020-03",
+          highlights: "Scored 920/1000",
         },
       ],
       skillGroups: [
@@ -103,7 +123,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           skills: ["PostgreSQL", "Redis", "Docker", "AWS", "GitHub Actions"],
         },
       ],
-      projects: [],
+      projects: [
+        {
+          id: generateId(),
+          name: "Open-Source CLI Tool",
+          description: "Built a developer CLI for scaffolding Next.js projects with pre-configured CI/CD, linting, and testing setups. 1.2K+ GitHub stars.",
+          url: "github.com/alexchen/create-next-stack",
+          technologies: ["TypeScript", "Node.js", "GitHub Actions"],
+          startDate: "2022-01",
+          endDate: "2022-06",
+        },
+      ],
     },
   },
   {
@@ -152,6 +182,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           description:
             "Conducted market analysis for Fortune 500 clients across 3 industries\nCreated dashboards in Tableau adopted by 15+ consulting teams\nSupported due diligence on M&A transactions totaling $500M",
         },
+        {
+          id: generateId(),
+          company: "Accenture",
+          title: "Analyst Intern",
+          location: "Boston, MA",
+          startDate: "2017-06",
+          endDate: "2018-06",
+          current: false,
+          description:
+            "Assisted senior consultants with data collection and analysis for retail clients\nBuilt financial models in Excel to forecast quarterly revenue trends\nPresented findings to client stakeholders in weekly status meetings",
+        },
       ],
       education: [
         {
@@ -163,6 +204,15 @@ export const TEMPLATES: ResumeTemplate[] = [
           endDate: "2018-05",
           gpa: "3.7",
           highlights: "Magna Cum Laude, Finance Club President",
+        },
+        {
+          id: generateId(),
+          school: "CFA Institute",
+          degree: "Certification",
+          field: "CFA Level I",
+          startDate: "2019-01",
+          endDate: "2019-06",
+          highlights: "Passed on first attempt",
         },
       ],
       skillGroups: [
@@ -177,7 +227,16 @@ export const TEMPLATES: ResumeTemplate[] = [
           skills: ["Tableau", "Power BI", "Jira", "Confluence"],
         },
       ],
-      projects: [],
+      projects: [
+        {
+          id: generateId(),
+          name: "Customer Churn Prediction Model",
+          description: "Developed a predictive analytics model that identified at-risk customers with 87% accuracy, enabling proactive retention strategies that reduced churn by 15%.",
+          technologies: ["Python", "Tableau", "SQL"],
+          startDate: "2022-03",
+          endDate: "2022-09",
+        },
+      ],
     },
   },
   {
@@ -227,6 +286,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           description:
             "Redesigned playlist creation flow reducing drop-off rate by 18%\nConducted 40+ user research sessions to validate design decisions\nBuilt and maintained Spotify's internal design system documentation",
         },
+        {
+          id: generateId(),
+          company: "Dribbble Studio",
+          title: "Junior Designer",
+          location: "Austin, TX",
+          startDate: "2018-06",
+          endDate: "2019-05",
+          current: false,
+          description:
+            "Created visual assets and UI mockups for 10+ client projects\nAssisted lead designer in building brand identity kits for startups\nDesigned responsive landing pages that increased client conversions by 12%",
+        },
       ],
       education: [
         {
@@ -237,6 +307,15 @@ export const TEMPLATES: ResumeTemplate[] = [
           startDate: "2015-09",
           endDate: "2019-05",
           highlights: "President's Honor List",
+        },
+        {
+          id: generateId(),
+          school: "Google",
+          degree: "Certification",
+          field: "UX Design Professional Certificate",
+          startDate: "2020-03",
+          endDate: "2020-08",
+          highlights: "Completed with honors",
         },
       ],
       skillGroups: [
@@ -312,6 +391,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           description:
             "Oversaw online recruitment system projects meeting strategic objectives\nManaged client portfolios, undertaking business analysis and building relationships\nTrained 50+ junior recruiters on best practices and compliance",
         },
+        {
+          id: generateId(),
+          company: "Randstad",
+          title: "HR Coordinator",
+          location: "Boston, MA",
+          startDate: "2008-08",
+          endDate: "2009-12",
+          current: false,
+          description:
+            "Coordinated onboarding processes for 100+ new hires annually\nMaintained employee records and ensured compliance with labor regulations\nAssisted in organizing career fairs and campus recruitment events",
+        },
       ],
       education: [
         {
@@ -322,6 +412,15 @@ export const TEMPLATES: ResumeTemplate[] = [
           startDate: "2005-09",
           endDate: "2008-07",
           highlights: "Graduated with distinction",
+        },
+        {
+          id: generateId(),
+          school: "SHRM",
+          degree: "Certification",
+          field: "SHRM Certified Professional (SHRM-CP)",
+          startDate: "2011-01",
+          endDate: "2011-06",
+          highlights: "",
         },
       ],
       skillGroups: [
@@ -341,7 +440,16 @@ export const TEMPLATES: ResumeTemplate[] = [
           skills: ["English", "French", "Spanish"],
         },
       ],
-      projects: [],
+      projects: [
+        {
+          id: generateId(),
+          name: "Employer Branding Initiative",
+          description: "Led a company-wide employer branding project that revamped career pages and social presence, increasing qualified applications by 40% within 6 months.",
+          technologies: ["LinkedIn Recruiter", "Greenhouse", "Canva"],
+          startDate: "2023-01",
+          endDate: "2023-07",
+        },
+      ],
     },
   },
   {
@@ -392,6 +500,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           description:
             "Provided reports, ad-hoc analysis, annual operations plan budgets and revenue forecasts\nAnalysed supplier contracts and advised in negotiations bringing budgets down by 6%\nCreated weekly labor finance reports and presented results to management",
         },
+        {
+          id: generateId(),
+          company: "PricewaterhouseCoopers",
+          title: "Junior Financial Analyst",
+          location: "Phoenix, AZ",
+          startDate: "2006-11",
+          endDate: "2008-01",
+          current: false,
+          description:
+            "Assisted senior analysts in preparing quarterly financial reports and variance analyses\nReconciled accounts and maintained accurate records for audit readiness\nSupported budgeting process for 3 mid-size corporate clients",
+        },
       ],
       education: [
         {
@@ -435,7 +554,16 @@ export const TEMPLATES: ResumeTemplate[] = [
           ],
         },
       ],
-      projects: [],
+      projects: [
+        {
+          id: generateId(),
+          name: "Quarterly Forecast Dashboard",
+          description: "Built an automated financial forecasting dashboard in Power BI that consolidated data from 5 departments, reducing report generation time from 3 days to 2 hours.",
+          technologies: ["Power BI", "Excel VBA", "SQL Server"],
+          startDate: "2023-06",
+          endDate: "2023-12",
+        },
+      ],
     },
   },
   {
@@ -487,6 +615,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           description:
             "Worked one-on-one with clients to assess their needs and desires before beginning construction\nCreated clear blueprints and financial budgets for each project\nSpecialized in construction of bridge supports",
         },
+        {
+          id: generateId(),
+          company: "Danbury Construction Co.",
+          title: "Apprentice Carpenter",
+          location: "Danbury, CT",
+          startDate: "2005-06",
+          endDate: "2007-01",
+          current: false,
+          description:
+            "Assisted journeyman carpenters with framing, roofing, and finish work on residential projects\nLearned safe operation of power tools, table saws, and nail guns\nHelped maintain organized and clean job sites in compliance with OSHA standards",
+        },
       ],
       education: [
         {
@@ -496,6 +635,15 @@ export const TEMPLATES: ResumeTemplate[] = [
           field: "Carpentry",
           startDate: "2005-08",
           endDate: "2007-05",
+          highlights: "",
+        },
+        {
+          id: generateId(),
+          school: "OSHA Training Institute",
+          degree: "Certification",
+          field: "OSHA 30-Hour Construction Safety",
+          startDate: "2008-03",
+          endDate: "2008-04",
           highlights: "",
         },
       ],
@@ -516,7 +664,16 @@ export const TEMPLATES: ResumeTemplate[] = [
           skills: ["Time Management", "Supervision", "Quality Control"],
         },
       ],
-      projects: [],
+      projects: [
+        {
+          id: generateId(),
+          name: "Custom Kitchen Renovation",
+          description: "Designed and built a full kitchen renovation including custom cabinetry, hardwood flooring, and structural modifications. Completed on time and 10% under budget.",
+          technologies: ["AutoCAD", "Woodworking", "Project Estimation"],
+          startDate: "2023-03",
+          endDate: "2023-08",
+        },
+      ],
     },
   },
   {
@@ -568,6 +725,17 @@ export const TEMPLATES: ResumeTemplate[] = [
           description:
             "Answered phone calls, greeted clients, and handled all front desk responsibilities\nHandled spa orders, mail, and some accounting responsibilities\nProvided clients with information on services, technology, and products offered",
         },
+        {
+          id: generateId(),
+          company: "West Valley Medical Center",
+          title: "Front Desk Clerk",
+          location: "Los Angeles, CA",
+          startDate: "2008-09",
+          endDate: "2010-05",
+          current: false,
+          description:
+            "Managed patient check-in and check-out procedures for busy medical office\nScheduled appointments and maintained accurate patient records in EHR system\nProcessed insurance verifications and co-payments for 80+ patients daily",
+        },
       ],
       education: [
         {
@@ -577,6 +745,15 @@ export const TEMPLATES: ResumeTemplate[] = [
           field: "Communications",
           startDate: "2008-08",
           endDate: "2010-05",
+          highlights: "",
+        },
+        {
+          id: generateId(),
+          school: "International Association of Administrative Professionals",
+          degree: "Certification",
+          field: "Certified Administrative Professional (CAP)",
+          startDate: "2012-01",
+          endDate: "2012-06",
           highlights: "",
         },
       ],
@@ -598,7 +775,16 @@ export const TEMPLATES: ResumeTemplate[] = [
           skills: ["English", "Italian", "French", "Spanish"],
         },
       ],
-      projects: [],
+      projects: [
+        {
+          id: generateId(),
+          name: "Office Digitization Project",
+          description: "Led the transition from paper-based to digital filing systems across 3 departments, training 25+ staff members and reducing document retrieval time by 70%.",
+          technologies: ["Google Workspace", "DocuSign", "Notion"],
+          startDate: "2023-02",
+          endDate: "2023-06",
+        },
+      ],
     },
   },
 ];

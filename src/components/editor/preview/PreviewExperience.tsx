@@ -1,5 +1,6 @@
 import { ExperienceEntry } from "@/types/resume";
 import { formatMonthYear } from "@/lib/utils";
+import { useTranslations, useLocale } from "next-intl";
 import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
 interface Props {
@@ -8,6 +9,10 @@ interface Props {
 }
 
 export default function PreviewExperience({ experience, style: tmpl }: Props) {
+  const t = useTranslations("resume");
+  const locale = useLocale();
+  const localeTag = locale === "pt-BR" ? "pt-BR" : "en-US";
+
   if (experience.length === 0) return null;
 
   return (
@@ -24,7 +29,7 @@ export default function PreviewExperience({ experience, style: tmpl }: Props) {
           marginBottom: "6pt",
         }}
       >
-        Professional Experience
+        {t("professionalExperience")}
       </h2>
       {experience.map((exp) => (
         <div key={exp.id} style={{ marginBottom: "8pt" }}>
@@ -54,7 +59,7 @@ export default function PreviewExperience({ experience, style: tmpl }: Props) {
                 whiteSpace: "nowrap",
               }}
             >
-              {formatMonthYear(exp.startDate)} – {exp.current ? "Present" : formatMonthYear(exp.endDate)}
+              {formatMonthYear(exp.startDate, localeTag, t("present"))} – {exp.current ? t("present") : formatMonthYear(exp.endDate, localeTag, t("present"))}
             </span>
           </div>
           {exp.description &&

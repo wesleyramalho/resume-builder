@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { mapLinkedInOAuthToResume } from "@/lib/linkedin";
 import { LinkedInProfile } from "@/types/linkedin";
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

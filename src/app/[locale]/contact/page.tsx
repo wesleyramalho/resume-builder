@@ -1,31 +1,35 @@
+"use client";
+
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import Footer from "@/components/Footer";
 import SiteNav from "@/components/SiteNav";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import { Globe } from "lucide-react";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 
-export const metadata = { title: "Contact" };
-
 export default function ContactPage() {
+  const t = useTranslations("contactPage");
+
   return (
     <div className="min-h-screen bg-background flex flex-col overflow-x-hidden">
       <SiteNav />
 
       <main className="flex-1 max-w-3xl mx-auto px-6 pt-24 pb-12">
-        <h1 className="font-sans font-bold text-3xl text-foreground mb-2">Contact</h1>
+        <h1 className="font-sans font-bold text-3xl text-foreground mb-2">{t("title")}</h1>
         <p className="text-sm text-muted-foreground mb-8">
-          Get in touch with the creator of MyPDFCV.
+          {t("subtitle")}
         </p>
 
         <div className="space-y-6">
           <div className="bg-card border border-border rounded-lg p-6 space-y-4">
             <div className="flex items-center gap-3">
               <Image
-                src="/pixel-me.svg"
+                src="/pixel-me.png"
                 alt="Wesley Ramalho"
                 width={40}
                 height={40}
+
                 className="rounded-lg bg-black"
               />
               <h2 className="font-sans font-semibold text-lg text-foreground">Wesley Ramalho</h2>
@@ -63,9 +67,9 @@ export default function ContactPage() {
           </div>
 
           <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="font-sans font-semibold text-lg text-foreground mb-2">General Inquiries</h2>
+            <h2 className="font-sans font-semibold text-lg text-foreground mb-2">{t("generalInquiries")}</h2>
             <p className="text-sm text-muted-foreground">
-              For questions, feedback, or support, please reach out via{" "}
+              {t("generalInquiriesDesc")}{" "}
               <a
                 href="https://www.wesleyramalho.com/contact"
                 target="_blank"

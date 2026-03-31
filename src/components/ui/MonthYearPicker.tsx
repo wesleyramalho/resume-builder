@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 
-const MONTHS = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
+function getLocalizedMonths(locale: string): string[] {
+  const tag = locale === "pt-BR" ? "pt-BR" : "en-US";
+  return Array.from({ length: 12 }, (_, i) =>
+    new Date(2024, i).toLocaleDateString(tag, { month: "short" }),
+  );
+}
 
 interface MonthYearPickerProps {
   value: string;
@@ -18,22 +21,26 @@ interface MonthYearPickerProps {
   label?: string;
 }
 
-function formatDisplay(value: string): string {
-  if (!value) return "";
-  const [year, month] = value.split("-");
-  const m = parseInt(month, 10);
-  if (isNaN(m) || m < 1 || m > 12) return value;
-  return `${MONTHS[m - 1]} ${year}`;
-}
-
 export default function MonthYearPicker({
   value,
   onChange,
-  placeholder = "Select date",
+  placeholder,
   disabled = false,
   id,
   label,
 }: MonthYearPickerProps) {
+  const locale = useLocale();
+  const t = useTranslations("common");
+  const MONTHS = getLocalizedMonths(locale);
+
+  function formatDisplay(val: string): string {
+    if (!val) return "";
+    const [year, month] = val.split("-");
+    const m = parseInt(month, 10);
+    if (isNaN(m) || m < 1 || m > 12) return val;
+    return `${MONTHS[m - 1]} ${year}`;
+  }
+
   const currentYear = new Date().getFullYear();
   const initialYear = value ? parseInt(value.split("-")[0], 10) : currentYear;
   const [viewYear, setViewYear] = useState(initialYear);
@@ -63,7 +70,7 @@ export default function MonthYearPicker({
         >
           <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
           <span className={value ? "text-foreground" : "text-muted-foreground"}>
-            {value ? formatDisplay(value) : placeholder}
+            {value ? formatDisplay(value) : (placeholder ?? t("selectDate"))}
           </span>
         </PopoverPrimitive.Trigger>
 

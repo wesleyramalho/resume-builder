@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -25,7 +25,9 @@ import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { generateId } from "@/lib/utils";
 import { experienceEntrySchema } from "@/lib/schemas";
+import { resolveValidationError } from "@/lib/resolve-validation-error";
 import { Plus, Trash2, GripVertical } from "lucide-react";
+import { useTranslations } from "next-intl";
 import AIImproveButton from "@/components/ui/AIImproveButton";
 import MonthYearPicker from "@/components/ui/MonthYearPicker";
 
@@ -47,13 +49,18 @@ interface SortableExpItemProps {
   setValue: ReturnType<typeof useForm<FormValues>>["setValue"];
   watch: ReturnType<typeof useForm<FormValues>>["watch"];
   remove: (idx: number) => void;
+  errors: FieldErrors<FormValues>;
+  tv: (key: string) => string;
 }
 
-function SortableExpItem({ field, idx, register, setValue, watch, remove }: SortableExpItemProps) {
+function SortableExpItem({ field, idx, register, setValue, watch, remove, errors, tv }: SortableExpItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: field.id });
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
 
   const exp = watch(`experience.${idx}`);
+  const fieldErrors = errors.experience?.[idx];
 
   return (
     <div
@@ -67,19 +74,19 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
             {...listeners}
             {...attributes}
             tabIndex={-1}
-            aria-label="Drag to reorder"
+            aria-label={tc("dragToReorder")}
             className="p-1 text-muted-foreground/40 hover:text-muted-foreground cursor-grab active:cursor-grabbing shrink-0"
           >
             <GripVertical className="w-3.5 h-3.5" strokeWidth={1.5} />
           </button>
           <p className="text-xs font-sans text-text-subtle">
-            {exp?.company || `Experience ${idx + 1}`}
+            {exp?.company || t("experienceFallback", { idx: idx + 1 })}
           </p>
         </div>
         <button
           onClick={() => remove(idx)}
           className="text-muted-foreground hover:text-destructive transition-colors"
-          aria-label="Remove experience"
+          aria-label={t("removeExperience")}
         >
           <Trash2 className="w-4 h-4" />
         </button>
@@ -88,33 +95,39 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <FormInput
           id={`company-${field.id}`}
-          label="Company / Studio"
-          placeholder="Metropolis Design Group"
+          label={t("companyStudio")}
+          placeholder={t("companyPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.company?.message, tv)}
           {...register(`experience.${idx}.company`)}
         />
         <FormInput
           id={`title-${field.id}`}
-          label="Position"
-          placeholder="Senior Architect"
+          label={t("position")}
+          placeholder={t("positionPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.title?.message, tv)}
           {...register(`experience.${idx}.title`)}
         />
         <FormInput
           id={`location-${field.id}`}
-          label="Location"
-          placeholder="New York, NY"
+          label={t("location")}
+          placeholder={t("locationPlaceholder")}
+          maxLength={100}
+          error={resolveValidationError(fieldErrors?.location?.message, tv)}
           {...register(`experience.${idx}.location`)}
         />
         <div />
         <MonthYearPicker
           id={`startDate-${field.id}`}
-          label="Start Date"
+          label={t("startDate")}
           value={exp?.startDate ?? ""}
           onChange={(v) => setValue(`experience.${idx}.startDate`, v)}
         />
         <div className="space-y-1">
           <MonthYearPicker
             id={`endDate-${field.id}`}
-            label="End Date"
+            label={t("endDate")}
             value={exp?.endDate ?? ""}
             disabled={exp?.current}
             onChange={(v) => setValue(`experience.${idx}.endDate`, v || null)}
@@ -129,16 +142,18 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
               }}
               className="rounded"
             />
-            Present
+            {tc("present")}
           </label>
         </div>
       </div>
 
       <FormTextarea
         id={`desc-${field.id}`}
-        label="Description (one bullet per line)"
-        placeholder={"Led a team of 12 junior architects...\nImplemented BIM workflows..."}
+        label={t("descriptionBullets")}
+        placeholder={t("descriptionPlaceholder")}
         rows={4}
+        maxLength={3000}
+        error={resolveValidationError(fieldErrors?.description?.message, tv)}
         {...register(`experience.${idx}.description`)}
         action={
           <AIImproveButton
@@ -154,6 +169,9 @@ function SortableExpItem({ field, idx, register, setValue, watch, remove }: Sort
 
 export default function ExperienceSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateResumeRef = useRef(updateResume);
   updateResumeRef.current = updateResume;
@@ -162,10 +180,10 @@ export default function ExperienceSection({ resumeId, data }: Props) {
 
   const lastSyncedJson = useRef(JSON.stringify(data.experience));
 
-  const { register, control, watch, setValue, reset } = useForm<FormValues>({
+  const { register, control, watch, setValue, reset, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { experience: structuredClone(data.experience) },
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const { fields, append, remove, move } = useFieldArray({ control, name: "experience" });
@@ -183,6 +201,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
 
   // Auto-sync to store
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const sub = watch((values) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
@@ -208,9 +227,9 @@ export default function ExperienceSection({ resumeId, data }: Props) {
   return (
     <AccordionItem value="experience" className="border-border">
       <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
-        Experience
+        {t("experience")}
         <span className="ml-auto mr-2 text-xs text-muted-foreground font-normal">
-          {fields.length} {fields.length === 1 ? "entry" : "entries"}
+          {fields.length} {fields.length === 1 ? tc("entry") : tc("entries")}
         </span>
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-6">
@@ -225,6 +244,8 @@ export default function ExperienceSection({ resumeId, data }: Props) {
                 setValue={setValue}
                 watch={watch}
                 remove={remove}
+                errors={errors}
+                tv={tv}
               />
             ))}
           </SortableContext>
@@ -245,7 +266,7 @@ export default function ExperienceSection({ resumeId, data }: Props) {
           className="w-full border border-dashed border-border hover:border-brand-secondary/60 hover:bg-surface-soft font-sans text-xs uppercase tracking-widest gap-2 h-10"
         >
           <Plus className="w-4 h-4" />
-          Add Experience
+          {t("addExperience")}
         </Button>
       </AccordionContent>
     </AccordionItem>

@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
-import { SessionProvider } from "@/components/providers/SessionProvider";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "sonner";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -32,16 +29,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "MyPDFCV",
-    title: "MyPDFCV — Free Resume Builder",
+    title: "MyPDFCV — Free Resume Builder with Real-Time Preview & PDF Export",
     description:
-      "Build professional resumes for free. No sign-up, no paywall, open source.",
+      "Build professional resumes with real-time preview, 7 designer templates, AI text improvement, and one-click PDF export. No paywall, no sign-up, open source.",
     url: "https://mypdfcv.com",
+    images: [{ url: "https://mypdfcv.com/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MyPDFCV — Free Resume Builder",
+    title: "MyPDFCV — Free Resume Builder with Real-Time Preview & PDF Export",
     description:
-      "Build professional resumes for free. No sign-up, no paywall, open source.",
+      "Build professional resumes with real-time preview, 7 designer templates, AI text improvement, and one-click PDF export. No paywall, no sign-up, open source.",
+    images: ["https://mypdfcv.com/og-image.jpg"],
   },
   robots: { index: true, follow: true },
 };
@@ -54,26 +53,20 @@ const plusJakartaSans = localFont({
   display: "swap",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${plusJakartaSans.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground">
-        <ThemeProvider>
-          <SessionProvider>
-            <TooltipProvider>
-              {children}
-              <Toaster richColors position="bottom-right" />
-            </TooltipProvider>
-          </SessionProvider>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

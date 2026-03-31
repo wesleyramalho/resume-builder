@@ -2,12 +2,13 @@
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useCallback, useRef, useState } from "react";
-import { FormInput, FormTextarea } from "@/components/ui/FormInput";
+import { FormInput } from "@/components/ui/FormInput";
 import { ResumeData } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useResumeForm } from "@/hooks/useResumeForm";
 import { personalInfoSchema, PersonalInfoFormValues } from "@/lib/schemas";
-import AIImproveButton from "@/components/ui/AIImproveButton";
+import { resolveValidationError } from "@/lib/resolve-validation-error";
+import { useTranslations } from "next-intl";
 import PhotoEditor from "@/components/ui/PhotoEditor";
 import { Camera, X } from "lucide-react";
 import { toast } from "sonner";
@@ -21,6 +22,9 @@ const MAX_PHOTO_SIZE = 500 * 1024; // 500KB
 
 export default function PersonalInfoSection({ resumeId, data }: Props) {
   const updateResume = useResumeStore((s) => s.updateResume);
+  const t = useTranslations("editor");
+  const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editorOpen, setEditorOpen] = useState(false);
   const [editorSrc, setEditorSrc] = useState("");
@@ -30,25 +34,22 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
     [],
   );
 
-  const { register, setValue, watch } = useResumeForm<PersonalInfoFormValues>({
+  const { register, formState: { errors } } = useResumeForm<PersonalInfoFormValues>({
     resumeId,
     schema: personalInfoSchema,
     defaultValues: {
       fullName: data.fullName,
       headline: data.headline,
-      summary: data.summary,
       contact: { ...data.contact },
     },
     toResumeData,
   });
 
-  const summary = watch("summary");
-
   function handlePhotoSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > MAX_PHOTO_SIZE) {
-      toast.error("Photo must be under 500KB");
+      toast.error(t("photoTooLarge"));
       return;
     }
     const reader = new FileReader();
@@ -67,7 +68,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
   return (
     <AccordionItem value="personal" className="border-border">
       <AccordionTrigger className="text-sm font-sans uppercase tracking-widest text-foreground hover:no-underline hover:text-foreground/80 py-4">
-        Personal Info
+        {t("personalInfo")}
       </AccordionTrigger>
       <AccordionContent className="pb-6 space-y-4">
         {/* Photo upload */}
@@ -93,10 +94,10 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
           />
           <div className="flex flex-col gap-1">
             <p className="text-xs font-sans uppercase tracking-widest text-text-subtle">
-              Profile Photo
+              {t("profilePhoto")}
             </p>
             <p className="text-[10px] text-muted-foreground">
-              Optional. Max 500KB.
+              {t("photoOptional")}
             </p>
             {data.photo && (
               <div className="flex gap-2 mt-0.5">
@@ -108,7 +109,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
                   }}
                   className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Edit
+                  {tc("edit")}
                 </button>
                 <button
                   type="button"
@@ -116,7 +117,7 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
                   className="inline-flex items-center gap-1 text-[10px] text-destructive hover:text-destructive/80 transition-colors"
                 >
                   <X className="w-3 h-3" />
-                  Remove
+                  {tc("remove")}
                 </button>
               </div>
             )}
@@ -133,67 +134,66 @@ export default function PersonalInfoSection({ resumeId, data }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormInput
             id="fullName"
-            label="Full Name"
-            placeholder="Alexander Vaughn"
+            label={t("fullName")}
+            placeholder={t("fullNamePlaceholder")}
+            maxLength={100}
+            error={resolveValidationError(errors.fullName?.message, tv)}
             {...register("fullName")}
           />
           <FormInput
             id="headline"
-            label="Headline"
-            placeholder="Senior Software Engineer"
+            label={t("headline")}
+            placeholder={t("headlinePlaceholder")}
+            maxLength={150}
+            error={resolveValidationError(errors.headline?.message, tv)}
             {...register("headline")}
           />
         </div>
 
-        <FormTextarea
-          id="summary"
-          label="Professional Summary"
-          placeholder="Dedicated to building scalable, design-forward products..."
-          rows={3}
-          {...register("summary")}
-          action={
-            <AIImproveButton
-              text={summary}
-              fieldType="summary"
-              onAccept={(v) => setValue("summary", v)}
-            />
-          }
-        />
-
         <div className="border-t border-border pt-4">
-          <p className="text-xs font-sans uppercase tracking-widest text-text-subtle mb-3">Contact</p>
+          <p className="text-xs font-sans uppercase tracking-widest text-text-subtle mb-3">{t("contact")}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput
               id="email"
-              label="Email"
+              label={t("email")}
               type="email"
-              placeholder="alex@example.com"
+              placeholder={t("emailPlaceholder")}
+              maxLength={255}
+              error={resolveValidationError(errors.contact?.email?.message, tv)}
               {...register("contact.email")}
             />
             <FormInput
               id="phone"
-              label="Phone"
+              label={t("phone")}
               type="tel"
-              placeholder="+1 (555) 123 4567"
+              placeholder={t("phonePlaceholder")}
+              maxLength={30}
+              error={resolveValidationError(errors.contact?.phone?.message, tv)}
               {...register("contact.phone")}
             />
             <FormInput
               id="location"
-              label="Location"
-              placeholder="New York, NY"
+              label={t("location")}
+              placeholder={t("locationPlaceholder")}
+              maxLength={100}
+              error={resolveValidationError(errors.contact?.location?.message, tv)}
               {...register("contact.location")}
             />
             <FormInput
               id="linkedin"
-              label="LinkedIn"
-              placeholder="linkedin.com/in/yourprofile"
+              label={t("linkedin")}
+              placeholder={t("linkedinPlaceholder")}
+              maxLength={200}
+              error={resolveValidationError(errors.contact?.linkedin?.message, tv)}
               {...register("contact.linkedin")}
             />
             <FormInput
               id="website"
-              label="Website"
-              placeholder="yourwebsite.com"
+              label={t("website")}
+              placeholder={t("websitePlaceholder")}
               className="sm:col-span-2"
+              maxLength={200}
+              error={resolveValidationError(errors.contact?.website?.message, tv)}
               {...register("contact.website")}
             />
           </div>

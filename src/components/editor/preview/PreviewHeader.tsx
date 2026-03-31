@@ -23,6 +23,7 @@ export default function PreviewHeader({ data, style: tmpl }: Props) {
 
   const isPhotoRight = tmpl.photoPosition === "top-right";
   const isPhotoCentered = tmpl.photoPosition === "top-center";
+  const isCentered = isPhotoCentered || tmpl.headerLayout === "centered";
 
   const photoEl = data.photo ? (
     // eslint-disable-next-line @next/next/no-img-element
@@ -60,14 +61,14 @@ export default function PreviewHeader({ data, style: tmpl }: Props) {
           : {}),
         display: "flex",
         gap: "10pt",
-        alignItems: isPhotoCentered ? "center" : "flex-start",
-        flexDirection: isPhotoCentered ? "column" : "row",
+        alignItems: isCentered ? "center" : "flex-start",
+        flexDirection: isCentered ? "column" : "row",
       }}
     >
       {/* Photo left or centered (before text) */}
       {photoEl && !isPhotoRight && photoEl}
 
-      <div style={{ flex: 1, textAlign: isPhotoCentered ? "center" : "left" }}>
+      <div style={{ flex: 1, textAlign: isCentered ? "center" : "left" }}>
         <h1
           style={{
             fontSize: "16pt",
@@ -101,7 +102,7 @@ export default function PreviewHeader({ data, style: tmpl }: Props) {
               flexWrap: "wrap",
               gap: "8pt",
               marginTop: "4pt",
-              justifyContent: isPhotoCentered ? "center" : "flex-start",
+              justifyContent: isCentered ? "center" : "flex-start",
             }}
           >
             {contactParts.map((part, i) => (

@@ -14,7 +14,25 @@ import {
   hexWithAlpha,
   type ResumeStyle,
 } from "@/lib/resumeTemplates";
+import enMessages from "@/messages/en.json";
+import ptBRMessages from "@/messages/pt-BR.json";
+import esMessages from "@/messages/es.json";
+
 export const PDF_FONT = "Helvetica";
+
+const messagesMap: Record<string, typeof enMessages> = {
+  en: enMessages,
+  "pt-BR": ptBRMessages,
+  es: esMessages,
+};
+
+function getT(locale: string) {
+  const msgs = messagesMap[locale] ?? messagesMap.en;
+  return (ns: string, key: string) => {
+    const nsObj = msgs[ns as keyof typeof msgs] as Record<string, string>;
+    return nsObj?.[key] ?? key;
+  };
+}
 
 // Disable automatic hyphenation so words don't break mid-word
 Font.registerHyphenationCallback((word) => [word]);
@@ -22,6 +40,7 @@ Font.registerHyphenationCallback((word) => [word]);
 function buildStyles(tmpl: ResumeStyle) {
   const { accentColor: accent, sectionDivider: divider, headerBgColor } = tmpl;
   const hasBg = !!headerBgColor;
+  const isCentered = tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered";
   const nameColor = hasBg ? "#ffffff" : accent;
   const headlineColor = hasBg ? "rgba(255,255,255,0.7)" : "#6b7280";
   const contactColor = hasBg ? "rgba(255,255,255,0.6)" : "#9ca3af";
@@ -50,7 +69,7 @@ function buildStyles(tmpl: ResumeStyle) {
             paddingBottom: 20,
           }
         : {}),
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { alignItems: "center" as const }
         : {}),
     },
@@ -59,10 +78,10 @@ function buildStyles(tmpl: ResumeStyle) {
       fontFamily: PDF_FONT,
       fontWeight: 700,
       textTransform: "uppercase",
-      marginLeft: "-5px",
+      letterSpacing: 1.5,
       color: nameColor,
       marginBottom: 8,
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { textAlign: "center" as const }
         : {}),
     },
@@ -74,7 +93,7 @@ function buildStyles(tmpl: ResumeStyle) {
       color: headlineColor,
       marginTop: 2,
       marginBottom: 4,
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { textAlign: "center" as const }
         : {}),
     },
@@ -84,7 +103,7 @@ function buildStyles(tmpl: ResumeStyle) {
       flexWrap: "wrap",
       gap: 8,
       marginTop: 4,
-      ...(tmpl.photoPosition === "top-center"
+      ...(isCentered
         ? { justifyContent: "center" as const }
         : {}),
     },
@@ -218,6 +237,7 @@ function buildStyles(tmpl: ResumeStyle) {
 
 interface Props {
   resume: Resume;
+  locale?: string;
 }
 
 const DEFAULT_SECTION_ORDER = [
@@ -234,23 +254,26 @@ type RD = import("@/types/resume").ResumeData;
 interface PDFSectionProps {
   data: RD;
   s: PDFStyles;
+  localeTag: string;
+  presentLabel: string;
+  t: (ns: string, key: string) => string;
 }
 
-function SummarySection({ data, s }: PDFSectionProps) {
+function SummarySection({ data, s, t }: PDFSectionProps) {
   if (!data.sections.summary || !data.summary) return null;
   return (
     <View style={s.section}>
-      <Text style={s.sectionTitle}>Profile</Text>
+      <Text style={s.sectionTitle}>{t("resume", "profile")}</Text>
       <Text style={s.summaryText}>{data.summary}</Text>
     </View>
   );
 }
 
-function ExperienceSection({ data, s }: PDFSectionProps) {
+function ExperienceSection({ data, s, localeTag, presentLabel, t }: PDFSectionProps) {
   if (!data.sections.experience || data.experience.length === 0) return null;
   return (
     <View style={s.section}>
-      <Text style={s.sectionTitle}>Professional Experience</Text>
+      <Text style={s.sectionTitle}>{t("resume", "professionalExperience")}</Text>
       {data.experience.map((exp) => (
         <View key={exp.id} style={s.expItem}>
           <View style={s.expHeader}>
@@ -262,8 +285,8 @@ function ExperienceSection({ data, s }: PDFSectionProps) {
               </Text>
             </View>
             <Text style={s.expDate}>
-              {formatMonthYear(exp.startDate)} –{" "}
-              {exp.current ? "Present" : formatMonthYear(exp.endDate)}
+              {formatMonthYear(exp.startDate, localeTag, presentLabel)} –{" "}
+              {exp.current ? presentLabel : formatMonthYear(exp.endDate, localeTag, presentLabel)}
             </Text>
           </View>
           {exp.description
@@ -283,11 +306,11 @@ function ExperienceSection({ data, s }: PDFSectionProps) {
   );
 }
 
-function EducationSection({ data, s }: PDFSectionProps) {
+function EducationSection({ data, s, localeTag, presentLabel, t }: PDFSectionProps) {
   if (!data.sections.education || data.education.length === 0) return null;
   return (
     <View style={s.section}>
-      <Text style={s.sectionTitle}>Education</Text>
+      <Text style={s.sectionTitle}>{t("resume", "education")}</Text>
       {data.education.map((edu) => (
         <View key={edu.id} style={{ marginBottom: 6 }}>
           <View
@@ -305,11 +328,11 @@ function EducationSection({ data, s }: PDFSectionProps) {
               </Text>
             </View>
             <Text style={s.expDate}>
-              {formatMonthYear(edu.startDate)} – {formatMonthYear(edu.endDate)}
+              {formatMonthYear(edu.startDate, localeTag, presentLabel)} – {formatMonthYear(edu.endDate, localeTag, presentLabel)}
             </Text>
           </View>
           {edu.highlights ? (
-            <Text style={[s.bulletText, { marginTop: 2, fontStyle: "italic" }]}>
+            <Text style={{ fontFamily: PDF_FONT, fontSize: 7.5, color: "#6b7280", marginTop: 2, fontStyle: "italic" }}>
               {edu.highlights}
             </Text>
           ) : null}
@@ -319,11 +342,11 @@ function EducationSection({ data, s }: PDFSectionProps) {
   );
 }
 
-function SkillsSection({ data, s }: PDFSectionProps) {
+function SkillsSection({ data, s, t }: PDFSectionProps) {
   if (!data.sections.skills || data.skillGroups.length === 0) return null;
   return (
     <View style={s.section}>
-      <Text style={s.sectionTitle}>Technical Skills</Text>
+      <Text style={s.sectionTitle}>{t("resume", "technicalSkills")}</Text>
       {data.skillGroups.map((group) => (
         <View key={group.id} style={s.skillGroupRow}>
           {group.category ? (
@@ -342,11 +365,11 @@ function SkillsSection({ data, s }: PDFSectionProps) {
   );
 }
 
-function ProjectsSection({ data, s }: PDFSectionProps) {
+function ProjectsSection({ data, s, localeTag, presentLabel, t }: PDFSectionProps) {
   if (!data.sections.projects || data.projects.length === 0) return null;
   return (
     <View style={s.section}>
-      <Text style={s.sectionTitle}>Projects</Text>
+      <Text style={s.sectionTitle}>{t("resume", "projects")}</Text>
       {data.projects.map((proj, i) => (
         <View key={proj.id} style={[s.expItem, i > 0 ? { marginTop: 8 } : {}]}>
           <View style={s.expHeader}>
@@ -362,8 +385,8 @@ function ProjectsSection({ data, s }: PDFSectionProps) {
               ) : null}
             </View>
             <Text style={s.expDate}>
-              {formatMonthYear(proj.startDate)} –{" "}
-              {formatMonthYear(proj.endDate)}
+              {formatMonthYear(proj.startDate, localeTag, presentLabel)} –{" "}
+              {formatMonthYear(proj.endDate, localeTag, presentLabel)}
             </Text>
           </View>
           {proj.description ? (
@@ -375,10 +398,13 @@ function ProjectsSection({ data, s }: PDFSectionProps) {
   );
 }
 
-export default function ResumePDFDocument({ resume }: Props) {
+export default function ResumePDFDocument({ resume, locale = "en" }: Props) {
   const { data } = resume;
   const tmpl = getResumeStyle(resume.templateId);
   const s = buildStyles(tmpl);
+  const t = getT(locale);
+  const localeTag = locale === "pt-BR" ? "pt-BR" : "en-US";
+  const presentLabel = t("resume", "present");
   const order = data.sectionOrder?.length
     ? data.sectionOrder
     : DEFAULT_SECTION_ORDER;
@@ -397,9 +423,9 @@ export default function ResumePDFDocument({ resume }: Props) {
       style={[
         s.header,
         {
-          flexDirection: tmpl.photoPosition === "top-center" ? "column" : "row",
+          flexDirection: (tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered") ? "column" : "row",
           alignItems:
-            tmpl.photoPosition === "top-center" ? "center" : "flex-start",
+            (tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered") ? "center" : "flex-start",
         },
       ]}
     >
@@ -410,7 +436,7 @@ export default function ResumePDFDocument({ resume }: Props) {
             width: 32,
             height: 32,
             borderRadius: 16,
-            ...(tmpl.photoPosition === "top-center"
+            ...((tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered")
               ? { marginBottom: 10 }
               : { marginRight: 10 }),
             ...(tmpl.headerBgColor
@@ -421,7 +447,7 @@ export default function ResumePDFDocument({ resume }: Props) {
       ) : null}
       <View
         style={{
-          ...(tmpl.photoPosition === "top-center"
+          ...((tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered")
             ? { width: "100%" }
             : { flex: 1 }),
         }}
@@ -455,17 +481,19 @@ export default function ResumePDFDocument({ resume }: Props) {
     </View>
   ) : null;
 
+  const sectionProps = { data, s, localeTag, presentLabel, t };
+
   const sectionsBlock = order.map((sectionId) => {
     if (sectionId === "summary")
-      return <SummarySection key={sectionId} data={data} s={s} />;
+      return <SummarySection key={sectionId} {...sectionProps} />;
     if (sectionId === "experience")
-      return <ExperienceSection key={sectionId} data={data} s={s} />;
+      return <ExperienceSection key={sectionId} {...sectionProps} />;
     if (sectionId === "education")
-      return <EducationSection key={sectionId} data={data} s={s} />;
+      return <EducationSection key={sectionId} {...sectionProps} />;
     if (sectionId === "skills" && !hasSidebar)
-      return <SkillsSection key={sectionId} data={data} s={s} />;
+      return <SkillsSection key={sectionId} {...sectionProps} />;
     if (sectionId === "projects")
-      return <ProjectsSection key={sectionId} data={data} s={s} />;
+      return <ProjectsSection key={sectionId} {...sectionProps} />;
     return null;
   });
 
@@ -562,7 +590,7 @@ export default function ResumePDFDocument({ resume }: Props) {
                     marginBottom: 4,
                   }}
                 >
-                  Skills
+                  {t("resume", "skills")}
                 </Text>
                 {data.skillGroups.map((group, gi) => (
                   <View key={gi} style={{ marginBottom: 4, width: "100%" }}>

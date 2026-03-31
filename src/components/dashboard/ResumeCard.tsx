@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { MoreHorizontal, Pencil, FileDown, Copy, Trash2 } from "lucide-react";
+import { Pencil, FileDown, Copy, Trash2 } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import MoreMenuTrigger from "@/components/ui/MoreMenuTrigger";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +33,9 @@ interface Props {
 
 export default function ResumeCard({ resume }: Props) {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("dashboard");
+  const tc = useTranslations("common");
   const [showDelete, setShowDelete] = useState(false);
   const deleteResume = useResumeStore((s) => s.deleteResume);
   const duplicateResume = useResumeStore((s) => s.duplicateResume);
@@ -53,7 +57,6 @@ export default function ResumeCard({ resume }: Props) {
   return (
     <>
       <div className="group bg-card border border-border rounded-lg overflow-hidden hover:border-brand-secondary/50 transition-colors shadow-sm">
-        {/* Thumbnail */}
         <div className="relative p-3 bg-surface-soft/70 cursor-pointer" onClick={handleEdit}>
           <ResumeThumbnail data={resume.data} templateId={resume.templateId} />
           {resume.status === "draft" && (
@@ -61,14 +64,13 @@ export default function ResumeCard({ resume }: Props) {
               <div className="bg-background/90 backdrop-blur-sm border border-border rounded-full px-3 py-1 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                 <span className="font-sans text-[10px] uppercase tracking-widest text-amber-400">
-                  Drafting
+                  {t("drafting")}
                 </span>
               </div>
             </div>
           )}
         </div>
 
-        {/* Info */}
         <div className="p-4">
           <div className="flex items-start justify-between gap-2 mb-1">
             <h3
@@ -85,34 +87,29 @@ export default function ResumeCard({ resume }: Props) {
                   : "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20"
               }`}
             >
-              {resume.status}
+              {resume.status === "complete" ? t("statusComplete") : t("statusDraft")}
             </Badge>
           </div>
           <p className="text-[11px] text-muted-foreground font-sans mb-3">
-            {resume.status === "draft" ? "Created" : "Last edited"}{" "}
-            {formatDate(resume.updatedAt)}
+            {resume.status === "draft" ? t("created") : t("lastEdited")}{" "}
+            {formatDate(resume.updatedAt, locale)}
           </p>
 
-          {/* Actions */}
           <div className="flex items-center gap-2">
             <Button
               size="sm"
               onClick={handleEdit}
               className="flex-1 font-sans text-xs uppercase tracking-widest h-8"
             >
-              {resume.status === "draft" ? "Continue Drafting" : "Edit"}
+              {resume.status === "draft" ? t("continueDrafting") : tc("edit")}
             </Button>
 
             <DropdownMenu>
-              <DropdownMenuTrigger
-                className="h-9 w-9 sm:h-8 sm:w-8 border border-border hover:bg-muted rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <MoreHorizontal className="w-4 h-4" />
-              </DropdownMenuTrigger>
+              <MoreMenuTrigger className="h-9 w-9 sm:h-8 sm:w-8" />
               <DropdownMenuContent align="end" className="bg-card border-border">
                 <DropdownMenuItem onClick={handleEdit} className="gap-2">
                   <Pencil className="w-4 h-4" />
-                  Edit
+                  {tc("edit")}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => exportPDF(resume)}
@@ -120,11 +117,11 @@ export default function ResumeCard({ resume }: Props) {
                   className="gap-2"
                 >
                   <FileDown className="w-4 h-4" />
-                  Export PDF
+                  {t("exportPdf")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleDuplicate} className="gap-2">
                   <Copy className="w-4 h-4" />
-                  Duplicate
+                  {t("duplicate")}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -132,7 +129,7 @@ export default function ResumeCard({ resume }: Props) {
                   className="gap-2 text-destructive focus:text-destructive"
                 >
                   <Trash2 className="w-4 h-4" />
-                  Delete
+                  {tc("delete")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -140,25 +137,23 @@ export default function ResumeCard({ resume }: Props) {
         </div>
       </div>
 
-      {/* Delete confirmation dialog */}
       <Dialog open={showDelete} onOpenChange={setShowDelete}>
         <DialogContent className="bg-card border-border">
           <DialogHeader>
-            <DialogTitle>Delete Resume</DialogTitle>
+            <DialogTitle>{t("deleteResume")}</DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              Are you sure you want to delete &ldquo;{resume.name}&rdquo;? This action
-              cannot be undone.
+              {t("deleteConfirmation", { name: resume.name })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="ghost" onClick={() => setShowDelete(false)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               onClick={handleDelete}
               className="bg-destructive text-white hover:bg-destructive/90"
             >
-              Delete
+              {tc("delete")}
             </Button>
           </DialogFooter>
         </DialogContent>
