@@ -252,9 +252,9 @@
   },
   "privacy": {
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 28 de março de 2026",
+    "lastUpdated": "Última atualização: 30 de março de 2026",
     "s1h": "1. Armazenamento de Dados",
-    "s1": "O MyPDFCV é uma aplicação client-side. Todos os dados de currículo que você cria são armazenados exclusivamente no localStorage do seu navegador. Não coletamos, transmitimos ou armazenamos seus dados de currículo em nenhum servidor.",
+    "s1": "O MyPDFCV é uma aplicação client-side. Todos os dados de currículo que você cria são armazenados exclusivamente no localStorage do seu navegador. Não coletamos, transmitimos ou armazenamos seus dados de currículo em nenhum servidor. Coletamos análises anônimas de uso via PostHog (veja seção 8).",
     "s2h": "2. OAuth do LinkedIn",
     "s2": "Se você optar por entrar com o LinkedIn, acessamos apenas as seguintes informações pela API OAuth do LinkedIn: seu nome, endereço de e-mail, título profissional, localização e foto de perfil. Esses dados são usados exclusivamente para preencher seu currículo e são armazenados apenas no localStorage do seu navegador. Não retemos seu token de acesso do LinkedIn além da sessão ativa.",
     "s3h": "3. Processamento de IA",
@@ -267,7 +267,7 @@
       "Controlador de dados: Wesley Ramalho. Para consultas, visite www.wesleyramalho.com/contact.",
       "Base legal: Consentimento. Você escolhe usar o serviço e fornecer informações voluntariamente.",
       "Dados processados: Apenas o conteúdo do currículo que você digita ou importa. Todos os dados são armazenados no localStorage do seu navegador e não são transmitidos para nossos servidores.",
-      "Sem transferências internacionais: Seus dados pessoais não são transferidos para nenhum servidor. Eles permanecem no seu navegador. A única exceção é o fluxo opcional de OAuth do LinkedIn, que é regido pela política de privacidade do próprio LinkedIn.",
+      "Sem transferências internacionais de dados pessoais: Seus dados de currículo não são transferidos para nenhum servidor. Dados anônimos de analytics são enviados para os servidores do PostHog nos Estados Unidos, mas não contêm informações pessoais identificáveis. O fluxo opcional de OAuth do LinkedIn é regido pela política de privacidade do próprio LinkedIn.",
       "Seus direitos: Você tem o direito de acessar, retificar, apagar, restringir o processamento, se opor ao processamento e portar seus dados. Como todos os dados são armazenados localmente no seu navegador, você pode exportar como PDF (acesso e portabilidade), editar diretamente (retificação) ou limpar o localStorage (exclusão).",
       "Sem tomada de decisão automatizada: Não usamos seus dados para tomada de decisão automatizada ou criação de perfis. O recurso de melhoria de texto com IA gera sugestões que você revisa e aceita ou rejeita manualmente."
     ],
@@ -275,24 +275,24 @@
     "s6intro": "Se você é residente da Califórnia, o seguinte se aplica sob a Lei de Privacidade do Consumidor da Califórnia (CCPA):",
     "s6items": [
       "Não vendemos informações pessoais. Não compartilhamos informações pessoais com terceiros por contrapartida monetária ou de outro valor.",
-      "Não coletamos informações pessoais em nossos servidores. Todos os dados de currículo são armazenados apenas no localStorage do seu navegador.",
+      "Não coletamos informações pessoais em nossos servidores. Todos os dados de currículo são armazenados apenas no localStorage do seu navegador. Analytics anônimos de uso (sem PII) são coletados via PostHog.",
       "Direito de excluir: Você pode excluir todos os dados a qualquer momento limpando o localStorage do seu navegador ou removendo currículos individuais do painel.",
       "Direito de saber: As categorias de informações processadas se limitam ao conteúdo do currículo que você cria voluntariamente (nome, dados de contato, histórico profissional, formação, habilidades), armazenados apenas localmente."
     ],
     "s7h": "7. Privacidade de Menores",
     "s7": "Este serviço não é direcionado a menores de 13 anos (COPPA) ou menores de 16 anos (GDPR). Não coletamos intencionalmente informações pessoais de menores. Como todos os dados são armazenados localmente no navegador do usuário e não são transmitidos para nós, não temos meios de identificar a idade dos nossos usuários.",
-    "s8h": "8. Cookies e Rastreamento",
-    "s8": "Não usamos cookies de rastreamento, serviços de analytics ou qualquer ferramenta de rastreamento de terceiros. Usamos o localStorage apenas para salvar seus dados de currículo e preferência de tema. Consulte nossa Política de Cookies para mais detalhes.",
+    "s8h": "8. Analytics e Rastreamento",
+    "s8": "Utilizamos o PostHog, um serviço de analytics de produto, para coletar dados anônimos de uso como funcionalidades utilizadas, páginas visitadas e padrões gerais de interação. Nenhuma informação pessoal identificável (nomes, e-mails, conteúdo de currículo) é incluída nos eventos de analytics. Todos os perfis são anônimos, seu endereço IP não é armazenado e respeitamos a configuração Do Not Track (DNT) do navegador. Os dados de analytics são enviados para os servidores do PostHog nos Estados Unidos. Você pode desativar o analytics habilitando o Do Not Track nas configurações do seu navegador. Usamos o localStorage para salvar seus dados de currículo, preferência de tema e dados anônimos de sessão do PostHog. Consulte nossa Política de Cookies para mais detalhes.",
     "s9h": "9. Contato",
     "s9": "Para consultas relacionadas à privacidade, visite www.wesleyramalho.com/contact."
   },
   "terms": {
     "title": "Termos de Serviço",
-    "lastUpdated": "Última atualização: 28 de março de 2026",
+    "lastUpdated": "Última atualização: 30 de março de 2026",
     "s1h": "1. Aceitação dos Termos",
     "s1": "Ao acessar e usar o MyPDFCV, você concorda em estar vinculado a estes Termos de Serviço. Se você não concordar, por favor não use o serviço.",
     "s2h": "2. Descrição do Serviço",
-    "s2": "O MyPDFCV é uma ferramenta gratuita de criação de currículos client-side. Todos os dados de currículo são armazenados localmente no seu navegador. Não fornecemos serviços de hospedagem, armazenamento ou backup para seus dados de currículo.",
+    "s2": "O MyPDFCV é uma ferramenta gratuita de criação de currículos client-side. Todos os dados de currículo são armazenados localmente no seu navegador. Não fornecemos serviços de hospedagem, armazenamento ou backup para seus dados de currículo. Coletamos analytics anônimos de uso via PostHog para melhorar o serviço. Nenhum conteúdo de currículo ou informação pessoal é incluído nos dados de analytics.",
     "s3h": "3. Recursos com IA",
     "s3": "O recurso de melhoria de texto com IA usa um modelo open-source (Xenova/flan-t5-small) que roda inteiramente no seu navegador via WebAssembly. Nenhum conteúdo de currículo é enviado a servidores externos. As sugestões de IA são geradas localmente e não são armazenadas ou registradas. A qualidade das sugestões depende do modelo e do texto de entrada. Você é responsável por revisar e editar todo conteúdo gerado por IA antes de usá-lo.",
     "s4h": "4. Recurso de Importação de Documentos",
@@ -327,24 +327,26 @@
   },
   "cookies": {
     "title": "Política de Cookies",
-    "lastUpdated": "Última atualização: 28 de março de 2026",
+    "lastUpdated": "Última atualização: 30 de março de 2026",
     "s1h": "1. O Que Utilizamos",
     "s1intro": "O MyPDFCV não usa cookies. Em vez disso, usamos o localStorage do seu navegador para armazenar:",
     "s1items": [
       "Seus dados de currículo (conteúdo, ordem das seções, escolha de template)",
-      "Sua preferência de tema (modo claro ou escuro)"
+      "Sua preferência de tema (modo claro ou escuro)",
+      "Dados anônimos de sessão do PostHog (ID anônimo aleatório, fila de eventos)"
     ],
-    "s1note": "Esses dados nunca saem do seu navegador e não são transmitidos para nenhum servidor.",
-    "s2h": "2. Sem Rastreamento",
-    "s2": "Não usamos nenhum analytics, pixels de rastreamento, cookies de publicidade ou ferramentas de rastreamento de terceiros. Sua atividade de navegação neste site não é monitorada ou registrada.",
+    "s1note": "Seus dados de currículo nunca saem do seu navegador. Dados anônimos de analytics são enviados para os servidores do PostHog (veja seção 2).",
+    "s2h": "2. Analytics",
+    "s2": "Utilizamos o PostHog para coletar analytics anônimos de uso como funcionalidades utilizadas, páginas visitadas e padrões gerais de interação. Nenhuma informação pessoal identificável (nomes, e-mails, conteúdo de currículo) é coletada. Todos os perfis são anônimos, seu endereço IP não é armazenado e respeitamos a configuração Do Not Track (DNT) do navegador — se habilitada, nenhum dado de analytics é coletado. Você também pode limpar os dados do PostHog no localStorage limpando os dados do site no seu navegador.",
     "s3h": "3. Serviços e Downloads de Terceiros",
     "s3intro": "Os seguintes recursos de terceiros podem ser baixados e armazenados em cache pelo seu navegador durante o uso normal do MyPDFCV:",
     "s3items": [
       "Modelos de IA: O recurso de melhoria de texto baixa um modelo de IA open-source (Xenova/flan-t5-small) do CDN da Hugging Face no primeiro uso. Este é armazenado em cache pelo navegador usando cache HTTP padrão, não cookies.",
       "Processamento de PDF: O recurso de importação de documentos usa o PDF.js (da Mozilla), que pode carregar um script de worker. Este também é armazenado usando cache padrão do navegador.",
-      "OAuth do LinkedIn: Se você optar por entrar com o LinkedIn, as políticas de cookies e privacidade do LinkedIn se aplicam ao fluxo de autenticação. Não controlamos o uso de cookies pelo LinkedIn. Consulte a Política de Cookies do LinkedIn para mais informações."
+      "OAuth do LinkedIn: Se você optar por entrar com o LinkedIn, as políticas de cookies e privacidade do LinkedIn se aplicam ao fluxo de autenticação. Não controlamos o uso de cookies pelo LinkedIn. Consulte a Política de Cookies do LinkedIn para mais informações.",
+      "PostHog Analytics: Eventos anônimos de uso são enviados para os servidores do PostHog (posthog.com) nos Estados Unidos. A política de privacidade do PostHog se aplica ao processamento desses dados. Nenhum conteúdo de currículo ou informação pessoal é incluído."
     ],
-    "s3note": "Esses downloads estão sujeitos às políticas de privacidade dos respectivos provedores. Nenhum dado pessoal dos seus currículos é enviado a esses provedores.",
+    "s3note": "Esses downloads e serviços estão sujeitos às políticas de privacidade dos respectivos provedores. Nenhum dado pessoal dos seus currículos é enviado a esses provedores.",
     "s4h": "4. Limpando Dados",
     "s4": "Você pode remover todos os dados armazenados a qualquer momento limpando o localStorage do seu navegador. Isso excluirá permanentemente todos os dados de currículo e preferências. Na maioria dos navegadores, isso pode ser feito via Configurações > Privacidade > Limpar dados de navegação > Cookies e dados do site.",
     "s5h": "5. Contato",
