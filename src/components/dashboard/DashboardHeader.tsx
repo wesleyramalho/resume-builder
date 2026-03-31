@@ -6,22 +6,16 @@ import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { Plus, LogOut } from "lucide-react";
+import { Plus, LogOut, Palette, Upload, ChevronDown } from "lucide-react";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
-import ImportResumeButton from "@/components/dashboard/ImportResumeButton";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useResumeStore } from "@/store/useResumeStore";
 import type { ResumeData } from "@/types/resume";
 
@@ -184,97 +178,78 @@ export default function DashboardHeader() {
           className="hidden"
         />
 
-        <Button
-          size="sm"
-          onClick={() => setPickerOpen(true)}
-          className="hidden sm:inline-flex bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest gap-2"
-        >
-          <Plus className="w-4 h-4" />
-          {t("createNew")}
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={(props) => (
+              <Button
+                {...props}
+                size="sm"
+                className="bg-foreground text-background hover:bg-foreground/90 font-sans text-xs uppercase tracking-widest gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                {t("createNew")}
+                <ChevronDown className="w-3 h-3 opacity-60" />
+              </Button>
+            )}
+          />
+          <DropdownMenuContent align="end" className="bg-card border-border min-w-55">
+            <DropdownMenuItem onClick={() => setPickerOpen(true)} className="gap-2">
+              <Palette className="w-4 h-4" />
+              {t("fromTemplate")}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => { const r = createResume(); router.push(`/editor/${r.id}`); }} className="gap-2">
+              <Plus className="w-4 h-4" />
+              {t("blankResume")}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => mobileFileInputRef.current?.click()} className="gap-2">
+              <Upload className="w-4 h-4" />
+              {t("importFromFile")}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              disabled={isImporting}
+              onClick={() => {
+                if (session) {
+                  void handleLinkedInImport(false);
+                } else {
+                  void signIn("linkedin", { callbackUrl });
+                }
+              }}
+              className="gap-2"
+            >
+              <LinkedInIcon className="w-4 h-4" />
+              <div className="flex flex-col">
+                <span>{isImporting ? tc("importing") : session ? t("importFromLinkedIn") : t("signInLinkedIn")}</span>
+                <span className="text-[10px] text-muted-foreground font-normal">{tc("linkedInLimited")}</span>
+              </div>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-        <div className="hidden sm:flex">
-          <ImportResumeButton />
-        </div>
-
-        {session ? (
-          <>
-            <div className="flex flex-col items-center">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger
-                    render={(props) => (
-                      <Button
-                        {...props}
-                        size="sm"
-                        variant="outline"
-                        disabled={isImporting}
-                        onClick={() => void handleLinkedInImport(false)}
-                        className="font-sans text-xs uppercase tracking-widest gap-2"
-                      >
-                        <LinkedInIcon className="w-4 h-4" />
-                        <span className="hidden sm:inline">
-                          {isImporting ? tc("importing") : t("importFromLinkedIn")}
-                        </span>
-                        <span className="sm:hidden">
-                          {isImporting ? "..." : t("importFromLinkedIn")}
-                        </span>
-                      </Button>
-                    )}
-                  />
-                  <TooltipContent>{tc("linkedInTooltip")}</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <span className="text-[10px] text-muted-foreground font-sans mt-1">{tc("linkedInLimited")}</span>
-            </div>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden">
-                {session.user?.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={session.user.image}
-                    alt={session.user.name ?? "User"}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  initials
-                )}
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-card border-border">
-                <DropdownMenuItem
-                  onClick={() => signOut({ callbackUrl: "/" })}
-                  className="text-destructive focus:text-destructive gap-2"
-                >
-                  <LogOut className="w-4 h-4" />
-                  {t("signOut")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
-        ) : (
-          <div className="flex flex-col items-center">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger
-                  render={(props) => (
-                    <Button
-                      {...props}
-                      size="sm"
-                      variant="outline"
-                      onClick={() => signIn("linkedin", { callbackUrl })}
-                      className="font-sans text-xs uppercase tracking-widest gap-2"
-                    >
-                      <LinkedInIcon className="w-4 h-4" />
-                      {t("signInLinkedIn")}
-                    </Button>
-                  )}
+        {session && (
+          <DropdownMenu>
+            <DropdownMenuTrigger className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden">
+              {session.user?.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={session.user.image}
+                  alt={session.user.name ?? "User"}
+                  className="w-full h-full object-cover"
                 />
-                <TooltipContent>{tc("linkedInTooltip")}</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <span className="text-[10px] text-muted-foreground font-sans mt-1">{tc("linkedInLimited")}</span>
-          </div>
+              ) : (
+                initials
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-card border-border">
+              <DropdownMenuItem
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="text-destructive focus:text-destructive gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                {t("signOut")}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         )}
       </div>
       {importError ? (
