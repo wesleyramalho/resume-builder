@@ -22,7 +22,8 @@
     "remove": "Remove",
     "back": "Back",
     "importFileTooltip": "Import from a PDF or Word document",
-    "linkedInTooltip": "Imports limited info like your profile photo, name, and headline"
+    "linkedInTooltip": "Only imports your photo, name, headline, and email. Experience, education, and skills must be added manually.",
+    "linkedInLimited": "Photo, name & headline only"
   },
   "landing": {
     "headlineYour": "Your",
@@ -177,7 +178,7 @@
     "scanWarning": "Very little text was extracted. The file may be a scanned document.",
     "importSuccess": "Imported: {exp} experience, {edu} education entries",
     "parseFailed": "Failed to parse resume.",
-    "linkedInImported": "LinkedIn profile imported",
+    "linkedInImported": "LinkedIn profile imported — add your experience, education, and skills to complete your resume.",
     "linkedInFailed": "Unable to import LinkedIn profile",
     "skillsCount": "{count} skills",
     "projectCount": "{count, plural, one {# project} other {# projects}}",

@@ -199,31 +199,34 @@ export default function DashboardHeader() {
 
         {session ? (
           <>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger
-                  render={(props) => (
-                    <Button
-                      {...props}
-                      size="sm"
-                      variant="outline"
-                      disabled={isImporting}
-                      onClick={() => void handleLinkedInImport(false)}
-                      className="font-sans text-xs uppercase tracking-widest gap-2"
-                    >
-                      <LinkedInIcon className="w-4 h-4" />
-                      <span className="hidden sm:inline">
-                        {isImporting ? tc("importing") : t("importFromLinkedIn")}
-                      </span>
-                      <span className="sm:hidden">
-                        {isImporting ? "..." : t("importFromLinkedIn")}
-                      </span>
-                    </Button>
-                  )}
-                />
-                <TooltipContent>{tc("linkedInTooltip")}</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <div className="flex flex-col items-center">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger
+                    render={(props) => (
+                      <Button
+                        {...props}
+                        size="sm"
+                        variant="outline"
+                        disabled={isImporting}
+                        onClick={() => void handleLinkedInImport(false)}
+                        className="font-sans text-xs uppercase tracking-widest gap-2"
+                      >
+                        <LinkedInIcon className="w-4 h-4" />
+                        <span className="hidden sm:inline">
+                          {isImporting ? tc("importing") : t("importFromLinkedIn")}
+                        </span>
+                        <span className="sm:hidden">
+                          {isImporting ? "..." : t("importFromLinkedIn")}
+                        </span>
+                      </Button>
+                    )}
+                  />
+                  <TooltipContent>{tc("linkedInTooltip")}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <span className="text-[10px] text-muted-foreground font-sans mt-1">{tc("linkedInLimited")}</span>
+            </div>
 
             <DropdownMenu>
               <DropdownMenuTrigger className="w-9 h-9 rounded-full bg-surface-soft border border-border flex items-center justify-center font-sans text-xs font-bold text-foreground hover:bg-surface-strong transition-colors overflow-hidden">
@@ -250,25 +253,28 @@ export default function DashboardHeader() {
             </DropdownMenu>
           </>
         ) : (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger
-                render={(props) => (
-                  <Button
-                    {...props}
-                    size="sm"
-                    variant="outline"
-                    onClick={() => signIn("linkedin", { callbackUrl })}
-                    className="font-sans text-xs uppercase tracking-widest gap-2"
-                  >
-                    <LinkedInIcon className="w-4 h-4" />
-                    {t("signInLinkedIn")}
-                  </Button>
-                )}
-              />
-              <TooltipContent>{tc("linkedInTooltip")}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div className="flex flex-col items-center">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger
+                  render={(props) => (
+                    <Button
+                      {...props}
+                      size="sm"
+                      variant="outline"
+                      onClick={() => signIn("linkedin", { callbackUrl })}
+                      className="font-sans text-xs uppercase tracking-widest gap-2"
+                    >
+                      <LinkedInIcon className="w-4 h-4" />
+                      {t("signInLinkedIn")}
+                    </Button>
+                  )}
+                />
+                <TooltipContent>{tc("linkedInTooltip")}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <span className="text-[10px] text-muted-foreground font-sans mt-1">{tc("linkedInLimited")}</span>
+          </div>
         )}
       </div>
       {importError ? (
