@@ -19,11 +19,6 @@ export interface ResumeTemplate {
   previewPhoto?: string;
 }
 
-/** Generate a simple SVG avatar data URI with initials (URL-encoded, no btoa needed) */
-function makeAvatar(initials: string, bgColor: string): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128"><rect width="128" height="128" fill="${bgColor}"/><text x="64" y="72" font-family="Helvetica,Arial,sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">${initials}</text></svg>`;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-}
 
 export const TEMPLATES: ResumeTemplate[] = [
   {
@@ -37,7 +32,7 @@ export const TEMPLATES: ResumeTemplate[] = [
       showPhoto: true,
       sectionDivider: "line",
     },
-    previewPhoto: makeAvatar("AC", "#2563eb"),
+    previewPhoto: "/photos/modern.jpg",
     sampleData: {
       fullName: "Alex Chen",
       headline: "Senior Software Engineer",
@@ -250,7 +245,7 @@ export const TEMPLATES: ResumeTemplate[] = [
       showPhoto: true,
       sectionDivider: "none",
     },
-    previewPhoto: makeAvatar("JR", "#059669"),
+    previewPhoto: "/photos/minimal.jpg",
     sampleData: {
       fullName: "Jordan Rivera",
       headline: "Product Designer",
@@ -355,7 +350,7 @@ export const TEMPLATES: ResumeTemplate[] = [
       sectionDivider: "line",
       sidebarColor: "#1e3a5f",
     },
-    previewPhoto: makeAvatar("CW", "#1e3a5f"),
+    previewPhoto: "/photos/executive.jpg",
     sampleData: {
       fullName: "Charlotte Warren",
       headline: "Recruitment Officer",
@@ -464,7 +459,7 @@ export const TEMPLATES: ResumeTemplate[] = [
       headerBgColor: "#b91c1c",
       photoPosition: "top-right",
     },
-    previewPhoto: makeAvatar("HW", "#b91c1c"),
+    previewPhoto: "/photos/bold.jpg",
     sampleData: {
       fullName: "Herman Walton",
       headline: "Financial Analyst",
@@ -579,7 +574,7 @@ export const TEMPLATES: ResumeTemplate[] = [
       headerBgColor: "#1e293b",
       photoPosition: "top-center",
     },
-    previewPhoto: makeAvatar("GW", "#334155"),
+    previewPhoto: "/photos/balanced.jpg",
     sampleData: {
       fullName: "Gregory Walls",
       headline: "Carpenter",
@@ -689,7 +684,7 @@ export const TEMPLATES: ResumeTemplate[] = [
       headerBgColor: "#0f766e",
       photoPosition: "top-right",
     },
-    previewPhoto: makeAvatar("PG", "#0f766e"),
+    previewPhoto: "/photos/clear.jpg",
     sampleData: {
       fullName: "Patricia Giordano",
       headline: "Receptionist",
