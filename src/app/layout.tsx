@@ -29,18 +29,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "MyPDFCV",
-    title: "MyPDFCV — Free Resume Builder",
+    title: "MyPDFCV — Free Resume Builder with Real-Time Preview & PDF Export",
     description:
-      "Build professional resumes for free. No sign-up, no paywall, open source.",
+      "Build professional resumes with real-time preview, 7 designer templates, AI text improvement, and one-click PDF export. No paywall, no sign-up, open source.",
     url: "https://mypdfcv.com",
-    images: [{ url: "https://mypdfcv.com/og-image.png", width: 1536, height: 1024 }],
+    images: [{ url: "https://mypdfcv.com/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MyPDFCV — Free Resume Builder",
+    title: "MyPDFCV — Free Resume Builder with Real-Time Preview & PDF Export",
     description:
-      "Build professional resumes for free. No sign-up, no paywall, open source.",
-    images: ["https://mypdfcv.com/og-image.png"],
+      "Build professional resumes with real-time preview, 7 designer templates, AI text improvement, and one-click PDF export. No paywall, no sign-up, open source.",
+    images: ["https://mypdfcv.com/og-image.jpg"],
   },
   robots: { index: true, follow: true },
 };
