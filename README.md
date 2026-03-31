@@ -47,6 +47,9 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Build for production |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
+| `npm run test:e2e` | Run Playwright e2e tests (headless) |
+| `npm run test:e2e:ui` | Open Playwright UI for interactive debugging |
+| `npm run test:e2e:headed` | Run e2e tests with visible browser |
 
 ## E2E Tests
 
@@ -55,16 +58,9 @@ End-to-end tests use [Playwright](https://playwright.dev) and cover preview rend
 ```bash
 # Install browsers (first time only)
 npx playwright install chromium
-
-# Run all tests
-npx playwright test
-
-# Run with HTML report
-npx playwright test --reporter=html
-npx playwright show-report
 ```
 
-Tests start a dev server on port 3099 automatically. To run against an existing server, set `PLAYWRIGHT_BASE_URL`.
+Tests reuse a dev server on port 3000 (`reuseExistingServer: true`). Make sure `npm run dev` is running before using `test:e2e:ui`.
 
 ## Environment Variables
 
