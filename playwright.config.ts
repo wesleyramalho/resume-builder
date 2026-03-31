@@ -8,7 +8,7 @@ export default defineConfig({
   retries: 1,
   reporter: [["html", { open: "never" }]],
   use: {
-    baseURL: "http://localhost:3099",
+    baseURL: "http://localhost:3000",
     trace: "on-first-retry",
     screenshot: "on",
   },
@@ -16,9 +16,9 @@ export default defineConfig({
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
   ],
   webServer: {
-    command: "npm run dev -- --port 3099",
-    port: 3099,
-    reuseExistingServer: !process.env.CI,
+    command: "npm run dev",
+    port: 3000,
+    reuseExistingServer: true,
     timeout: 120_000,
   },
 });
