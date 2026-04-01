@@ -1166,6 +1166,2334 @@ const ES_SAMPLE_DATA: Record<string, PartialSampleData> = {
   },
 };
 
+const IT_SAMPLE_DATA: Record<string, PartialSampleData> = {
+  modern: {
+    fullName: "Marco Bianchi",
+    headline: "Ingegnere Software Senior",
+    summary:
+      "Ingegnere full-stack con oltre 6 anni di esperienza nella creazione di applicazioni web scalabili. Appassionato di developer experience, performance e architettura pulita.",
+    contact: {
+      email: "marco.bianchi@email.com",
+      phone: "+39 02 1234 5678",
+      location: "Milano, Italia",
+      linkedin: "linkedin.com/in/marcobianchi",
+      website: "marcobianchi.dev",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Bending Spoons",
+        title: "Ingegnere Software Senior",
+        location: "Milano, Italia",
+        startDate: "2021-03",
+        endDate: null,
+        current: true,
+        description:
+          "Guidato la migrazione del dashboard pagamenti a React 18, migliorando i tempi di caricamento del 40%\nProgettato e rilasciato il monitoraggio webhook in tempo reale utilizzato da oltre 50 mila merchant\nMentorato 4 ingegneri junior attraverso code review strutturate e sessioni di pair programming",
+      },
+      {
+        id: generateId(),
+        company: "Satispay",
+        title: "Ingegnere Software",
+        location: "Milano, Italia",
+        startDate: "2018-06",
+        endDate: "2021-02",
+        current: false,
+        description:
+          "Costruito ottimizzazioni del pipeline di deploy riducendo i tempi di build del 30%\nContribuito a strumenti open-source usati da oltre 500 mila sviluppatori\nImplementato strategia di caching che ha ridotto la latenza API del 60%",
+      },
+      {
+        id: generateId(),
+        company: "Accenture Italia",
+        title: "Sviluppatore Junior",
+        location: "Roma, Italia",
+        startDate: "2017-05",
+        endDate: "2018-05",
+        current: false,
+        description:
+          "Sviluppato strumenti interni per pipeline CI/CD usando Python e Bash\nCostruito API RESTful che servono oltre 10 mila richieste giornaliere con Node.js ed Express\nPartecipato alla rotazione di reperibilità e risolto incidenti in produzione nei tempi SLA",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Politecnico di Milano",
+        degree: "Laurea Magistrale",
+        field: "Informatica",
+        startDate: "2014-09",
+        endDate: "2018-07",
+        gpa: "110/110",
+        highlights: "Lode, Assistente al corso di Algoritmi e Strutture Dati",
+      },
+      {
+        id: generateId(),
+        school: "AWS",
+        degree: "Certificazione",
+        field: "AWS Solutions Architect Associate",
+        startDate: "2020-01",
+        endDate: "2020-03",
+        highlights: "Punteggio 920/1000",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Linguaggi", skills: ["TypeScript", "Python", "Go", "SQL"] },
+      { id: generateId(), category: "Framework", skills: ["React", "Next.js", "Node.js", "FastAPI"] },
+      { id: generateId(), category: "Strumenti", skills: ["PostgreSQL", "Redis", "Docker", "AWS", "GitHub Actions"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Strumento CLI Open-Source",
+        description: "Costruita una CLI per lo scaffolding di progetti Next.js con CI/CD, linting e test preconfigurati. Oltre 1,2K stelle su GitHub.",
+        url: "github.com/marcobianchi/create-next-stack",
+        technologies: ["TypeScript", "Node.js", "GitHub Actions"],
+        startDate: "2022-01",
+        endDate: "2022-06",
+      },
+    ],
+  },
+  classic: {
+    fullName: "Giulia Rossi",
+    headline: "Analista Aziendale",
+    summary:
+      "Analista orientata ai dati con 5 anni di esperienza nella traduzione di dataset complessi in strategie operative. Esperta nella gestione degli stakeholder e nella collaborazione interfunzionale.",
+    contact: {
+      email: "giulia.rossi@email.com",
+      phone: "+39 06 8765 4321",
+      location: "Roma, Italia",
+      linkedin: "linkedin.com/in/giuliarossi",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "UniCredit",
+        title: "Analista Aziendale Senior",
+        location: "Milano, Italia",
+        startDate: "2020-09",
+        endDate: null,
+        current: true,
+        description:
+          "Sviluppato modelli finanziari che hanno informato decisioni di investimento per oltre 2 miliardi di euro\nGuidato la raccolta requisiti per una nuova piattaforma di reporting clienti per oltre 200 consulenti\nRidotto il tempo del ciclo di reporting trimestrale del 35% attraverso l'automazione dei processi",
+      },
+      {
+        id: generateId(),
+        company: "Deloitte Italia",
+        title: "Analista Junior",
+        location: "Roma, Italia",
+        startDate: "2018-07",
+        endDate: "2020-08",
+        current: false,
+        description:
+          "Condotto analisi di mercato per clienti Fortune 500 in 3 settori\nCreato dashboard in Tableau adottate da oltre 15 team di consulenza\nSupportato la due diligence su transazioni M&A per un totale di 500 milioni di euro",
+      },
+      {
+        id: generateId(),
+        company: "Accenture",
+        title: "Stagista Analista",
+        location: "Milano, Italia",
+        startDate: "2017-06",
+        endDate: "2018-06",
+        current: false,
+        description:
+          "Assistito consulenti senior nella raccolta e analisi dati per clienti del settore retail\nCostruito modelli finanziari in Excel per previsioni di ricavi trimestrali\nPresentato risultati agli stakeholder dei clienti durante riunioni settimanali",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Università Bocconi",
+        degree: "Laurea Magistrale",
+        field: "Finanza e Data Science",
+        startDate: "2014-09",
+        endDate: "2018-07",
+        gpa: "110/110",
+        highlights: "Lode, Presidente del Club di Finanza",
+      },
+      {
+        id: generateId(),
+        school: "CFA Institute",
+        degree: "Certificazione",
+        field: "CFA Livello I",
+        startDate: "2019-01",
+        endDate: "2019-06",
+        highlights: "Superato al primo tentativo",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Analisi", skills: ["Modellazione Finanziaria", "SQL", "Python", "Excel"] },
+      { id: generateId(), category: "Strumenti", skills: ["Tableau", "Power BI", "Jira", "Confluence"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Modello di Previsione Churn",
+        description: "Sviluppato un modello di analisi predittiva che ha identificato clienti a rischio con l'87% di accuratezza, consentendo strategie proattive che hanno ridotto il churn del 15%.",
+        technologies: ["Python", "Tableau", "SQL"],
+        startDate: "2022-03",
+        endDate: "2022-09",
+      },
+    ],
+  },
+  minimal: {
+    fullName: "Andrea Conti",
+    headline: "Product Designer",
+    summary:
+      "Product designer con oltre 4 anni di esperienza nella creazione di esperienze digitali intuitive. Focalizzato su design system, accessibilità e ricerca utente.",
+    contact: {
+      email: "andrea@designstudio.it",
+      phone: "",
+      location: "Firenze, Italia",
+      linkedin: "linkedin.com/in/andreaconti",
+      website: "andreaconti.design",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Figma",
+        title: "Product Designer",
+        location: "Remoto",
+        startDate: "2022-01",
+        endDate: null,
+        current: true,
+        description:
+          "Progettato una libreria di componenti utilizzata da 8 team di prodotto\nGuidato il redesign delle funzionalità di collaborazione aumentando l'uso attivo giornaliero del 25%\nDefinito linee guida sull'accessibilità adottate a livello aziendale",
+      },
+      {
+        id: generateId(),
+        company: "Spotify",
+        title: "Designer UI/UX",
+        location: "Milano, Italia",
+        startDate: "2019-06",
+        endDate: "2021-12",
+        current: false,
+        description:
+          "Ridisegnato il flusso di creazione playlist riducendo il tasso di abbandono del 18%\nCondotto oltre 40 sessioni di ricerca utente per validare le decisioni di design\nCostruito e mantenuto la documentazione del design system interno",
+      },
+      {
+        id: generateId(),
+        company: "Studio Creativo",
+        title: "Designer Junior",
+        location: "Firenze, Italia",
+        startDate: "2018-06",
+        endDate: "2019-05",
+        current: false,
+        description:
+          "Creato asset visivi e mockup UI per oltre 10 progetti cliente\nAssistito il lead designer nella creazione di kit di brand identity per startup\nProgettato landing page responsive che hanno aumentato le conversioni dei clienti del 12%",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "ISIA Firenze",
+        degree: "Laurea",
+        field: "Design della Comunicazione",
+        startDate: "2015-09",
+        endDate: "2019-07",
+        highlights: "Lista del Rettore",
+      },
+      {
+        id: generateId(),
+        school: "Google",
+        degree: "Certificazione",
+        field: "UX Design Professional Certificate",
+        startDate: "2020-03",
+        endDate: "2020-08",
+        highlights: "Completato con lode",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Design", skills: ["Figma", "Sketch", "Adobe CC", "Prototipazione"] },
+      { id: generateId(), category: "Sviluppo", skills: ["HTML/CSS", "React", "Tailwind CSS", "Storybook"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "DesignTokens.io",
+        description: "Strumento open-source per generare e sincronizzare design token tra Figma e codice. Oltre 2K stelle su GitHub.",
+        url: "github.com/andreaconti/designtokens",
+        technologies: ["React", "TypeScript", "Figma Plugin API"],
+        startDate: "2023-03",
+        endDate: null,
+      },
+    ],
+  },
+  executive: {
+    fullName: "Francesca Moretti",
+    headline: "Responsabile Risorse Umane",
+    summary:
+      "Specialista HR con vasta esperienza nella gestione completa di reclutamento e talent management. Capace di bilanciare pianificazione strategica e realizzazione operativa per una gamma diversificata di clienti.",
+    contact: {
+      email: "francesca@email.com",
+      phone: "+39 02 9876 5432",
+      location: "Milano, Italia",
+      linkedin: "linkedin.com/in/francescamoretti",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Luxottica",
+        title: "Responsabile Reclutamento",
+        location: "Milano, Italia",
+        startDate: "2013-07",
+        endDate: null,
+        current: true,
+        description:
+          "Responsabile del ciclo completo di reclutamento per dipendenti in 8 sedi\nPartecipato a riunioni di avanzamento con clienti chiave, monitorando performance e risultati\nRidotto il costo per assunzione del 22% attraverso iniziative di sourcing strategico",
+      },
+      {
+        id: generateId(),
+        company: "Adecco Italia",
+        title: "Consulente e Formatrice",
+        location: "Roma, Italia",
+        startDate: "2010-01",
+        endDate: "2013-07",
+        current: false,
+        description:
+          "Supervisionato progetti di reclutamento online soddisfacendo obiettivi strategici\nGestito portafogli clienti, conducendo analisi aziendali e costruendo relazioni\nFormato oltre 50 recruiter junior su best practice e conformità",
+      },
+      {
+        id: generateId(),
+        company: "Randstad Italia",
+        title: "Coordinatrice HR",
+        location: "Torino, Italia",
+        startDate: "2008-08",
+        endDate: "2009-12",
+        current: false,
+        description:
+          "Coordinato i processi di onboarding per oltre 100 nuovi assunti all'anno\nMantenuto i registri dei dipendenti e garantito la conformità con le normative del lavoro\nAssistito nell'organizzazione di career day e eventi di recruiting universitario",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Università Cattolica del Sacro Cuore",
+        degree: "Laurea Magistrale",
+        field: "Gestione Strategica delle Risorse Umane",
+        startDate: "2005-09",
+        endDate: "2008-07",
+        highlights: "Laureata con lode",
+      },
+      {
+        id: generateId(),
+        school: "SHRM",
+        degree: "Certificazione",
+        field: "SHRM Certified Professional (SHRM-CP)",
+        startDate: "2011-01",
+        endDate: "2011-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "HR", skills: ["Reclutamento", "Gestione HR", "Relazioni con i Dipendenti", "Talent Acquisition"] },
+      { id: generateId(), category: "Lingue", skills: ["Italiano", "Inglese", "Francese", "Spagnolo"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Iniziativa Employer Branding",
+        description: "Guidato un progetto aziendale di employer branding che ha rinnovato le pagine carriera e la presenza social, aumentando le candidature qualificate del 40% in 6 mesi.",
+        technologies: ["LinkedIn Recruiter", "Greenhouse", "Canva"],
+        startDate: "2023-01",
+        endDate: "2023-07",
+      },
+    ],
+  },
+  bold: {
+    fullName: "Luca Ferrara",
+    headline: "Analista Finanziario",
+    summary:
+      "Analista finanziario esperto con un solido background nella gestione di budget multimilionari, fornendo analisi e supporto contabile nei dipartimenti di sviluppo prodotto.",
+    contact: {
+      email: "luca.ferrara@email.com",
+      phone: "+39 06 4321 8765",
+      location: "Roma, Italia",
+      linkedin: "linkedin.com/in/lucaferrara",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Enel",
+        title: "Analista Finanziario",
+        location: "Roma, Italia",
+        startDate: "2012-01",
+        endDate: null,
+        current: true,
+        description:
+          "Creato budget e garantito la riduzione dei costi di manodopera e materiali del 15%\nGenerato report finanziari inclusi flussi di cassa e bilanci\nCreato analisi e report di performance per i team dirigenziali",
+      },
+      {
+        id: generateId(),
+        company: "Intesa Sanpaolo",
+        title: "Analista Finanziario",
+        location: "Torino, Italia",
+        startDate: "2008-02",
+        endDate: "2012-12",
+        current: false,
+        description:
+          "Fornito report, analisi ad-hoc, budget operativi annuali e previsioni di ricavo\nAnalizzato contratti con fornitori e consigliato nelle negoziazioni riducendo i budget del 6%\nCreato report settimanali sulle finanze del personale e presentato i risultati alla direzione",
+      },
+      {
+        id: generateId(),
+        company: "PricewaterhouseCoopers",
+        title: "Analista Finanziario Junior",
+        location: "Milano, Italia",
+        startDate: "2006-11",
+        endDate: "2008-01",
+        current: false,
+        description:
+          "Assistito analisti senior nella preparazione di report finanziari trimestrali e analisi delle varianze\nRiconciliato conti e mantenuto registri accurati per la preparazione all'audit\nSupportato il processo di budgeting per 3 clienti aziendali di medie dimensioni",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Università di Roma La Sapienza",
+        degree: "Laurea Magistrale",
+        field: "Ingegneria Informatica",
+        startDate: "2004-09",
+        endDate: "2006-10",
+        highlights: "Laureato con lode",
+      },
+      {
+        id: generateId(),
+        school: "Università di Roma La Sapienza",
+        degree: "Laurea Triennale",
+        field: "Ingegneria Informatica",
+        startDate: "2000-09",
+        endDate: "2004-07",
+        highlights: "110/110 con lode",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Tecnico", skills: ["Strategie di Soluzione", "Pensiero Analitico", "Valutazione di Mercato", "Analisi dei Trend"] },
+      { id: generateId(), category: "Competenze Trasversali", skills: ["Leadership", "Collaborazione", "Vendita Orientata al Cliente", "Networking"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Dashboard Previsioni Trimestrali",
+        description: "Costruita una dashboard automatizzata di previsioni finanziarie in Power BI che ha consolidato dati da 5 dipartimenti, riducendo il tempo di generazione report da 3 giorni a 2 ore.",
+        technologies: ["Power BI", "Excel VBA", "SQL Server"],
+        startDate: "2023-06",
+        endDate: "2023-12",
+      },
+    ],
+  },
+  balanced: {
+    fullName: "Giuseppe Marino",
+    headline: "Falegname",
+    summary:
+      "Falegname esperto e appassionato con oltre 10 anni di esperienza nell'edilizia residenziale e commerciale. Reputazione positiva per lavori di qualità, costruzione puntuale e completamento dei progetti nel budget previsto.",
+    contact: {
+      email: "giuseppe.marino@email.com",
+      phone: "+39 055 1234 567",
+      location: "Firenze, Italia",
+      linkedin: "linkedin.com/in/giuseppemarino",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Falegnameria Toscana S.r.l.",
+        title: "Falegname",
+        location: "Firenze, Italia",
+        startDate: "2011-03",
+        endDate: null,
+        current: true,
+        description:
+          "Fornito ai clienti un servizio eccellente collaborando per realizzare le esigenze costruttive\nRistrutturato 20 cucine, installando mobili su misura e impianti idraulici di alta gamma\nCostruito 10 terrazze e camminamenti esterni garantendo la conformità alle normative",
+      },
+      {
+        id: generateId(),
+        company: "Artigiani Fiorentini",
+        title: "Falegname",
+        location: "Firenze, Italia",
+        startDate: "2007-02",
+        endDate: "2011-02",
+        current: false,
+        description:
+          "Lavorato direttamente con i clienti per valutare esigenze e desideri prima di iniziare la costruzione\nCreato planimetrie dettagliate e budget finanziari per ogni progetto\nSpecializzato nella costruzione di strutture portanti",
+      },
+      {
+        id: generateId(),
+        company: "Costruzioni Pratesi",
+        title: "Apprendista Falegname",
+        location: "Prato, Italia",
+        startDate: "2005-06",
+        endDate: "2007-01",
+        current: false,
+        description:
+          "Assistito falegnami esperti nella carpenteria, coperture e finiture su progetti residenziali\nAppreso l'uso sicuro di utensili elettrici, seghe e chiodatrici\nContribuito a mantenere cantieri organizzati e puliti nel rispetto delle normative di sicurezza",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Istituto Professionale per l'Artigianato",
+        degree: "Diploma Professionale",
+        field: "Falegnameria",
+        startDate: "2003-09",
+        endDate: "2005-07",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "Ente Formazione Sicurezza",
+        degree: "Certificazione",
+        field: "Sicurezza sul Lavoro nei Cantieri",
+        startDate: "2008-03",
+        endDate: "2008-04",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Tecnico", skills: ["Abilità Meccaniche", "Pensiero Critico", "Coordinazione Occhio-Mano", "Utensili Elettrici"] },
+      { id: generateId(), category: "Gestione", skills: ["Gestione del Tempo", "Supervisione", "Controllo Qualità"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Ristrutturazione Cucina Su Misura",
+        description: "Progettato e realizzato una ristrutturazione completa della cucina con mobili su misura, pavimenti in legno e modifiche strutturali. Completato nei tempi e con il 10% di risparmio sul budget.",
+        technologies: ["AutoCAD", "Falegnameria", "Preventivazione"],
+        startDate: "2023-03",
+        endDate: "2023-08",
+      },
+    ],
+  },
+  clear: {
+    fullName: "Elena Giordano",
+    headline: "Receptionist",
+    summary:
+      "Receptionist esperta e laboriosa con diversi anni di esperienza in ambienti con elevato volume di clienti. Esperienza nella creazione di programmi, gestione appuntamenti e servizio clienti ottimale.",
+    contact: {
+      email: "elena.g@email.com",
+      phone: "+39 02 5678 1234",
+      location: "Milano, Italia",
+      linkedin: "linkedin.com/in/elenagiordano",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Hotel Excelsior",
+        title: "Receptionist Front Desk",
+        location: "Milano, Italia",
+        startDate: "2014-10",
+        endDate: null,
+        current: true,
+        description:
+          "Accolto ospiti e gestito procedure di check-in/check-out per una struttura con oltre 200 camere\nGestito telefonate, distribuzione posta e pianificazione appuntamenti\nCoordinato con housekeeping e manutenzione per garantire la soddisfazione degli ospiti",
+      },
+      {
+        id: generateId(),
+        company: "Centro Benessere Stella",
+        title: "Receptionist",
+        location: "Roma, Italia",
+        startDate: "2010-06",
+        endDate: "2014-10",
+        current: false,
+        description:
+          "Risposto a telefonate, accolto clienti e gestito tutte le responsabilità del front desk\nGestito ordini, posta e alcune responsabilità contabili\nFornito ai clienti informazioni su servizi, tecnologia e prodotti offerti",
+      },
+      {
+        id: generateId(),
+        company: "Poliambulatorio San Marco",
+        title: "Impiegata Front Desk",
+        location: "Roma, Italia",
+        startDate: "2008-09",
+        endDate: "2010-05",
+        current: false,
+        description:
+          "Gestito le procedure di accettazione e dimissione pazienti per un ambulatorio molto frequentato\nPianificato appuntamenti e mantenuto registri pazienti accurati nel sistema informatico\nElaborato verifiche assicurative e copagamenti per oltre 80 pazienti al giorno",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Istituto Tecnico Commerciale",
+        degree: "Diploma",
+        field: "Comunicazione",
+        startDate: "2006-09",
+        endDate: "2008-07",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "Associazione Italiana Professionisti Amministrativi",
+        degree: "Certificazione",
+        field: "Professionista Amministrativo Certificato",
+        startDate: "2012-01",
+        endDate: "2012-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Competenze", skills: ["Comunicazione", "Multitasking", "Pianificazione", "Tecnologia d'Ufficio", "Contabilità"] },
+      { id: generateId(), category: "Lingue", skills: ["Italiano", "Inglese", "Francese", "Spagnolo"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Progetto di Digitalizzazione Ufficio",
+        description: "Guidato la transizione da sistemi di archiviazione cartacei a digitali in 3 dipartimenti, formando oltre 25 dipendenti e riducendo il tempo di ricerca documenti del 70%.",
+        technologies: ["Google Workspace", "DocuSign", "Notion"],
+        startDate: "2023-02",
+        endDate: "2023-06",
+      },
+    ],
+  },
+};
+
+const ZH_SAMPLE_DATA: Record<string, PartialSampleData> = {
+  modern: {
+    fullName: "王小明",
+    headline: "高级软件工程师",
+    summary:
+      "拥有6年以上构建可扩展Web应用经验的全栈工程师。专注于开发者体验、性能优化和整洁架构。",
+    contact: {
+      email: "wang.xiaoming@email.com",
+      phone: "+86 138 1234 5678",
+      location: "北京, 中国",
+      linkedin: "linkedin.com/in/wangxiaoming",
+      website: "wangxiaoming.dev",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "字节跳动",
+        title: "高级软件工程师",
+        location: "北京, 中国",
+        startDate: "2021-03",
+        endDate: null,
+        current: true,
+        description:
+          "主导支付仪表盘迁移至React 18，加载时间提升40%\n设计并交付被5万+商户使用的实时Webhook监控系统\n通过结构化代码评审和结对编程指导4名初级工程师",
+      },
+      {
+        id: generateId(),
+        company: "阿里巴巴",
+        title: "软件工程师",
+        location: "杭州, 中国",
+        startDate: "2018-06",
+        endDate: "2021-02",
+        current: false,
+        description:
+          "构建部署流水线优化，将构建时间缩短30%\n贡献了被50万+开发者使用的开源工具\n实施边缘缓存策略，将API延迟降低60%",
+      },
+      {
+        id: generateId(),
+        company: "美团",
+        title: "初级软件工程师",
+        location: "北京, 中国",
+        startDate: "2017-05",
+        endDate: "2018-05",
+        current: false,
+        description:
+          "使用Python和Bash开发CI/CD流水线内部工具\n使用Node.js和Express构建服务1万+日请求的RESTful API\n参与值班轮岗并在SLA时间内解决生产事故",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "北京大学",
+        degree: "学士",
+        field: "计算机科学",
+        startDate: "2014-09",
+        endDate: "2018-07",
+        gpa: "3.9",
+        highlights: "院长奖学金，数据结构课程助教",
+      },
+      {
+        id: generateId(),
+        school: "AWS",
+        degree: "认证",
+        field: "AWS Solutions Architect Associate",
+        startDate: "2020-01",
+        endDate: "2020-03",
+        highlights: "得分 920/1000",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "编程语言", skills: ["TypeScript", "Python", "Go", "SQL"] },
+      { id: generateId(), category: "框架", skills: ["React", "Next.js", "Node.js", "FastAPI"] },
+      { id: generateId(), category: "工具", skills: ["PostgreSQL", "Redis", "Docker", "AWS", "GitHub Actions"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "开源CLI工具",
+        description: "构建了一个用于搭建Next.js项目的开发者CLI工具，预配置CI/CD、代码检查和测试。GitHub 1.2K+ 星标。",
+        url: "github.com/wangxiaoming/create-next-stack",
+        technologies: ["TypeScript", "Node.js", "GitHub Actions"],
+        startDate: "2022-01",
+        endDate: "2022-06",
+      },
+    ],
+  },
+  classic: {
+    fullName: "李芳",
+    headline: "商业分析师",
+    summary:
+      "数据驱动的商业分析师，拥有5年将复杂数据集转化为可执行策略的经验。擅长利益相关者管理和跨部门协作。",
+    contact: {
+      email: "li.fang@email.com",
+      phone: "+86 139 8765 4321",
+      location: "上海, 中国",
+      linkedin: "linkedin.com/in/lifang",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "中金公司",
+        title: "高级商业分析师",
+        location: "上海, 中国",
+        startDate: "2020-09",
+        endDate: null,
+        current: true,
+        description:
+          "开发支持20亿+元投资决策的财务模型\n主导新客户报告平台的需求收集，服务200+顾问\n通过流程自动化将季度报告周期缩短35%",
+      },
+      {
+        id: generateId(),
+        company: "德勤中国",
+        title: "初级分析师",
+        location: "上海, 中国",
+        startDate: "2018-07",
+        endDate: "2020-08",
+        current: false,
+        description:
+          "为3个行业的世界500强客户进行市场分析\n创建被15+咨询团队采用的Tableau数据看板\n支持总额5亿元的并购交易尽职调查",
+      },
+      {
+        id: generateId(),
+        company: "埃森哲",
+        title: "分析师实习生",
+        location: "北京, 中国",
+        startDate: "2017-06",
+        endDate: "2018-06",
+        current: false,
+        description:
+          "协助高级顾问为零售行业客户进行数据收集和分析\n在Excel中构建财务模型预测季度收入趋势\n在每周状态会议中向客户利益相关者汇报研究成果",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "复旦大学",
+        degree: "学士",
+        field: "金融与数据科学",
+        startDate: "2014-09",
+        endDate: "2018-07",
+        gpa: "3.8",
+        highlights: "优秀毕业生，金融社团社长",
+      },
+      {
+        id: generateId(),
+        school: "CFA协会",
+        degree: "认证",
+        field: "CFA一级",
+        startDate: "2019-01",
+        endDate: "2019-06",
+        highlights: "一次通过",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "分析", skills: ["财务建模", "SQL", "Python", "Excel"] },
+      { id: generateId(), category: "工具", skills: ["Tableau", "Power BI", "Jira", "Confluence"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "客户流失预测模型",
+        description: "开发了一个预测分析模型，以87%的准确率识别高风险客户，实施主动留存策略后客户流失率降低15%。",
+        technologies: ["Python", "Tableau", "SQL"],
+        startDate: "2022-03",
+        endDate: "2022-09",
+      },
+    ],
+  },
+  minimal: {
+    fullName: "陈悦",
+    headline: "产品设计师",
+    summary:
+      "拥有4年以上经验的产品设计师，专注于打造直觉式数字体验。聚焦设计系统、无障碍设计和用户研究。",
+    contact: {
+      email: "chen.yue@designstudio.cn",
+      phone: "",
+      location: "深圳, 中国",
+      linkedin: "linkedin.com/in/chenyue",
+      website: "chenyue.design",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Figma",
+        title: "产品设计师",
+        location: "远程",
+        startDate: "2022-01",
+        endDate: null,
+        current: true,
+        description:
+          "设计了被8个产品团队使用的组件库\n主导协作功能的重新设计，日活跃使用量增加25%\n建立了全公司采用的无障碍设计指南",
+      },
+      {
+        id: generateId(),
+        company: "腾讯",
+        title: "UI/UX设计师",
+        location: "深圳, 中国",
+        startDate: "2019-06",
+        endDate: "2021-12",
+        current: false,
+        description:
+          "重新设计播放列表创建流程，减少跳出率18%\n进行40+次用户研究以验证设计决策\n构建并维护内部设计系统文档",
+      },
+      {
+        id: generateId(),
+        company: "设计工坊",
+        title: "初级设计师",
+        location: "深圳, 中国",
+        startDate: "2018-06",
+        endDate: "2019-05",
+        current: false,
+        description:
+          "为10+个客户项目创建视觉素材和UI原型\n协助首席设计师为初创公司构建品牌识别系统\n设计响应式落地页，客户转化率提升12%",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "清华大学美术学院",
+        degree: "学士",
+        field: "视觉传达设计",
+        startDate: "2015-09",
+        endDate: "2019-07",
+        highlights: "优秀毕业设计",
+      },
+      {
+        id: generateId(),
+        school: "Google",
+        degree: "认证",
+        field: "UX设计专业证书",
+        startDate: "2020-03",
+        endDate: "2020-08",
+        highlights: "以优异成绩完成",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "设计", skills: ["Figma", "Sketch", "Adobe CC", "原型设计"] },
+      { id: generateId(), category: "开发", skills: ["HTML/CSS", "React", "Tailwind CSS", "Storybook"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "DesignTokens.io",
+        description: "用于在Figma和代码之间生成和同步设计令牌的开源工具。GitHub 2K+ 星标。",
+        url: "github.com/chenyue/designtokens",
+        technologies: ["React", "TypeScript", "Figma Plugin API"],
+        startDate: "2023-03",
+        endDate: null,
+      },
+    ],
+  },
+  executive: {
+    fullName: "张丽华",
+    headline: "招聘主管",
+    summary:
+      "自我驱动、以结果为导向的招聘与人力资源专家，在提供全方位HR、招聘和人才管理指导方面拥有丰富经验。",
+    contact: {
+      email: "zhang.lihua@email.com",
+      phone: "+86 138 9876 5432",
+      location: "上海, 中国",
+      linkedin: "linkedin.com/in/zhanglihua",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "华为",
+        title: "招聘主管",
+        location: "深圳, 中国",
+        startDate: "2013-07",
+        endDate: null,
+        current: true,
+        description:
+          "负责8个办公地点的全流程招聘管理\n参加与关键客户的进度会议，监控绩效和成果\n通过战略性人才寻访将招聘成本降低22%",
+      },
+      {
+        id: generateId(),
+        company: "猎聘网",
+        title: "培训师与顾问",
+        location: "上海, 中国",
+        startDate: "2010-01",
+        endDate: "2013-07",
+        current: false,
+        description:
+          "监督在线招聘系统项目以达成战略目标\n管理客户档案，进行业务分析并建立关系\n为50+名初级招聘人员培训最佳实践和合规要求",
+      },
+      {
+        id: generateId(),
+        company: "任仕达中国",
+        title: "人力资源协调员",
+        location: "北京, 中国",
+        startDate: "2008-08",
+        endDate: "2009-12",
+        current: false,
+        description:
+          "协调每年100+名新员工的入职流程\n维护员工档案并确保劳动法规合规\n协助组织招聘会和校园招聘活动",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "中国人民大学",
+        degree: "硕士",
+        field: "人力资源战略管理",
+        startDate: "2005-09",
+        endDate: "2008-07",
+        highlights: "优秀毕业论文",
+      },
+      {
+        id: generateId(),
+        school: "SHRM",
+        degree: "认证",
+        field: "SHRM认证专业人员 (SHRM-CP)",
+        startDate: "2011-01",
+        endDate: "2011-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "人力资源", skills: ["招聘", "人力资源管理", "员工关系", "人才获取"] },
+      { id: generateId(), category: "语言", skills: ["中文", "英文", "日文"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "雇主品牌建设计划",
+        description: "主导全公司雇主品牌项目，改版招聘页面和社交媒体形象，6个月内合格申请量增加40%。",
+        technologies: ["LinkedIn Recruiter", "Greenhouse", "Canva"],
+        startDate: "2023-01",
+        endDate: "2023-07",
+      },
+    ],
+  },
+  bold: {
+    fullName: "赵伟强",
+    headline: "财务分析师",
+    summary:
+      "经验丰富的财务分析师，在管理数百万预算方面有出色背景，在产品开发部门提供分析和账户支持。",
+    contact: {
+      email: "zhao.weiqiang@email.com",
+      phone: "+86 139 4321 8765",
+      location: "北京, 中国",
+      linkedin: "linkedin.com/in/zhaoweiqiang",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "中信证券",
+        title: "财务分析师",
+        location: "北京, 中国",
+        startDate: "2012-01",
+        endDate: null,
+        current: true,
+        description:
+          "制定预算并确保人工和材料成本降低15%\n生成包括现金流图表和资产负债表在内的财务报表\n为管理团队创建分析和绩效报告",
+      },
+      {
+        id: generateId(),
+        company: "普华永道中国",
+        title: "财务分析师",
+        location: "上海, 中国",
+        startDate: "2008-02",
+        endDate: "2012-12",
+        current: false,
+        description:
+          "提供报告、临时分析、年度运营计划预算和收入预测\n分析供应商合同并在谈判中提供建议，将预算降低6%\n创建每周劳动力财务报告并向管理层展示结果",
+      },
+      {
+        id: generateId(),
+        company: "毕马威中国",
+        title: "初级财务分析师",
+        location: "广州, 中国",
+        startDate: "2006-11",
+        endDate: "2008-01",
+        current: false,
+        description:
+          "协助高级分析师准备季度财务报告和差异分析\n核对账目并维护准确记录以备审计\n为3家中型企业客户提供预算编制支持",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "上海交通大学",
+        degree: "硕士",
+        field: "计算机工程",
+        startDate: "2004-09",
+        endDate: "2006-07",
+        highlights: "优秀毕业生",
+      },
+      {
+        id: generateId(),
+        school: "上海交通大学",
+        degree: "学士",
+        field: "计算机工程",
+        startDate: "2000-09",
+        endDate: "2004-07",
+        highlights: "优秀毕业生",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "技术", skills: ["解决方案策略", "分析思维", "市场评估", "趋势分析"] },
+      { id: generateId(), category: "软技能", skills: ["团队领导", "协作能力", "以客户为中心的销售", "人脉拓展"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "季度预测仪表盘",
+        description: "在Power BI中构建了自动化财务预测仪表盘，整合5个部门的数据，将报告生成时间从3天缩短至2小时。",
+        technologies: ["Power BI", "Excel VBA", "SQL Server"],
+        startDate: "2023-06",
+        endDate: "2023-12",
+      },
+    ],
+  },
+  balanced: {
+    fullName: "刘建国",
+    headline: "木工师傅",
+    summary:
+      "技艺精湛、充满热情的木工师傅，拥有10年以上住宅和商业建筑经验。以高质量施工、准时交付和在预算内完成项目而享有良好声誉。",
+    contact: {
+      email: "liu.jianguo@email.com",
+      phone: "+86 135 1234 5678",
+      location: "苏州, 中国",
+      linkedin: "linkedin.com/in/liujianguo",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "苏州精工木业有限公司",
+        title: "高级木工师傅",
+        location: "苏州, 中国",
+        startDate: "2011-03",
+        endDate: null,
+        current: true,
+        description:
+          "为客户提供优质服务，协作完成各类施工需求\n翻新20间厨房，安装高端定制橱柜和管道设施\n建造10个户外露台和人行道，确保符合建筑规范",
+      },
+      {
+        id: generateId(),
+        company: "江南装饰工程",
+        title: "木工师傅",
+        location: "无锡, 中国",
+        startDate: "2007-02",
+        endDate: "2011-02",
+        current: false,
+        description:
+          "与客户一对一沟通，在开工前评估需求和期望\n为每个项目制定详细的图纸和财务预算\n专精于承重结构的施工",
+      },
+      {
+        id: generateId(),
+        company: "建业建设有限公司",
+        title: "学徒木工",
+        location: "苏州, 中国",
+        startDate: "2005-06",
+        endDate: "2007-01",
+        current: false,
+        description:
+          "协助熟练木工完成住宅项目的框架、屋顶和精装修工作\n学习安全操作电动工具、台锯和钉枪\n协助维护整洁有序的施工现场，符合安全标准",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "苏州技师学院",
+        degree: "职业证书",
+        field: "木工技术",
+        startDate: "2003-09",
+        endDate: "2005-07",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "建筑安全培训中心",
+        degree: "认证",
+        field: "建筑施工安全",
+        startDate: "2008-03",
+        endDate: "2008-04",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "技术", skills: ["机械技能", "批判性思维", "手眼协调", "电动工具"] },
+      { id: generateId(), category: "管理", skills: ["时间管理", "监督", "质量控制"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "定制厨房翻新",
+        description: "设计并完成了整体厨房翻新，包括定制橱柜、实木地板和结构改造。按时完工，节省10%预算。",
+        technologies: ["AutoCAD", "木工", "工程预算"],
+        startDate: "2023-03",
+        endDate: "2023-08",
+      },
+    ],
+  },
+  clear: {
+    fullName: "孙美玲",
+    headline: "前台接待",
+    summary:
+      "勤奋且经验丰富的前台接待，在高客流量环境中担任支持性和重要角色多年。擅长排班、预约管理和为客户提供最佳服务。",
+    contact: {
+      email: "sun.meiling@email.com",
+      phone: "+86 136 5678 1234",
+      location: "上海, 中国",
+      linkedin: "linkedin.com/in/sunmeiling",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "豪华酒店集团",
+        title: "前台接待",
+        location: "上海, 中国",
+        startDate: "2014-10",
+        endDate: null,
+        current: true,
+        description:
+          "接待宾客并管理200+间客房的入住/退房流程\n管理电话接听、邮件分发和预约安排\n与客房部和维护部门协调，确保宾客满意度",
+      },
+      {
+        id: generateId(),
+        company: "星光水疗中心",
+        title: "接待员",
+        location: "杭州, 中国",
+        startDate: "2010-06",
+        endDate: "2014-10",
+        current: false,
+        description:
+          "接听电话、迎接客人并处理所有前台事务\n处理订单、邮件及部分财务工作\n为客户提供服务、技术和产品信息",
+      },
+      {
+        id: generateId(),
+        company: "西湖医疗中心",
+        title: "前台文员",
+        location: "杭州, 中国",
+        startDate: "2008-09",
+        endDate: "2010-05",
+        current: false,
+        description:
+          "管理繁忙诊所的患者登记和结算流程\n排班预约并在电子病历系统中维护准确的患者记录\n每日为80+名患者办理医保验证和自付费用",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "上海商学院",
+        degree: "大专",
+        field: "传播学",
+        startDate: "2006-09",
+        endDate: "2008-07",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "中国行政管理协会",
+        degree: "认证",
+        field: "行政管理专业认证",
+        startDate: "2012-01",
+        endDate: "2012-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "技能", skills: ["沟通能力", "多任务处理", "排班管理", "办公技术", "记账"] },
+      { id: generateId(), category: "语言", skills: ["中文", "英文", "日文"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "办公室数字化项目",
+        description: "主导3个部门从纸质到数字化归档系统的转型，培训25+名员工，文件检索时间减少70%。",
+        technologies: ["Google Workspace", "DocuSign", "Notion"],
+        startDate: "2023-02",
+        endDate: "2023-06",
+      },
+    ],
+  },
+};
+
+const JA_SAMPLE_DATA: Record<string, PartialSampleData> = {
+  modern: {
+    fullName: "田中太郎",
+    headline: "シニアソフトウェアエンジニア",
+    summary:
+      "スケーラブルなWebアプリケーション構築に6年以上の経験を持つフルスタックエンジニア。開発者体験、パフォーマンス、クリーンアーキテクチャに情熱を注ぐ。",
+    contact: {
+      email: "tanaka.taro@email.com",
+      phone: "+81 90-1234-5678",
+      location: "東京都, 日本",
+      linkedin: "linkedin.com/in/tanakataro",
+      website: "tanakataro.dev",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "メルカリ",
+        title: "シニアソフトウェアエンジニア",
+        location: "東京都, 日本",
+        startDate: "2021-03",
+        endDate: null,
+        current: true,
+        description:
+          "決済ダッシュボードのReact 18への移行をリードし、読み込み時間を40%改善\n5万以上の加盟店が利用するリアルタイムWebhookモニタリングを設計・リリース\n構造化されたコードレビューとペアプログラミングを通じて4名のジュニアエンジニアを指導",
+      },
+      {
+        id: generateId(),
+        company: "LINE",
+        title: "ソフトウェアエンジニア",
+        location: "東京都, 日本",
+        startDate: "2018-06",
+        endDate: "2021-02",
+        current: false,
+        description:
+          "デプロイパイプラインの最適化を構築し、ビルド時間を30%短縮\n50万以上の開発者が利用するオープンソースツールに貢献\nエッジキャッシュ戦略を実装し、APIレイテンシーを60%削減",
+      },
+      {
+        id: generateId(),
+        company: "サイバーエージェント",
+        title: "ジュニアソフトウェアエンジニア",
+        location: "東京都, 日本",
+        startDate: "2017-04",
+        endDate: "2018-05",
+        current: false,
+        description:
+          "PythonとBashを使用したCI/CDパイプラインの内部ツールを開発\n1日1万以上のリクエストを処理するRESTful APIをNode.jsとExpressで構築\nオンコールローテーションに参加し、SLA内で本番障害を解決",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "東京大学",
+        degree: "学士",
+        field: "コンピュータサイエンス",
+        startDate: "2013-04",
+        endDate: "2017-03",
+        gpa: "3.9",
+        highlights: "学部長賞、データ構造ティーチングアシスタント",
+      },
+      {
+        id: generateId(),
+        school: "AWS",
+        degree: "認定資格",
+        field: "AWS ソリューションアーキテクト アソシエイト",
+        startDate: "2020-01",
+        endDate: "2020-03",
+        highlights: "スコア 920/1000",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "言語", skills: ["TypeScript", "Python", "Go", "SQL"] },
+      { id: generateId(), category: "フレームワーク", skills: ["React", "Next.js", "Node.js", "FastAPI"] },
+      { id: generateId(), category: "ツール", skills: ["PostgreSQL", "Redis", "Docker", "AWS", "GitHub Actions"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "オープンソースCLIツール",
+        description: "CI/CD、リンティング、テストが事前設定されたNext.jsプロジェクトのスキャフォールディング用CLIを構築。GitHub 1.2K以上のスター。",
+        url: "github.com/tanakataro/create-next-stack",
+        technologies: ["TypeScript", "Node.js", "GitHub Actions"],
+        startDate: "2022-01",
+        endDate: "2022-06",
+      },
+    ],
+  },
+  classic: {
+    fullName: "鈴木花子",
+    headline: "ビジネスアナリスト",
+    summary:
+      "データドリブンのビジネスアナリストとして5年の経験を持ち、複雑なデータセットを実行可能な戦略に変換。ステークホルダー管理と部門横断的な協力に長ける。",
+    contact: {
+      email: "suzuki.hanako@email.com",
+      phone: "+81 80-8765-4321",
+      location: "東京都, 日本",
+      linkedin: "linkedin.com/in/suzukihanako",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "野村證券",
+        title: "シニアビジネスアナリスト",
+        location: "東京都, 日本",
+        startDate: "2020-09",
+        endDate: null,
+        current: true,
+        description:
+          "2000億円以上の投資判断に関わる財務モデルを開発\n200名以上のアドバイザーが利用する新クライアントレポートプラットフォームの要件定義をリード\nプロセス自動化により四半期報告サイクルを35%短縮",
+      },
+      {
+        id: generateId(),
+        company: "デロイト トーマツ",
+        title: "ジュニアアナリスト",
+        location: "東京都, 日本",
+        startDate: "2018-07",
+        endDate: "2020-08",
+        current: false,
+        description:
+          "3業界のFortune 500企業クライアントの市場分析を実施\n15以上のコンサルティングチームに採用されたTableauダッシュボードを作成\n合計500億円のM&A取引のデューデリジェンスを支援",
+      },
+      {
+        id: generateId(),
+        company: "アクセンチュア",
+        title: "アナリストインターン",
+        location: "大阪府, 日本",
+        startDate: "2017-06",
+        endDate: "2018-03",
+        current: false,
+        description:
+          "小売業クライアントのデータ収集と分析でシニアコンサルタントを支援\nExcelで四半期収益トレンドを予測する財務モデルを構築\n週次ステータスミーティングでクライアントステークホルダーに調査結果を報告",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "慶應義塾大学",
+        degree: "学士",
+        field: "ファイナンス＆データサイエンス",
+        startDate: "2014-04",
+        endDate: "2018-03",
+        gpa: "3.8",
+        highlights: "優等賞、金融研究会会長",
+      },
+      {
+        id: generateId(),
+        school: "CFA協会",
+        degree: "認定資格",
+        field: "CFA レベルI",
+        startDate: "2019-01",
+        endDate: "2019-06",
+        highlights: "初回合格",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "分析", skills: ["財務モデリング", "SQL", "Python", "Excel"] },
+      { id: generateId(), category: "ツール", skills: ["Tableau", "Power BI", "Jira", "Confluence"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "顧客離反予測モデル",
+        description: "87%の精度でリスク顧客を特定する予測分析モデルを開発。プロアクティブなリテンション戦略により離反率を15%削減。",
+        technologies: ["Python", "Tableau", "SQL"],
+        startDate: "2022-03",
+        endDate: "2022-09",
+      },
+    ],
+  },
+  minimal: {
+    fullName: "佐藤美咲",
+    headline: "プロダクトデザイナー",
+    summary:
+      "4年以上の経験を持つプロダクトデザイナー。直感的なデジタルエクスペリエンスの構築に注力。デザインシステム、アクセシビリティ、ユーザーリサーチに強み。",
+    contact: {
+      email: "sato.misaki@designstudio.jp",
+      phone: "",
+      location: "東京都, 日本",
+      linkedin: "linkedin.com/in/satomisaki",
+      website: "satomisaki.design",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Figma",
+        title: "プロダクトデザイナー",
+        location: "リモート",
+        startDate: "2022-01",
+        endDate: null,
+        current: true,
+        description:
+          "8つのプロダクトチームで使用されるコンポーネントライブラリを設計\nコラボレーション機能のリデザインをリードし、デイリーアクティブユーザーを25%増加\n全社で採用されたアクセシビリティガイドラインを策定",
+      },
+      {
+        id: generateId(),
+        company: "楽天",
+        title: "UI/UXデザイナー",
+        location: "東京都, 日本",
+        startDate: "2019-06",
+        endDate: "2021-12",
+        current: false,
+        description:
+          "プレイリスト作成フローをリデザインし、離脱率を18%削減\n40回以上のユーザーリサーチセッションを実施しデザイン判断を検証\n社内デザインシステムのドキュメンテーションを構築・維持",
+      },
+      {
+        id: generateId(),
+        company: "クリエイティブスタジオ",
+        title: "ジュニアデザイナー",
+        location: "東京都, 日本",
+        startDate: "2018-04",
+        endDate: "2019-05",
+        current: false,
+        description:
+          "10以上のクライアントプロジェクトのビジュアルアセットとUIモックアップを作成\nリードデザイナーのスタートアップ向けブランドアイデンティティキット構築を支援\nクライアントのコンバージョンを12%向上させたレスポンシブランディングページを設計",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "武蔵野美術大学",
+        degree: "学士",
+        field: "グラフィックデザイン",
+        startDate: "2015-04",
+        endDate: "2019-03",
+        highlights: "学長賞",
+      },
+      {
+        id: generateId(),
+        school: "Google",
+        degree: "認定資格",
+        field: "UXデザインプロフェッショナル証明書",
+        startDate: "2020-03",
+        endDate: "2020-08",
+        highlights: "優秀修了",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "デザイン", skills: ["Figma", "Sketch", "Adobe CC", "プロトタイピング"] },
+      { id: generateId(), category: "開発", skills: ["HTML/CSS", "React", "Tailwind CSS", "Storybook"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "DesignTokens.io",
+        description: "FigmaとコードのデザイントークンをFigmaとコード間で生成・同期するオープンソースツール。GitHub 2K以上のスター。",
+        url: "github.com/satomisaki/designtokens",
+        technologies: ["React", "TypeScript", "Figma Plugin API"],
+        startDate: "2023-03",
+        endDate: null,
+      },
+    ],
+  },
+  executive: {
+    fullName: "渡辺直美",
+    headline: "採用責任者",
+    summary:
+      "自律的で成果志向の採用・人事スペシャリスト。HR、採用、タレントマネジメントの全領域にわたる豊富な経験を持つ。",
+    contact: {
+      email: "watanabe@email.com",
+      phone: "+81 90-9876-5432",
+      location: "東京都, 日本",
+      linkedin: "linkedin.com/in/watanabenaomi",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "リクルート",
+        title: "採用責任者",
+        location: "東京都, 日本",
+        startDate: "2013-07",
+        endDate: null,
+        current: true,
+        description:
+          "8拠点にわたる従業員の採用ライフサイクル全体を担当\n主要クライアントとの進捗会議に参加し、パフォーマンスと成果を監視\n戦略的ソーシングにより採用コストを22%削減",
+      },
+      {
+        id: generateId(),
+        company: "パーソルキャリア",
+        title: "トレーナー＆コンサルタント",
+        location: "大阪府, 日本",
+        startDate: "2010-01",
+        endDate: "2013-07",
+        current: false,
+        description:
+          "戦略目標を達成するオンライン採用システムプロジェクトを監督\nクライアントポートフォリオを管理し、ビジネス分析と関係構築を実施\n50名以上のジュニアリクルーターにベストプラクティスとコンプライアンスを研修",
+      },
+      {
+        id: generateId(),
+        company: "ランスタッド",
+        title: "HRコーディネーター",
+        location: "東京都, 日本",
+        startDate: "2008-04",
+        endDate: "2009-12",
+        current: false,
+        description:
+          "年間100名以上の新入社員のオンボーディングプロセスを調整\n従業員記録を維持し、労働規制へのコンプライアンスを確保\nキャリアフェアとキャンパスリクルーティングイベントの開催を支援",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "早稲田大学",
+        degree: "修士",
+        field: "人的資源戦略マネジメント",
+        startDate: "2005-04",
+        endDate: "2008-03",
+        highlights: "優秀修了",
+      },
+      {
+        id: generateId(),
+        school: "SHRM",
+        degree: "認定資格",
+        field: "SHRM認定プロフェッショナル（SHRM-CP）",
+        startDate: "2011-01",
+        endDate: "2011-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "人事", skills: ["採用", "人事管理", "従業員関係", "タレントアクイジション"] },
+      { id: generateId(), category: "言語", skills: ["日本語", "英語", "中国語"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "エンプロイヤーブランディング施策",
+        description: "全社的なエンプロイヤーブランディングプロジェクトをリードし、キャリアページとSNSプレゼンスを刷新。6ヶ月で応募数を40%増加。",
+        technologies: ["LinkedIn Recruiter", "Greenhouse", "Canva"],
+        startDate: "2023-01",
+        endDate: "2023-07",
+      },
+    ],
+  },
+  bold: {
+    fullName: "高橋健一",
+    headline: "ファイナンシャルアナリスト",
+    summary:
+      "数億円規模の予算管理の実績を持つ経験豊富なファイナンシャルアナリスト。製品開発部門での分析とアカウントサポートを提供。",
+    contact: {
+      email: "takahashi.kenichi@email.com",
+      phone: "+81 90-4321-8765",
+      location: "東京都, 日本",
+      linkedin: "linkedin.com/in/takahashikenichi",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "三菱UFJ証券",
+        title: "ファイナンシャルアナリスト",
+        location: "東京都, 日本",
+        startDate: "2012-01",
+        endDate: null,
+        current: true,
+        description:
+          "予算を策定し、人件費と材料費を15%削減\nキャッシュフロー表や貸借対照表を含む財務諸表を作成\n経営チーム向けの分析およびパフォーマンスレポートを作成",
+      },
+      {
+        id: generateId(),
+        company: "SMBC日興証券",
+        title: "ファイナンシャルアナリスト",
+        location: "大阪府, 日本",
+        startDate: "2008-02",
+        endDate: "2012-12",
+        current: false,
+        description:
+          "レポート、アドホック分析、年間事業計画予算、収益予測を提供\nサプライヤー契約を分析し、交渉でアドバイスを行い予算を6%削減\n週次の人件費レポートを作成し、経営陣に結果を報告",
+      },
+      {
+        id: generateId(),
+        company: "PwCジャパン",
+        title: "ジュニアファイナンシャルアナリスト",
+        location: "東京都, 日本",
+        startDate: "2006-11",
+        endDate: "2008-01",
+        current: false,
+        description:
+          "シニアアナリストの四半期財務レポートと差異分析の準備を支援\n勘定の照合と監査準備のための正確な記録を維持\n3社の中規模企業クライアントの予算策定プロセスをサポート",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "東京工業大学",
+        degree: "修士",
+        field: "コンピュータ工学",
+        startDate: "2004-04",
+        endDate: "2006-03",
+        highlights: "優秀修了",
+      },
+      {
+        id: generateId(),
+        school: "東京工業大学",
+        degree: "学士",
+        field: "コンピュータ工学",
+        startDate: "2000-04",
+        endDate: "2004-03",
+        highlights: "優秀修了",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "テクニカル", skills: ["ソリューション戦略", "分析的思考", "市場評価", "トレンド分析"] },
+      { id: generateId(), category: "ソフトスキル", skills: ["チームリーダーシップ", "コラボレーション", "顧客志向セールス", "ネットワーキング"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "四半期予測ダッシュボード",
+        description: "5部門のデータを統合した自動財務予測ダッシュボードをPower BIで構築。レポート生成時間を3日から2時間に短縮。",
+        technologies: ["Power BI", "Excel VBA", "SQL Server"],
+        startDate: "2023-06",
+        endDate: "2023-12",
+      },
+    ],
+  },
+  balanced: {
+    fullName: "山本大工",
+    headline: "大工",
+    summary:
+      "住宅・商業建築で10年以上の経験を持つ熟練の大工。品質の高い仕事、納期厳守、予算内でのプロジェクト完了で高い評価を得ている。",
+    contact: {
+      email: "yamamoto.daiku@email.com",
+      phone: "+81 90-1234-5678",
+      location: "横浜市, 日本",
+      linkedin: "linkedin.com/in/yamamotodaiku",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "横浜建築工房",
+        title: "大工棟梁",
+        location: "横浜市, 日本",
+        startDate: "2011-03",
+        endDate: null,
+        current: true,
+        description:
+          "お客様に最高のサービスを提供し、建築ニーズの実現に協力\n20件のキッチンをリノベーションし、高級キャビネットと設備を設置\n10件の外構デッキと歩道を建設し、建築基準に適合",
+      },
+      {
+        id: generateId(),
+        company: "鎌倉木工所",
+        title: "大工",
+        location: "鎌倉市, 日本",
+        startDate: "2007-02",
+        endDate: "2011-02",
+        current: false,
+        description:
+          "お客様と直接やり取りし、着工前にニーズと要望を確認\n各プロジェクトの詳細な設計図と予算書を作成\n構造支持の建設を専門とする",
+      },
+      {
+        id: generateId(),
+        company: "藤沢建設",
+        title: "見習い大工",
+        location: "藤沢市, 日本",
+        startDate: "2005-04",
+        endDate: "2007-01",
+        current: false,
+        description:
+          "熟練大工の住宅プロジェクトにおけるフレーミング、屋根、仕上げ作業を支援\n電動工具、テーブルソー、釘打ち機の安全な操作を習得\n安全基準に準拠した整理整頓された現場の維持に貢献",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "神奈川県立職業訓練校",
+        degree: "職業訓練修了証",
+        field: "建築大工",
+        startDate: "2003-04",
+        endDate: "2005-03",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "建設業労働災害防止協会",
+        degree: "資格",
+        field: "建設業安全衛生責任者",
+        startDate: "2008-03",
+        endDate: "2008-04",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "技術", skills: ["機械スキル", "クリティカルシンキング", "手先の器用さ", "電動工具"] },
+      { id: generateId(), category: "マネジメント", skills: ["時間管理", "監督", "品質管理"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "カスタムキッチンリノベーション",
+        description: "カスタムキャビネット、無垢材フローリング、構造変更を含むフルキッチンリノベーションを設計・施工。納期通りに完了し、予算を10%削減。",
+        technologies: ["AutoCAD", "木工", "見積り"],
+        startDate: "2023-03",
+        endDate: "2023-08",
+      },
+    ],
+  },
+  clear: {
+    fullName: "伊藤真理",
+    headline: "受付",
+    summary:
+      "多忙な環境での受付経験を複数年持つ、勤勉で経験豊富な受付スタッフ。スケジュール管理、予約対応、最適なカスタマーサービスの提供に長ける。",
+    contact: {
+      email: "ito.mari@email.com",
+      phone: "+81 80-5678-1234",
+      location: "東京都, 日本",
+      linkedin: "linkedin.com/in/itomari",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "グランドホテル東京",
+        title: "フロントデスク受付",
+        location: "東京都, 日本",
+        startDate: "2014-10",
+        endDate: null,
+        current: true,
+        description:
+          "ゲストをお迎えし、200室以上の施設のチェックイン・チェックアウト手続きを管理\n電話対応、郵便物配布、予約スケジュール管理を担当\nハウスキーピングとメンテナンス部門と連携し、ゲストの満足度を確保",
+      },
+      {
+        id: generateId(),
+        company: "リラクゼーションスパ星",
+        title: "受付",
+        location: "横浜市, 日本",
+        startDate: "2010-06",
+        endDate: "2014-10",
+        current: false,
+        description:
+          "電話対応、お客様のお出迎え、フロントデスク業務全般を担当\n注文処理、郵便物管理、一部経理業務を担当\nお客様にサービス、技術、製品についての情報を提供",
+      },
+      {
+        id: generateId(),
+        company: "西東京メディカルセンター",
+        title: "フロントデスク事務",
+        location: "東京都, 日本",
+        startDate: "2008-04",
+        endDate: "2010-05",
+        current: false,
+        description:
+          "多忙な診療所の患者受付・会計手続きを管理\n予約管理と電子カルテシステムでの正確な患者記録の維持\n1日80名以上の患者の保険確認と自己負担金の処理",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "東京商科専門学校",
+        degree: "準学士",
+        field: "コミュニケーション",
+        startDate: "2006-04",
+        endDate: "2008-03",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "日本秘書協会",
+        degree: "資格",
+        field: "秘書検定1級",
+        startDate: "2012-01",
+        endDate: "2012-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "スキル", skills: ["コミュニケーション", "マルチタスク", "スケジューリング", "オフィステクノロジー", "簿記"] },
+      { id: generateId(), category: "言語", skills: ["日本語", "英語", "中国語"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "オフィスデジタル化プロジェクト",
+        description: "3部門の紙ベースからデジタルファイリングシステムへの移行をリード。25名以上のスタッフを研修し、書類検索時間を70%削減。",
+        technologies: ["Google Workspace", "DocuSign", "Notion"],
+        startDate: "2023-02",
+        endDate: "2023-06",
+      },
+    ],
+  },
+};
+
+const DE_SAMPLE_DATA: Record<string, PartialSampleData> = {
+  modern: {
+    fullName: "Maximilian Müller",
+    headline: "Senior Software-Ingenieur",
+    summary:
+      "Full-Stack-Ingenieur mit über 6 Jahren Erfahrung in der Entwicklung skalierbarer Webanwendungen. Leidenschaftlich für Entwicklererfahrung, Performance und saubere Architektur.",
+    contact: {
+      email: "max.mueller@email.de",
+      phone: "+49 30 1234 5678",
+      location: "Berlin, Deutschland",
+      linkedin: "linkedin.com/in/maxmueller",
+      website: "maxmueller.dev",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "SAP",
+        title: "Senior Software-Ingenieur",
+        location: "Berlin, Deutschland",
+        startDate: "2021-03",
+        endDate: null,
+        current: true,
+        description:
+          "Migration des Zahlungs-Dashboards auf React 18 geleitet, Ladezeiten um 40% verbessert\nEchtzeit-Webhook-Monitoring entwickelt und ausgeliefert, genutzt von über 50.000 Händlern\n4 Junior-Ingenieure durch strukturierte Code-Reviews und Pair-Programming-Sitzungen betreut",
+      },
+      {
+        id: generateId(),
+        company: "Zalando",
+        title: "Software-Ingenieur",
+        location: "Berlin, Deutschland",
+        startDate: "2018-06",
+        endDate: "2021-02",
+        current: false,
+        description:
+          "Deployment-Pipeline-Optimierungen gebaut, Build-Zeiten um 30% reduziert\nZu Open-Source-Tools beigetragen, die von über 500.000 Entwicklern genutzt werden\nEdge-Caching-Strategie implementiert, die API-Latenz um 60% reduzierte",
+      },
+      {
+        id: generateId(),
+        company: "Rocket Internet",
+        title: "Junior Software-Ingenieur",
+        location: "Berlin, Deutschland",
+        startDate: "2017-05",
+        endDate: "2018-05",
+        current: false,
+        description:
+          "Interne Tools für CI/CD-Pipelines mit Python und Bash entwickelt\nRESTful APIs mit Node.js und Express gebaut, die über 10.000 tägliche Anfragen bedienen\nAm Bereitschaftsdienst teilgenommen und Produktionsvorfälle innerhalb der SLA gelöst",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Technische Universität München",
+        degree: "B.Sc.",
+        field: "Informatik",
+        startDate: "2014-10",
+        endDate: "2018-07",
+        gpa: "1,3",
+        highlights: "Deutschlandstipendium, Tutor für Algorithmen und Datenstrukturen",
+      },
+      {
+        id: generateId(),
+        school: "AWS",
+        degree: "Zertifizierung",
+        field: "AWS Solutions Architect Associate",
+        startDate: "2020-01",
+        endDate: "2020-03",
+        highlights: "Punktzahl 920/1000",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Sprachen", skills: ["TypeScript", "Python", "Go", "SQL"] },
+      { id: generateId(), category: "Frameworks", skills: ["React", "Next.js", "Node.js", "FastAPI"] },
+      { id: generateId(), category: "Tools", skills: ["PostgreSQL", "Redis", "Docker", "AWS", "GitHub Actions"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Open-Source CLI-Tool",
+        description: "Ein Entwickler-CLI zum Scaffolding von Next.js-Projekten mit vorkonfiguriertem CI/CD, Linting und Tests gebaut. 1,2K+ GitHub-Sterne.",
+        url: "github.com/maxmueller/create-next-stack",
+        technologies: ["TypeScript", "Node.js", "GitHub Actions"],
+        startDate: "2022-01",
+        endDate: "2022-06",
+      },
+    ],
+  },
+  classic: {
+    fullName: "Sophie Wagner",
+    headline: "Business-Analystin",
+    summary:
+      "Datengetriebene Business-Analystin mit 5 Jahren Erfahrung in der Übersetzung komplexer Datensätze in umsetzbare Strategien. Erfahren im Stakeholder-Management und in der bereichsübergreifenden Zusammenarbeit.",
+    contact: {
+      email: "sophie.wagner@email.de",
+      phone: "+49 40 8765 4321",
+      location: "Hamburg, Deutschland",
+      linkedin: "linkedin.com/in/sophiewagner",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Deutsche Bank",
+        title: "Senior Business-Analystin",
+        location: "Frankfurt, Deutschland",
+        startDate: "2020-09",
+        endDate: null,
+        current: true,
+        description:
+          "Finanzmodelle entwickelt, die Investitionsentscheidungen von über 2 Mrd. € informierten\nAnforderungserhebung für eine neue Kundenreporting-Plattform für über 200 Berater geleitet\nVierteljährlichen Reportingzyklus durch Prozessautomatisierung um 35% verkürzt",
+      },
+      {
+        id: generateId(),
+        company: "Deloitte Deutschland",
+        title: "Junior-Analystin",
+        location: "Hamburg, Deutschland",
+        startDate: "2018-07",
+        endDate: "2020-08",
+        current: false,
+        description:
+          "Marktanalysen für Fortune-500-Kunden in 3 Branchen durchgeführt\nTableau-Dashboards erstellt, die von über 15 Beratungsteams genutzt werden\nDue-Diligence bei M&A-Transaktionen im Gesamtwert von 500 Mio. € unterstützt",
+      },
+      {
+        id: generateId(),
+        company: "Accenture",
+        title: "Analystin-Praktikantin",
+        location: "München, Deutschland",
+        startDate: "2017-06",
+        endDate: "2018-06",
+        current: false,
+        description:
+          "Senior-Berater bei Datenerhebung und -analyse für Einzelhandelskunden unterstützt\nFinanzmodelle in Excel zur Prognose vierteljährlicher Umsatztrends erstellt\nErgebnisse in wöchentlichen Statusmeetings den Kunden-Stakeholdern präsentiert",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Universität Hamburg",
+        degree: "B.Sc.",
+        field: "Finanzwirtschaft & Data Science",
+        startDate: "2014-10",
+        endDate: "2018-07",
+        gpa: "1,5",
+        highlights: "Begabtenförderung, Vorsitzende des Finanz-Clubs",
+      },
+      {
+        id: generateId(),
+        school: "CFA Institute",
+        degree: "Zertifizierung",
+        field: "CFA Level I",
+        startDate: "2019-01",
+        endDate: "2019-06",
+        highlights: "Beim ersten Versuch bestanden",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Analyse", skills: ["Finanzmodellierung", "SQL", "Python", "Excel"] },
+      { id: generateId(), category: "Tools", skills: ["Tableau", "Power BI", "Jira", "Confluence"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Kundenabwanderungs-Vorhersagemodell",
+        description: "Ein prädiktives Analysemodell entwickelt, das Risikokunden mit 87% Genauigkeit identifizierte und proaktive Bindungsstrategien ermöglichte, die die Abwanderung um 15% reduzierten.",
+        technologies: ["Python", "Tableau", "SQL"],
+        startDate: "2022-03",
+        endDate: "2022-09",
+      },
+    ],
+  },
+  minimal: {
+    fullName: "Lena Fischer",
+    headline: "Produktdesignerin",
+    summary:
+      "Produktdesignerin mit über 4 Jahren Erfahrung in der Gestaltung intuitiver digitaler Erlebnisse. Fokussiert auf Design-Systeme, Barrierefreiheit und Nutzerforschung.",
+    contact: {
+      email: "lena@designstudio.de",
+      phone: "",
+      location: "München, Deutschland",
+      linkedin: "linkedin.com/in/lenafischer",
+      website: "lenafischer.design",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Figma",
+        title: "Produktdesignerin",
+        location: "Remote",
+        startDate: "2022-01",
+        endDate: null,
+        current: true,
+        description:
+          "Komponentenbibliothek entworfen, die von 8 Produktteams genutzt wird\nRedesign der Kollaborationsfunktionen geleitet, tägliche aktive Nutzung um 25% gesteigert\nBarrierefreiheitsrichtlinien etabliert, die unternehmensweit übernommen wurden",
+      },
+      {
+        id: generateId(),
+        company: "Spotify",
+        title: "UI/UX-Designerin",
+        location: "Berlin, Deutschland",
+        startDate: "2019-06",
+        endDate: "2021-12",
+        current: false,
+        description:
+          "Playlist-Erstellungsflow neu gestaltet, Abbruchrate um 18% reduziert\nÜber 40 Nutzerforschungssitzungen durchgeführt, um Designentscheidungen zu validieren\nInterne Design-System-Dokumentation aufgebaut und gepflegt",
+      },
+      {
+        id: generateId(),
+        company: "Kreativstudio",
+        title: "Junior-Designerin",
+        location: "München, Deutschland",
+        startDate: "2018-06",
+        endDate: "2019-05",
+        current: false,
+        description:
+          "Visuelle Assets und UI-Mockups für über 10 Kundenprojekte erstellt\nLead-Designerin beim Aufbau von Markenidentitätskits für Startups unterstützt\nResponsive Landingpages entworfen, die Kundenkonversionen um 12% steigerten",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Hochschule für Gestaltung Offenbach",
+        degree: "B.A.",
+        field: "Grafikdesign",
+        startDate: "2015-10",
+        endDate: "2019-07",
+        highlights: "Rektoratspreis",
+      },
+      {
+        id: generateId(),
+        school: "Google",
+        degree: "Zertifizierung",
+        field: "UX Design Professional Certificate",
+        startDate: "2020-03",
+        endDate: "2020-08",
+        highlights: "Mit Auszeichnung abgeschlossen",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Design", skills: ["Figma", "Sketch", "Adobe CC", "Prototyping"] },
+      { id: generateId(), category: "Entwicklung", skills: ["HTML/CSS", "React", "Tailwind CSS", "Storybook"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "DesignTokens.io",
+        description: "Open-Source-Tool zur Generierung und Synchronisierung von Design-Tokens zwischen Figma und Code. 2K+ GitHub-Sterne.",
+        url: "github.com/lenafischer/designtokens",
+        technologies: ["React", "TypeScript", "Figma Plugin API"],
+        startDate: "2023-03",
+        endDate: null,
+      },
+    ],
+  },
+  executive: {
+    fullName: "Charlotte Weber",
+    headline: "Personalreferentin",
+    summary:
+      "Eigeninitiative, ergebnisorientierte Recruiting- und HR-Spezialistin mit umfangreicher Erfahrung in der Bereitstellung von HR-, Recruiting- und Talent-Management-Beratung.",
+    contact: {
+      email: "charlotte.weber@email.de",
+      phone: "+49 89 9876 5432",
+      location: "München, Deutschland",
+      linkedin: "linkedin.com/in/charlotteweber",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Siemens",
+        title: "Personalreferentin",
+        location: "München, Deutschland",
+        startDate: "2013-07",
+        endDate: null,
+        current: true,
+        description:
+          "Verantwortlich für den gesamten Recruiting-Lebenszyklus über 8 Standorte\nAn Fortschrittsmeeting mit Schlüsselkunden teilgenommen, Performance und Ergebnisse überwacht\nKosten pro Einstellung durch strategische Sourcing-Initiativen um 22% gesenkt",
+      },
+      {
+        id: generateId(),
+        company: "Hays Deutschland",
+        title: "Trainerin & Beraterin",
+        location: "Frankfurt, Deutschland",
+        startDate: "2010-01",
+        endDate: "2013-07",
+        current: false,
+        description:
+          "Online-Recruiting-System-Projekte beaufsichtigt und strategische Ziele erreicht\nKundenportfolios verwaltet, Geschäftsanalysen durchgeführt und Beziehungen aufgebaut\nÜber 50 Junior-Recruiter in Best Practices und Compliance geschult",
+      },
+      {
+        id: generateId(),
+        company: "Randstad Deutschland",
+        title: "HR-Koordinatorin",
+        location: "Düsseldorf, Deutschland",
+        startDate: "2008-08",
+        endDate: "2009-12",
+        current: false,
+        description:
+          "Onboarding-Prozesse für über 100 Neueinstellungen jährlich koordiniert\nMitarbeiterakten gepflegt und Einhaltung der Arbeitsgesetze sichergestellt\nBei der Organisation von Karrieremessen und Campus-Recruiting-Veranstaltungen mitgewirkt",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Ludwig-Maximilians-Universität München",
+        degree: "M.Sc.",
+        field: "Strategisches Personalmanagement",
+        startDate: "2005-10",
+        endDate: "2008-07",
+        highlights: "Mit Auszeichnung abgeschlossen",
+      },
+      {
+        id: generateId(),
+        school: "SHRM",
+        degree: "Zertifizierung",
+        field: "SHRM Certified Professional (SHRM-CP)",
+        startDate: "2011-01",
+        endDate: "2011-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "HR", skills: ["Recruiting", "Personalmanagement", "Mitarbeiterbeziehungen", "Talentakquise"] },
+      { id: generateId(), category: "Sprachen", skills: ["Deutsch", "Englisch", "Französisch", "Spanisch"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Employer-Branding-Initiative",
+        description: "Unternehmensweites Employer-Branding-Projekt geleitet, das Karriereseiten und Social-Media-Präsenz erneuerte und qualifizierte Bewerbungen innerhalb von 6 Monaten um 40% steigerte.",
+        technologies: ["LinkedIn Recruiter", "Greenhouse", "Canva"],
+        startDate: "2023-01",
+        endDate: "2023-07",
+      },
+    ],
+  },
+  bold: {
+    fullName: "Thomas Schneider",
+    headline: "Finanzanalyst",
+    summary:
+      "Erfahrener und zielstrebiger Finanzanalyst mit beeindruckendem Hintergrund in der Verwaltung von Multimillionen-Budgets bei gleichzeitiger Bereitstellung von Analysen und Kontenunterstützung.",
+    contact: {
+      email: "thomas.schneider@email.de",
+      phone: "+49 211 4321 8765",
+      location: "Frankfurt, Deutschland",
+      linkedin: "linkedin.com/in/thomasschneider",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Allianz",
+        title: "Finanzanalyst",
+        location: "Frankfurt, Deutschland",
+        startDate: "2012-01",
+        endDate: null,
+        current: true,
+        description:
+          "Budgets erstellt und Arbeits- sowie Materialkosten um 15% gesenkt\nFinanzberichte einschließlich Cashflow-Diagrammen und Bilanzen erstellt\nAnalyse- und Leistungsberichte für Managementteams erstellt",
+      },
+      {
+        id: generateId(),
+        company: "Commerzbank",
+        title: "Finanzanalyst",
+        location: "Düsseldorf, Deutschland",
+        startDate: "2008-02",
+        endDate: "2012-12",
+        current: false,
+        description:
+          "Berichte, Ad-hoc-Analysen, jährliche Betriebsplanbudgets und Umsatzprognosen bereitgestellt\nLieferantenverträge analysiert und in Verhandlungen beraten, Budgets um 6% gesenkt\nWöchentliche Personalfinanzberichte erstellt und Ergebnisse dem Management präsentiert",
+      },
+      {
+        id: generateId(),
+        company: "PricewaterhouseCoopers",
+        title: "Junior-Finanzanalyst",
+        location: "München, Deutschland",
+        startDate: "2006-11",
+        endDate: "2008-01",
+        current: false,
+        description:
+          "Senior-Analysten bei der Erstellung vierteljährlicher Finanzberichte und Abweichungsanalysen unterstützt\nKonten abgestimmt und genaue Aufzeichnungen für die Prüfungsbereitschaft geführt\nBudgetierungsprozess für 3 mittelgroße Unternehmenskunden unterstützt",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Universität Frankfurt",
+        degree: "M.Sc.",
+        field: "Wirtschaftsinformatik",
+        startDate: "2004-10",
+        endDate: "2006-09",
+        highlights: "Mit Auszeichnung abgeschlossen",
+      },
+      {
+        id: generateId(),
+        school: "Universität Frankfurt",
+        degree: "B.Sc.",
+        field: "Wirtschaftsinformatik",
+        startDate: "2000-10",
+        endDate: "2004-09",
+        highlights: "Mit Auszeichnung abgeschlossen",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Technisch", skills: ["Lösungsstrategien", "Analytisches Denken", "Marktbewertung", "Trendanalyse"] },
+      { id: generateId(), category: "Soft Skills", skills: ["Teamführung", "Zusammenarbeit", "Kundenorientierter Vertrieb", "Networking"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Quartals-Prognose-Dashboard",
+        description: "Ein automatisiertes Finanzprognose-Dashboard in Power BI gebaut, das Daten aus 5 Abteilungen konsolidierte und die Berichtserstellungszeit von 3 Tagen auf 2 Stunden reduzierte.",
+        technologies: ["Power BI", "Excel VBA", "SQL Server"],
+        startDate: "2023-06",
+        endDate: "2023-12",
+      },
+    ],
+  },
+  balanced: {
+    fullName: "Stefan Hartmann",
+    headline: "Zimmermann",
+    summary:
+      "Erfahrener und leidenschaftlicher Zimmermann mit über 10 Jahren Erfahrung im Wohn- und Gewerbebau. Bekannt für Qualitätsarbeit, termingerechte Fertigstellung und Projekte im oder unter Budget.",
+    contact: {
+      email: "stefan.hartmann@email.de",
+      phone: "+49 89 1234 5678",
+      location: "München, Deutschland",
+      linkedin: "linkedin.com/in/stefanhartmann",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Hartmann Holzbau GmbH",
+        title: "Zimmermeister",
+        location: "München, Deutschland",
+        startDate: "2011-03",
+        endDate: null,
+        current: true,
+        description:
+          "Kunden exzellenten Service geboten und kollaborativ an Bauanforderungen gearbeitet\n20 Küchen renoviert, hochwertige Einbauküchen und Sanitäranlagen installiert\n10 Außenterrassen und Gehwege gebaut, Einhaltung aller Bauvorschriften sichergestellt",
+      },
+      {
+        id: generateId(),
+        company: "Bayerische Schreinerei",
+        title: "Zimmermann",
+        location: "Rosenheim, Deutschland",
+        startDate: "2007-02",
+        endDate: "2011-02",
+        current: false,
+        description:
+          "Direkt mit Kunden zusammengearbeitet, Bedürfnisse und Wünsche vor Baubeginn ermittelt\nDetailpläne und Finanzbudgets für jedes Projekt erstellt\nSpezialisiert auf den Bau von Tragwerken",
+      },
+      {
+        id: generateId(),
+        company: "Münchner Bau GmbH",
+        title: "Zimmermanns-Lehrling",
+        location: "München, Deutschland",
+        startDate: "2005-08",
+        endDate: "2007-01",
+        current: false,
+        description:
+          "Erfahrene Zimmerleute bei Rohbau, Dacharbeiten und Innenausbau von Wohnprojekten unterstützt\nSicheren Umgang mit Elektrowerkzeugen, Tischsägen und Nagelgeräten erlernt\nBei der Aufrechterhaltung organisierter und sauberer Baustellen gemäß Arbeitssicherheitsstandards geholfen",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Handwerkskammer München",
+        degree: "Gesellenbrief",
+        field: "Zimmerei",
+        startDate: "2003-09",
+        endDate: "2005-07",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "BG BAU",
+        degree: "Zertifizierung",
+        field: "Arbeitssicherheit im Bauwesen",
+        startDate: "2008-03",
+        endDate: "2008-04",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Technisch", skills: ["Handwerkliche Fähigkeiten", "Kritisches Denken", "Hand-Auge-Koordination", "Elektrowerkzeuge"] },
+      { id: generateId(), category: "Management", skills: ["Zeitmanagement", "Aufsicht", "Qualitätskontrolle"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Maßgeschneiderte Küchenrenovierung",
+        description: "Vollständige Küchenrenovierung mit Einbauküche, Massivholzboden und Strukturänderungen entworfen und gebaut. Termingerecht fertiggestellt und 10% unter Budget geblieben.",
+        technologies: ["AutoCAD", "Holzbearbeitung", "Kostenschätzung"],
+        startDate: "2023-03",
+        endDate: "2023-08",
+      },
+    ],
+  },
+  clear: {
+    fullName: "Anna Becker",
+    headline: "Empfangsmitarbeiterin",
+    summary:
+      "Fleißige und erfahrene Empfangsmitarbeiterin mit mehrjähriger Erfahrung in Umgebungen mit hohem Kundenaufkommen. Erfahren in Terminplanung, Terminvergabe und optimaler Kundenbetreuung.",
+    contact: {
+      email: "anna.becker@email.de",
+      phone: "+49 30 5678 1234",
+      location: "Berlin, Deutschland",
+      linkedin: "linkedin.com/in/annabecker",
+      website: "",
+    },
+    experience: [
+      {
+        id: generateId(),
+        company: "Grand Hotel Berlin",
+        title: "Empfangsmitarbeiterin",
+        location: "Berlin, Deutschland",
+        startDate: "2014-10",
+        endDate: null,
+        current: true,
+        description:
+          "Gäste begrüßt und Ein-/Auscheckvorgänge für ein Haus mit über 200 Zimmern verwaltet\nTelefonate, Postverteilung und Terminplanung verwaltet\nMit Housekeeping und Wartung koordiniert, um Gästezufriedenheit sicherzustellen",
+      },
+      {
+        id: generateId(),
+        company: "Wellness-Spa Stern",
+        title: "Empfangsmitarbeiterin",
+        location: "Hamburg, Deutschland",
+        startDate: "2010-06",
+        endDate: "2014-10",
+        current: false,
+        description:
+          "Telefonate beantwortet, Kunden begrüßt und alle Empfangsaufgaben übernommen\nBestellungen, Post und einige Buchhaltungsaufgaben erledigt\nKunden über Dienstleistungen, Technologie und angebotene Produkte informiert",
+      },
+      {
+        id: generateId(),
+        company: "Medizinisches Zentrum West",
+        title: "Empfangskraft",
+        location: "Hamburg, Deutschland",
+        startDate: "2008-09",
+        endDate: "2010-05",
+        current: false,
+        description:
+          "Patientenanmeldung und -abmeldung in einer viel besuchten Arztpraxis verwaltet\nTermine geplant und genaue Patientenakten im elektronischen System gepflegt\nVersicherungsprüfungen und Zuzahlungen für über 80 Patienten täglich verarbeitet",
+      },
+    ],
+    education: [
+      {
+        id: generateId(),
+        school: "Berufsfachschule Hamburg",
+        degree: "Berufsabschluss",
+        field: "Kommunikation",
+        startDate: "2006-09",
+        endDate: "2008-07",
+        highlights: "",
+      },
+      {
+        id: generateId(),
+        school: "IHK",
+        degree: "Zertifizierung",
+        field: "Geprüfte Bürofachkraft",
+        startDate: "2012-01",
+        endDate: "2012-06",
+        highlights: "",
+      },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "Fähigkeiten", skills: ["Kommunikation", "Multitasking", "Terminplanung", "Bürotechnik", "Buchhaltung"] },
+      { id: generateId(), category: "Sprachen", skills: ["Deutsch", "Englisch", "Französisch", "Spanisch"] },
+    ],
+    projects: [
+      {
+        id: generateId(),
+        name: "Büro-Digitalisierungsprojekt",
+        description: "Umstellung von papierbasierten auf digitale Ablagesysteme in 3 Abteilungen geleitet, über 25 Mitarbeiter geschult und Dokumentenabrufzeit um 70% reduziert.",
+        technologies: ["Google Workspace", "DocuSign", "Notion"],
+        startDate: "2023-02",
+        endDate: "2023-06",
+      },
+    ],
+  },
+};
+
 /**
  * Returns localized sample data for a template.
  * Falls back to the template's default English data if no localization exists.
@@ -1177,7 +3505,16 @@ export function getLocalizedSampleData(
   const tmpl = TEMPLATES.find((t) => t.id === templateId);
   if (!tmpl?.sampleData) return undefined;
 
-  if (locale === "pt-BR") return PT_BR_SAMPLE_DATA[templateId] ?? tmpl.sampleData;
-  if (locale === "es") return ES_SAMPLE_DATA[templateId] ?? tmpl.sampleData;
+  const localeMap: Record<string, Record<string, PartialSampleData>> = {
+    "pt-BR": PT_BR_SAMPLE_DATA,
+    es: ES_SAMPLE_DATA,
+    it: IT_SAMPLE_DATA,
+    zh: ZH_SAMPLE_DATA,
+    ja: JA_SAMPLE_DATA,
+    de: DE_SAMPLE_DATA,
+  };
+
+  const data = localeMap[locale];
+  if (data) return data[templateId] ?? tmpl.sampleData;
   return tmpl.sampleData;
 }

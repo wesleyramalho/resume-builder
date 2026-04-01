@@ -1,7 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { TEMPLATES } from "@/lib/resumeTemplates";
+import { getLocalizedSampleData } from "@/lib/localizedSampleData";
 import { createEmptyResumeData } from "@/lib/resumeDefaults";
 import type { ResumeData } from "@/types/resume";
 import ResumeThumbnail from "@/components/dashboard/ResumeThumbnail";
@@ -20,16 +21,18 @@ interface Props {
   hideBlank?: boolean;
 }
 
-function getSampleData(templateId: string): ResumeData {
+function getSampleData(templateId: string, locale: string): ResumeData {
   const tmpl = TEMPLATES.find((t) => t.id === templateId);
+  const localizedData = getLocalizedSampleData(templateId, locale);
   return {
     ...createEmptyResumeData(),
-    ...tmpl?.sampleData,
+    ...(localizedData ?? tmpl?.sampleData),
     photo: tmpl?.previewPhoto,
   } as ResumeData;
 }
 
 export default function TemplatePicker({ open, onOpenChange, onSelect, hideBlank }: Props) {
+  const locale = useLocale();
   const t = useTranslations("dashboard");
   const tt = useTranslations("templates");
 
@@ -68,7 +71,7 @@ export default function TemplatePicker({ open, onOpenChange, onSelect, hideBlank
             >
               <div className="mb-2">
                 <ResumeThumbnail
-                  data={getSampleData(tmpl.id)}
+                  data={getSampleData(tmpl.id, locale)}
                   templateId={tmpl.id}
                 />
               </div>
