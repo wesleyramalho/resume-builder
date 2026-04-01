@@ -370,9 +370,11 @@
     "s2claudeCode": "Claude Code",
     "s2claudeCodeDesc": "Run in your terminal:",
     "s3h": "Available Tools",
-    "s3intro": "The MCP server provides 3 tools that AI assistants can use:",
+    "s3intro": "The MCP server provides 5 tools that AI assistants can use:",
     "s3items": [
-      "generate_resume_pdf — Generate a complete resume PDF from structured data. Supports all templates and languages. Saves the PDF to your Downloads folder by default.",
+      "generate_resume_pdf — Generate a resume PDF from structured data. Supports all templates, languages, and custom section ordering. Saves to Downloads by default.",
+      "generate_resume_from_json — Power-user tool: pass a complete Resume JSON object with full control over template, sections, and ordering.",
+      "tailor_resume_for_job — Analyze a job description against your resume and get tailoring recommendations. Use before generating to optimize for a specific position.",
       "list_templates — List all 7 available resume templates with their styles and descriptions.",
       "list_locales — List all 7 supported languages for resume section headers."
     ],
@@ -380,9 +382,10 @@
     "s4": "Choose from 7 professionally designed templates: Modern, Classic, Minimal, Executive, Bold, Balanced, and Clear. Each template has a unique style with different accent colors, layouts, and photo placements.",
     "s5h": "Languages",
     "s5": "Resume section headers can be generated in 7 languages: English, Portuguese (BR), Spanish, Italian, Chinese, Japanese, and German.",
-    "s6h": "Example",
+    "s6h": "Examples",
     "s6intro": "Simply ask your AI assistant something like:",
     "s6example": "Generate a resume PDF for John Doe, a senior software engineer at Acme Corp since 2020, with skills in TypeScript and Python. Use the classic template in Portuguese.",
+    "s6example2": "Here's a job posting for a Staff Engineer at Stripe. Tailor my resume for this position and generate a PDF with the modern template.",
     "s7h": "npm Package",
     "s7": "The MCP server is published as @mypdfcv/mcp-server on npm. It uses @mypdfcv/pdf-core for PDF generation and @mypdfcv/i18n for translations. All packages are open source."
   }

@@ -370,9 +370,11 @@
     "s2claudeCode": "Claude Code",
     "s2claudeCodeDesc": "Führe in deinem Terminal aus:",
     "s3h": "Verfügbare Werkzeuge",
-    "s3intro": "Der MCP server stellt 3 Werkzeuge bereit, die KI-Assistenten nutzen können:",
+    "s3intro": "Der MCP server stellt 5 Werkzeuge bereit, die KI-Assistenten nutzen können:",
     "s3items": [
-      "generate_resume_pdf — Erstellt ein vollständiges Lebenslauf-PDF aus strukturierten Daten. Unterstützt alle Vorlagen und Sprachen. Speichert das PDF standardmäßig in deinem Downloads-Ordner.",
+      "generate_resume_pdf — Erstellt ein Lebenslauf-PDF aus strukturierten Daten. Unterstützt alle Vorlagen, Sprachen und benutzerdefinierte Abschnittsreihenfolge. Speichert standardmäßig im Downloads-Ordner.",
+      "generate_resume_from_json — Power-User-Werkzeug: Übergib ein vollständiges Lebenslauf-JSON-Objekt mit voller Kontrolle über Vorlage, Abschnitte und Reihenfolge.",
+      "tailor_resume_for_job — Analysiert eine Stellenbeschreibung anhand deines Lebenslaufs und gibt Anpassungsempfehlungen. Verwende es vor der Erstellung, um für eine bestimmte Position zu optimieren.",
       "list_templates — Listet alle 7 verfügbaren Lebenslauf-Vorlagen mit ihren Stilen und Beschreibungen auf.",
       "list_locales — Listet alle 7 unterstützten Sprachen für Lebenslauf-Abschnittsüberschriften auf."
     ],
@@ -380,9 +382,10 @@
     "s4": "Wähle aus 7 professionell gestalteten Vorlagen: Modern, Classic, Minimal, Executive, Bold, Balanced und Clear. Jede Vorlage hat einen einzigartigen Stil mit verschiedenen Akzentfarben, Layouts und Foto-Platzierungen.",
     "s5h": "Sprachen",
     "s5": "Lebenslauf-Abschnittsüberschriften können in 7 Sprachen generiert werden: Englisch, Portugiesisch (BR), Spanisch, Italienisch, Chinesisch, Japanisch und Deutsch.",
-    "s6h": "Beispiel",
+    "s6h": "Beispiele",
     "s6intro": "Bitte deinen KI-Assistenten einfach um etwas wie:",
     "s6example": "Erstelle ein Lebenslauf-PDF für Max Müller, Senior Software-Ingenieur bei Acme Corp seit 2020, mit Kenntnissen in TypeScript und Python. Verwende die classic Vorlage auf Deutsch.",
+    "s6example2": "Hier ist eine Stellenanzeige für einen Staff Engineer bei Stripe. Passe meinen Lebenslauf für diese Position an und erstelle ein PDF mit der modern Vorlage.",
     "s7h": "npm-Paket",
     "s7": "Der MCP server ist als @mypdfcv/mcp-server auf npm veröffentlicht. Er verwendet @mypdfcv/pdf-core für die PDF-Erstellung und @mypdfcv/i18n für Übersetzungen. Alle Pakete sind Open Source."
   }

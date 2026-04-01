@@ -370,9 +370,11 @@
     "s2claudeCode": "Claude Code",
     "s2claudeCodeDesc": "Ejecuta en tu terminal:",
     "s3h": "Herramientas Disponibles",
-    "s3intro": "El MCP server proporciona 3 herramientas que los asistentes de IA pueden usar:",
+    "s3intro": "El MCP server proporciona 5 herramientas que los asistentes de IA pueden usar:",
     "s3items": [
-      "generate_resume_pdf — Genera un PDF de currículum completo a partir de datos estructurados. Soporta todas las plantillas e idiomas. Guarda el PDF en tu carpeta de Descargas por defecto.",
+      "generate_resume_pdf — Genera un PDF de currículum a partir de datos estructurados. Soporta todas las plantillas, idiomas y orden personalizado de secciones. Guarda en la carpeta de Descargas por defecto.",
+      "generate_resume_from_json — Herramienta avanzada: envía un objeto JSON de currículum completo con control total sobre plantilla, secciones y orden.",
+      "tailor_resume_for_job — Analiza una descripción de puesto contra tu currículum y proporciona recomendaciones de personalización. Úsala antes de generar para optimizar para un puesto específico.",
       "list_templates — Lista las 7 plantillas de currículum disponibles con sus estilos y descripciones.",
       "list_locales — Lista los 7 idiomas soportados para los encabezados de sección del currículum."
     ],
@@ -380,9 +382,10 @@
     "s4": "Elige entre 7 plantillas diseñadas profesionalmente: Modern, Classic, Minimal, Executive, Bold, Balanced y Clear. Cada plantilla tiene un estilo único con diferentes colores de acento, diseños y posiciones de foto.",
     "s5h": "Idiomas",
     "s5": "Los encabezados de sección del currículum pueden generarse en 7 idiomas: inglés, portugués (BR), español, italiano, chino, japonés y alemán.",
-    "s6h": "Ejemplo",
+    "s6h": "Ejemplos",
     "s6intro": "Simplemente pide a tu asistente de IA algo como:",
     "s6example": "Genera un PDF de currículum para Juan García, ingeniero de software senior en Acme Corp desde 2020, con habilidades en TypeScript y Python. Usa la plantilla classic en español.",
+    "s6example2": "Aquí hay una oferta de empleo para Staff Engineer en Stripe. Personaliza mi currículum para este puesto y genera un PDF con la plantilla modern.",
     "s7h": "Paquete npm",
     "s7": "El MCP server se publica como @mypdfcv/mcp-server en npm. Usa @mypdfcv/pdf-core para la generación de PDF y @mypdfcv/i18n para las traducciones. Todos los paquetes son de código abierto."
   }

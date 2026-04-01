@@ -370,9 +370,11 @@
     "s2claudeCode": "Claude Code",
     "s2claudeCodeDesc": "ターミナルで実行：",
     "s3h": "利用可能なツール",
-    "s3intro": "MCP server は AI アシスタントが使用できる 3 つのツールを提供します：",
+    "s3intro": "MCP server は AI アシスタントが使用できる 5 つのツールを提供します：",
     "s3items": [
-      "generate_resume_pdf — 構造化データから完全な履歴書 PDF を生成します。すべてのテンプレートと言語に対応。デフォルトでダウンロードフォルダに PDF を保存します。",
+      "generate_resume_pdf — 構造化データから履歴書 PDF を生成します。すべてのテンプレート、言語、カスタムセクション順序に対応。デフォルトでダウンロードフォルダに保存します。",
+      "generate_resume_from_json — パワーユーザー向けツール：テンプレート、セクション、順序を完全に制御できる完全な履歴書 JSON オブジェクトを渡します。",
+      "tailor_resume_for_job — 求人情報を履歴書と照合して分析し、カスタマイズの提案を提供します。特定のポジションに最適化するため、生成前に使用してください。",
       "list_templates — 利用可能な 7 つの履歴書テンプレートとそのスタイル・説明を一覧表示します。",
       "list_locales — 履歴書セクション見出しに対応する 7 つの言語を一覧表示します。"
     ],
@@ -383,6 +385,7 @@
     "s6h": "使用例",
     "s6intro": "AI アシスタントに次のようにお願いするだけです：",
     "s6example": "山田太郎の履歴書 PDF を生成してください。2020 年から Acme Corp でシニアソフトウェアエンジニアとして勤務、TypeScript と Python のスキルがあります。classic テンプレートを日本語で使用してください。",
+    "s6example2": "こちらは Stripe の Staff Engineer の求人です。この職位に合わせて私の履歴書をカスタマイズし、modern テンプレートで PDF を生成してください。",
     "s7h": "npm パッケージ",
     "s7": "MCP server は @mypdfcv/mcp-server として npm に公開されています。PDF 生成に @mypdfcv/pdf-core を、翻訳に @mypdfcv/i18n を使用しています。すべてのパッケージはオープンソースです。"
   }

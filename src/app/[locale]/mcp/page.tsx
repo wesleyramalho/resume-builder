@@ -95,6 +95,9 @@ export default function McpPage() {
             <blockquote className="mt-2 border-l-2 border-foreground/20 pl-4 italic">
               &ldquo;{t("s6example")}&rdquo;
             </blockquote>
+            <blockquote className="mt-2 border-l-2 border-foreground/20 pl-4 italic">
+              &ldquo;{t("s6example2")}&rdquo;
+            </blockquote>
           </section>
 
           <section>
