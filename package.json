@@ -8,7 +8,7 @@
   "scripts": {
     "build:packages": "npm -w packages/i18n run build && npm -w packages/pdf run build",
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:packages && next build",
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test",
