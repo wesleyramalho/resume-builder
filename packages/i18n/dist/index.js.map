@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/config.ts"],"sourcesContent":["export const locales = [\"en\", \"pt-BR\", \"es\", \"it\", \"zh\", \"ja\", \"de\"] as const;\nexport type Locale = (typeof locales)[number];\nexport const defaultLocale: Locale = \"en\";\n"],"mappings":";AAAO,IAAM,UAAU,CAAC,MAAM,SAAS,MAAM,MAAM,MAAM,MAAM,IAAI;AAE5D,IAAM,gBAAwB;","names":[]}
