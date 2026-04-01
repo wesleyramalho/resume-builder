@@ -233,6 +233,7 @@
     "termsOfService": "服务条款",
     "cookiePolicy": "Cookie 政策",
     "contact": "联系我们",
+    "mcp": "MCP Server",
     "copyright": "MyPDFCV。保留所有权利。"
   },
   "notFound": {
@@ -354,5 +355,35 @@
     "s4": "你可以随时通过清除浏览器的 localStorage 来删除所有存储的数据。这将永久删除所有简历数据和偏好设置。在大多数浏览器中，这可以通过设置 > 隐私 > 清除浏览数据 > Cookie 和站点数据来完成。",
     "s5h": "5. 联系我们",
     "s5": "如对此政策有疑问，请访问 www.wesleyramalho.com/contact。"
+  },
+  "mcp": {
+    "title": "MCP Server",
+    "subtitle": "使用 Model Context Protocol 通过 AI 助手生成专业简历 PDF。",
+    "s1h": "什么是 MCP？",
+    "s1": "Model Context Protocol (MCP) 是一个开放标准，允许 Claude、Cursor 等 AI 助手使用外部工具。@mypdfcv/mcp-server 包让任何兼容 MCP 的 AI 助手都能生成专业简历 PDF — 无需浏览器。",
+    "s2h": "设置",
+    "s2intro": "将 MCP server 添加到你选择的 AI 助手中：",
+    "s2claudeDesktop": "Claude Desktop",
+    "s2claudeDesktopDesc": "添加到你的 claude_desktop_config.json：",
+    "s2cursor": "Cursor",
+    "s2cursorDesc": "添加到你的 MCP 设置中：",
+    "s2claudeCode": "Claude Code",
+    "s2claudeCodeDesc": "在终端中运行：",
+    "s3h": "可用工具",
+    "s3intro": "MCP server 提供 3 个 AI 助手可使用的工具：",
+    "s3items": [
+      "generate_resume_pdf — 从结构化数据生成完整的简历 PDF。支持所有模板和语言。默认将 PDF 保存到下载文件夹。",
+      "list_templates — 列出所有 7 个可用的简历模板及其样式和描述。",
+      "list_locales — 列出简历章节标题支持的所有 7 种语言。"
+    ],
+    "s4h": "模板",
+    "s4": "从 7 个专业设计的模板中选择：Modern、Classic、Minimal、Executive、Bold、Balanced 和 Clear。每个模板都有独特的风格，包含不同的强调色、布局和照片位置。",
+    "s5h": "语言",
+    "s5": "简历章节标题可以用 7 种语言生成：英语、葡萄牙语（巴西）、西班牙语、意大利语、中文、日语和德语。",
+    "s6h": "示例",
+    "s6intro": "只需向你的 AI 助手提出类似这样的请求：",
+    "s6example": "为张三生成一份简历 PDF，他自 2020 年起在 Acme Corp 担任高级软件工程师，擅长 TypeScript 和 Python。使用 classic 模板，语言设为中文。",
+    "s7h": "npm 包",
+    "s7": "MCP server 以 @mypdfcv/mcp-server 发布在 npm 上。它使用 @mypdfcv/pdf-core 生成 PDF，使用 @mypdfcv/i18n 进行翻译。所有包均为开源项目。"
   }
 }

@@ -233,6 +233,7 @@
     "termsOfService": "Términos de Servicio",
     "cookiePolicy": "Política de Cookies",
     "contact": "Contacto",
+    "mcp": "MCP Server",
     "copyright": "MyPDFCV. Todos los derechos reservados."
   },
   "notFound": {
@@ -354,5 +355,35 @@
     "s4": "Puedes eliminar todos los datos almacenados en cualquier momento limpiando el localStorage de tu navegador. Esto eliminará permanentemente todos los datos de currículum y preferencias. En la mayoría de los navegadores, esto se puede hacer a través de Configuración > Privacidad > Borrar datos de navegación > Cookies y datos del sitio.",
     "s5h": "5. Contacto",
     "s5": "Para preguntas sobre esta política, visita www.wesleyramalho.com/contact."
+  },
+  "mcp": {
+    "title": "MCP Server",
+    "subtitle": "Genera PDFs de currículum profesionales con asistentes de IA usando el Model Context Protocol.",
+    "s1h": "¿Qué es MCP?",
+    "s1": "El Model Context Protocol (MCP) es un estándar abierto que permite a asistentes de IA como Claude, Cursor y otros utilizar herramientas externas. El paquete @mypdfcv/mcp-server permite que cualquier asistente de IA compatible con MCP genere PDFs de currículum profesionales — sin necesidad de navegador.",
+    "s2h": "Configuración",
+    "s2intro": "Añade el MCP server a tu asistente de IA preferido:",
+    "s2claudeDesktop": "Claude Desktop",
+    "s2claudeDesktopDesc": "Añade a tu claude_desktop_config.json:",
+    "s2cursor": "Cursor",
+    "s2cursorDesc": "Añade a tu configuración de MCP:",
+    "s2claudeCode": "Claude Code",
+    "s2claudeCodeDesc": "Ejecuta en tu terminal:",
+    "s3h": "Herramientas Disponibles",
+    "s3intro": "El MCP server proporciona 3 herramientas que los asistentes de IA pueden usar:",
+    "s3items": [
+      "generate_resume_pdf — Genera un PDF de currículum completo a partir de datos estructurados. Soporta todas las plantillas e idiomas. Guarda el PDF en tu carpeta de Descargas por defecto.",
+      "list_templates — Lista las 7 plantillas de currículum disponibles con sus estilos y descripciones.",
+      "list_locales — Lista los 7 idiomas soportados para los encabezados de sección del currículum."
+    ],
+    "s4h": "Plantillas",
+    "s4": "Elige entre 7 plantillas diseñadas profesionalmente: Modern, Classic, Minimal, Executive, Bold, Balanced y Clear. Cada plantilla tiene un estilo único con diferentes colores de acento, diseños y posiciones de foto.",
+    "s5h": "Idiomas",
+    "s5": "Los encabezados de sección del currículum pueden generarse en 7 idiomas: inglés, portugués (BR), español, italiano, chino, japonés y alemán.",
+    "s6h": "Ejemplo",
+    "s6intro": "Simplemente pide a tu asistente de IA algo como:",
+    "s6example": "Genera un PDF de currículum para Juan García, ingeniero de software senior en Acme Corp desde 2020, con habilidades en TypeScript y Python. Usa la plantilla classic en español.",
+    "s7h": "Paquete npm",
+    "s7": "El MCP server se publica como @mypdfcv/mcp-server en npm. Usa @mypdfcv/pdf-core para la generación de PDF y @mypdfcv/i18n para las traducciones. Todos los paquetes son de código abierto."
   }
 }
