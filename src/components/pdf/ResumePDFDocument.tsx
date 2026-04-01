@@ -17,6 +17,10 @@ import {
 import enMessages from "@/messages/en.json";
 import ptBRMessages from "@/messages/pt-BR.json";
 import esMessages from "@/messages/es.json";
+import itMessages from "@/messages/it.json";
+import zhMessages from "@/messages/zh.json";
+import jaMessages from "@/messages/ja.json";
+import deMessages from "@/messages/de.json";
 
 export const PDF_FONT = "Helvetica";
 
@@ -24,6 +28,10 @@ const messagesMap: Record<string, typeof enMessages> = {
   en: enMessages,
   "pt-BR": ptBRMessages,
   es: esMessages,
+  it: itMessages,
+  zh: zhMessages,
+  ja: jaMessages,
+  de: deMessages,
 };
 
 function getT(locale: string) {
