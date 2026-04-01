@@ -24,13 +24,13 @@ export default function McpPage() {
     <div className="min-h-screen bg-background flex flex-col overflow-x-hidden">
       <SiteNav />
 
-      <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-12">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-12">
         <h1 className="font-sans font-bold text-3xl text-foreground mb-2">
           {t("title")}
         </h1>
         <p className="text-sm text-muted-foreground mb-8">{t("subtitle")}</p>
 
-        <div className="prose prose-sm text-muted-foreground space-y-6">
+        <div className="prose prose-sm max-w-none min-w-0 text-muted-foreground space-y-6">
           <Section heading={t("s1h")} content={t("s1")} />
 
           <section>
