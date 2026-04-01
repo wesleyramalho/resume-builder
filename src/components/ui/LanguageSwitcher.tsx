@@ -14,6 +14,10 @@ const LANGUAGES = [
   { code: "en" as const, flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
   { code: "pt-BR" as const, flag: "\u{1F1E7}\u{1F1F7}", label: "Portugu\u00EAs (Brasil)" },
   { code: "es" as const, flag: "\u{1F1EA}\u{1F1F8}", label: "Español" },
+  { code: "it" as const, flag: "\u{1F1EE}\u{1F1F9}", label: "Italiano" },
+  { code: "zh" as const, flag: "\u{1F1E8}\u{1F1F3}", label: "中文" },
+  { code: "ja" as const, flag: "\u{1F1EF}\u{1F1F5}", label: "日本語" },
+  { code: "de" as const, flag: "\u{1F1E9}\u{1F1EA}", label: "Deutsch" },
 ];
 
 export default function LanguageSwitcher() {
