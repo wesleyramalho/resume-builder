@@ -233,6 +233,7 @@
     "termsOfService": "Termini di servizio",
     "cookiePolicy": "Informativa sui cookie",
     "contact": "Contatti",
+    "mcp": "MCP Server",
     "copyright": "MyPDFCV. Tutti i diritti riservati."
   },
   "notFound": {
@@ -354,5 +355,35 @@
     "s4": "Puoi rimuovere tutti i dati archiviati in qualsiasi momento cancellando il localStorage del tuo browser. Questo eliminerà permanentemente tutti i dati del curriculum e le preferenze. Nella maggior parte dei browser, questo può essere fatto tramite Impostazioni > Privacy > Cancella dati di navigazione > Cookie e dati del sito.",
     "s5h": "5. Contatti",
     "s5": "Per domande su questa informativa, visita www.wesleyramalho.com/contact."
+  },
+  "mcp": {
+    "title": "MCP Server",
+    "subtitle": "Genera PDF di curriculum professionali con assistenti IA utilizzando il Model Context Protocol.",
+    "s1h": "Cos'è MCP?",
+    "s1": "Il Model Context Protocol (MCP) è uno standard aperto che consente ad assistenti IA come Claude, Cursor e altri di utilizzare strumenti esterni. Il pacchetto @mypdfcv/mcp-server permette a qualsiasi assistente IA compatibile con MCP di generare PDF di curriculum professionali — senza bisogno di un browser.",
+    "s2h": "Configurazione",
+    "s2intro": "Aggiungi il MCP server al tuo assistente IA preferito:",
+    "s2claudeDesktop": "Claude Desktop",
+    "s2claudeDesktopDesc": "Aggiungi al tuo claude_desktop_config.json:",
+    "s2cursor": "Cursor",
+    "s2cursorDesc": "Aggiungi alle tue impostazioni MCP:",
+    "s2claudeCode": "Claude Code",
+    "s2claudeCodeDesc": "Esegui nel tuo terminale:",
+    "s3h": "Strumenti Disponibili",
+    "s3intro": "Il MCP server fornisce 3 strumenti che gli assistenti IA possono utilizzare:",
+    "s3items": [
+      "generate_resume_pdf — Genera un PDF di curriculum completo da dati strutturati. Supporta tutti i modelli e le lingue. Salva il PDF nella cartella Download per impostazione predefinita.",
+      "list_templates — Elenca tutti i 7 modelli di curriculum disponibili con i relativi stili e descrizioni.",
+      "list_locales — Elenca tutte le 7 lingue supportate per le intestazioni delle sezioni del curriculum."
+    ],
+    "s4h": "Modelli",
+    "s4": "Scegli tra 7 modelli progettati professionalmente: Modern, Classic, Minimal, Executive, Bold, Balanced e Clear. Ogni modello ha uno stile unico con diversi colori di accento, layout e posizionamenti della foto.",
+    "s5h": "Lingue",
+    "s5": "Le intestazioni delle sezioni del curriculum possono essere generate in 7 lingue: inglese, portoghese (BR), spagnolo, italiano, cinese, giapponese e tedesco.",
+    "s6h": "Esempio",
+    "s6intro": "Chiedi semplicemente al tuo assistente IA qualcosa come:",
+    "s6example": "Genera un PDF di curriculum per Marco Rossi, ingegnere software senior presso Acme Corp dal 2020, con competenze in TypeScript e Python. Usa il modello classic in italiano.",
+    "s7h": "Pacchetto npm",
+    "s7": "Il MCP server è pubblicato come @mypdfcv/mcp-server su npm. Utilizza @mypdfcv/pdf-core per la generazione di PDF e @mypdfcv/i18n per le traduzioni. Tutti i pacchetti sono open source."
   }
 }

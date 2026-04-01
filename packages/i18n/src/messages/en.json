@@ -233,6 +233,7 @@
     "termsOfService": "Terms of Service",
     "cookiePolicy": "Cookie Policy",
     "contact": "Contact",
+    "mcp": "MCP Server",
     "copyright": "MyPDFCV. All rights reserved."
   },
   "notFound": {
@@ -354,5 +355,35 @@
     "s4": "You can remove all stored data at any time by clearing your browser's localStorage. This will permanently delete all resume data and preferences. In most browsers, this can be done via Settings > Privacy > Clear browsing data > Cookies and site data.",
     "s5h": "5. Contact",
     "s5": "For questions about this policy, please visit www.wesleyramalho.com/contact."
+  },
+  "mcp": {
+    "title": "MCP Server",
+    "subtitle": "Generate professional resume PDFs with AI assistants using the Model Context Protocol.",
+    "s1h": "What is MCP?",
+    "s1": "The Model Context Protocol (MCP) is an open standard that allows AI assistants like Claude, Cursor, and others to use external tools. The @mypdfcv/mcp-server package lets any MCP-compatible AI assistant generate professional resume PDFs — no browser required.",
+    "s2h": "Setup",
+    "s2intro": "Add the MCP server to your AI assistant of choice:",
+    "s2claudeDesktop": "Claude Desktop",
+    "s2claudeDesktopDesc": "Add to your claude_desktop_config.json:",
+    "s2cursor": "Cursor",
+    "s2cursorDesc": "Add to your MCP settings:",
+    "s2claudeCode": "Claude Code",
+    "s2claudeCodeDesc": "Run in your terminal:",
+    "s3h": "Available Tools",
+    "s3intro": "The MCP server provides 3 tools that AI assistants can use:",
+    "s3items": [
+      "generate_resume_pdf — Generate a complete resume PDF from structured data. Supports all templates and languages. Saves the PDF to your Downloads folder by default.",
+      "list_templates — List all 7 available resume templates with their styles and descriptions.",
+      "list_locales — List all 7 supported languages for resume section headers."
+    ],
+    "s4h": "Templates",
+    "s4": "Choose from 7 professionally designed templates: Modern, Classic, Minimal, Executive, Bold, Balanced, and Clear. Each template has a unique style with different accent colors, layouts, and photo placements.",
+    "s5h": "Languages",
+    "s5": "Resume section headers can be generated in 7 languages: English, Portuguese (BR), Spanish, Italian, Chinese, Japanese, and German.",
+    "s6h": "Example",
+    "s6intro": "Simply ask your AI assistant something like:",
+    "s6example": "Generate a resume PDF for John Doe, a senior software engineer at Acme Corp since 2020, with skills in TypeScript and Python. Use the classic template in Portuguese.",
+    "s7h": "npm Package",
+    "s7": "The MCP server is published as @mypdfcv/mcp-server on npm. It uses @mypdfcv/pdf-core for PDF generation and @mypdfcv/i18n for translations. All packages are open source."
   }
 }

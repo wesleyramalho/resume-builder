@@ -233,6 +233,7 @@
     "termsOfService": "Nutzungsbedingungen",
     "cookiePolicy": "Cookie-Richtlinie",
     "contact": "Kontakt",
+    "mcp": "MCP Server",
     "copyright": "MyPDFCV. Alle Rechte vorbehalten."
   },
   "notFound": {
@@ -354,5 +355,35 @@
     "s4": "Du kannst alle gespeicherten Daten jederzeit löschen, indem du den localStorage deines Browsers löschst. Dadurch werden alle Lebenslaufdaten und Einstellungen dauerhaft gelöscht. In den meisten Browsern geht das über Einstellungen > Datenschutz > Browserdaten löschen > Cookies und Websitedaten.",
     "s5h": "5. Kontakt",
     "s5": "Für Fragen zu dieser Richtlinie besuche bitte www.wesleyramalho.com/contact."
+  },
+  "mcp": {
+    "title": "MCP Server",
+    "subtitle": "Erstelle professionelle Lebenslauf-PDFs mit KI-Assistenten über das Model Context Protocol.",
+    "s1h": "Was ist MCP?",
+    "s1": "Das Model Context Protocol (MCP) ist ein offener Standard, der KI-Assistenten wie Claude, Cursor und anderen die Nutzung externer Werkzeuge ermöglicht. Das Paket @mypdfcv/mcp-server ermöglicht es jedem MCP-kompatiblen KI-Assistenten, professionelle Lebenslauf-PDFs zu erstellen — kein Browser erforderlich.",
+    "s2h": "Einrichtung",
+    "s2intro": "Füge den MCP server zu deinem bevorzugten KI-Assistenten hinzu:",
+    "s2claudeDesktop": "Claude Desktop",
+    "s2claudeDesktopDesc": "Füge zu deiner claude_desktop_config.json hinzu:",
+    "s2cursor": "Cursor",
+    "s2cursorDesc": "Füge zu deinen MCP-Einstellungen hinzu:",
+    "s2claudeCode": "Claude Code",
+    "s2claudeCodeDesc": "Führe in deinem Terminal aus:",
+    "s3h": "Verfügbare Werkzeuge",
+    "s3intro": "Der MCP server stellt 3 Werkzeuge bereit, die KI-Assistenten nutzen können:",
+    "s3items": [
+      "generate_resume_pdf — Erstellt ein vollständiges Lebenslauf-PDF aus strukturierten Daten. Unterstützt alle Vorlagen und Sprachen. Speichert das PDF standardmäßig in deinem Downloads-Ordner.",
+      "list_templates — Listet alle 7 verfügbaren Lebenslauf-Vorlagen mit ihren Stilen und Beschreibungen auf.",
+      "list_locales — Listet alle 7 unterstützten Sprachen für Lebenslauf-Abschnittsüberschriften auf."
+    ],
+    "s4h": "Vorlagen",
+    "s4": "Wähle aus 7 professionell gestalteten Vorlagen: Modern, Classic, Minimal, Executive, Bold, Balanced und Clear. Jede Vorlage hat einen einzigartigen Stil mit verschiedenen Akzentfarben, Layouts und Foto-Platzierungen.",
+    "s5h": "Sprachen",
+    "s5": "Lebenslauf-Abschnittsüberschriften können in 7 Sprachen generiert werden: Englisch, Portugiesisch (BR), Spanisch, Italienisch, Chinesisch, Japanisch und Deutsch.",
+    "s6h": "Beispiel",
+    "s6intro": "Bitte deinen KI-Assistenten einfach um etwas wie:",
+    "s6example": "Erstelle ein Lebenslauf-PDF für Max Müller, Senior Software-Ingenieur bei Acme Corp seit 2020, mit Kenntnissen in TypeScript und Python. Verwende die classic Vorlage auf Deutsch.",
+    "s7h": "npm-Paket",
+    "s7": "Der MCP server ist als @mypdfcv/mcp-server auf npm veröffentlicht. Er verwendet @mypdfcv/pdf-core für die PDF-Erstellung und @mypdfcv/i18n für Übersetzungen. Alle Pakete sind Open Source."
   }
 }

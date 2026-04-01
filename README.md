@@ -16,6 +16,42 @@
 - **Dark mode** — Full light/dark theme support
 - **Privacy-first** — All data stored in `localStorage`. Nothing leaves your browser.
 
+## Packages
+
+MyPDFCV's core logic is published as standalone npm packages — no Next.js required:
+
+| Package | Description |
+| --- | --- |
+| [`@mypdfcv/pdf-core`](https://www.npmjs.com/package/@mypdfcv/pdf-core) | Resume types, templates, validation schemas, and PDF generation |
+| [`@mypdfcv/i18n`](https://www.npmjs.com/package/@mypdfcv/i18n) | Internationalization with 7 bundled locales |
+| [`@mypdfcv/mcp-server`](https://www.npmjs.com/package/@mypdfcv/mcp-server) | MCP server for AI-powered resume PDF generation |
+
+### MCP Server
+
+Generate resume PDFs directly from AI assistants (Claude, Cursor, etc.) using the [Model Context Protocol](https://modelcontextprotocol.io):
+
+```bash
+# Claude Code
+claude mcp add mypdfcv -- npx -y @mypdfcv/mcp-server
+```
+
+Or add to Claude Desktop / Cursor config:
+
+```json
+{
+  "mcpServers": {
+    "mypdfcv": {
+      "command": "npx",
+      "args": ["-y", "@mypdfcv/mcp-server"]
+    }
+  }
+}
+```
+
+Then ask your assistant: *"Generate a resume PDF for John Doe, a senior software engineer"*
+
+See the [MCP server repo](https://github.com/wesleyramalho/mypdfcv-mcp-server) for full documentation.
+
 ## Tech Stack
 
 - [Next.js 16](https://nextjs.org) (App Router, Turbopack)

@@ -233,6 +233,7 @@
     "termsOfService": "利用規約",
     "cookiePolicy": "Cookie ポリシー",
     "contact": "お問い合わせ",
+    "mcp": "MCP Server",
     "copyright": "MyPDFCV。全著作権所有。"
   },
   "notFound": {
@@ -354,5 +355,35 @@
     "s4": "ブラウザの localStorage をクリアすることで、保存されたすべてのデータをいつでも削除できます。これにより、すべての履歴書データと設定が完全に削除されます。ほとんどのブラウザでは、設定 > プライバシー > 閲覧データの消去 > Cookie とサイトデータから実行できます。",
     "s5h": "5. お問い合わせ",
     "s5": "このポリシーに関するお問い合わせは www.wesleyramalho.com/contact をご覧ください。"
+  },
+  "mcp": {
+    "title": "MCP Server",
+    "subtitle": "Model Context Protocol を使用して、AI アシスタントでプロフェッショナルな履歴書 PDF を生成します。",
+    "s1h": "MCP とは？",
+    "s1": "Model Context Protocol (MCP) は、Claude、Cursor などの AI アシスタントが外部ツールを使用できるようにするオープン標準です。@mypdfcv/mcp-server パッケージにより、MCP 対応の AI アシスタントがプロフェッショナルな履歴書 PDF を生成できます — ブラウザは不要です。",
+    "s2h": "セットアップ",
+    "s2intro": "お好みの AI アシスタントに MCP server を追加してください：",
+    "s2claudeDesktop": "Claude Desktop",
+    "s2claudeDesktopDesc": "claude_desktop_config.json に追加：",
+    "s2cursor": "Cursor",
+    "s2cursorDesc": "MCP 設定に追加：",
+    "s2claudeCode": "Claude Code",
+    "s2claudeCodeDesc": "ターミナルで実行：",
+    "s3h": "利用可能なツール",
+    "s3intro": "MCP server は AI アシスタントが使用できる 3 つのツールを提供します：",
+    "s3items": [
+      "generate_resume_pdf — 構造化データから完全な履歴書 PDF を生成します。すべてのテンプレートと言語に対応。デフォルトでダウンロードフォルダに PDF を保存します。",
+      "list_templates — 利用可能な 7 つの履歴書テンプレートとそのスタイル・説明を一覧表示します。",
+      "list_locales — 履歴書セクション見出しに対応する 7 つの言語を一覧表示します。"
+    ],
+    "s4h": "テンプレート",
+    "s4": "プロフェッショナルにデザインされた 7 つのテンプレートから選択：Modern、Classic、Minimal、Executive、Bold、Balanced、Clear。各テンプレートには独自のアクセントカラー、レイアウト、写真配置があります。",
+    "s5h": "言語",
+    "s5": "履歴書のセクション見出しは 7 つの言語で生成できます：英語、ポルトガル語（ブラジル）、スペイン語、イタリア語、中国語、日本語、ドイツ語。",
+    "s6h": "使用例",
+    "s6intro": "AI アシスタントに次のようにお願いするだけです：",
+    "s6example": "山田太郎の履歴書 PDF を生成してください。2020 年から Acme Corp でシニアソフトウェアエンジニアとして勤務、TypeScript と Python のスキルがあります。classic テンプレートを日本語で使用してください。",
+    "s7h": "npm パッケージ",
+    "s7": "MCP server は @mypdfcv/mcp-server として npm に公開されています。PDF 生成に @mypdfcv/pdf-core を、翻訳に @mypdfcv/i18n を使用しています。すべてのパッケージはオープンソースです。"
   }
 }

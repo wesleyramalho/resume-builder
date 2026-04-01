@@ -13,6 +13,7 @@ export default function Footer() {
     { href: "/terms" as const, label: t("termsOfService") },
     { href: "/cookies" as const, label: t("cookiePolicy") },
     { href: "/contact" as const, label: t("contact") },
+    { href: "/mcp" as const, label: t("mcp") },
   ];
 
   return (
