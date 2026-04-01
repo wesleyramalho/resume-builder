@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Copy, Check } from "lucide-react";
 import Footer from "@/components/Footer";
 import SiteNav from "@/components/SiteNav";
 
@@ -22,13 +24,13 @@ export default function McpPage() {
     <div className="min-h-screen bg-background flex flex-col overflow-x-hidden">
       <SiteNav />
 
-      <main className="flex-1 max-w-3xl mx-auto px-6 pt-24 pb-12">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-12">
         <h1 className="font-sans font-bold text-3xl text-foreground mb-2">
           {t("title")}
         </h1>
         <p className="text-sm text-muted-foreground mb-8">{t("subtitle")}</p>
 
-        <div className="prose prose-sm text-muted-foreground space-y-6">
+        <div className="prose prose-sm max-w-none min-w-0 text-muted-foreground space-y-6">
           <Section heading={t("s1h")} content={t("s1")} />
 
           <section>
@@ -95,7 +97,32 @@ export default function McpPage() {
             </blockquote>
           </section>
 
-          <Section heading={t("s7h")} content={t("s7")} />
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">
+              {t("s7h")}
+            </h2>
+            <p>{t("s7")}</p>
+            <ul className="list-disc pl-5 space-y-2 mt-2">
+              <li>
+                <a href="https://www.npmjs.com/package/@mypdfcv/mcp-server" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
+                  @mypdfcv/mcp-server
+                </a>
+                {" — MCP server"}
+              </li>
+              <li>
+                <a href="https://www.npmjs.com/package/@mypdfcv/pdf-core" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
+                  @mypdfcv/pdf-core
+                </a>
+                {" — PDF generation"}
+              </li>
+              <li>
+                <a href="https://www.npmjs.com/package/@mypdfcv/i18n" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
+                  @mypdfcv/i18n
+                </a>
+                {" — Translations"}
+              </li>
+            </ul>
+          </section>
         </div>
       </main>
 
@@ -114,9 +141,26 @@ function Section({ heading, content }: { heading: string; content: string }) {
 }
 
 function CodeBlock({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
   return (
-    <pre className="mt-1 overflow-x-auto rounded-md bg-foreground/5 p-3 text-xs text-foreground">
-      <code>{code}</code>
-    </pre>
+    <div className="relative mt-1">
+      <button
+        onClick={handleCopy}
+        className="absolute top-2 right-2 p-1.5 rounded-md bg-foreground/10 hover:bg-foreground/20 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+        aria-label="Copy to clipboard"
+      >
+        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+      </button>
+      <pre className="overflow-x-auto rounded-md bg-foreground/5 p-3 pr-10 text-xs text-foreground">
+        <code>{code}</code>
+      </pre>
+    </div>
   );
 }
