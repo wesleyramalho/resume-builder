@@ -370,9 +370,11 @@
     "s2claudeCode": "Claude Code",
     "s2claudeCodeDesc": "在终端中运行：",
     "s3h": "可用工具",
-    "s3intro": "MCP server 提供 3 个 AI 助手可使用的工具：",
+    "s3intro": "MCP server 提供 5 个 AI 助手可使用的工具：",
     "s3items": [
-      "generate_resume_pdf — 从结构化数据生成完整的简历 PDF。支持所有模板和语言。默认将 PDF 保存到下载文件夹。",
+      "generate_resume_pdf — 从结构化数据生成简历 PDF。支持所有模板、语言和自定义章节排序。默认保存到下载文件夹。",
+      "generate_resume_from_json — 高级工具：传入完整的简历 JSON 对象，完全控制模板、章节和排序。",
+      "tailor_resume_for_job — 根据你的简历分析职位描述并提供定制建议。在生成前使用，以针对特定职位进行优化。",
       "list_templates — 列出所有 7 个可用的简历模板及其样式和描述。",
       "list_locales — 列出简历章节标题支持的所有 7 种语言。"
     ],
@@ -383,6 +385,7 @@
     "s6h": "示例",
     "s6intro": "只需向你的 AI 助手提出类似这样的请求：",
     "s6example": "为张三生成一份简历 PDF，他自 2020 年起在 Acme Corp 担任高级软件工程师，擅长 TypeScript 和 Python。使用 classic 模板，语言设为中文。",
+    "s6example2": "这是一份 Stripe 的 Staff Engineer 职位招聘。请根据这个职位定制我的简历，并使用 modern 模板生成 PDF。",
     "s7h": "npm 包",
     "s7": "MCP server 以 @mypdfcv/mcp-server 发布在 npm 上。它使用 @mypdfcv/pdf-core 生成 PDF，使用 @mypdfcv/i18n 进行翻译。所有包均为开源项目。"
   }

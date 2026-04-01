@@ -370,9 +370,11 @@
     "s2claudeCode": "Claude Code",
     "s2claudeCodeDesc": "Esegui nel tuo terminale:",
     "s3h": "Strumenti Disponibili",
-    "s3intro": "Il MCP server fornisce 3 strumenti che gli assistenti IA possono utilizzare:",
+    "s3intro": "Il MCP server fornisce 5 strumenti che gli assistenti IA possono utilizzare:",
     "s3items": [
-      "generate_resume_pdf — Genera un PDF di curriculum completo da dati strutturati. Supporta tutti i modelli e le lingue. Salva il PDF nella cartella Download per impostazione predefinita.",
+      "generate_resume_pdf — Genera un PDF di curriculum da dati strutturati. Supporta tutti i modelli, le lingue e l'ordinamento personalizzato delle sezioni. Salva nella cartella Download per impostazione predefinita.",
+      "generate_resume_from_json — Strumento avanzato: invia un oggetto JSON di curriculum completo con controllo totale su modello, sezioni e ordinamento.",
+      "tailor_resume_for_job — Analizza una descrizione di lavoro rispetto al tuo curriculum e fornisce raccomandazioni di personalizzazione. Usalo prima di generare per ottimizzare per una posizione specifica.",
       "list_templates — Elenca tutti i 7 modelli di curriculum disponibili con i relativi stili e descrizioni.",
       "list_locales — Elenca tutte le 7 lingue supportate per le intestazioni delle sezioni del curriculum."
     ],
@@ -380,9 +382,10 @@
     "s4": "Scegli tra 7 modelli progettati professionalmente: Modern, Classic, Minimal, Executive, Bold, Balanced e Clear. Ogni modello ha uno stile unico con diversi colori di accento, layout e posizionamenti della foto.",
     "s5h": "Lingue",
     "s5": "Le intestazioni delle sezioni del curriculum possono essere generate in 7 lingue: inglese, portoghese (BR), spagnolo, italiano, cinese, giapponese e tedesco.",
-    "s6h": "Esempio",
+    "s6h": "Esempi",
     "s6intro": "Chiedi semplicemente al tuo assistente IA qualcosa come:",
     "s6example": "Genera un PDF di curriculum per Marco Rossi, ingegnere software senior presso Acme Corp dal 2020, con competenze in TypeScript e Python. Usa il modello classic in italiano.",
+    "s6example2": "Ecco un annuncio di lavoro per Staff Engineer presso Stripe. Personalizza il mio curriculum per questa posizione e genera un PDF con il modello modern.",
     "s7h": "Pacchetto npm",
     "s7": "Il MCP server è pubblicato come @mypdfcv/mcp-server su npm. Utilizza @mypdfcv/pdf-core per la generazione di PDF e @mypdfcv/i18n per le traduzioni. Tutti i pacchetti sono open source."
   }
