@@ -97,7 +97,32 @@ export default function McpPage() {
             </blockquote>
           </section>
 
-          <Section heading={t("s7h")} content={t("s7")} />
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">
+              {t("s7h")}
+            </h2>
+            <p>{t("s7")}</p>
+            <ul className="list-disc pl-5 space-y-2 mt-2">
+              <li>
+                <a href="https://www.npmjs.com/package/@mypdfcv/mcp-server" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
+                  @mypdfcv/mcp-server
+                </a>
+                {" — MCP server"}
+              </li>
+              <li>
+                <a href="https://www.npmjs.com/package/@mypdfcv/pdf-core" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
+                  @mypdfcv/pdf-core
+                </a>
+                {" — PDF generation"}
+              </li>
+              <li>
+                <a href="https://www.npmjs.com/package/@mypdfcv/i18n" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
+                  @mypdfcv/i18n
+                </a>
+                {" — Translations"}
+              </li>
+            </ul>
+          </section>
         </div>
       </main>
 
