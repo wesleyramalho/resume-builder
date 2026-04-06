@@ -56,7 +56,21 @@
     "ctaButton": "Lebenslauf erstellen",
     "linkedInNotConfigured": "Der LinkedIn-Import ist noch nicht konfiguriert. Füge LinkedIn OAuth-Umgebungsvariablen hinzu.",
     "linkedInUnavailable": "LinkedIn-Anmeldung ist derzeit nicht verfügbar. Bitte versuche es in Kürze erneut.",
-    "startWithLinkedIn": "Mit LinkedIn starten"
+    "startWithLinkedIn": "Mit LinkedIn starten",
+    "faqLabel": "Häufig gestellte Fragen",
+    "faqHeading": "Fragen? Wir haben Antworten.",
+    "faqWhatIsQ": "Was ist MyPDFCV?",
+    "faqWhatIsA": "MyPDFCV ist ein kostenloser, quelloffener Lebenslauf-Ersteller, der vollständig in Ihrem Browser läuft. Erstellen Sie professionelle, ATS-kompatible Lebensläufe mit Echtzeit-Vorschau und exportieren Sie sie als PDF — ohne Kontoanmeldung.",
+    "faqFreeQ": "Ist es wirklich kostenlos?",
+    "faqFreeA": "Ja, 100% kostenlos ohne versteckte Kosten, ohne Premium-Plan und ohne Wasserzeichen. Jede Funktion, Vorlage und jeder Export steht allen kostenlos zur Verfügung.",
+    "faqTemplatesQ": "Wie viele Vorlagen sind verfügbar?",
+    "faqTemplatesA": "Wir bieten 7 professionell gestaltete Vorlagen, alle ATS-kompatibel und vollständig anpassbar. Jede Vorlage kann an Ihren persönlichen Stil und Ihre Branche angepasst werden.",
+    "faqPrivacyQ": "Was passiert mit meinen Daten?",
+    "faqPrivacyA": "Ihre Lebenslaufdaten verlassen niemals Ihren Browser — alles wird lokal auf Ihrem Gerät gespeichert. Wir erfassen lediglich anonyme Nutzungsanalysen, um zu verstehen, wie die Plattform genutzt wird, und das Erlebnis zu verbessern. Wir greifen niemals auf Ihre persönlichen Lebenslaufinhalte zu, speichern oder verkaufen sie.",
+    "faqExportQ": "Welche Exportformate werden unterstützt?",
+    "faqExportA": "Sie können Ihren Lebenslauf mit einem Klick als hochwertiges PDF exportieren. Die Ausgabe verwendet saubere Metadaten und ATS-kompatible Formatierung, um sicherzustellen, dass Ihr Lebenslauf automatisierte Screening-Systeme besteht.",
+    "faqCustomizationQ": "Kann ich das Layout anpassen?",
+    "faqCustomizationA": "Absolut. Sie können Abschnitte per Drag-and-Drop neu anordnen, Inhalte anpassen und aus 7 Vorlagen wählen. Der Editor unterstützt mehrere Sprachen, sodass Sie Lebensläufe in einer unserer 7 unterstützten Sprachen erstellen können."
   },
   "dashboard": {
     "portfolioOverview": "Dashboard",

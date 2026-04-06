@@ -56,7 +56,21 @@
     "ctaButton": "创建你的简历",
     "linkedInNotConfigured": "LinkedIn 导入尚未配置。请添加 LinkedIn OAuth 环境变量。",
     "linkedInUnavailable": "LinkedIn 登录暂时不可用。请稍后再试。",
-    "startWithLinkedIn": "使用 LinkedIn 开始"
+    "startWithLinkedIn": "使用 LinkedIn 开始",
+    "faqLabel": "常见问题",
+    "faqHeading": "有疑问？我们来解答。",
+    "faqWhatIsQ": "什么是 MyPDFCV？",
+    "faqWhatIsA": "MyPDFCV 是一款免费的开源简历构建工具，完全在您的浏览器中运行。创建专业的、ATS 友好的简历，支持实时预览，并导出为 PDF — 无需注册账户。",
+    "faqFreeQ": "真的免费吗？",
+    "faqFreeA": "是的，100% 免费，没有隐藏费用，没有高级套餐，没有水印。所有功能、模板和导出对所有人完全免费开放。",
+    "faqTemplatesQ": "有多少个模板可用？",
+    "faqTemplatesA": "我们提供 7 个专业设计的模板，全部兼容 ATS 且完全可自定义。每个模板都可以根据您的个人风格和行业进行调整。",
+    "faqPrivacyQ": "我的数据会怎样？",
+    "faqPrivacyA": "您的简历数据永远不会离开您的浏览器 — 所有内容都存储在您的本地设备上。我们仅收集匿名使用分析数据，以了解平台的使用情况并改善体验。我们绝不会访问、存储或出售您的个人简历内容。",
+    "faqExportQ": "支持哪些导出格式？",
+    "faqExportA": "您可以一键将简历导出为高质量 PDF。输出使用干净的元数据和 ATS 友好的格式，确保您的简历能通过自动筛选系统。",
+    "faqCustomizationQ": "我可以自定义布局吗？",
+    "faqCustomizationA": "当然可以。您可以通过拖放重新排列各部分、调整内容，并从 7 个模板中选择。编辑器支持多种语言，因此您可以使用我们支持的 7 种语言中的任何一种来创建简历。"
   },
   "dashboard": {
     "portfolioOverview": "控制面板",
