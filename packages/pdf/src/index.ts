@@ -38,5 +38,24 @@ export {
   type ProjectEntryFormValues,
 } from "./lib/schemas";
 
+// Cover Letter Types
+export type {
+  CoverLetter,
+  CoverLetterData,
+  CoverLetterStatus,
+  CoverLetterRecipient,
+} from "./types/coverLetter";
+
+// Cover Letter Defaults
+export { createEmptyCoverLetterData } from "./lib/coverLetterDefaults";
+
+// Cover Letter Schemas
+export {
+  recipientSchema,
+  coverLetterFormSchema,
+  type CoverLetterFormValues,
+  type RecipientFormValues,
+} from "./lib/coverLetterSchemas";
+
 // Utilities
 export { generateId, formatMonthYear } from "./lib/utils";
