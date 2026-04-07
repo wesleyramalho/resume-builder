@@ -3,8 +3,11 @@
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { useResumeStore } from "@/store/useResumeStore";
+import { useCoverLetterStore } from "@/store/useCoverLetterStore";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import ResumeGrid from "@/components/dashboard/ResumeGrid";
+import CoverLetterGrid from "@/components/dashboard/CoverLetterGrid";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Link } from "@/i18n/navigation";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
@@ -12,7 +15,9 @@ import Footer from "@/components/Footer";
 
 export default function DashboardPage() {
   const resumes = useResumeStore((s) => s.resumes);
+  const coverLetters = useCoverLetterStore((s) => s.coverLetters);
   const t = useTranslations("common");
+  const td = useTranslations("dashboard");
 
   return (
     <div className="min-h-screen bg-background">
@@ -37,11 +42,24 @@ export default function DashboardPage() {
           <DashboardHeader />
         </Suspense>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
-          <div>
+        <Tabs defaultValue="resumes">
+          <TabsList variant="line" className="mb-8">
+            <TabsTrigger value="resumes" className="font-sans text-sm uppercase tracking-widest">
+              {td("resumesTab")}
+            </TabsTrigger>
+            <TabsTrigger value="cover-letters" className="font-sans text-sm uppercase tracking-widest">
+              {td("coverLettersTab")}
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="resumes">
             <ResumeGrid resumes={resumes} />
-          </div>
-        </div>
+          </TabsContent>
+
+          <TabsContent value="cover-letters">
+            <CoverLetterGrid coverLetters={coverLetters} />
+          </TabsContent>
+        </Tabs>
       </div>
       <Footer />
     </div>
