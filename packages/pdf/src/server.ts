@@ -4,3 +4,7 @@ export * from "./index";
 // PDF generation (server-only, requires @react-pdf/renderer + fs)
 export { generateResumePDF } from "./lib/pdf";
 export { default as ResumePDFDocument, PDF_FONT } from "./components/ResumePDFDocument";
+
+// Cover Letter PDF generation (server-only)
+export { generateCoverLetterPDF } from "./lib/coverLetterPdf";
+export { default as CoverLetterPDFDocument } from "./components/CoverLetterPDFDocument";

@@ -57,5 +57,14 @@ export {
   type RecipientFormValues,
 } from "./lib/coverLetterSchemas";
 
+// Cover Letter Templates
+export {
+  COVER_LETTER_TEMPLATES,
+  getCoverLetterTemplate,
+  getCoverLetterStyle,
+  type CoverLetterTemplate,
+  type CoverLetterStyle,
+} from "./lib/coverLetterTemplates";
+
 // Utilities
 export { generateId, formatMonthYear } from "./lib/utils";

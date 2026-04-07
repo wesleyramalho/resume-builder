@@ -1,11 +1,13 @@
 "use client";
 
-import { ArrowLeft, Check, Loader2 } from "lucide-react";
+import { ArrowLeft, Check, Loader2, FileDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
 import { CoverLetter } from "@/types/coverLetter";
 import { useCoverLetterStore } from "@/store/useCoverLetterStore";
 import { useCoverLetterAutoSave } from "@/hooks/useCoverLetterAutoSave";
+import { useExportCoverLetterPDF } from "@/hooks/useExportCoverLetterPDF";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
@@ -19,6 +21,7 @@ export default function CoverLetterToolbar({ coverLetter }: Props) {
   const tc = useTranslations("common");
   const saveStatus = useCoverLetterAutoSave(coverLetter.id);
   const updateName = useCoverLetterStore((s) => s.updateCoverLetterName);
+  const { exportPDF, exporting } = useExportCoverLetterPDF();
 
   return (
     <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-30">
@@ -53,6 +56,16 @@ export default function CoverLetterToolbar({ coverLetter }: Props) {
           </>
         )}
       </div>
+
+      <Button
+        size="sm"
+        onClick={() => exportPDF(coverLetter)}
+        disabled={exporting}
+        className="font-sans text-xs uppercase tracking-widest gap-2"
+      >
+        {exporting ? <Loader2 className="animate-spin" /> : <FileDown />}
+        <span className="hidden sm:inline">{tc("export")}</span>
+      </Button>
 
       <div className="hidden sm:flex">
         <LanguageSwitcher />

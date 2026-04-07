@@ -12,6 +12,7 @@ import SenderInfoSection from "@/components/cover-letter-editor/sections/SenderI
 import RecipientSection from "@/components/cover-letter-editor/sections/RecipientSection";
 import LetterContentSection from "@/components/cover-letter-editor/sections/LetterContentSection";
 import ResumeLinkSection from "@/components/cover-letter-editor/sections/ResumeLinkSection";
+import CoverLetterPreview from "@/components/cover-letter-editor/preview/CoverLetterPreview";
 import Footer from "@/components/Footer";
 
 interface Props {
@@ -59,18 +60,16 @@ export default function CoverLetterEditorPage({ params }: Props) {
           </ScrollArea>
         </div>
 
-        {/* Right: preview placeholder */}
+        {/* Right: live preview */}
         <div className="flex flex-col overflow-hidden sticky top-0 h-screen">
           <div className="px-4 py-3 border-b border-border flex items-center gap-2 bg-card">
-            <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <p className="font-sans text-[10px] uppercase tracking-widest text-text-subtle">
               {t("livePreviewRendering")}
             </p>
           </div>
-          <div className="flex-1 flex items-center justify-center text-muted-foreground/30">
-            <p className="font-sans text-xs uppercase tracking-widest">
-              PDF Preview
-            </p>
+          <div className="flex-1 overflow-hidden">
+            <CoverLetterPreview data={data} templateId={coverLetter.templateId} />
           </div>
         </div>
       </div>
@@ -99,11 +98,9 @@ export default function CoverLetterEditorPage({ params }: Props) {
           </TabsContent>
           <TabsContent
             value="preview"
-            className="flex-1 overflow-hidden mt-0 h-full flex items-center justify-center text-muted-foreground/30"
+            className="flex-1 overflow-hidden mt-0 h-full"
           >
-            <p className="font-sans text-xs uppercase tracking-widest">
-              PDF Preview
-            </p>
+            <CoverLetterPreview data={data} templateId={coverLetter.templateId} />
           </TabsContent>
         </Tabs>
       </div>
