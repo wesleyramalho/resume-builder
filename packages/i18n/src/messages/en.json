@@ -98,7 +98,9 @@
     "coverLettersTab": "Cover Letters",
     "resumesTab": "Resumes",
     "blankCoverLetter": "Blank Cover Letter",
-    "newCoverLetterPath": "New Cover Letter"
+    "newCoverLetterPath": "New Cover Letter",
+    "coverLetterTitle": "My Cover Letters",
+    "coverLetterSubtitle": "Create and tailor each cover letter for the position you want."
   },
   "editor": {
     "personalInfo": "Personal Info",

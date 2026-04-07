@@ -29,7 +29,7 @@ import { useCoverLetterStore } from "@/store/useCoverLetterStore";
 import { toast } from "sonner";
 import { track } from "@/lib/analytics";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ activeTab = "resumes" }: { activeTab?: "resumes" | "cover-letters" }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -165,10 +165,10 @@ export default function DashboardHeader() {
           className="font-sans font-bold text-foreground"
           style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
         >
-          {t("title")}
+          {activeTab === "cover-letters" ? t("coverLetterTitle") : t("title")}
         </h1>
         <p className="text-muted-foreground mt-2 max-w-sm">
-          {t("subtitle")}
+          {activeTab === "cover-letters" ? t("coverLetterSubtitle") : t("subtitle")}
         </p>
       </div>
 

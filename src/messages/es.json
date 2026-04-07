@@ -98,7 +98,9 @@
     "coverLettersTab": "Cartas de Presentación",
     "resumesTab": "Currículums",
     "blankCoverLetter": "Carta en Blanco",
-    "newCoverLetterPath": "Nueva Carta"
+    "newCoverLetterPath": "Nueva Carta",
+    "coverLetterTitle": "Mis Cartas de Presentación",
+    "coverLetterSubtitle": "Crea y personaliza cada carta para el puesto que deseas."
   },
   "editor": {
     "personalInfo": "Información Personal",

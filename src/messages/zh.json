@@ -98,7 +98,9 @@
     "coverLettersTab": "求职信",
     "resumesTab": "简历",
     "blankCoverLetter": "空白求职信",
-    "newCoverLetterPath": "新建求职信"
+    "newCoverLetterPath": "新建求职信",
+    "coverLetterTitle": "我的求职信",
+    "coverLetterSubtitle": "为您心仪的职位创建和定制每封求职信。"
   },
   "editor": {
     "personalInfo": "个人信息",

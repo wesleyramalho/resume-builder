@@ -98,7 +98,9 @@
     "coverLettersTab": "カバーレター",
     "resumesTab": "履歴書",
     "blankCoverLetter": "空白のカバーレター",
-    "newCoverLetterPath": "新しいカバーレター"
+    "newCoverLetterPath": "新しいカバーレター",
+    "coverLetterTitle": "マイカバーレター",
+    "coverLetterSubtitle": "希望するポジションに合わせてカバーレターを作成・カスタマイズ。"
   },
   "editor": {
     "personalInfo": "個人情報",

@@ -98,7 +98,9 @@
     "coverLettersTab": "Lettere di Presentazione",
     "resumesTab": "Curriculum",
     "blankCoverLetter": "Lettera Vuota",
-    "newCoverLetterPath": "Nuova Lettera"
+    "newCoverLetterPath": "Nuova Lettera",
+    "coverLetterTitle": "Le Mie Lettere di Presentazione",
+    "coverLetterSubtitle": "Crea e personalizza ogni lettera per la posizione desiderata."
   },
   "editor": {
     "personalInfo": "Informazioni personali",

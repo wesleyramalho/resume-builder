@@ -98,7 +98,9 @@
     "coverLettersTab": "Anschreiben",
     "resumesTab": "Lebensläufe",
     "blankCoverLetter": "Leeres Anschreiben",
-    "newCoverLetterPath": "Neues Anschreiben"
+    "newCoverLetterPath": "Neues Anschreiben",
+    "coverLetterTitle": "Meine Anschreiben",
+    "coverLetterSubtitle": "Erstellen und passen Sie jedes Anschreiben für die gewünschte Stelle an."
   },
   "editor": {
     "personalInfo": "Persönliche Daten",
