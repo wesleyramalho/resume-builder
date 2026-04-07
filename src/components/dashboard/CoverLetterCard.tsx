@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Copy, Trash2, FileText } from "lucide-react";
+import { Pencil, Copy, Trash2 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { CoverLetter } from "@/types/coverLetter";
 import { useCoverLetterStore } from "@/store/useCoverLetterStore";
 import { formatDate } from "@/lib/utils";
+import CoverLetterThumbnail from "./CoverLetterThumbnail";
 
 interface Props {
   coverLetter: CoverLetter;
@@ -51,30 +52,16 @@ export default function CoverLetterCard({ coverLetter }: Props) {
     setShowDelete(false);
   }
 
-  const preview = coverLetter.data.bodyParagraphs.find((p) => p.trim());
-
   return (
     <>
       <div className="group bg-card border border-border rounded-lg overflow-hidden hover:border-brand-secondary/50 transition-colors shadow-sm">
-        <div
-          className="relative p-4 bg-surface-soft/70 cursor-pointer aspect-[3/4] flex flex-col items-center justify-center"
-          onClick={handleEdit}
-        >
-          <FileText className="w-10 h-10 text-muted-foreground/40 mb-3" />
-          {preview ? (
-            <p className="text-[10px] text-muted-foreground leading-relaxed line-clamp-6 text-center px-2">
-              {preview}
-            </p>
-          ) : (
-            <p className="text-[10px] text-muted-foreground/40 uppercase tracking-widest">
-              {t("drafting")}
-            </p>
-          )}
+        <div className="relative p-3 bg-surface-soft/70 cursor-pointer" onClick={handleEdit}>
+          <CoverLetterThumbnail data={coverLetter.data} templateId={coverLetter.templateId} />
           {coverLetter.status === "draft" && (
-            <div className="absolute top-3 left-3">
-              <div className="bg-background/90 backdrop-blur-sm border border-border rounded-full px-2 py-0.5 flex items-center gap-1.5">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-background/90 backdrop-blur-sm border border-border rounded-full px-3 py-1 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                <span className="font-sans text-[9px] uppercase tracking-widest text-amber-400">
+                <span className="font-sans text-[10px] uppercase tracking-widest text-amber-400">
                   {t("drafting")}
                 </span>
               </div>
