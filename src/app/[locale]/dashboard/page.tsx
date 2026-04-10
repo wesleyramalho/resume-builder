@@ -1,10 +1,12 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useResumeStore } from "@/store/useResumeStore";
+import { useCoverLetterStore } from "@/store/useCoverLetterStore";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import ResumeGrid from "@/components/dashboard/ResumeGrid";
+import CoverLetterGrid from "@/components/dashboard/CoverLetterGrid";
 import { Link } from "@/i18n/navigation";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
@@ -12,7 +14,10 @@ import Footer from "@/components/Footer";
 
 export default function DashboardPage() {
   const resumes = useResumeStore((s) => s.resumes);
+  const coverLetters = useCoverLetterStore((s) => s.coverLetters);
   const t = useTranslations("common");
+  const td = useTranslations("dashboard");
+  const [activeTab, setActiveTab] = useState<"resumes" | "cover-letters">("resumes");
 
   return (
     <div className="min-h-screen bg-background">
@@ -32,14 +37,41 @@ export default function DashboardPage() {
         </div>
       </nav>
 
+      {/* Sticky tabs bar */}
+      <div className="sticky top-14.25 z-30 bg-background/95 backdrop-blur-sm border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex gap-1">
+          <button
+            onClick={() => setActiveTab("resumes")}
+            className={`relative font-sans text-sm uppercase tracking-widest px-4 py-3 transition-colors ${
+              activeTab === "resumes"
+                ? "text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {td("resumesTab")}
+          </button>
+          <button
+            onClick={() => setActiveTab("cover-letters")}
+            className={`relative font-sans text-sm uppercase tracking-widest px-4 py-3 transition-colors ${
+              activeTab === "cover-letters"
+                ? "text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {td("coverLettersTab")}
+          </button>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
         <Suspense>
-          <DashboardHeader />
+          <DashboardHeader activeTab={activeTab} />
         </Suspense>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
           <div>
-            <ResumeGrid resumes={resumes} />
+            {activeTab === "resumes" && <ResumeGrid resumes={resumes} />}
+            {activeTab === "cover-letters" && <CoverLetterGrid coverLetters={coverLetters} />}
           </div>
         </div>
       </div>

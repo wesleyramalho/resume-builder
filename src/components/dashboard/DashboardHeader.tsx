@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { Plus, LogOut, Palette, Upload, ChevronDown } from "lucide-react";
+import { Plus, LogOut, Palette, Upload, ChevronDown, FileText } from "lucide-react";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,10 +25,11 @@ interface LinkedInImportResponse {
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
 import { getTemplate } from "@/lib/resumeTemplates";
 import { importResumeFromFile } from "@/lib/resumeImport";
+import { useCoverLetterStore } from "@/store/useCoverLetterStore";
 import { toast } from "sonner";
 import { track } from "@/lib/analytics";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ activeTab = "resumes" }: { activeTab?: "resumes" | "cover-letters" }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,6 +37,8 @@ export default function DashboardHeader() {
   const t = useTranslations("dashboard");
   const tc = useTranslations("common");
   const createResume = useResumeStore((s) => s.createResume);
+  const createCoverLetter = useCoverLetterStore((s) => s.createCoverLetter);
+  const tcl = useTranslations("coverLetter");
   const hasConsumedImportIntent = useRef(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [isImporting, setIsImporting] = useState(false);
@@ -162,10 +165,10 @@ export default function DashboardHeader() {
           className="font-sans font-bold text-foreground"
           style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
         >
-          {t("title")}
+          {activeTab === "cover-letters" ? t("coverLetterTitle") : t("title")}
         </h1>
         <p className="text-muted-foreground mt-2 max-w-sm">
-          {t("subtitle")}
+          {activeTab === "cover-letters" ? t("coverLetterSubtitle") : t("subtitle")}
         </p>
       </div>
 
@@ -200,6 +203,11 @@ export default function DashboardHeader() {
             <DropdownMenuItem onClick={() => { const r = createResume(); router.push(`/editor/${r.id}`); }} className="gap-2">
               <Plus className="w-4 h-4" />
               {t("blankResume")}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => { const cl = createCoverLetter(); router.push(`/cover-letter/${cl.id}`); }} className="gap-2">
+              <FileText className="w-4 h-4" />
+              {t("blankCoverLetter")}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => mobileFileInputRef.current?.click()} className="gap-2">
