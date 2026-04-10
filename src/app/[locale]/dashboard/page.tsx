@@ -68,8 +68,12 @@ export default function DashboardPage() {
           <DashboardHeader activeTab={activeTab} />
         </Suspense>
 
-        {activeTab === "resumes" && <ResumeGrid resumes={resumes} />}
-        {activeTab === "cover-letters" && <CoverLetterGrid coverLetters={coverLetters} />}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
+          <div>
+            {activeTab === "resumes" && <ResumeGrid resumes={resumes} />}
+            {activeTab === "cover-letters" && <CoverLetterGrid coverLetters={coverLetters} />}
+          </div>
+        </div>
       </div>
       <Footer />
     </div>
