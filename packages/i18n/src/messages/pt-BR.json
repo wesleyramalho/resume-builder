@@ -56,7 +56,21 @@
     "ctaButton": "Criar Currículo",
     "linkedInNotConfigured": "A importação do LinkedIn ainda não está configurada. Adicione as variáveis de ambiente do OAuth.",
     "linkedInUnavailable": "O login do LinkedIn está indisponível no momento. Tente novamente em breve.",
-    "startWithLinkedIn": "Começar com LinkedIn"
+    "startWithLinkedIn": "Começar com LinkedIn",
+    "faqLabel": "Perguntas Frequentes",
+    "faqHeading": "Tem Dúvidas? Nós Temos Respostas.",
+    "faqWhatIsQ": "O que é o MyPDFCV?",
+    "faqWhatIsA": "O MyPDFCV é um criador de currículos gratuito e de código aberto que funciona inteiramente no seu navegador. Crie currículos profissionais e compatíveis com ATS, com pré-visualização em tempo real, e exporte-os como PDF — sem necessidade de cadastro.",
+    "faqFreeQ": "É realmente gratuito?",
+    "faqFreeA": "Sim, 100% gratuito, sem custos ocultos, sem plano premium e sem marcas d'água. Todos os recursos, templates e exportações estão disponíveis para todos sem nenhum custo.",
+    "faqTemplatesQ": "Quantos templates estão disponíveis?",
+    "faqTemplatesA": "Oferecemos 7 templates profissionalmente projetados, todos compatíveis com ATS e totalmente personalizáveis. Cada template pode ser adaptado ao seu estilo pessoal e à sua área de atuação.",
+    "faqPrivacyQ": "O que acontece com meus dados?",
+    "faqPrivacyA": "Os dados do seu currículo nunca saem do seu navegador — tudo é armazenado localmente no seu dispositivo. Coletamos apenas dados anônimos de uso para entender como a plataforma é utilizada e melhorar a experiência. Nunca acessamos, armazenamos ou vendemos o conteúdo pessoal do seu currículo.",
+    "faqExportQ": "Quais formatos de exportação são suportados?",
+    "faqExportA": "Você pode exportar seu currículo como um PDF de alta qualidade com um clique. A saída utiliza metadados limpos e formatação compatível com ATS para garantir que seu currículo passe por sistemas de triagem automatizados.",
+    "faqCustomizationQ": "Posso personalizar o layout?",
+    "faqCustomizationA": "Com certeza. Você pode reordenar seções via arrastar e soltar, ajustar o conteúdo e escolher entre 7 templates. O editor suporta múltiplos idiomas, então você pode criar currículos em qualquer um dos nossos 7 idiomas disponíveis."
   },
   "dashboard": {
     "portfolioOverview": "Painel",

@@ -68,8 +68,30 @@ See the [MCP server repo](https://github.com/wesleyramalho/mypdfcv-mcp-server) f
 
 ## Getting Started
 
+**1. Install dependencies and build packages**
+
 ```bash
 npm install
+npm run build:packages
+```
+
+**2. Set up environment variables**
+
+```bash
+cp .env.example .env.local
+```
+
+**3. Generate an `AUTH_SECRET`**
+
+```bash
+npx auth secret
+```
+
+This writes `AUTH_SECRET` to `.env.local` automatically. Alternatively, run `openssl rand -hex 32` and set it manually.
+
+**4. Start the dev server**
+
+```bash
 npm run dev
 ```
 
@@ -83,6 +105,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Build for production |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
+| `npm run build:packages` | Build packages |
 | `npm run test:e2e` | Run Playwright e2e tests (headless) |
 | `npm run test:e2e:ui` | Open Playwright UI for interactive debugging |
 | `npm run test:e2e:headed` | Run e2e tests with visible browser |

@@ -56,7 +56,21 @@
     "ctaButton": "Crea il tuo CV",
     "linkedInNotConfigured": "L'importazione da LinkedIn non è ancora configurata. Aggiungi i valori OAuth di LinkedIn.",
     "linkedInUnavailable": "L'accesso con LinkedIn non è disponibile al momento. Riprova tra poco.",
-    "startWithLinkedIn": "Inizia con LinkedIn"
+    "startWithLinkedIn": "Inizia con LinkedIn",
+    "faqLabel": "Domande Frequenti",
+    "faqHeading": "Hai Domande? Abbiamo le Risposte.",
+    "faqWhatIsQ": "Cos'è MyPDFCV?",
+    "faqWhatIsA": "MyPDFCV è un creatore di curriculum gratuito e open-source che funziona interamente nel tuo browser. Crea curriculum professionali e compatibili con ATS, con anteprima in tempo reale, ed esportali come PDF — senza bisogno di registrazione.",
+    "faqFreeQ": "È davvero gratuito?",
+    "faqFreeA": "Sì, 100% gratuito senza costi nascosti, senza piano premium e senza filigrane. Ogni funzionalità, template ed esportazione è disponibile per tutti senza alcun costo.",
+    "faqTemplatesQ": "Quanti template sono disponibili?",
+    "faqTemplatesA": "Offriamo 7 template progettati professionalmente, tutti compatibili con ATS e completamente personalizzabili. Ogni template può essere adattato al tuo stile personale e al tuo settore.",
+    "faqPrivacyQ": "Cosa succede ai miei dati?",
+    "faqPrivacyA": "I dati del tuo curriculum non lasciano mai il tuo browser — tutto viene archiviato localmente sul tuo dispositivo. Raccogliamo solo dati anonimi di utilizzo per capire come viene usata la piattaforma e migliorare l'esperienza. Non accediamo, memorizziamo né vendiamo mai il contenuto personale del tuo curriculum.",
+    "faqExportQ": "Quali formati di esportazione sono supportati?",
+    "faqExportA": "Puoi esportare il tuo curriculum come PDF di alta qualità con un clic. L'output utilizza metadati puliti e formattazione compatibile con ATS per garantire che il tuo curriculum superi i sistemi di screening automatizzati.",
+    "faqCustomizationQ": "Posso personalizzare il layout?",
+    "faqCustomizationA": "Assolutamente. Puoi riordinare le sezioni tramite drag-and-drop, modificare il contenuto e scegliere tra 7 template. L'editor supporta più lingue, quindi puoi creare curriculum in una qualsiasi delle nostre 7 lingue supportate."
   },
   "dashboard": {
     "portfolioOverview": "Pannello di controllo",

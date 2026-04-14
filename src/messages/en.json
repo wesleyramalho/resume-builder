@@ -56,7 +56,21 @@
     "ctaButton": "Build Your Resume",
     "linkedInNotConfigured": "LinkedIn import is not configured yet. Add LinkedIn OAuth env values.",
     "linkedInUnavailable": "LinkedIn sign-in is unavailable right now. Please try again shortly.",
-    "startWithLinkedIn": "Start with LinkedIn"
+    "startWithLinkedIn": "Start with LinkedIn",
+    "faqLabel": "Frequently Asked Questions",
+    "faqHeading": "Got Questions? We've Got Answers.",
+    "faqWhatIsQ": "What is MyPDFCV?",
+    "faqWhatIsA": "MyPDFCV is a free, open-source resume builder that runs entirely in your browser. Create professional, ATS-friendly resumes with real-time preview and export them as PDF — no account required.",
+    "faqFreeQ": "Is it really free?",
+    "faqFreeA": "Yes, 100% free with no hidden costs, no premium tier, and no watermarks. Every feature, template, and export is available to everyone at no charge.",
+    "faqTemplatesQ": "How many templates are available?",
+    "faqTemplatesA": "We offer 7 professionally designed templates, all ATS-friendly and fully customizable. Each template can be tailored to match your personal style and industry.",
+    "faqPrivacyQ": "What happens to my data?",
+    "faqPrivacyA": "Your resume data never leaves your browser — everything is stored locally on your device. We only collect anonymous usage analytics to understand how the platform is used and improve the experience. We never access, store, or sell your personal resume content.",
+    "faqExportQ": "What export formats are supported?",
+    "faqExportA": "You can export your resume as a high-quality PDF with one click. The output uses clean metadata and ATS-friendly formatting to ensure your resume passes automated screening systems.",
+    "faqCustomizationQ": "Can I customize the layout?",
+    "faqCustomizationA": "Absolutely. You can reorder sections via drag-and-drop, adjust content, and choose from 7 templates. The editor supports multiple languages, so you can build resumes in any of our 7 supported locales."
   },
   "dashboard": {
     "portfolioOverview": "Dashboard",
