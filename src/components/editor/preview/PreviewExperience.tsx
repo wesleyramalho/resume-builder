@@ -1,5 +1,5 @@
 import { ExperienceEntry } from "@/types/resume";
-import { formatMonthYear } from "@/lib/utils";
+import { formatMonthYear, toLocaleTag } from "@mypdfcv/pdf-core";
 import { useTranslations, useLocale } from "next-intl";
 import { hexWithAlpha, type ResumeStyle } from "@/lib/resumeTemplates";
 
@@ -11,7 +11,7 @@ interface Props {
 export default function PreviewExperience({ experience, style: tmpl }: Props) {
   const t = useTranslations("resume");
   const locale = useLocale();
-  const localeTag = locale === "pt-BR" ? "pt-BR" : "en-US";
+  const localeTag = toLocaleTag(locale);
 
   if (experience.length === 0) return null;
 

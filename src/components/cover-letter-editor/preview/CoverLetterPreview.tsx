@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { CoverLetterData } from "@/types/coverLetter";
-import { getCoverLetterStyle } from "@mypdfcv/pdf-core";
+import { getCoverLetterStyle, toLocaleTag } from "@mypdfcv/pdf-core";
 
 const PAPER_WIDTH_PX = 793.7;
 
@@ -47,7 +47,7 @@ export default function CoverLetterPreview({ data, templateId }: Props) {
 
   const formattedDate = data.date
     ? new Date(data.date + "T00:00:00").toLocaleDateString(
-        locale === "pt-BR" ? "pt-BR" : locale,
+        toLocaleTag(locale),
         { year: "numeric", month: "long", day: "numeric" },
       )
     : "";

@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 import { Resume } from "../types/resume";
-import { formatMonthYear } from "../lib/utils";
+import { formatMonthYear, toLocaleTag } from "../lib/utils";
 import {
   getResumeStyle,
   hexWithAlpha,
@@ -396,7 +396,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
   const tmpl = getResumeStyle(resume.templateId);
   const s = buildStyles(tmpl);
   const t = getT(locale, messages);
-  const localeTag = locale === "pt-BR" ? "pt-BR" : "en-US";
+  const localeTag = toLocaleTag(locale);
   const presentLabel = t("resume", "present");
   const order = data.sectionOrder?.length
     ? data.sectionOrder

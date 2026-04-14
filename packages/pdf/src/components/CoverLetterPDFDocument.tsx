@@ -8,6 +8,7 @@ import {
 } from "@react-pdf/renderer";
 import { CoverLetter } from "../types/coverLetter";
 import { getCoverLetterStyle, type CoverLetterStyle } from "../lib/coverLetterTemplates";
+import { toLocaleTag } from "../lib/utils";
 
 export const PDF_FONT = "Helvetica";
 
@@ -116,7 +117,7 @@ export default function CoverLetterPDFDocument({ coverLetter, locale = "en" }: P
   ].filter(Boolean);
 
   const formattedDate = data.date
-    ? new Date(data.date + "T00:00:00").toLocaleDateString(locale === "pt-BR" ? "pt-BR" : locale, {
+    ? new Date(data.date + "T00:00:00").toLocaleDateString(toLocaleTag(locale), {
         year: "numeric",
         month: "long",
         day: "numeric",

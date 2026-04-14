@@ -4,6 +4,21 @@ export function generateId(): string {
     : Math.random().toString(36).slice(2, 11);
 }
 
+/** Map an app locale code to a BCP 47 locale tag for Intl APIs */
+export function toLocaleTag(locale: string): string {
+  const map: Record<string, string> = {
+    "pt-BR": "pt-BR",
+    "hi": "hi-IN",
+    "zh": "zh-CN",
+    "ja": "ja-JP",
+    "de": "de-DE",
+    "es": "es-ES",
+    "it": "it-IT",
+    "en": "en-US",
+  };
+  return map[locale] ?? locale;
+}
+
 /** Format a "YYYY-MM" date string to a localized short month + year */
 export function formatMonthYear(
   ym: string | null,

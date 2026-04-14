@@ -67,4 +67,4 @@ export {
 } from "./lib/coverLetterTemplates";
 
 // Utilities
-export { generateId, formatMonthYear } from "./lib/utils";
+export { generateId, formatMonthYear, toLocaleTag } from "./lib/utils";
