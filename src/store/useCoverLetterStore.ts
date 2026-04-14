@@ -116,6 +116,7 @@ export const useCoverLetterStore = create<CoverLetterStore>()(
             cl.updatedAt = new Date().toISOString();
           }
         });
+        track("cover_letter_template_changed", { templateId });
       },
     })),
     {

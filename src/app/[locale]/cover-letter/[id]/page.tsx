@@ -1,7 +1,8 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect } from "react";
 import { notFound } from "next/navigation";
+import { track } from "@/lib/analytics";
 import { Pencil, Eye } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -25,6 +26,10 @@ export default function CoverLetterEditorPage({ params }: Props) {
     s.coverLetters.find((cl) => cl.id === id),
   );
   const t = useTranslations("editor");
+
+  useEffect(() => {
+    if (coverLetter) track("cover_letter_opened", { id });
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!coverLetter) {
     notFound();

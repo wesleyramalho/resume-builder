@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { CoverLetterData } from "@/types/coverLetter";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useCoverLetterStore } from "@/store/useCoverLetterStore";
+import { track } from "@/lib/analytics";
 
 interface Props {
   coverLetterId: string;
@@ -27,12 +28,14 @@ export default function ResumeLinkSection({ coverLetterId, data }: Props) {
       senderName: resume.data.fullName,
       senderContact: { ...resume.data.contact },
     });
+    track("cover_letter_resume_linked", { resumeId });
   }
 
   function handleUnlink() {
     updateCoverLetter(coverLetterId, {
       linkedResumeId: undefined,
     });
+    track("cover_letter_resume_unlinked");
   }
 
   return (

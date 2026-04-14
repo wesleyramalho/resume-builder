@@ -8,6 +8,7 @@ import { FormInput, FormTextarea } from "@/components/ui/FormInput";
 import { Button } from "@/components/ui/button";
 import { CoverLetterData } from "@/types/coverLetter";
 import { useCoverLetterForm } from "@/hooks/useCoverLetterForm";
+import { track } from "@/lib/analytics";
 import { resolveValidationError } from "@/lib/resolve-validation-error";
 import AIImproveButton from "@/components/ui/AIImproveButton";
 
@@ -55,6 +56,7 @@ export default function LetterContentSection({ coverLetterId, data }: Props) {
 
   function addParagraph() {
     setValue("bodyParagraphs", [...paragraphs, ""]);
+    track("cover_letter_paragraph_added");
   }
 
   function removeParagraph(index: number) {
@@ -63,6 +65,7 @@ export default function LetterContentSection({ coverLetterId, data }: Props) {
       "bodyParagraphs",
       paragraphs.filter((_, i) => i !== index),
     );
+    track("cover_letter_paragraph_removed");
   }
 
   return (
