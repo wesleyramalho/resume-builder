@@ -24,6 +24,7 @@ interface LinkedInImportResponse {
 }
 import TemplatePicker from "@/components/dashboard/TemplatePicker";
 import { getTemplate } from "@/lib/resumeTemplates";
+import { getLocalizedSampleData } from "@/lib/localizedSampleData";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import { useCoverLetterStore } from "@/store/useCoverLetterStore";
 import { toast } from "sonner";
@@ -87,9 +88,10 @@ export default function DashboardHeader({ activeTab = "resumes" }: { activeTab?:
       return;
     }
     const tmpl = getTemplate(templateId);
+    const sampleData = getLocalizedSampleData(templateId, locale) ?? tmpl?.sampleData;
     const resume = createResume(
       tmpl?.name ?? t("untitledResume"),
-      tmpl?.sampleData,
+      sampleData,
       templateId,
     );
     router.push(`/editor/${resume.id}`);
