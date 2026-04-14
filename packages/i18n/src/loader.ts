@@ -7,6 +7,7 @@ import it from "./messages/it.json";
 import zh from "./messages/zh.json";
 import ja from "./messages/ja.json";
 import de from "./messages/de.json";
+import hi from "./messages/hi.json";
 
 type Messages = Record<string, Record<string, string>>;
 
@@ -18,6 +19,7 @@ const allMessages: Record<string, Messages> = {
   zh: zh as unknown as Messages,
   ja: ja as unknown as Messages,
   de: de as unknown as Messages,
+  hi: hi as unknown as Messages,
 };
 
 /** Synchronously get all messages for a locale. Falls back to defaultLocale. */

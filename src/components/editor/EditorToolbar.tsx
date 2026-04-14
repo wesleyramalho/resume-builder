@@ -37,6 +37,11 @@ const LANGUAGES = [
   { code: "en", flag: "\u{1F1FA}\u{1F1F8}", label: "English" },
   { code: "pt-BR", flag: "\u{1F1E7}\u{1F1F7}", label: "Portugu\u00EAs (Brasil)" },
   { code: "es", flag: "\u{1F1EA}\u{1F1F8}", label: "Español" },
+  { code: "it", flag: "\u{1F1EE}\u{1F1F9}", label: "Italiano" },
+  { code: "zh", flag: "\u{1F1E8}\u{1F1F3}", label: "中文" },
+  { code: "ja", flag: "\u{1F1EF}\u{1F1F5}", label: "日本語" },
+  { code: "de", flag: "\u{1F1E9}\u{1F1EA}", label: "Deutsch" },
+  { code: "hi", flag: "\u{1F1EE}\u{1F1F3}", label: "हिन्दी" },
 ];
 
 interface Props { resume: Resume }
