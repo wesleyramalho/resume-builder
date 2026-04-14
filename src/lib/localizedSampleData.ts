@@ -3494,6 +3494,128 @@ const DE_SAMPLE_DATA: Record<string, PartialSampleData> = {
   },
 };
 
+const HI_SAMPLE_DATA: Record<string, PartialSampleData> = {
+  modern: {
+    fullName: "आदित्य शर्मा",
+    headline: "सीनियर सॉफ्टवेयर इंजीनियर",
+    summary:
+      "6+ वर्षों के अनुभव वाले फुल-स्टैक इंजीनियर, स्केलेबल वेब एप्लिकेशन निर्माण में विशेषज्ञ। डेवलपर अनुभव, प्रदर्शन और क्लीन आर्किटेक्चर के प्रति समर्पित।",
+    contact: { email: "aditya.sharma@email.com", phone: "+91 98765 43210", location: "बेंगलुरु, कर्नाटक", linkedin: "linkedin.com/in/adityasharma", website: "adityasharma.dev" },
+    experience: [
+      { id: generateId(), company: "Flipkart", title: "सीनियर सॉफ्टवेयर इंजीनियर", location: "बेंगलुरु, कर्नाटक", startDate: "2021-03", endDate: null, current: true, description: "पेमेंट्स डैशबोर्ड का React 18 में माइग्रेशन लीड किया, लोड टाइम 40% कम किया\nरियल-टाइम वेबहुक मॉनिटरिंग डिज़ाइन और डिलीवर किया, 50K+ विक्रेताओं द्वारा उपयोग\n4 जूनियर इंजीनियरों को कोड रिव्यू और पेयर प्रोग्रामिंग सेशन के माध्यम से मेंटर किया" },
+      { id: generateId(), company: "Zoho", title: "सॉफ्टवेयर इंजीनियर", location: "चेन्नई, तमिलनाडु", startDate: "2018-06", endDate: "2021-02", current: false, description: "डिप्लॉयमेंट पाइपलाइन ऑप्टिमाइज़ेशन बनाया, बिल्ड टाइम 30% कम किया\n500K+ डेवलपर्स द्वारा उपयोग किए जाने वाले ओपन-सोर्स टूल्स में योगदान\nएज कैशिंग स्ट्रैटेजी लागू की जिससे API लेटेंसी 60% कम हुई" },
+      { id: generateId(), company: "TCS", title: "जूनियर सॉफ्टवेयर डेवलपर", location: "मुंबई, महाराष्ट्र", startDate: "2017-01", endDate: "2018-05", current: false, description: "Node.js और Express के साथ RESTful API विकसित किए, 10K+ दैनिक अनुरोध\nCI/CD पाइपलाइन के लिए आंतरिक टूलिंग विकसित की\nऑन-कॉल रोटेशन में भाग लिया और SLA के अंदर प्रोडक्शन इंसीडेंट्स हल किए" },
+    ],
+    education: [
+      { id: generateId(), school: "IIT दिल्ली", degree: "बी.टेक.", field: "कंप्यूटर साइंस एंड इंजीनियरिंग", startDate: "2013-07", endDate: "2017-05", gpa: "9.1", highlights: "डीन्स लिस्ट, AI में रिसर्च प्रोजेक्ट" },
+      { id: generateId(), school: "AWS", degree: "प्रमाणपत्र", field: "AWS Solutions Architect Associate", startDate: "2020-01", endDate: "2020-03", highlights: "स्कोर 920/1000" },
+    ],
+    skillGroups: [
+      { id: generateId(), category: "भाषाएं", skills: ["TypeScript", "Python", "Go", "SQL"] },
+      { id: generateId(), category: "फ्रेमवर्क", skills: ["React", "Next.js", "Node.js", "FastAPI"] },
+      { id: generateId(), category: "टूल्स", skills: ["PostgreSQL", "Redis", "Docker", "AWS", "GitHub Actions"] },
+    ],
+    projects: [{ id: generateId(), name: "ओपन-सोर्स CLI टूल", description: "Next.js प्रोजेक्ट स्कैफोल्डिंग के लिए CLI बनाया, CI/CD, लिंटिंग और टेस्ट प्री-कॉन्फ़िगर्ड। GitHub पर 1.2K+ स्टार्स।", url: "github.com/adityasharma/create-next-stack", technologies: ["TypeScript", "Node.js", "GitHub Actions"], startDate: "2022-01", endDate: "2022-06" }],
+  },
+  classic: {
+    fullName: "प्रिया पटेल",
+    headline: "बिज़नेस एनालिस्ट",
+    summary: "5 वर्षों के अनुभव वाली डेटा-ड्रिवन बिज़नेस एनालिस्ट, जटिल डेटासेट को कार्यान्वयन योग्य रणनीतियों में बदलने में विशेषज्ञ। स्टेकहोल्डर मैनेजमेंट और क्रॉस-फंक्शनल सहयोग में कुशल।",
+    contact: { email: "priya.patel@email.com", phone: "+91 87654 32109", location: "मुंबई, महाराष्ट्र", linkedin: "linkedin.com/in/priyapatel", website: "" },
+    experience: [
+      { id: generateId(), company: "Infosys", title: "सीनियर बिज़नेस एनालिस्ट", location: "मुंबई, महाराष्ट्र", startDate: "2021-04", endDate: null, current: true, description: "प्रमुख बैंकिंग क्लाइंट के लिए ₹50 करोड़ के प्रोजेक्ट पोर्टफोलियो का विश्लेषण\nव्यावसायिक आवश्यकताओं को 200+ पेज के फंक्शनल स्पेसिफिकेशन में ट्रांसलेट किया\nस्टेकहोल्डर प्रेजेंटेशन के माध्यम से Q3 बजट में 15% की बचत हासिल की" },
+      { id: generateId(), company: "Wipro", title: "बिज़नेस एनालिस्ट", location: "पुणे, महाराष्ट्र", startDate: "2019-01", endDate: "2021-03", current: false, description: "डेटा विज़ुअलाइज़ेशन डैशबोर्ड बनाए जिनका उपयोग 30+ एग्ज़ीक्यूटिव्स ने किया\nप्रोसेस ऑटोमेशन पहल का नेतृत्व किया जिससे मैन्युअल रिपोर्टिंग 40% कम हुई" },
+    ],
+    education: [{ id: generateId(), school: "IIM अहमदाबाद", degree: "MBA", field: "बिज़नेस एनालिटिक्स", startDate: "2017-06", endDate: "2019-04", gpa: "3.8", highlights: "डेटा एनालिटिक्स में विशेषज्ञता, केस कॉम्पिटिशन फाइनलिस्ट" }],
+    skillGroups: [
+      { id: generateId(), category: "विश्लेषण", skills: ["SQL", "Python", "Tableau", "Power BI"] },
+      { id: generateId(), category: "व्यवसाय", skills: ["Jira", "Confluence", "Agile/Scrum", "Stakeholder Management"] },
+    ],
+    projects: [{ id: generateId(), name: "ग्राहक मंथन पूर्वानुमान मॉडल", description: "मशीन लर्निंग मॉडल बनाया जो 89% सटीकता से ग्राहक मंथन की भविष्यवाणी करता है।", url: "", technologies: ["Python", "scikit-learn", "Tableau"], startDate: "2022-06", endDate: "2022-12" }],
+  },
+  minimal: {
+    fullName: "नेहा कुमार",
+    headline: "प्रोडक्ट डिज़ाइनर",
+    summary: "4+ वर्षों से सहज डिजिटल अनुभव तैयार करने वाली प्रोडक्ट डिज़ाइनर। डिज़ाइन सिस्टम, एक्सेसिबिलिटी और डिज़ाइन-इंजीनियरिंग के बीच सेतु बनाने पर केंद्रित।",
+    contact: { email: "neha.kumar@email.com", phone: "+91 76543 21098", location: "हैदराबाद, तेलंगाना", linkedin: "linkedin.com/in/nehakumar", website: "nehakumar.design" },
+    experience: [
+      { id: generateId(), company: "Swiggy", title: "सीनियर प्रोडक्ट डिज़ाइनर", location: "बेंगलुरु, कर्नाटक", startDate: "2022-01", endDate: null, current: true, description: "5 डिज़ाइनरों की टीम का नेतृत्व करते हुए इनस्टामार्ट ऐप का रीडिज़ाइन किया, उपयोगकर्ता संतुष्टि 35% बढ़ी\n100+ कंपोनेंट्स के साथ डिज़ाइन सिस्टम बनाया और बनाए रखा" },
+      { id: generateId(), company: "Ola", title: "UI/UX डिज़ाइनर", location: "बेंगलुरु, कर्नाटक", startDate: "2019-06", endDate: "2021-12", current: false, description: "ड्राइवर ऐप के लिए यूज़र फ्लो और वायरफ्रेम डिज़ाइन किए\nA/B टेस्टिंग के माध्यम से साइन-अप कन्वर्ज़न 25% बढ़ाया" },
+    ],
+    education: [{ id: generateId(), school: "NID अहमदाबाद", degree: "बी.डेस.", field: "इंटरैक्शन डिज़ाइन", startDate: "2015-07", endDate: "2019-05", highlights: "गोल्ड मेडलिस्ट, UX डिज़ाइन में थीसिस" }],
+    skillGroups: [
+      { id: generateId(), category: "डिज़ाइन", skills: ["Figma", "Sketch", "Adobe XD", "Protopie"] },
+      { id: generateId(), category: "रिसर्च", skills: ["Usability Testing", "A/B Testing", "User Interviews"] },
+      { id: generateId(), category: "फ्रंटएंड", skills: ["HTML", "CSS", "React", "Tailwind CSS"] },
+    ],
+    projects: [{ id: generateId(), name: "Swiggy डिज़ाइन सिस्टम", description: "कंपनी-व्यापी डिज़ाइन सिस्टम बनाया जिससे डिज़ाइन-टू-डेव हैंडऑफ़ 50% तेज़ हुआ।", url: "", technologies: ["Figma", "React", "Storybook"], startDate: "2022-03", endDate: "2022-09" }],
+  },
+  executive: {
+    fullName: "राजेश मेहता",
+    headline: "भर्ती अधिकारी",
+    summary: "HR, भर्ती और प्रतिभा प्रबंधन में व्यापक अनुभव वाले स्व-प्रेरित, परिणाम-उन्मुख भर्ती एवं HR विशेषज्ञ। रणनीतिक योजना के साथ व्यावहारिक डिलीवरी का संतुलन।",
+    contact: { email: "rajesh.mehta@email.com", phone: "+91 99887 76655", location: "दिल्ली, भारत", linkedin: "linkedin.com/in/rajeshmehta", website: "" },
+    experience: [
+      { id: generateId(), company: "Reliance Industries", title: "सीनियर भर्ती अधिकारी", location: "मुंबई, महाराष्ट्र", startDate: "2020-01", endDate: null, current: true, description: "वार्षिक 200+ पदों के लिए एंड-टू-एंड भर्ती प्रक्रिया का प्रबंधन\nभर्ती समय 30% कम किया, ATS और स्ट्रक्चर्ड इंटरव्यू लागू करके\n15+ विभागों के हायरिंग मैनेजर्स के साथ सहयोग" },
+      { id: generateId(), company: "Mahindra Group", title: "HR एग्ज़ीक्यूटिव", location: "पुणे, महाराष्ट्र", startDate: "2017-06", endDate: "2019-12", current: false, description: "कर्मचारी ऑनबोर्डिंग और एंगेजमेंट प्रोग्राम का समन्वय\nकैंपस रिक्रूटमेंट ड्राइव का आयोजन, 500+ कैंडिडेट्स को स्क्रीन किया" },
+    ],
+    education: [{ id: generateId(), school: "XLRI जमशेदपुर", degree: "MBA", field: "मानव संसाधन प्रबंधन", startDate: "2015-06", endDate: "2017-04", gpa: "3.7", highlights: "HR क्लब अध्यक्ष, समर इंटर्नशिप एक्सीलेंस अवार्ड" }],
+    skillGroups: [
+      { id: generateId(), category: "भर्ती", skills: ["ATS", "LinkedIn Recruiter", "Interview Design", "Employer Branding"] },
+      { id: generateId(), category: "HR", skills: ["SAP SuccessFactors", "Workday", "Labour Law", "POSH Compliance"] },
+    ],
+    projects: [{ id: generateId(), name: "कैंपस कनेक्ट प्रोग्राम", description: "20 शीर्ष इंजीनियरिंग कॉलेजों के साथ कैंपस हायरिंग प्रोग्राम शुरू किया, भर्ती गुणवत्ता 25% बढ़ी।", url: "", technologies: ["SAP SuccessFactors", "Power BI", "MS Teams"], startDate: "2021-01", endDate: "2021-06" }],
+  },
+  bold: {
+    fullName: "अंकित वर्मा",
+    headline: "वित्तीय विश्लेषक",
+    summary: "मल्टी-मिलियन डॉलर बजट प्रबंधन में प्रभावशाली पृष्ठभूमि वाले अनुभवी और प्रेरित वित्तीय विश्लेषक। प्रोडक्ट डेवलपमेंट विभागों में विश्लेषण और खाता सहायता प्रदान करने में अनुभवी।",
+    contact: { email: "ankit.verma@email.com", phone: "+91 88776 65544", location: "गुड़गांव, हरियाणा", linkedin: "linkedin.com/in/ankitverma", website: "" },
+    experience: [
+      { id: generateId(), company: "HDFC Bank", title: "सीनियर वित्तीय विश्लेषक", location: "मुंबई, महाराष्ट्र", startDate: "2020-09", endDate: null, current: true, description: "₹200 करोड़ के वार्षिक बजट का पूर्वानुमान और विश्लेषण प्रबंधित\nतिमाही वित्तीय रिपोर्ट तैयार की, प्रमुख KPI और विचलन का विश्लेषण\nप्रोसेस ऑटोमेशन के माध्यम से रिपोर्टिंग समय 50% कम किया" },
+      { id: generateId(), company: "Deloitte India", title: "वित्तीय विश्लेषक", location: "बेंगलुरु, कर्नाटक", startDate: "2018-07", endDate: "2020-08", current: false, description: "10+ क्लाइंट्स के लिए वित्तीय मॉडलिंग और वैल्यूएशन किया\nDue diligence रिपोर्ट तैयार की, ₹500 करोड़+ के M&A डील्स में सहायता" },
+    ],
+    education: [{ id: generateId(), school: "IIM बेंगलुरु", degree: "MBA", field: "वित्त", startDate: "2016-06", endDate: "2018-04", gpa: "3.9", highlights: "वित्त क्लब सचिव, CFA Level II उत्तीर्ण" }],
+    skillGroups: [
+      { id: generateId(), category: "वित्तीय", skills: ["Financial Modeling", "Valuation", "Budgeting", "Forecasting"] },
+      { id: generateId(), category: "टूल्स", skills: ["Excel", "Python", "Bloomberg Terminal", "SAP", "Power BI"] },
+    ],
+    projects: [{ id: generateId(), name: "बजट ऑटोमेशन डैशबोर्ड", description: "Power BI डैशबोर्ड बनाया जो रियल-टाइम बजट ट्रैकिंग प्रदान करता है, मैन्युअल रिपोर्टिंग 70% कम की।", url: "", technologies: ["Power BI", "Python", "SQL"], startDate: "2021-03", endDate: "2021-08" }],
+  },
+  balanced: {
+    fullName: "सुरेश यादव",
+    headline: "बढ़ई / कारपेंटर",
+    summary: "आवासीय और वाणिज्यिक निर्माण में 10+ वर्षों के अनुभव वाले कुशल और समर्पित बढ़ई। गुणवत्ता कार्य, समयबद्ध निर्माण और बजट के अंदर प्रोजेक्ट पूरा करने की सकारात्मक प्रतिष्ठा।",
+    contact: { email: "suresh.yadav@email.com", phone: "+91 77665 54433", location: "जयपुर, राजस्थान", linkedin: "", website: "" },
+    experience: [
+      { id: generateId(), company: "शर्मा कंस्ट्रक्शन", title: "लीड कारपेंटर", location: "जयपुर, राजस्थान", startDate: "2018-03", endDate: null, current: true, description: "5 कारपेंटर्स की टीम का नेतृत्व, आवासीय फर्नीचर और फिटिंग प्रोजेक्ट\nकस्टम किचन और वार्डरोब डिज़ाइन और इंस्टॉल किए, 100+ संतुष्ट ग्राहक\nसामग्री अपव्यय 20% कम किया" },
+      { id: generateId(), company: "राजपूत इंटीरियर्स", title: "कारपेंटर", location: "जयपुर, राजस्थान", startDate: "2014-01", endDate: "2018-02", current: false, description: "ऑफिस और रेस्टोरेंट इंटीरियर फिटिंग में विशेषज्ञता\nब्लूप्रिंट पढ़कर कस्टम फर्नीचर बनाया" },
+    ],
+    education: [{ id: generateId(), school: "ITI जयपुर", degree: "डिप्लोमा", field: "कारपेंट्री", startDate: "2012-07", endDate: "2014-06", highlights: "प्रथम श्रेणी, प्रैक्टिकल एग्ज़ाम में सर्वोच्च अंक" }],
+    skillGroups: [
+      { id: generateId(), category: "कौशल", skills: ["फर्नीचर निर्माण", "इंटीरियर फिटिंग", "ब्लूप्रिंट रीडिंग", "CNC मशीन"] },
+      { id: generateId(), category: "सामग्री", skills: ["सागौन", "प्लाईवुड", "MDF", "लैमिनेट", "हार्डवेयर फिटिंग"] },
+    ],
+    projects: [{ id: generateId(), name: "होटल लॉबी रीनोवेशन", description: "5-स्टार होटल के लॉबी का कस्टम वुडवर्क, रिसेप्शन डेस्क और बुकशेल्फ सहित। समय पर और बजट के अंदर पूरा।", url: "", technologies: ["सागौन", "CNC", "हैंड कार्विंग"], startDate: "2023-01", endDate: "2023-04" }],
+  },
+  clear: {
+    fullName: "मीनाक्षी राव",
+    headline: "रिसेप्शनिस्ट",
+    summary: "उच्च-मात्रा वाले क्लाइंट सेटिंग्स में कई वर्षों के अनुभव वाली मेहनती और अनुभवी रिसेप्शनिस्ट। शेड्यूल बनाने, अपॉइंटमेंट लेने और ग्राहकों को बेहतरीन सेवा प्रदान करने में अनुभवी।",
+    contact: { email: "meenakshi.rao@email.com", phone: "+91 66554 43322", location: "चेन्नई, तमिलनाडु", linkedin: "linkedin.com/in/meenakshirao", website: "" },
+    experience: [
+      { id: generateId(), company: "Taj Hotels", title: "सीनियर रिसेप्शनिस्ट", location: "चेन्नई, तमिलनाडु", startDate: "2020-06", endDate: null, current: true, description: "प्रतिदिन 100+ अतिथियों का चेक-इन/चेक-आउट प्रबंधित\nVIP गेस्ट सर्विसेज़ का समन्वय, गेस्ट सैटिस्फैक्शन स्कोर 95%+ बनाए रखा\nनए स्टाफ सदस्यों को PMS सॉफ्टवेयर और गेस्ट रिलेशन प्रोटोकॉल में प्रशिक्षित किया" },
+      { id: generateId(), company: "Apollo Hospitals", title: "फ्रंट डेस्क एग्ज़ीक्यूटिव", location: "चेन्नई, तमिलनाडु", startDate: "2018-01", endDate: "2020-05", current: false, description: "रोगी अपॉइंटमेंट और डॉक्टर शेड्यूल का प्रबंधन\nबीमा सत्यापन और बिलिंग पूछताछ में सहायता\nमल्टी-लाइन फ़ोन सिस्टम संचालित, 200+ दैनिक कॉल" },
+    ],
+    education: [{ id: generateId(), school: "मद्रास विश्वविद्यालय", degree: "बी.ए.", field: "अंग्रेज़ी साहित्य", startDate: "2014-06", endDate: "2017-04", highlights: "हॉस्पिटैलिटी मैनेजमेंट में प्रमाणपत्र" }],
+    skillGroups: [
+      { id: generateId(), category: "कौशल", skills: ["ग्राहक सेवा", "शेड्यूलिंग", "MS Office", "PMS सॉफ्टवेयर"] },
+      { id: generateId(), category: "भाषाएं", skills: ["हिन्दी", "अंग्रेज़ी", "तमिल", "तेलुगु"] },
+    ],
+    projects: [{ id: generateId(), name: "डिजिटल चेक-इन सिस्टम", description: "iPad-आधारित सेल्फ-चेक-इन सिस्टम लागू करने में सहायता की, फ्रंट डेस्क प्रतीक्षा समय 40% कम किया।", url: "", technologies: ["PMS", "iPad", "QR Code"], startDate: "2021-06", endDate: "2021-09" }],
+  },
+};
+
 /**
  * Returns localized sample data for a template.
  * Falls back to the template's default English data if no localization exists.
@@ -3512,6 +3634,7 @@ export function getLocalizedSampleData(
     zh: ZH_SAMPLE_DATA,
     ja: JA_SAMPLE_DATA,
     de: DE_SAMPLE_DATA,
+    hi: HI_SAMPLE_DATA,
   };
 
   const data = localeMap[locale];
