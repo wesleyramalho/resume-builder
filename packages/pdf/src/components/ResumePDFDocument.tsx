@@ -1,6 +1,5 @@
 import {
   Document,
-  Font,
   Image,
   Page,
   Text,
@@ -15,6 +14,7 @@ import {
   type ResumeStyle,
 } from "../lib/resumeTemplates";
 import { getMessages } from "@mypdfcv/i18n/server";
+import { getPdfFont } from "../lib/pdfFonts";
 
 export const PDF_FONT = "Helvetica";
 
@@ -26,10 +26,7 @@ function getT(locale: string, messages?: Record<string, Record<string, string>>)
   };
 }
 
-// Disable automatic hyphenation so words don't break mid-word
-Font.registerHyphenationCallback((word) => [word]);
-
-function buildStyles(tmpl: ResumeStyle) {
+function buildStyles(tmpl: ResumeStyle, font: string = PDF_FONT) {
   const { accentColor: accent, sectionDivider: divider, headerBgColor } = tmpl;
   const hasBg = !!headerBgColor;
   const isCentered = tmpl.photoPosition === "top-center" || tmpl.headerLayout === "centered";
@@ -38,7 +35,7 @@ function buildStyles(tmpl: ResumeStyle) {
   const contactColor = hasBg ? "rgba(255,255,255,0.6)" : "#9ca3af";
   return StyleSheet.create({
     page: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 9,
       color: "#1a1a1a",
       paddingHorizontal: 48,
@@ -46,7 +43,7 @@ function buildStyles(tmpl: ResumeStyle) {
       backgroundColor: "#ffffff",
     },
     header: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       borderBottomWidth: hasBg ? 0 : 0.5,
       borderBottomColor: hexWithAlpha(accent, 0.25),
       paddingBottom: 10,
@@ -67,7 +64,7 @@ function buildStyles(tmpl: ResumeStyle) {
     },
     name: {
       fontSize: 16,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontWeight: 700,
       textTransform: "uppercase",
       letterSpacing: 1.5,
@@ -79,7 +76,7 @@ function buildStyles(tmpl: ResumeStyle) {
     },
     headline: {
       fontSize: 8,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       textTransform: "uppercase",
       letterSpacing: 1.5,
       color: headlineColor,
@@ -91,7 +88,7 @@ function buildStyles(tmpl: ResumeStyle) {
     },
     contactRow: {
       flexDirection: "row",
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       flexWrap: "wrap",
       gap: 8,
       marginTop: 4,
@@ -100,17 +97,17 @@ function buildStyles(tmpl: ResumeStyle) {
         : {}),
     },
     contactText: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 7.5,
       color: contactColor,
     },
     section: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       marginBottom: 10,
     },
     sectionTitle: {
       fontSize: 7,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontWeight: 700,
       textTransform: "uppercase",
       letterSpacing: 1.5,
@@ -121,87 +118,87 @@ function buildStyles(tmpl: ResumeStyle) {
       marginBottom: 6,
     },
     summaryText: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 9,
       color: "#4b5563",
       lineHeight: 1.5,
     },
     expItem: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       marginBottom: 8,
     },
     expHeader: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "flex-start",
     },
     expCompany: {
       fontSize: 9,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontWeight: 700,
       textTransform: "uppercase",
       letterSpacing: 0.5,
       color: accent,
     },
     expTitle: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 8,
       color: "#6b7280",
       marginTop: 1,
     },
     expDate: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 7.5,
       color: "#9ca3af",
       textAlign: "right",
     },
     bullet: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       flexDirection: "row",
       gap: 4,
       marginTop: 2,
     },
     bulletDot: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 9,
       color: "#d1d5db",
       marginTop: 0.5,
     },
     bulletText: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 8.5,
       color: "#374151",
       flex: 1,
       lineHeight: 1.4,
     },
     eduItem: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       flexDirection: "row",
       justifyContent: "space-between",
       marginBottom: 6,
     },
     eduSchool: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 9,
       fontWeight: 700,
       color: accent,
     },
     eduDegree: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 8,
       color: "#6b7280",
       marginTop: 1,
     },
     skillsRow: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       flexDirection: "row",
       flexWrap: "wrap",
       gap: 4,
       marginTop: 2,
     },
     skillTag: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 7.5,
       borderWidth: 0.5,
       borderColor: hexWithAlpha(accent, 0.2),
@@ -210,7 +207,7 @@ function buildStyles(tmpl: ResumeStyle) {
       paddingVertical: 1.5,
     },
     skillCategory: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 7.5,
       color: "#9ca3af",
       marginRight: 4,
@@ -219,7 +216,7 @@ function buildStyles(tmpl: ResumeStyle) {
       letterSpacing: 0.5,
     },
     skillGroupRow: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       flexDirection: "row",
       alignItems: "flex-start",
       marginBottom: 3,
@@ -247,6 +244,7 @@ type RD = import("../types/resume").ResumeData;
 interface PDFSectionProps {
   data: RD;
   s: PDFStyles;
+  font: string;
   localeTag: string;
   presentLabel: string;
   t: (ns: string, key: string) => string;
@@ -299,7 +297,7 @@ function ExperienceSection({ data, s, localeTag, presentLabel, t }: PDFSectionPr
   );
 }
 
-function EducationSection({ data, s, localeTag, presentLabel, t }: PDFSectionProps) {
+function EducationSection({ data, s, font, localeTag, presentLabel, t }: PDFSectionProps) {
   if (!data.sections.education || data.education.length === 0) return null;
   return (
     <View style={s.section}>
@@ -325,7 +323,7 @@ function EducationSection({ data, s, localeTag, presentLabel, t }: PDFSectionPro
             </Text>
           </View>
           {edu.highlights ? (
-            <Text style={{ fontFamily: PDF_FONT, fontSize: 7.5, color: "#6b7280", marginTop: 2, fontStyle: "italic" }}>
+            <Text style={{ fontFamily: font, fontSize: 7.5, color: "#6b7280", marginTop: 2, fontStyle: "italic" }}>
               {edu.highlights}
             </Text>
           ) : null}
@@ -394,7 +392,8 @@ function ProjectsSection({ data, s, localeTag, presentLabel, t }: PDFSectionProp
 export default function ResumePDFDocument({ resume, locale = "en", messages }: Props) {
   const { data } = resume;
   const tmpl = getResumeStyle(resume.templateId);
-  const s = buildStyles(tmpl);
+  const font = getPdfFont(locale);
+  const s = buildStyles(tmpl, font);
   const t = getT(locale, messages);
   const localeTag = toLocaleTag(locale);
   const presentLabel = t("resume", "present");
@@ -474,7 +473,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
     </View>
   ) : null;
 
-  const sectionProps = { data, s, localeTag, presentLabel, t };
+  const sectionProps = { data, s, font, localeTag, presentLabel, t };
 
   const sectionsBlock = order.map((sectionId) => {
     if (sectionId === "summary")
@@ -524,7 +523,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
             ) : null}
             <Text
               style={{
-                fontFamily: PDF_FONT,
+                fontFamily: font,
                 fontSize: 10,
                 fontWeight: 700,
                 color: "#ffffff",
@@ -537,7 +536,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
             </Text>
             <Text
               style={{
-                fontFamily: PDF_FONT,
+                fontFamily: font,
                 fontSize: 7,
                 color: "rgba(255,255,255,0.7)",
                 textTransform: "uppercase",
@@ -561,7 +560,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
                   <Text
                     key={i}
                     style={{
-                      fontFamily: PDF_FONT,
+                      fontFamily: font,
                       fontSize: 6.5,
                       color: "rgba(255,255,255,0.6)",
                       textAlign: "center",
@@ -575,7 +574,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
               <View style={{ marginTop: 12, width: "100%" }}>
                 <Text
                   style={{
-                    fontFamily: PDF_FONT,
+                    fontFamily: font,
                     fontSize: 6,
                     color: "rgba(255,255,255,0.5)",
                     textTransform: "uppercase",
@@ -590,7 +589,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
                     {group.category ? (
                       <Text
                         style={{
-                          fontFamily: PDF_FONT,
+                          fontFamily: font,
                           fontSize: 5.5,
                           color: "rgba(255,255,255,0.4)",
                           textTransform: "uppercase",
@@ -605,7 +604,7 @@ export default function ResumePDFDocument({ resume, locale = "en", messages }: P
                       <Text
                         key={i}
                         style={{
-                          fontFamily: PDF_FONT,
+                          fontFamily: font,
                           fontSize: 6.5,
                           color: "rgba(255,255,255,0.8)",
                           marginBottom: 2,
