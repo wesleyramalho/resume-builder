@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef, useCallback, useEffect, useRef } from "react";
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -43,20 +43,27 @@ const MAX_TEXTAREA_HEIGHT = 320;
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
   function FormTextarea({ label, error, id, action, className = "", ...props }, forwardedRef) {
-    const internalRef = useRef<HTMLTextAreaElement>(null);
+    const internalRef = useRef<HTMLTextAreaElement | null>(null);
 
-    const autoResize = () => {
+    const autoResize = useCallback(() => {
       const el = internalRef.current;
       if (!el) return;
       el.style.height = "0px";
       const scrollH = el.scrollHeight;
       el.style.height = `${Math.min(scrollH, MAX_TEXTAREA_HEIGHT)}px`;
       el.style.overflowY = scrollH > MAX_TEXTAREA_HEIGHT ? "auto" : "hidden";
-    };
+    }, []);
+
+    const refCallback = useCallback((el: HTMLTextAreaElement | null) => {
+      internalRef.current = el;
+      if (typeof forwardedRef === "function") forwardedRef(el);
+      else if (forwardedRef) (forwardedRef as React.RefObject<HTMLTextAreaElement | null>).current = el;
+      if (el) autoResize();
+    }, [forwardedRef, autoResize]);
 
     useEffect(() => {
       autoResize();
-    }, [props.value, props.defaultValue]);
+    }, [props.value, props.defaultValue, autoResize]);
 
     return (
       <div className="flex flex-col gap-1">
@@ -71,14 +78,9 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
           </div>
         )}
         <textarea
-          ref={(el) => {
-            (internalRef as React.RefObject<HTMLTextAreaElement | null>).current = el;
-            if (typeof forwardedRef === "function") forwardedRef(el);
-            else if (forwardedRef) forwardedRef.current = el;
-          }}
+          ref={refCallback}
           id={id}
           className={`w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring transition-colors resize-none ${error ? "border-destructive" : ""} ${className}`}
-          style={{ overflowY: "hidden" }}
           aria-describedby={error ? `${id}-error` : undefined}
           aria-invalid={error ? true : undefined}
           onInput={autoResize}
