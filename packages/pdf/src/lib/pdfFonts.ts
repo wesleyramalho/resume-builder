@@ -16,8 +16,18 @@ function registerDevanagari() {
         fontWeight: 400,
       },
       {
+        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Regular.ttf",
+        fontWeight: 400,
+        fontStyle: "italic",
+      },
+      {
         src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf",
         fontWeight: 700,
+      },
+      {
+        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf",
+        fontWeight: 700,
+        fontStyle: "italic",
       },
     ],
   });
