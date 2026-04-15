@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import gsap from "gsap";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Resume } from "@/types/resume";
 import { useResumeStore } from "@/store/useResumeStore";
 import { getTemplate } from "@/lib/resumeTemplates";
+import { getLocalizedSampleData } from "@/lib/localizedSampleData";
 import ResumeCard from "./ResumeCard";
 import TemplatePicker from "./TemplatePicker";
 
@@ -17,6 +18,7 @@ interface Props {
 
 export default function ResumeGrid({ resumes }: Props) {
   const router = useRouter();
+  const locale = useLocale();
   const createResume = useResumeStore((s) => s.createResume);
   const [pickerOpen, setPickerOpen] = useState(false);
   const t = useTranslations("dashboard");
@@ -49,7 +51,8 @@ export default function ResumeGrid({ resumes }: Props) {
       return;
     }
     const tmpl = getTemplate(templateId);
-    const resume = createResume(tmpl?.name ?? t("untitledResume"), tmpl?.sampleData, templateId);
+    const sampleData = getLocalizedSampleData(templateId, locale) ?? tmpl?.sampleData;
+    const resume = createResume(tmpl?.name ?? t("untitledResume"), sampleData, templateId);
     router.push(`/editor/${resume.id}`);
   }
 

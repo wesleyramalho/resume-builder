@@ -1,6 +1,5 @@
 import {
   Document,
-  Font,
   Page,
   Text,
   View,
@@ -8,18 +7,18 @@ import {
 } from "@react-pdf/renderer";
 import { CoverLetter } from "../types/coverLetter";
 import { getCoverLetterStyle, type CoverLetterStyle } from "../lib/coverLetterTemplates";
+import { toLocaleTag } from "../lib/utils";
+import { getPdfFont } from "../lib/pdfFonts";
 
-export const PDF_FONT = "Helvetica";
+const PDF_FONT = "Helvetica";
 
-Font.registerHyphenationCallback((word) => [word]);
-
-function buildStyles(tmpl: CoverLetterStyle) {
+function buildStyles(tmpl: CoverLetterStyle, font: string = PDF_FONT) {
   const { accentColor: accent } = tmpl;
   const isCentered = tmpl.headerLayout === "centered";
 
   return StyleSheet.create({
     page: {
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontSize: 10,
       color: "#1a1a1a",
       paddingHorizontal: 60,
@@ -32,7 +31,7 @@ function buildStyles(tmpl: CoverLetterStyle) {
     },
     senderName: {
       fontSize: 14,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontWeight: 700,
       textTransform: "uppercase",
       letterSpacing: 1.5,
@@ -41,7 +40,7 @@ function buildStyles(tmpl: CoverLetterStyle) {
     },
     senderContact: {
       fontSize: 8,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       color: "#6b7280",
       lineHeight: 1.6,
       ...(isCentered ? { textAlign: "center" as const } : {}),
@@ -54,7 +53,7 @@ function buildStyles(tmpl: CoverLetterStyle) {
     },
     date: {
       fontSize: 9,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       color: "#6b7280",
       marginBottom: 16,
     },
@@ -63,34 +62,34 @@ function buildStyles(tmpl: CoverLetterStyle) {
     },
     recipientText: {
       fontSize: 9,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       color: "#374151",
       lineHeight: 1.6,
     },
     salutation: {
       fontSize: 10,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontWeight: 700,
       color: "#1a1a1a",
       marginBottom: 12,
     },
     bodyParagraph: {
       fontSize: 10,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       color: "#374151",
       lineHeight: 1.6,
       marginBottom: 10,
     },
     closing: {
       fontSize: 10,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       color: "#1a1a1a",
       marginTop: 8,
       marginBottom: 24,
     },
     signature: {
       fontSize: 10,
-      fontFamily: PDF_FONT,
+      fontFamily: font,
       fontWeight: 700,
       color: accent,
     },
@@ -105,7 +104,8 @@ interface Props {
 export default function CoverLetterPDFDocument({ coverLetter, locale = "en" }: Props) {
   const { data } = coverLetter;
   const tmpl = getCoverLetterStyle(coverLetter.templateId);
-  const s = buildStyles(tmpl);
+  const font = getPdfFont(locale);
+  const s = buildStyles(tmpl, font);
 
   const contactParts = [
     data.senderContact.email,
@@ -116,7 +116,7 @@ export default function CoverLetterPDFDocument({ coverLetter, locale = "en" }: P
   ].filter(Boolean);
 
   const formattedDate = data.date
-    ? new Date(data.date + "T00:00:00").toLocaleDateString(locale === "pt-BR" ? "pt-BR" : locale, {
+    ? new Date(data.date + "T00:00:00").toLocaleDateString(toLocaleTag(locale), {
         year: "numeric",
         month: "long",
         day: "numeric",
