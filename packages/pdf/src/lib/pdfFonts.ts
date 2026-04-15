@@ -1,34 +1,46 @@
 import { Font } from "@react-pdf/renderer";
 
-const DEVANAGARI_FONT = "NotoSansDevanagari";
 const DEFAULT_FONT = "Helvetica";
 
-let devanagariRegistered = false;
+interface FontDef {
+  family: string;
+  regular: string;
+  bold: string;
+}
 
-function registerDevanagari() {
-  if (devanagariRegistered) return;
-  devanagariRegistered = true;
+const NOTO_BASE = "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf";
+const CJK_BASE = "https://cdn.jsdelivr.net/gh/googlefonts/noto-cjk@main/Sans/OTF";
+
+const LOCALE_FONTS: Record<string, FontDef> = {
+  hi: {
+    family: "NotoSansDevanagari",
+    regular: `${NOTO_BASE}/NotoSansDevanagari/NotoSansDevanagari-Regular.ttf`,
+    bold: `${NOTO_BASE}/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf`,
+  },
+  zh: {
+    family: "NotoSansCJKsc",
+    regular: `${CJK_BASE}/SimplifiedChinese/NotoSansCJKsc-Regular.otf`,
+    bold: `${CJK_BASE}/SimplifiedChinese/NotoSansCJKsc-Bold.otf`,
+  },
+  ja: {
+    family: "NotoSansCJKjp",
+    regular: `${CJK_BASE}/Japanese/NotoSansCJKjp-Regular.otf`,
+    bold: `${CJK_BASE}/Japanese/NotoSansCJKjp-Bold.otf`,
+  },
+};
+
+const registeredFonts = new Set<string>();
+
+function registerFont(def: FontDef) {
+  if (registeredFonts.has(def.family)) return;
+  registeredFonts.add(def.family);
   Font.register({
-    family: DEVANAGARI_FONT,
+    family: def.family,
     fonts: [
-      {
-        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Regular.ttf",
-        fontWeight: 400,
-      },
-      {
-        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Regular.ttf",
-        fontWeight: 400,
-        fontStyle: "italic",
-      },
-      {
-        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf",
-        fontWeight: 700,
-      },
-      {
-        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf",
-        fontWeight: 700,
-        fontStyle: "italic",
-      },
+      { src: def.regular, fontWeight: 400 },
+      { src: def.regular, fontWeight: 400, fontStyle: "italic" },
+      { src: def.bold, fontWeight: 700 },
+      { src: def.bold, fontWeight: 700, fontStyle: "italic" },
     ],
   });
 }
@@ -36,11 +48,12 @@ function registerDevanagari() {
 // Disable automatic hyphenation so words don't break mid-word
 Font.registerHyphenationCallback((word) => [word]);
 
-/** Returns the appropriate font family for a given locale */
+/** Returns the appropriate font family for a given locale, registering it if needed */
 export function getPdfFont(locale: string): string {
-  if (locale === "hi") {
-    registerDevanagari();
-    return DEVANAGARI_FONT;
+  const def = LOCALE_FONTS[locale];
+  if (def) {
+    registerFont(def);
+    return def.family;
   }
   return DEFAULT_FONT;
 }
