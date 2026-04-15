@@ -381,7 +381,7 @@ function ProjectsSection({ data, s, localeTag, presentLabel, t }: PDFSectionProp
             </Text>
           </View>
           {proj.description ? (
-            <Text style={s.bulletText}>{proj.description}</Text>
+            <Text style={[s.bulletText, { marginTop: 3 }]}>{proj.description}</Text>
           ) : null}
         </View>
       ))}
