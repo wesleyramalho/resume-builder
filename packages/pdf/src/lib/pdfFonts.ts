@@ -4,8 +4,9 @@ import path from "path";
 const DEVANAGARI_FONT = "NotoSansDevanagari";
 const DEFAULT_FONT = "Helvetica";
 
-// Resolve font paths relative to the package root (fonts/ directory)
-const fontsDir = path.resolve(__dirname, "../../fonts");
+// Resolve fonts from the workspace package directory
+// process.cwd() is the Next.js project root; fonts are in packages/pdf/fonts/
+const fontsDir = path.resolve(process.cwd(), "packages/pdf/fonts");
 
 Font.register({
   family: DEVANAGARI_FONT,
