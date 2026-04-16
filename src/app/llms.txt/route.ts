@@ -1,0 +1,60 @@
+const CONTENT = `# MyPDFCV
+
+> Free, open-source resume and cover letter builder. No sign-up, no paywall, no data stored on servers.
+
+## What is MyPDFCV?
+
+MyPDFCV is a client-side resume and cover letter builder at https://mypdfcv.com. All user data stays in the browser (localStorage). It offers real-time preview, 7 professional templates, drag-and-drop section reordering, in-browser AI text improvement, LinkedIn profile import, and one-click PDF export.
+
+## Key Features
+
+- Real-time live preview as you type
+- 7 ATS-friendly resume templates (Modern, Classic, Minimal, Executive, Bold, Balanced, Clear)
+- 3 cover letter templates (Standard, Modern, Minimal)
+- One-click PDF export with locale-aware formatting
+- In-browser AI text improvement (Flan-T5 via WebAssembly — no data sent to servers)
+- Drag-and-drop section reordering
+- Profile photo upload and crop
+- LinkedIn OAuth import (optional)
+- Full dark mode support
+- 8 languages: English, Portuguese (BR), Spanish, Italian, Chinese, Japanese, German, Hindi
+
+## Privacy
+
+All resume and cover letter data is stored exclusively in the browser's localStorage. No accounts required. No data transmitted to servers. Anonymous usage analytics via PostHog (respects Do Not Track).
+
+## MCP Integration
+
+MyPDFCV provides an MCP server for AI assistants to generate resume PDFs programmatically:
+
+- Package: @mypdfcv/mcp-server (npm)
+- Setup: npx -y @mypdfcv/mcp-server
+- Tools: generate_resume_pdf, generate_resume_from_json, tailor_resume_for_job, list_templates, list_locales
+- Compatible with Claude Desktop, Claude Code, Cursor, and any MCP-compatible AI assistant
+
+## npm Packages
+
+- @mypdfcv/pdf-core — Resume/cover letter types, templates, Zod validation schemas, and PDF generation
+- @mypdfcv/i18n — Internationalization with 8 bundled locales
+- @mypdfcv/mcp-server — MCP server for AI-powered resume PDF generation
+
+## Tech Stack
+
+Next.js, React, TypeScript, Tailwind CSS, Zustand, @react-pdf/renderer, @base-ui/react, GSAP, next-intl, next-auth, PostHog
+
+## Links
+
+- Website: https://mypdfcv.com
+- GitHub: https://github.com/wesleyramalho/mypdfcv
+- npm: https://www.npmjs.com/org/mypdfcv
+- Contact: https://www.wesleyramalho.com/contact
+`;
+
+export async function GET() {
+  return new Response(CONTENT, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=86400",
+    },
+  });
+}
