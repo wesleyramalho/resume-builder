@@ -1,4 +1,4 @@
-# MyPDFCV
+const CONTENT = `# MyPDFCV
 
 > Free, open-source resume and cover letter builder. No sign-up, no paywall, no data stored on servers.
 
@@ -28,7 +28,7 @@ All resume and cover letter data is stored exclusively in the browser's localSto
 MyPDFCV provides an MCP server for AI assistants to generate resume PDFs programmatically:
 
 - Package: @mypdfcv/mcp-server (npm)
-- Setup: `npx -y @mypdfcv/mcp-server`
+- Setup: npx -y @mypdfcv/mcp-server
 - Tools: generate_resume_pdf, generate_resume_from_json, tailor_resume_for_job, list_templates, list_locales
 - Compatible with Claude Desktop, Claude Code, Cursor, and any MCP-compatible AI assistant
 
@@ -48,3 +48,13 @@ Next.js, React, TypeScript, Tailwind CSS, Zustand, @react-pdf/renderer, @base-ui
 - GitHub: https://github.com/wesleyramalho/mypdfcv
 - npm: https://www.npmjs.com/org/mypdfcv
 - Contact: https://www.wesleyramalho.com/contact
+`;
+
+export async function GET() {
+  return new Response(CONTENT, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=86400",
+    },
+  });
+}
