@@ -23,6 +23,10 @@
 # production
 /build
 
+# design system package build outputs
+/packages/**/dist
+/packages/**/storybook-static
+
 # misc
 .DS_Store
 *.pem
