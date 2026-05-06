@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { mapLinkedInOAuthToResume } from "@/lib/linkedin";
+import { isLinkedInServerEnabled } from "@/lib/featureFlags";
 import { LinkedInProfile } from "@/types/linkedin";
 
 export async function POST() {
+  if (!isLinkedInServerEnabled()) {
+    return NextResponse.json(
+      { error: "LinkedIn import is disabled" },
+      { status: 503 },
+    );
+  }
+
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

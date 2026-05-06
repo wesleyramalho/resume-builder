@@ -26,6 +26,7 @@ import {
 import MoreMenuTrigger from "@/components/ui/MoreMenuTrigger";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import { track } from "@/lib/analytics";
+import { LINKEDIN_OAUTH_ENABLED } from "@/lib/featureFlags";
 import {
   Tooltip,
   TooltipContent,
@@ -119,6 +120,7 @@ export default function EditorToolbar({ resume }: Props) {
   }, [session, resume.id, updateResume, callbackUrl, t]);
 
   useEffect(() => {
+    if (!LINKEDIN_OAUTH_ENABLED) return;
     const intent = searchParams.get("intent");
     if (intent !== "import" || hasConsumedImportIntent.current) return;
     if (status === "loading" || !session) return;
@@ -163,7 +165,7 @@ export default function EditorToolbar({ resume }: Props) {
 
       <div className="hidden sm:flex"><ImportResumeIntoButton resumeId={resume.id} /></div>
 
-      {!resume.data.linkedInImported && (
+      {LINKEDIN_OAUTH_ENABLED && !resume.data.linkedInImported && (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger
@@ -190,7 +192,7 @@ export default function EditorToolbar({ resume }: Props) {
             <Upload className="w-4 h-4" />
             {mobileImporting ? tc("importing") : t("importFile")}
           </DropdownMenuItem>
-          {!resume.data.linkedInImported && (
+          {LINKEDIN_OAUTH_ENABLED && !resume.data.linkedInImported && (
             <DropdownMenuItem onClick={() => void handleLinkedInImport()} disabled={importing} className="gap-2">
               <LinkedInIcon className="w-4 h-4" />
               {importing ? tc("importing") : t("startWithLinkedIn")}

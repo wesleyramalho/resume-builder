@@ -8,9 +8,7 @@ import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
-
-const LINKEDIN_OAUTH_ENABLED =
-  process.env.NEXT_PUBLIC_LINKEDIN_OAUTH_ENABLED === "true";
+import { LINKEDIN_OAUTH_ENABLED } from "@/lib/featureFlags";
 
 export default function LandingNav() {
   const { data: session } = useSession();
