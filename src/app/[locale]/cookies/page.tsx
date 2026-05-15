@@ -3,9 +3,11 @@
 import { useTranslations } from "next-intl";
 import Footer from "@/components/Footer";
 import SiteNav from "@/components/SiteNav";
+import ManageConsentButton from "@/components/ManageConsentButton";
 
 export default function CookiesPage() {
   const t = useTranslations("cookies");
+  const tConsent = useTranslations("consent");
 
   return (
     <div className="min-h-screen bg-background flex flex-col overflow-x-hidden">
@@ -46,6 +48,14 @@ export default function CookiesPage() {
 
           <Section heading={t("s4h")} content={t("s4")} />
           <Section heading={t("s5h")} content={t("s5")} />
+
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">
+              {tConsent("managePreferences")}
+            </h2>
+            <p className="mb-3">{tConsent("managePreferencesDescription")}</p>
+            <ManageConsentButton />
+          </section>
         </div>
       </main>
 

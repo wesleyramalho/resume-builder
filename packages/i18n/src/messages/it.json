@@ -448,5 +448,16 @@
     "continueDrafting": "Continua Bozza",
     "duplicate": "Duplica",
     "chooseToStart": "Inizia a scrivere"
+  },
+  "consent": {
+    "title": "La tua privacy è importante",
+    "description": "Usiamo analytics anonime per capire come viene utilizzata l'app e migliorarla. Nessun contenuto di curriculum o lettera di presentazione viene mai raccolto.",
+    "accept": "Accetta",
+    "reject": "Rifiuta",
+    "privacyLink": "Informativa sulla Privacy",
+    "cookiesLink": "Informativa sui Cookie",
+    "managePreferences": "Gestisci le preferenze sui cookie",
+    "managePreferencesDescription": "Puoi revocare il consenso in qualsiasi momento. Dopo la revoca, le analytics si fermeranno immediatamente e ti chiederemo di nuovo alla prossima visita.",
+    "revoked": "Il tuo consenso è stato revocato."
   }
 }

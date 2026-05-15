@@ -448,5 +448,16 @@
     "continueDrafting": "Continuar Rascunho",
     "duplicate": "Duplicar",
     "chooseToStart": "Começar a escrever"
+  },
+  "consent": {
+    "title": "Sua privacidade importa",
+    "description": "Usamos analytics anônimos para entender como este app é usado e melhorá-lo. Nenhum conteúdo de currículo ou carta de apresentação é coletado.",
+    "accept": "Aceitar",
+    "reject": "Recusar",
+    "privacyLink": "Política de Privacidade",
+    "cookiesLink": "Política de Cookies",
+    "managePreferences": "Gerenciar preferências de cookies",
+    "managePreferencesDescription": "Você pode revogar seu consentimento a qualquer momento. Após a revogação, os analytics serão interrompidos imediatamente e perguntaremos novamente na sua próxima visita.",
+    "revoked": "Seu consentimento foi revogado."
   }
 }

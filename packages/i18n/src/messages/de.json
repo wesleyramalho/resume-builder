@@ -448,5 +448,16 @@
     "continueDrafting": "Entwurf fortsetzen",
     "duplicate": "Duplizieren",
     "chooseToStart": "Mit dem Schreiben beginnen"
+  },
+  "consent": {
+    "title": "Ihre Privatsphäre ist uns wichtig",
+    "description": "Wir verwenden anonyme Analysen, um zu verstehen, wie diese App genutzt wird, und um sie zu verbessern. Inhalte von Lebensläufen oder Anschreiben werden niemals erfasst.",
+    "accept": "Akzeptieren",
+    "reject": "Ablehnen",
+    "privacyLink": "Datenschutzerklärung",
+    "cookiesLink": "Cookie-Richtlinie",
+    "managePreferences": "Cookie-Einstellungen verwalten",
+    "managePreferencesDescription": "Sie können Ihre Einwilligung jederzeit widerrufen. Nach dem Widerruf werden die Analysen sofort gestoppt und wir fragen Sie bei Ihrem nächsten Besuch erneut.",
+    "revoked": "Ihre Einwilligung wurde widerrufen."
   }
 }

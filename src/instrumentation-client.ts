@@ -1,19 +1,12 @@
 import posthog from "posthog-js";
+import { isAnalyticsEnabled } from "@/lib/consent";
 
-const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
-
-if (key && navigator.doNotTrack !== "1") {
-  posthog.init(key, {
-    api_host: host,
-    capture_pageview: true,
-    capture_pageleave: true,
-    person_profiles: "identified_only",
-    ip: false,
-    persistence: "localStorage",
-  });
-}
+// PostHog is initialised by ConsentProvider, not here. Brazilian users must
+// accept the LGPD banner before init runs; non-BR users have it initialised
+// on mount in the provider. This file keeps the Next.js client instrumentation
+// hook alive — page-view capture is gated on the cached analytics flag.
 
 export function onRouterTransitionStart(url: string) {
+  if (!isAnalyticsEnabled()) return;
   posthog.capture("$pageview", { $current_url: url });
 }

@@ -1,10 +1,12 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { headers } from "next/headers";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { PostHogProvider } from "@/components/providers/PostHogProvider";
+import { ConsentProvider } from "@/components/providers/ConsentProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
+import ConsentBanner from "@/components/ConsentBanner";
 import { locales } from "@/i18n/config";
 
 export function generateStaticParams() {
@@ -20,18 +22,22 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   const messages = await getMessages();
+  const h = await headers();
+  const country =
+    h.get("x-vercel-ip-country") ?? process.env.DEV_COUNTRY ?? null;
   return (
-    <PostHogProvider>
-      <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <ConsentProvider country={country}>
         <ThemeProvider>
           <SessionProvider>
             <TooltipProvider>
               {children}
+              <ConsentBanner />
               <Toaster richColors position="bottom-right" />
             </TooltipProvider>
           </SessionProvider>
         </ThemeProvider>
-      </NextIntlClientProvider>
-    </PostHogProvider>
+      </ConsentProvider>
+    </NextIntlClientProvider>
   );
 }

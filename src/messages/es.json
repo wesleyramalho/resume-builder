@@ -448,5 +448,16 @@
     "continueDrafting": "Continuar Borrador",
     "duplicate": "Duplicar",
     "chooseToStart": "Empezar a escribir"
+  },
+  "consent": {
+    "title": "Tu privacidad importa",
+    "description": "Utilizamos analíticas anónimas para entender cómo se usa esta aplicación y mejorarla. Nunca recopilamos el contenido de currículums ni cartas de presentación.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "privacyLink": "Política de Privacidad",
+    "cookiesLink": "Política de Cookies",
+    "managePreferences": "Gestionar preferencias de cookies",
+    "managePreferencesDescription": "Puedes revocar tu consentimiento en cualquier momento. Tras la revocación, las analíticas se detendrán de inmediato y te volveremos a preguntar en tu próxima visita.",
+    "revoked": "Tu consentimiento ha sido revocado."
   }
 }
