@@ -448,5 +448,16 @@
     "continueDrafting": "下書きを続ける",
     "duplicate": "複製",
     "chooseToStart": "書き始める"
+  },
+  "consent": {
+    "title": "プライバシーを大切にしています",
+    "description": "本アプリの使用状況を把握し改善するために匿名の分析データを使用しています。履歴書やカバーレターの内容を収集することはありません。",
+    "accept": "同意する",
+    "reject": "拒否する",
+    "privacyLink": "プライバシーポリシー",
+    "cookiesLink": "Cookieポリシー",
+    "managePreferences": "Cookie設定を管理",
+    "managePreferencesDescription": "同意はいつでも取り消すことができます。取り消すと分析は直ちに停止し、次回訪問時に再度確認します。",
+    "revoked": "同意が取り消されました。"
   }
 }

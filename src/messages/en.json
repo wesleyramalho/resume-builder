@@ -448,5 +448,16 @@
     "continueDrafting": "Continue Drafting",
     "duplicate": "Duplicate",
     "chooseToStart": "Start writing"
+  },
+  "consent": {
+    "title": "Your privacy matters",
+    "description": "We use anonymous analytics to understand how this app is used and improve it. No resume or cover letter content is ever collected.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "privacyLink": "Privacy Policy",
+    "cookiesLink": "Cookie Policy",
+    "managePreferences": "Manage cookie preferences",
+    "managePreferencesDescription": "You can revoke your consent at any time. After revoking, analytics will stop immediately and we'll prompt you again on your next visit.",
+    "revoked": "Your consent has been revoked."
   }
 }

@@ -448,5 +448,16 @@
     "continueDrafting": "继续编辑",
     "duplicate": "复制",
     "chooseToStart": "开始写作"
+  },
+  "consent": {
+    "title": "您的隐私很重要",
+    "description": "我们使用匿名分析来了解此应用的使用情况并加以改进。我们不会收集任何简历或求职信内容。",
+    "accept": "接受",
+    "reject": "拒绝",
+    "privacyLink": "隐私政策",
+    "cookiesLink": "Cookie 政策",
+    "managePreferences": "管理 Cookie 偏好",
+    "managePreferencesDescription": "您可以随时撤回同意。撤回后，分析将立即停止，并在您下次访问时再次询问您。",
+    "revoked": "您的同意已被撤回。"
   }
 }
