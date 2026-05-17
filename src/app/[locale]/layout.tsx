@@ -7,6 +7,7 @@ import { ConsentProvider } from "@/components/providers/ConsentProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 import ConsentBanner from "@/components/ConsentBanner";
+import SubscribePromptModal from "@/components/SubscribePromptModal";
 import { locales } from "@/i18n/config";
 
 export function generateStaticParams() {
@@ -33,6 +34,7 @@ export default async function LocaleLayout({
             <TooltipProvider>
               {children}
               <ConsentBanner />
+              <SubscribePromptModal />
               <Toaster richColors position="bottom-right" />
             </TooltipProvider>
           </SessionProvider>
