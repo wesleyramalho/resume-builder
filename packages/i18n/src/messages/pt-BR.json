@@ -459,5 +459,11 @@
     "managePreferences": "Gerenciar preferências de cookies",
     "managePreferencesDescription": "Você pode revogar seu consentimento a qualquer momento. Após a revogação, os analytics serão interrompidos imediatamente e perguntaremos novamente na sua próxima visita.",
     "revoked": "Seu consentimento foi revogado."
+  },
+  "subscribe": {
+    "title": "Que bom que o MyPDFCV te ajudou!",
+    "description": "Uma pessoa só construiu isso, e vai ser sempre gratuito. Se você quiser retribuir de alguma forma, se inscrever no meu canal do YouTube é a coisa gratuita mais gentil que você pode fazer.",
+    "subscribe": "Inscreva-se no YouTube",
+    "later": "Talvez depois"
   }
 }

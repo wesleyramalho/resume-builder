@@ -459,5 +459,11 @@
     "managePreferences": "Cookie設定を管理",
     "managePreferencesDescription": "同意はいつでも取り消すことができます。取り消すと分析は直ちに停止し、次回訪問時に再度確認します。",
     "revoked": "同意が取り消されました。"
+  },
+  "subscribe": {
+    "title": "MyPDFCVがお役に立ててうれしいです！",
+    "description": "これは一人で作っていて、これからもずっと無料です。もし少しでも恩返ししたいと思ったら、私のYouTubeチャンネルの登録が、もっとも優しくて無料の支援になります。",
+    "subscribe": "YouTubeで登録する",
+    "later": "あとで"
   }
 }

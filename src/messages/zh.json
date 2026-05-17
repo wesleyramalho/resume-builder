@@ -459,5 +459,11 @@
     "managePreferences": "管理 Cookie 偏好",
     "managePreferencesDescription": "您可以随时撤回同意。撤回后，分析将立即停止，并在您下次访问时再次询问您。",
     "revoked": "您的同意已被撤回。"
+  },
+  "subscribe": {
+    "title": "很高兴 MyPDFCV 帮到了你！",
+    "description": "这是由一个人独自打造的，并且永远免费。如果你想回馈一点，订阅我的 YouTube 频道就是你能做出的最暖心的免费支持。",
+    "subscribe": "在 YouTube 订阅",
+    "later": "稍后再说"
   }
 }
