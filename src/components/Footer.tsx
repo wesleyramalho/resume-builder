@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import GitHubIcon from "@/components/icons/GitHubIcon";
+import { track } from "@/lib/analytics";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -23,6 +24,7 @@ export default function Footer() {
           href="https://wesleyramalho.com"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => track("creator_site_clicked", { location: "footer" })}
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
           <Image
