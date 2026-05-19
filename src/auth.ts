@@ -1,22 +1,21 @@
 import NextAuth from "next-auth";
 import LinkedIn from "next-auth/providers/linkedin";
+import { isLinkedInServerEnabled } from "@/lib/featureFlags";
 
 const linkedinClientId = process.env.LINKEDIN_CLIENT_ID;
 const linkedinClientSecret = process.env.LINKEDIN_CLIENT_SECRET;
 
-if (!linkedinClientId || !linkedinClientSecret) {
-  throw new Error(
-    "Missing LinkedIn OAuth config. Set LINKEDIN_CLIENT_ID and LINKEDIN_CLIENT_SECRET in your environment."
-  );
-}
+const providers = isLinkedInServerEnabled()
+  ? [
+      LinkedIn({
+        clientId: linkedinClientId!,
+        clientSecret: linkedinClientSecret!,
+      }),
+    ]
+  : [];
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [
-    LinkedIn({
-      clientId: linkedinClientId,
-      clientSecret: linkedinClientSecret,
-    }),
-  ],
+  providers,
   callbacks: {
     async jwt({ token, account, profile }) {
       if (account?.access_token) {

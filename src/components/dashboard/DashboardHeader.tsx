@@ -27,6 +27,7 @@ import { getTemplate } from "@/lib/resumeTemplates";
 import { getLocalizedSampleData } from "@/lib/localizedSampleData";
 import { importResumeFromFile } from "@/lib/resumeImport";
 import { useCoverLetterStore } from "@/store/useCoverLetterStore";
+import { LINKEDIN_OAUTH_ENABLED } from "@/lib/featureFlags";
 import { toast } from "sonner";
 import { track } from "@/lib/analytics";
 
@@ -142,6 +143,7 @@ export default function DashboardHeader({ activeTab = "resumes" }: { activeTab?:
   );
 
   useEffect(() => {
+    if (!LINKEDIN_OAUTH_ENABLED) return;
     const intent = searchParams.get("intent");
     if (intent !== "import" || hasConsumedImportIntent.current) return;
     if (status === "loading") return;
@@ -216,23 +218,25 @@ export default function DashboardHeader({ activeTab = "resumes" }: { activeTab?:
               <Upload className="w-4 h-4" />
               {t("importFromFile")}
             </DropdownMenuItem>
-            <DropdownMenuItem
-              disabled={isImporting}
-              onClick={() => {
-                if (session) {
-                  void handleLinkedInImport(false);
-                } else {
-                  void signIn("linkedin", { callbackUrl });
-                }
-              }}
-              className="gap-2"
-            >
-              <LinkedInIcon className="w-4 h-4" />
-              <div className="flex flex-col">
-                <span>{isImporting ? tc("importing") : session ? t("importFromLinkedIn") : t("signInLinkedIn")}</span>
-                <span className="text-[10px] text-muted-foreground font-normal">{tc("linkedInLimited")}</span>
-              </div>
-            </DropdownMenuItem>
+            {LINKEDIN_OAUTH_ENABLED && (
+              <DropdownMenuItem
+                disabled={isImporting}
+                onClick={() => {
+                  if (session) {
+                    void handleLinkedInImport(false);
+                  } else {
+                    void signIn("linkedin", { callbackUrl });
+                  }
+                }}
+                className="gap-2"
+              >
+                <LinkedInIcon className="w-4 h-4" />
+                <div className="flex flex-col">
+                  <span>{isImporting ? tc("importing") : session ? t("importFromLinkedIn") : t("signInLinkedIn")}</span>
+                  <span className="text-[10px] text-muted-foreground font-normal">{tc("linkedInLimited")}</span>
+                </div>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
 
